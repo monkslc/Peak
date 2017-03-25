@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Aud.xcodeproj">
+      location = "self:/Users/connormonks/Documents/BU/Swift/Aud/Peak.xcodeproj">
    </FileRef>
 </Workspace>
