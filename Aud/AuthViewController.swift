@@ -17,7 +17,7 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"
+        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,11 +31,6 @@ class AuthViewController: UIViewController {
     
     @IBAction func checkAppleAuthentication() {
         
-        
-        
-        
-        
-        
         loadingIndicator.startAnimating()
         //check if we have authorization to the user's apple music
         SKCloudServiceController.requestAuthorization({(authorization) in
@@ -48,13 +43,10 @@ class AuthViewController: UIViewController {
                 self.loadingIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
                 
-                
-                
             case .denied:
                 self.loadingIndicator.stopAnimating()
                 self.instructUserToAllowUsToAppleMusic()
-                
-                
+
             case .notDetermined:
                 print("Can't be determined")
                 self.loadingIndicator.stopAnimating()

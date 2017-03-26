@@ -11,21 +11,52 @@ import UIKit
 
 class ConnectingToInternet {
     
-    static func getSong(with id: Int, completion: @escaping (Song) -> Void) {
+    static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void) {
+        
+        ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(searchTerm)&country=US&media=music&limit=\(limit)", completion: {
+            (json) -> Void in
+            
+            if let json = json as? [String:Any] {
+                
+                if let songsJSON = json["results"] as? [[String: Any]] {
+                    
+                    var songs: [Song] = []
+                    
+                    for songJSON in songsJSON {
+                    
+                        let imageURL = songJSON["artworkUrl100"]! as! String
+                        
+                        ConnectingToInternet.getImage(url: imageURL, completion: {
+                            (image) -> Void in
+                            
+                            songs.append(Song(id: songJSON["trackId"] as! Int, trackName: songJSON["trackName"]! as! String, collectionName: songJSON["collectionName"]! as! String, image: image))
+                            
+                            if songs.count == limit || !sendSongsAlltogether {
+                                completion(songs)
+                            }
+                        })
+                    }
+                    
+                }
+            }
+        })
+    }
+    
+    static func getSong(id: Int, completion: @escaping (Song) -> Void) {
         
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/lookup?id=\(id)", completion: {
             (json) -> Void in
             
             if let json = json as? [String:Any] {
-                if let songJSON = json["results"] as? [[String: String]] {
-                    print(songJSON[0])
+    
+                if let songJSON = json["results"] as? [[String: Any]] {
                     
-                    let imageURL = songJSON[0]["artworkUrl30"]!
+                    let imageURL = songJSON[0]["artworkUrl100"]! as! String
                     
                     ConnectingToInternet.getImage(url: imageURL, completion: {
                         (image) -> Void in
                         
-                        completion(Song(id: id, trackName: songJSON[0]["trackName"]!, collectionName: songJSON[0]["collectionName"]!, image: image))
+                        completion(Song(id: id, trackName: songJSON[0]["trackName"]! as! String, collectionName: songJSON[0]["collectionName"]! as! String, image: image))
                     })
                     
                 }
@@ -33,7 +64,7 @@ class ConnectingToInternet {
         })
     }
     
-    static func getImage(url urlAsString: String, completion: @escaping (UIImage) -> Void) {
+    static func getImage(url urlAsString: String, completion: @escaping (UIImage?) -> Void) {
         
         let url = URL(string: urlAsString)!
         
@@ -47,13 +78,13 @@ class ConnectingToInternet {
                 
                 let image = UIImage(data: imageData)
                 
-                completion(image!)
+                completion(image)
                 
             }
             else {
                 print("Error downoading Image in ImageGetter getImage line 33")
             }
-            }.resume()
+        }.resume()
     }
     
     static func getJSON(url urlAsString:String, completion : @escaping (Any) -> Void) {
