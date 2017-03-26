@@ -12,12 +12,13 @@ class AuthViewController: UIViewController {
 
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
+    @IBOutlet var welcomeToLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        welcomeToLabel.text = "Welcome \(UIDevice.current.name) To Peak"
     }
-    
-    
     
     override func viewDidAppear(_ animated: Bool) {
         

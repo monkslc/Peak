@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		90E2DFDD1E874F5400762B9D /* LyricsGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDC1E874F5400762B9D /* LyricsGetter.swift */; };
 		90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDF1E87509C00762B9D /* MPCManager.swift */; };
+		90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE11E87560700762B9D /* StringExtension.swift */; };
 		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48E45831E7479BF00BFFE4C /* SongCell.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		90E2DFDC1E874F5400762B9D /* LyricsGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricsGetter.swift; path = Aud/LyricsGetter.swift; sourceTree = "<group>"; };
 		90E2DFDF1E87509C00762B9D /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
+		90E2DFE11E87560700762B9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C48E45831E7479BF00BFFE4C /* SongCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			children = (
 				90E2DFDC1E874F5400762B9D /* LyricsGetter.swift */,
 				90E2DFDF1E87509C00762B9D /* MPCManager.swift */,
+				90E2DFE11E87560700762B9D /* StringExtension.swift */,
 			);
 			name = Cam;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				C4D117701E809C20000A854A /* SongProgressSlider.swift in Sources */,
 				C4D117781E80A9F2000A854A /* VisualQueueController.swift in Sources */,
 				C4D117761E80A52E000A854A /* MusicInfoDisplay.swift in Sources */,
+				90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */,
 				C4D1176D1E809A91000A854A /* ForwardButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
