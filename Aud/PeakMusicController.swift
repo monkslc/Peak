@@ -45,6 +45,15 @@ class PeakMusicController{
         }
     }
     
+    //play queue for a contributor
+    var groupPlayQueue = [Song](){
+        
+        didSet{
+            //Here we want to update the visuals
+            delegate?.updateDisplay()
+        }
+    }
+    
     var delegate: PeakMusicControllerDelegate?
     
     
