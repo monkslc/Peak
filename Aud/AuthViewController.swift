@@ -29,7 +29,6 @@ class AuthViewController: UIViewController {
         }
     }
 
-
     @IBAction func checkAppleAuthentication() {
         
         
