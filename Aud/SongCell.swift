@@ -1,5 +1,3 @@
-//  Visions of Johanna
-//  This is my new line
 //  SongCell.swift
 //  Aud
 //
