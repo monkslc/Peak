@@ -11,6 +11,7 @@
 		90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE11E87560700762B9D /* StringExtension.swift */; };
 		90E2DFE61E87FF0900762B9D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE51E87FF0900762B9D /* Song.swift */; };
 		90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */; };
+		90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */; };
 		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
@@ -42,6 +43,7 @@
 		90E2DFE11E87560700762B9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		90E2DFE51E87FF0900762B9D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingToInternet.swift; sourceTree = "<group>"; };
+		90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverBluetoothViewController.swift; sourceTree = "<group>"; };
 		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 				90E2DFE11E87560700762B9D /* StringExtension.swift */,
 			);
 			name = Cam;
+			sourceTree = "<group>";
+		};
+		90E2DFEF1E88865D00762B9D /* PopOver */ = {
+			isa = PBXGroup;
+			children = (
+				90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */,
+			);
+			name = PopOver;
 			sourceTree = "<group>";
 		};
 		C4BA29791E7DCC13000AAD48 /* MusicPlayer */ = {
@@ -196,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BA29791E7DCC13000AAD48 /* MusicPlayer */,
+				90E2DFEF1E88865D00762B9D /* PopOver */,
 				C4E896641E7458620096EC72 /* Main.storyboard */,
 				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
 				C4D1175B1E7F2024000A854A /* PeakColorExt.swift */,
@@ -289,6 +300,7 @@
 				C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */,
 				C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */,
 				C4D117731E80A0AD000A854A /* SongProgressView.swift in Sources */,
+				90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */,
 				C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */,
 				90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */,
 				C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */,

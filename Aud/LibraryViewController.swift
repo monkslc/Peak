@@ -10,7 +10,7 @@ import UIKit
 import MediaPlayer
 import StoreKit
 import AVKit
-
+import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
 
@@ -57,6 +57,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
 
+        // Bluetooth
+        //appDelegate.mpcManager.delegate = self
+        //appDelegate.mpcManager.browser.startBrowsingForPeers()
+        //appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMPCDJRecievedSongIDWithNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMPCDJRecievedSongIDWithNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
     }
     
     
@@ -485,6 +491,54 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
     }
+    
+    // MARK: Bluetooth Stuff
+    
+    // MARK: Notification
+    func handleMPCDJRecievedSongIDWithNotification(notification: NSNotification) {
+        let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
+        
+        let data = receivedDataDictionary["data"] as? NSData
+        //let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
+        
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
+        
+        
+        if let id = dataDictionary["id"] {
+            receivedSong(id)
+        }
+        else {
+            print("ERROR: ")
+        }
+    }
+    
+    func handleMPCClientReceivedSongIdsWithNotification(notification: NSNotification) {
+        
+        let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
+        
+        let data = receivedDataDictionary["data"] as? NSData
+        //let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
+        
+        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
+        
+        
+        var songIDs: [String] = []
+        
+        var index = 0
+        while (true) {
+            
+            if let value = dataDictionary["\(index)"] {
+                songIDs.append(value)
+            }
+            else {
+                break
+            }
+            
+            index += 1
+        }
+        
+        // Con add yourFunction(songIDs)
+    }
+    
+    
 }
-
-

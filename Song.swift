@@ -13,5 +13,7 @@ struct Song {
     var id: Int
     var trackName: String
     var collectionName: String // same as album name
+    var artistName: String
+    var trackTimeMillis: Int
     var image: UIImage?
 }

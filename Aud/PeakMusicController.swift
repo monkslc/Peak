@@ -15,7 +15,7 @@ protocol PeakMusicControllerDelegate{
     func updateDisplay()
 }
 
-class PeakMusicController{
+class PeakMusicController {
 
     
     init(){
@@ -32,7 +32,23 @@ class PeakMusicController{
         case Individual //Just playing indivdually
     }
     
-    var playerType = PlayerType.Contributor
+    var playerType = PlayerType.Contributor {
+        didSet {
+            if playerType == .Host {
+                MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
+            }
+            else {
+                MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
+            }
+            
+            if playerType == .Contributor {
+                MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
+            }
+            else {
+                MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
+            }
+        }
+    }
     
     let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
     
