@@ -10,13 +10,11 @@ import Foundation
 
 class LyricsGetter {
     
-    func getLyrics() -> String {
+    func getLyrics(completion: @escaping (String) -> Void) {
         
         let url = URL(string: "")
         
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-            
-            self.isReloadingData = false
+        URLSession.shared.dataTask(with: url!) { data, response, error in
             
             guard error == nil else {
                 print(error!)
@@ -31,17 +29,14 @@ class LyricsGetter {
             print(json)
             
             if let json = json as? [[String: String]] {
-                for rallyAsJson in json {
-                    newRallies.append(Rally(id: Int(rallyAsJson["id"]!)!, name: rallyAsJson["nameOfEvent"]!, cityName: rallyAsJson["nameOfLocation"]!, lattitude: Double(rallyAsJson["lattitude"]!)!, longitude: Double(rallyAsJson["longitude"]!)!, likes: Int(rallyAsJson["votes"]!)!, distanceAway: Double(rallyAsJson["distance"]!)!, date: Double(rallyAsJson["timeInMillis"]!)!, details: rallyAsJson["additionalComments"]!))
+                for part in json {
+                    
                 }
                 
-                self.rallies = newRallies
             }
             
-            self.completion()
-        }
-        
-        task.resume()
+            completion("cs")
+        }.resume()
     }
     
 }
