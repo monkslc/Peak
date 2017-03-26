@@ -1,6 +1,7 @@
 //  LIKE A ROLLING STONE -- Connor Monks was Here
 //  Chad Martin wuz herrre
 //  The fiddler he now steps to the road
+//  Here's to the Crazy Ones....
 //  SongProgressSlider.swift
 //  Peak
 //
