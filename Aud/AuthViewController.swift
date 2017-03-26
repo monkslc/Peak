@@ -17,7 +17,7 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        welcomeToLabel.text = "Welcome \(UIDevice.current.name) To Peak"
+        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -28,7 +28,7 @@ class AuthViewController: UIViewController {
             //performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
         }
     }
-
+    
     @IBAction func checkAppleAuthentication() {
         
         
@@ -86,6 +86,22 @@ class AuthViewController: UIViewController {
             .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
         self.loadingIndicator.stopAnimating()
+    }
+    
+    // used to get the name of the user
+    func getUserName() -> String {
+        let name = UIDevice.current.name
+        
+        if name.contains(" iPhone") {
+            if name.contains("'") {
+                return name.subString(toIndex: name.indexOf(target: "'"))
+            }
+            else {
+                return name.subString(toIndex: name.indexOf(target: " iPhone"))
+            }
+        }
+        
+        return name
     }
     
 }
