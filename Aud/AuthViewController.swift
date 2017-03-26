@@ -89,12 +89,12 @@ class AuthViewController: UIViewController {
     }
     
     // used to get the name of the user
-    func getUserName() -> String {
+    private func getUserName() -> String {
         let name = UIDevice.current.name
         
         if name.contains(" iPhone") {
-            if name.contains("'") {
-                return name.subString(toIndex: name.indexOf(target: "'"))
+            if name.contains("’") {
+                return name.subString(toIndex: name.indexOf(target: "’"))
             }
             else {
                 return name.subString(toIndex: name.indexOf(target: " iPhone"))
