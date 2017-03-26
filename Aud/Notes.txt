@@ -1,6 +1,5 @@
 Changes to Make To Peak:
 
-1)*CAM* Add user's name to welcome screen
 2)*CON Then CAM* Add header to screen
     a) Add Search Bar
     b) Add connect icon
