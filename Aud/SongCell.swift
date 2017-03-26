@@ -1,5 +1,4 @@
-//  Visions of Johanna
-//  This is my new line
+//
 //  SongCell.swift
 //  Aud
 //
@@ -7,7 +6,6 @@
 //  Copyright © 2017 Connor Monks. All rights reserved.
 //
 
-// This imports UKIT
 import UIKit
 import MediaPlayer
 
