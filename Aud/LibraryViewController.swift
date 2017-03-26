@@ -27,6 +27,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     var mediaItemsInLibrary = [MPMediaItem]() {
         
         didSet{
+
             library.reloadData()
         }
     }
@@ -51,7 +52,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         peakMusicController.setUp()
         
         //Now we want to enable the settings for the recents view at the top of the table
-        recentsView.setUp()
+        //recentsView.setUp()
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
@@ -70,14 +71,14 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     var loadedViews = false
     override func viewDidLayoutSubviews() {
         
-        
         if loadedViews == false {
         
             currPlayingView.library = library
             currPlayingView.addAllViews()
+            recentsView.setUp()
             loadedViews = true
-            currPlayingView.setNeedsDisplay()
-            recentsView.setNeedsDisplay()
+            //currPlayingView.setNeedsDisplay() //otherwise it doesn't draw the bezier path
+            //recentsView.setNeedsDisplay() //Otherwise it doesn't draw the bezier path
         }
         
         
@@ -87,7 +88,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
              currPlayingView.albumView.image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize())
         }
        
-        
     }
     
     @IBAction func displaySongOptions(_ sender: UILongPressGestureRecognizer) {
@@ -209,29 +209,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         currPlayingView.animate()
     }
     
-    //Fast Scroll Methods
-    @IBAction func skipUpTable() {
-        
-        //Get the IndexPath to scroll to
-        let currentIndexPath = library.indexPath(for: library.visibleCells[0])
-        let indexPathRow = max((currentIndexPath?.row)! - 25, 0)
-        let newIndexPath = IndexPath(row: indexPathRow, section: 0)
-        
-        library.scrollToRow(at: newIndexPath, at: .top, animated: true)
-        library.isScrollEnabled = true
-    }
-    
-    @IBAction func skipDownTable() {
-        
-        //Get the IndexPath to scroll to
-        let currentIndexPath = library.indexPath(for: library.visibleCells[library.visibleCells.count - 1])
-        let indexPathRow = min((currentIndexPath?.row)! + 25, mediaItemsInLibrary.count + 1)
-        let newIndexPath = IndexPath(row: indexPathRow, section: 0)
-        
-        library.scrollToRow(at: newIndexPath, at: .bottom, animated: true)
-        library.isScrollEnabled = true
-    }
-    
     
     /*MARK: Bluetooth PopOverView Methods*/
     @IBAction func presentBluetoothPopover() {
@@ -310,11 +287,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
         }
-        
+ 
        
     }
 
     /*END OF FETCHING METHODS*/
+    
     func displayRecentlyPlayed(_ recents: ArraySlice<MPMediaItem>){
         
         //First Add The Subview
@@ -353,7 +331,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    /*Start of Table View Data Source/Delegate Methods*/
+    /*MARK: Table View Data Source/Delegate Methods*/
     
     //For now always return 1
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -401,7 +379,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*End of Table View Data Source/Delegate Methods*/
     
     
-    /*PEAK MUSIC CONTROLLER DELEGATE METHODS, USED TO UPDATE VIEWS*/
+    /*MARK: PEAK MUSIC CONTROLLER DELEGATE METHODS, USED TO UPDATE VIEWS*/
     func showSignifier(){
         
         let sig = Signifier(frame: CGRect(x: view.bounds.midX - 50, y: view.bounds.midY - 50, width: 100, height: 100))

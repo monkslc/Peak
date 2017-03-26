@@ -190,7 +190,6 @@ class PeakMusicController {
     func setUp(){
         //called when initially created to set up the music player for playing
         
-        
         //Set the initally playing song and queue
         if peakMusicController.systemMusicPlayer.nowPlayingItem != nil {
             

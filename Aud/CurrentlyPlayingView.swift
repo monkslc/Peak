@@ -100,7 +100,7 @@ class CurrentlyPlayingView: UIView{
     }
     
     func addHiddenViews(){
-        
+
         //Add the music info display
         musicInfo = MusicInfoDisplay(frame: CGRect(x: bounds.minX, y: bounds.minY + 145, width: bounds.width, height: frame.height - (145 + 30)))
         musicInfo.library = library
@@ -115,7 +115,6 @@ class CurrentlyPlayingView: UIView{
             volumeView.setUp()
             addSubview(volumeView)
         }
-        
         
     }
     
