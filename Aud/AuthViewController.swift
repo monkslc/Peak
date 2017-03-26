@@ -31,11 +31,6 @@ class AuthViewController: UIViewController {
     
     @IBAction func checkAppleAuthentication() {
         
-        
-        
-        
-        
-        
         loadingIndicator.startAnimating()
         //check if we have authorization to the user's apple music
         SKCloudServiceController.requestAuthorization({(authorization) in
@@ -48,13 +43,10 @@ class AuthViewController: UIViewController {
                 self.loadingIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
                 
-                
-                
             case .denied:
                 self.loadingIndicator.stopAnimating()
                 self.instructUserToAllowUsToAppleMusic()
-                
-                
+
             case .notDetermined:
                 print("Can't be determined")
                 self.loadingIndicator.stopAnimating()

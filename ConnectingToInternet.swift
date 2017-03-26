@@ -17,15 +17,15 @@ class ConnectingToInternet {
             (json) -> Void in
             
             if let json = json as? [String:Any] {
-                if let songJSON = json["results"] as? [[String: String]] {
-                    print(songJSON[0])
+    
+                if let songJSON = json["results"] as? [[String: Any]] {
                     
-                    let imageURL = songJSON[0]["artworkUrl30"]!
+                    let imageURL = songJSON[0]["artworkUrl100"]! as! String
                     
                     ConnectingToInternet.getImage(url: imageURL, completion: {
                         (image) -> Void in
                         
-                        completion(Song(id: id, trackName: songJSON[0]["trackName"]!, collectionName: songJSON[0]["collectionName"]!, image: image))
+                        completion(Song(id: id, trackName: songJSON[0]["trackName"]! as! String, collectionName: songJSON[0]["collectionName"]! as! String, image: image))
                     })
                     
                 }

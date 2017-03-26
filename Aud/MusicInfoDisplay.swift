@@ -32,7 +32,7 @@ class MusicInfoDisplay: UIView {
         visualQueueCont.library = library
         
         //add action listener here
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: .MPMusicPlayerControllerQueueDidChange, object: peakMusicController.systemMusicPlayer)
+        //NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: .MPMusicPlayerControllerQueueDidChange, object: peakMusicController.systemMusicPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: peakMusicController.systemMusicPlayer)
     }
     
