@@ -13,3 +13,4 @@ Changes to Make To Peak:
 5)*CON* OR *CAM* Handle the opening of the app
     a) When you open the app we need to handle how the music iplayer handles that
 
+6)*CAM* Figure out how to make conneciton go back and forth
