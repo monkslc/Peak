@@ -12,6 +12,6 @@ import UIKit
 struct Song {
     var id: Int
     var trackName: String
-    var collectionName: String
+    var collectionName: String // same as album name
     var image: UIImage?
 }

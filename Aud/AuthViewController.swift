@@ -17,7 +17,7 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"
+        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"        
     }
     
     override func viewDidAppear(_ animated: Bool) {
