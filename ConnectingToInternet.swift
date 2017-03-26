@@ -56,7 +56,7 @@ class ConnectingToInternet {
                     ConnectingToInternet.getImage(url: imageURL, completion: {
                         (image) -> Void in
                         
-                        completion(Song(id: id, trackName: songJSON[0]["trackName"]! as! String, collectionName: songJSON[0]["collectionName"]! as! String, image: image))
+                        completion(Song(id: id, trackName: songJSON[0]["trackName"]! as! String, collectionName: songJSON[0]["collectionName"]! as! String, artistName: songJSON[0]["artistName"]! as! String, trackTimeMillis: Int(songJSON[0]["trackTimeMillis"]! as! String)!, image: image))
                     })
                     
                 }

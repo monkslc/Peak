@@ -21,6 +21,8 @@ protocol MPCManagerDelegate {
 
 class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate {
     
+    static let defaultMPCManager = MPCManager()
+    
     @available(iOS 7.0, *)
     public func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         
