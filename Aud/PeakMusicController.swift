@@ -32,7 +32,7 @@ class PeakMusicController{
         case Individual //Just playing indivdually
     }
     
-    var playerType = PlayerType.Contributor
+    var playerType = PlayerType.Individual
     
     let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
     
@@ -173,7 +173,6 @@ class PeakMusicController{
     
     func setUp(){
         //called when initially created to set up the music player for playing
-        
         
         //Set the initally playing song and queue
         if peakMusicController.systemMusicPlayer.nowPlayingItem != nil {

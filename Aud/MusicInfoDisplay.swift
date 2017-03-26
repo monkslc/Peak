@@ -26,13 +26,11 @@ class MusicInfoDisplay: UIView {
     /*SET UP METHODS*/
     func setUp(){
         //set up the displayController and the displayView
-        
         setUpController()
         setUpDisplay()
         visualQueueCont.library = library
         
         //add action listener here
-        //NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: .MPMusicPlayerControllerQueueDidChange, object: peakMusicController.systemMusicPlayer)
         NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: peakMusicController.systemMusicPlayer)
     }
     
@@ -46,7 +44,6 @@ class MusicInfoDisplay: UIView {
         displayController.addTarget(self, action: #selector(updateDisplay), for: .valueChanged)
         displayController.selectedSegmentIndex = 0
         addSubview(displayController)
-        
     }
     
     func setUpDisplay(){
@@ -58,7 +55,7 @@ class MusicInfoDisplay: UIView {
     
     /*DISPLAY UPDATE METHODS*/
     func updateDisplay(){
-        
+
         //First Remove the current views from the display
         for view in infoDisplay.subviews {
             
@@ -77,12 +74,11 @@ class MusicInfoDisplay: UIView {
             updateWithQueue()
         }
         
-        
     }
     
     private func updateWithSongInfo(){
         //Show the title, album and artist of the song
-        
+      
         if let song = peakMusicController.systemMusicPlayer.nowPlayingItem {
             
             let heightLarge = max(infoDisplay.frame.height * 0.05, 30)
@@ -116,6 +112,7 @@ class MusicInfoDisplay: UIView {
             
             /*Maybe add a show on Apple Music Here*/
         }
+        
     }
     
     private func updateWithLyrics(){

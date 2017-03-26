@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -228,30 +228,6 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="VeB-0o-s4c"/>
                                 </connections>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="SVn-ki-9Qh">
-                                <rect key="frame" x="324" y="299" width="35" height="70"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MOS-OY-fBb">
-                                        <rect key="frame" x="0.0" y="0.0" width="35" height="32.5"/>
-                                        <state key="normal" title="Button" image="Double Up Filled-50"/>
-                                        <connections>
-                                            <action selector="skipUpTable" destination="BYZ-38-t0r" eventType="touchUpInside" id="1sa-de-dxc"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jm5-1r-9ax">
-                                        <rect key="frame" x="0.0" y="37.5" width="35" height="32.5"/>
-                                        <gestureRecognizers/>
-                                        <state key="normal" title="Button" image="Double Down Filled-50"/>
-                                        <connections>
-                                            <action selector="skipDownTable" destination="BYZ-38-t0r" eventType="touchUpInside" id="nzl-gs-SEP"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="LQw-Ds-Rdx"/>
-                                    <constraint firstAttribute="width" constant="35" id="fWv-QT-Nqb"/>
-                                </constraints>
-                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KBe-nq-laQ" customClass="CurrentlyPlayingView" customModule="Aud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="532" width="375" height="506"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -327,7 +303,6 @@
                         <constraints>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="5:6" id="11a-mA-ZAv"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pot-3q-ikk"/>
-                            <constraint firstItem="SVn-ki-9Qh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="RFo-Vd-S0z"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="TmU-vj-MbG"/>
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
@@ -335,13 +310,9 @@
                             <constraint firstAttribute="trailing" secondItem="KBe-nq-laQ" secondAttribute="trailing" id="lmz-uB-wyv"/>
                             <constraint firstAttribute="trailing" secondItem="6hn-Lo-zOk" secondAttribute="trailing" id="luU-L8-zdQ"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="6hn-Lo-zOk" secondAttribute="bottom" id="oAA-ER-Ach"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SVn-ki-9Qh" secondAttribute="trailing" id="pcI-pv-rnw"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" constant="-135" id="yoL-fE-dcn"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="4Ws-tb-rP1" appends="YES" id="nB2-9q-9kS"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="currPlayingView" destination="KBe-nq-laQ" id="Ssy-Za-3In"/>
@@ -353,7 +324,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="4Ws-tb-rP1"/>
                 <tapGestureRecognizer id="bMT-eV-78R">
                     <connections>
                         <action selector="showHidePlayingView:" destination="BYZ-38-t0r" id="sTR-on-Voy"/>
@@ -383,8 +353,6 @@
     </scenes>
     <resources>
         <image name="Conference-64" width="64" height="64"/>
-        <image name="Double Down Filled-50" width="50" height="50"/>
-        <image name="Double Up Filled-50" width="50" height="50"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
         <image name="landscape-with-mountains-3" width="512" height="512"/>
     </resources>
