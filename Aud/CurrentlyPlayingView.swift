@@ -46,10 +46,6 @@ class CurrentlyPlayingView: UIView{
         borderColor.set()
         path.stroke()
         
-        //The Arc
-        /*let arcPath = UIBezierPath(arcCenter: CGPoint(x: bounds.midX,y: bounds.minY + 52), radius: 50, startAngle: 0, endAngle: CGFloat(Float.pi), clockwise: false)
-        arcPath.lineWidth = 3.0
-        arcPath.stroke()*/
     }
 
     
@@ -70,16 +66,28 @@ class CurrentlyPlayingView: UIView{
         whiteView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.95)
         addSubview(whiteView)
         
-        //Add the forward button
-        let forwardButton = ForwardButton(frame: CGRect(x: (whiteView.frame.maxX * 0.75), y: whiteView.frame.minY + 5, width: 50, height: 50))
-        forwardButton.setUp()
-        addSubview(forwardButton)
+        //Only add these views if the user is not a contributor
+        if peakMusicController.playerType != .Contributor {
+            
+            //Add the forward button
+            let forwardButton = ForwardButton(frame: CGRect(x: (whiteView.frame.maxX * 0.75), y: whiteView.frame.minY + 5, width: 50, height: 50))
+            forwardButton.setUp()
+            addSubview(forwardButton)
+            
+            
+            //Add the Previous Button
+            let previousButton = BeginningButton(frame: CGRect(x: (whiteView.frame.maxX * 0.25) - 50, y: whiteView.frame.minY, width: 50, height: 50))
+            previousButton.setUp()
+            addSubview(previousButton)
+            
+            //Create the Song Progress View
+            let progressOfSongView = SongProgressView(frame: CGRect(x: bounds.minX, y: bounds.minY + 97.5, width: bounds.width, height: 40))
+            progressOfSongView.setUp()
+            addSubview(progressOfSongView)
+        }
         
         
-        //Add the Previous Button
-        let previousButton = BeginningButton(frame: CGRect(x: (whiteView.frame.maxX * 0.25) - 50, y: whiteView.frame.minY, width: 50, height: 50))
-        previousButton.setUp()
-        addSubview(previousButton)
+        
         
         //Draw the album in the center
         albumView = CurrentlyPlayingAlbumView(frame: CGRect(x: bounds.midX - 50, y: bounds.minY, width: 100, height: 100))
@@ -88,10 +96,7 @@ class CurrentlyPlayingView: UIView{
         albumView.addPausePlay()
         albumView.addListeners()
         
-        //Create the Song Progress View
-        let progressOfSongView = SongProgressView(frame: CGRect(x: bounds.minX, y: bounds.minY + 97.5, width: bounds.width, height: 40))
-        progressOfSongView.setUp()
-        addSubview(progressOfSongView)
+        
     }
     
     func addHiddenViews(){
@@ -103,10 +108,14 @@ class CurrentlyPlayingView: UIView{
         addSubview(musicInfo)
         
         
-        //SET UP VOLUME VIEW
-        volumeView = VolumeView(frame: CGRect(x: bounds.minX, y: bounds.maxY - 50, width: bounds.width, height: 50))
-        volumeView.setUp()
-        addSubview(volumeView)
+        //SET UP VOLUME VIEW, if the user is not a contributor
+        if peakMusicController.playerType != .Contributor {
+            
+            volumeView = VolumeView(frame: CGRect(x: bounds.minX, y: bounds.maxY - 50, width: bounds.width, height: 50))
+            volumeView.setUp()
+            addSubview(volumeView)
+        }
+        
         
     }
     

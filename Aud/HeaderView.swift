@@ -20,6 +20,7 @@ class HeaderView: UIView {
     @IBInspectable var shOffset: Double = 3
     @IBInspectable var shColor: UIColor = UIColor.darkGray
     
+    
     override func draw(_ rect: CGRect) {
         
         //Draw a bottom border

@@ -92,69 +92,97 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             //alert the options for the song here
             let alert = UIAlertController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
             
+            
+            //Change what appears based on the user's type
+            if peakMusicController.playerType != .Contributor {
+                
             //Add Play Song Option
-            alert.addAction(UIAlertAction(title: "Play Song", style: .default, handler: {(alert) in
-                
-                if let cell: SongCell = sender.view as? SongCell {
+                alert.addAction(UIAlertAction(title: "Play Song", style: .default, handler: {(alert) in
                     
-                    peakMusicController.play([cell.mediaItemInCell])
-                } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                    if let cell: SongCell = sender.view as? SongCell {
+                        
+                        peakMusicController.play([cell.mediaItemInCell])
+                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                        
+                        peakMusicController.play([albumView.mediaItemAssocWithImage])
+                    }
                     
-                    peakMusicController.play([albumView.mediaItemAssocWithImage])
-                }
-                
-            }))
+                }))
+            
+            
             
             //Add Play Next Option
-            alert.addAction(UIAlertAction(title: "Play Next", style: .default, handler: {(alert) in
             
-                if let cell: SongCell = sender.view as? SongCell {
+                alert.addAction(UIAlertAction(title: "Play Next", style: .default, handler: {(alert) in
                     
-                    peakMusicController.playNext([cell.mediaItemInCell])
-                }else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                    
-                    peakMusicController.playNext([albumView.mediaItemAssocWithImage])
-                }
-            }))
+                    if let cell: SongCell = sender.view as? SongCell {
+                        
+                        peakMusicController.playNext([cell.mediaItemInCell])
+                    }else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                        
+                        peakMusicController.playNext([albumView.mediaItemAssocWithImage])
+                    }
+                }))
+            
+            
             
             //Add Add to end of Queue
-            alert.addAction(UIAlertAction(title: "Play Last", style: .default, handler: {(alert) in
+                alert.addAction(UIAlertAction(title: "Play Last", style: .default, handler: {(alert) in
             
-                if let cell: SongCell = sender.view as? SongCell {
+                    if let cell: SongCell = sender.view as? SongCell {
                     
-                    peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
-                } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                        peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
+                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
                     
-                    peakMusicController.playAtEndOfQueue([albumView.mediaItemAssocWithImage])
-                }
+                        peakMusicController.playAtEndOfQueue([albumView.mediaItemAssocWithImage])
+                    }
                 
-            }))
+                }))
             
             //Add play album
-            alert.addAction(UIAlertAction(title: "Play Album", style: .default, handler: {(action) in
                 
-                if let cell: SongCell = sender.view as? SongCell {
+                alert.addAction(UIAlertAction(title: "Play Album", style: .default, handler: {(action) in
                     
-                    peakMusicController.play(album: cell.mediaItemInCell)
-                } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                    if let cell: SongCell = sender.view as? SongCell {
+                        
+                        peakMusicController.play(album: cell.mediaItemInCell)
+                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                        
+                        peakMusicController.play(album: albumView.mediaItemAssocWithImage)
+                    }
                     
-                    peakMusicController.play(album: albumView.mediaItemAssocWithImage)
-                }
-                
-            }))
+                }))
             
-            //Add Shuffle Artist
-            alert.addAction(UIAlertAction(title: "Play Artist", style: .default, handler: {(action ) in
+            
+            //Add Play Artist
                 
-                if let cell: SongCell = sender.view as? SongCell {
-                
-                    peakMusicController.play(artist: cell.mediaItemInCell)
-                } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                alert.addAction(UIAlertAction(title: "Play Artist", style: .default, handler: {(action ) in
                     
-                    peakMusicController.play(artist: albumView.mediaItemAssocWithImage)
-                }
+                    if let cell: SongCell = sender.view as? SongCell {
+                        
+                        peakMusicController.play(artist: cell.mediaItemInCell)
+                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                        
+                        peakMusicController.play(artist: albumView.mediaItemAssocWithImage)
+                    }
+                    
+                }))
+            
+            } else { //User is a contributor so display those methods
                 
-            }))
+                alert.addAction(UIAlertAction(title: "Add to End of Queue", style: .default, handler: {(alert) in
+                    
+                    if let cell: SongCell = sender.view as? SongCell {
+                        
+                        peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
+                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                        
+                        peakMusicController.playAtEndOfQueue([albumView.mediaItemAssocWithImage])
+                    }
+                    
+                }))
+            }
+            
             
             //Add a cancel action
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -354,6 +382,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.mediaItemInCell = mediaItemToAdd
         
         //ADD GESTURES
+    
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(displaySongOptions(_:))))
         
@@ -387,14 +416,45 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func handleTapOnSong(_ gesture: UITapGestureRecognizer){
         
+        //first get the media item
+        var mediaItemOnTap = MPMediaItem()
+        
         //check to see where the gesture is coming from and respond accordingly
         if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView {
             
-            peakMusicController.play([albumArt.mediaItemAssocWithImage])
+            mediaItemOnTap = albumArt.mediaItemAssocWithImage
+            
         } else if let cell: SongCell = gesture.view as? SongCell {
             
-            peakMusicController.play([cell.mediaItemInCell])
+            mediaItemOnTap = cell.mediaItemInCell
         }
+        
+        //Check to see what the playerType of the user is
+        if peakMusicController.playerType != .Contributor {
+                
+            peakMusicController.play([mediaItemOnTap])
+            
+        } else {
+            //the user is a contributor
+        
+            promptUserToSendToGroupQueue(mediaItemOnTap)
+            
+        }
+        
+    }
+    
+    func promptUserToSendToGroupQueue(_ song: MPMediaItem){
+        //Method to ask the user if they'd like to add an item to the group queue
+        
+        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.title ?? "this song") to the group queue?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
+        
+            peakMusicController.playAtEndOfQueue([song])
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
     /*END OF GESTURE TARGET METHODS*/
     

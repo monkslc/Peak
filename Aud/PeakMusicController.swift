@@ -23,6 +23,17 @@ class PeakMusicController{
         NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: systemMusicPlayer)
     }
     
+    enum PlayerType {
+        //Enum to determine what the connection status is for the music player
+        //will determine how the program responds
+        
+        case Host //Device connected to the audio player
+        case Contributor //Connected to a host
+        case Individual //Just playing indivdually
+    }
+    
+    var playerType = PlayerType.Contributor
+    
     let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
     
     var currPlayQueue = [MPMediaItem](){
@@ -127,11 +138,20 @@ class PeakMusicController{
     
     func playAtEndOfQueue(_ songs: [MPMediaItem]) {
         
-        currPlayQueue.append(contentsOf: songs)
         
-        //now update the delegate
-        delegate?.showSignifier()
-        delegate?.updateDisplay()
+        //Check what type of player it is
+        if playerType != .Contributor {
+            
+            currPlayQueue.append(contentsOf: songs)
+            
+            //now update the delegate
+            delegate?.showSignifier()
+            delegate?.updateDisplay()
+        } else {
+            
+            /*******NEED: Implmepent sending the songId to another device**********/
+        }
+        
     }
     
     /*END OF QUEUE METHODS*/
