@@ -14,7 +14,7 @@ import AVKit
 
 let peakMusicController = PeakMusicController()
 
-class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate {
+class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate {
     
     
     
@@ -39,7 +39,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         //systemMusicPlayer.setQueueWithStoreIDs(["966997496"])
         //systemMusicPlayer.setQueueWithStoreIDs(["798928362"])
-        
         
         //First thing we want to do is start the fetch the user's library
         DispatchQueue.global().async {
@@ -200,12 +199,37 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
+    /*MARK: Bluetooth PopOverView Methods*/
+    @IBAction func presentBluetoothPopover() {
+        //Method to show the popover
+        performSegue(withIdentifier: "Popover Bluetooth Controller", sender: nil)
+        
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //Need to implement this to handle the popover
+        
+        //Make sure we are doing the popover segue
+        if segue.identifier == "Popover Bluetooth Controller"{
+         
+            let popOverVC = segue.destination
+            
+            let controller = popOverVC.popoverPresentationController!
+            controller.delegate = self
+        
+            //segue.destinationViewController?.popoverPresentationController?.sourceRect = anchorView.frame
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        
+        return .none
+    }
     
     /*End of User interaction methods*/
     
     
-    /*START OF NOTIFICATION METHODS*/
+    /*MARK: Notification Methods*/
     
     
     
@@ -215,7 +239,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /*END OF NOTIFICATION METHODS*/
     
-    /*Start of Fetching Methods*/
+    /*MARK: Fetching Methods*/
     func fetchLibrary(){
         
         
