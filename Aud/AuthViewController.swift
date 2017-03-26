@@ -1,4 +1,3 @@
-//  LIKE A ROLLING STONE -- monkslc was here
 //  AuthViewController.swift
 //  Peak
 //

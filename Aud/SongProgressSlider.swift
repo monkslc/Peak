@@ -1,7 +1,3 @@
-//  LIKE A ROLLING STONE -- Connor Monks was Here
-//  Chad Martin wuz herrre
-//  The fiddler he now steps to the road
-//  The fiddler the chad martin takes a load
 //  SongProgressSlider.swift
 //  Peak
 //
