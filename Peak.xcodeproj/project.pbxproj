@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90E2DFDD1E874F5400762B9D /* LyricsGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDC1E874F5400762B9D /* LyricsGetter.swift */; };
 		90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDF1E87509C00762B9D /* MPCManager.swift */; };
 		90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE11E87560700762B9D /* StringExtension.swift */; };
+		90E2DFE61E87FF0900762B9D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE51E87FF0900762B9D /* Song.swift */; };
+		90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */; };
 		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48E45831E7479BF00BFFE4C /* SongCell.swift */; };
+		C4A3204D1E87437A0070036C /* Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4A3204C1E87437A0070036C /* Notes.txt */; };
 		C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */; };
 		C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */; };
 		C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */; };
@@ -36,12 +38,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		90E2DFDC1E874F5400762B9D /* LyricsGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricsGetter.swift; path = Aud/LyricsGetter.swift; sourceTree = "<group>"; };
 		90E2DFDF1E87509C00762B9D /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		90E2DFE11E87560700762B9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		90E2DFE51E87FF0900762B9D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingToInternet.swift; sourceTree = "<group>"; };
 		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C48E45831E7479BF00BFFE4C /* SongCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		C4A3204C1E87437A0070036C /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Notes.txt; path = Aud/Notes.txt; sourceTree = "<group>"; };
 		C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedView.swift; sourceTree = "<group>"; };
 		C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentsAlbumView.swift; path = ../RecentsAlbumView.swift; sourceTree = "<group>"; };
 		C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +84,8 @@
 		90E2DFDE1E874F6400762B9D /* Cam */ = {
 			isa = PBXGroup;
 			children = (
-				90E2DFDC1E874F5400762B9D /* LyricsGetter.swift */,
+				90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */,
+				90E2DFE51E87FF0900762B9D /* Song.swift */,
 				90E2DFDF1E87509C00762B9D /* MPCManager.swift */,
 				90E2DFE11E87560700762B9D /* StringExtension.swift */,
 			);
@@ -173,6 +178,7 @@
 		C4E896541E7458610096EC72 = {
 			isa = PBXGroup;
 			children = (
+				C4A3204C1E87437A0070036C /* Notes.txt */,
 				90E2DFDE1E874F6400762B9D /* Cam */,
 				C4E8965F1E7458620096EC72 /* Aud */,
 				C4E8965E1E7458620096EC72 /* Products */,
@@ -259,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A3204D1E87437A0070036C /* Notes.txt in Resources */,
 				C4E8966B1E7458620096EC72 /* LaunchScreen.storyboard in Resources */,
 				C4E896681E7458620096EC72 /* Assets.xcassets in Resources */,
 				C4E896661E7458620096EC72 /* Main.storyboard in Resources */,
@@ -273,7 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4D1177B1E80B262000A854A /* VolumeView.swift in Sources */,
-				90E2DFDD1E874F5400762B9D /* LyricsGetter.swift in Sources */,
+				90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */,
 				C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */,
 				C4D117611E803A74000A854A /* PeakMusicController.swift in Sources */,
 				C4D117691E806E75000A854A /* CurrentlyPlayingAlbumView.swift in Sources */,
@@ -290,6 +297,7 @@
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,
 				C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */,
 				C4D1176B1E809905000A854A /* BeginningButton.swift in Sources */,
+				90E2DFE61E87FF0900762B9D /* Song.swift in Sources */,
 				C4D117701E809C20000A854A /* SongProgressSlider.swift in Sources */,
 				C4D117781E80A9F2000A854A /* VisualQueueController.swift in Sources */,
 				C4D117761E80A52E000A854A /* MusicInfoDisplay.swift in Sources */,
