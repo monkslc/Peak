@@ -10,6 +10,7 @@
 		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48E45831E7479BF00BFFE4C /* SongCell.swift */; };
+		C4A3204D1E87437A0070036C /* Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4A3204C1E87437A0070036C /* Notes.txt */; };
 		C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */; };
 		C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */; };
 		C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */; };
@@ -36,6 +37,7 @@
 		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C48E45831E7479BF00BFFE4C /* SongCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		C4A3204C1E87437A0070036C /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
 		C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedView.swift; sourceTree = "<group>"; };
 		C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentsAlbumView.swift; path = ../RecentsAlbumView.swift; sourceTree = "<group>"; };
 		C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				C4D117681E806E75000A854A /* CurrentlyPlayingAlbumView.swift */,
 				C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */,
 				C4D1177A1E80B262000A854A /* VolumeView.swift */,
+				C4A3204C1E87437A0070036C /* Notes.txt */,
 			);
 			name = CurrentlyPlayingView;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A3204D1E87437A0070036C /* Notes.txt in Resources */,
 				C4E8966B1E7458620096EC72 /* LaunchScreen.storyboard in Resources */,
 				C4E896681E7458620096EC72 /* Assets.xcassets in Resources */,
 				C4E896661E7458620096EC72 /* Main.storyboard in Resources */,
