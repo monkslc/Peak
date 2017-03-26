@@ -126,7 +126,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="05J-pc-yQM">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="3" id="5Pe-XS-hZ5">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="120.5"/>
@@ -244,25 +244,57 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KBe-nq-laQ" customClass="CurrentlyPlayingView" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="532" width="375" height="539"/>
+                                <rect key="frame" x="0.0" y="532" width="375" height="505.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="bMT-eV-78R" appends="YES" id="JRY-CR-DKR"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hn-Lo-zOk">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" placeholder="Enter a song" translatesAutoresizingMaskIntoConstraints="NO" id="9cd-uQ-qkS">
+                                        <rect key="frame" x="8" y="22" width="294" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="ZqQ-H2-wYh"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRU-Kx-gTx">
+                                        <rect key="frame" x="337" y="22" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="elC-r8-npF"/>
+                                            <constraint firstAttribute="height" constant="30" id="vSE-06-DJl"/>
+                                        </constraints>
+                                        <state key="normal" image="Conference-64"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="WRU-Kx-gTx" secondAttribute="bottom" constant="8" id="GHh-WV-4Uz"/>
+                                    <constraint firstItem="WRU-Kx-gTx" firstAttribute="leading" secondItem="9cd-uQ-qkS" secondAttribute="trailing" constant="35" id="Kbg-0U-v3e"/>
+                                    <constraint firstAttribute="trailing" secondItem="WRU-Kx-gTx" secondAttribute="trailing" constant="8" id="Zog-RW-xpi"/>
+                                    <constraint firstAttribute="height" constant="60" id="gqc-oc-Cwa"/>
+                                    <constraint firstItem="9cd-uQ-qkS" firstAttribute="leading" secondItem="6hn-Lo-zOk" secondAttribute="leading" constant="8" id="wjW-jd-9bd"/>
+                                    <constraint firstAttribute="bottom" secondItem="9cd-uQ-qkS" secondAttribute="bottom" constant="8" id="xzi-yG-Y0u"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="5:6" id="11a-mA-ZAv"/>
+                            <constraint firstItem="6hn-Lo-zOk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pot-3q-ikk"/>
                             <constraint firstItem="SVn-ki-9Qh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="RFo-Vd-S0z"/>
+                            <constraint firstItem="6hn-Lo-zOk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="TmU-vj-MbG"/>
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dai-it-Ks8"/>
                             <constraint firstAttribute="trailing" secondItem="KBe-nq-laQ" secondAttribute="trailing" id="lmz-uB-wyv"/>
+                            <constraint firstAttribute="trailing" secondItem="6hn-Lo-zOk" secondAttribute="trailing" id="luU-L8-zdQ"/>
+                            <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="6hn-Lo-zOk" secondAttribute="bottom" id="oAA-ER-Ach"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SVn-ki-9Qh" secondAttribute="trailing" id="pcI-pv-rnw"/>
-                            <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="r8o-P5-g4v"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" constant="-135" id="yoL-fE-dcn"/>
                         </constraints>
@@ -288,6 +320,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Conference-64" width="64" height="64"/>
         <image name="Double Down Filled-50" width="50" height="50"/>
         <image name="Double Up Filled-50" width="50" height="50"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
