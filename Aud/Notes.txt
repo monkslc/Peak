@@ -1,7 +1,7 @@
 Changes to Make To Peak:
 
 1)*CAM* Add user's name to welcome screen
-2)*CAM* Add header to screen
+2)*CON Then CAM* Add header to screen
     a) Add Search Bar
     b) Add connect icon
 
@@ -11,6 +11,6 @@ Changes to Make To Peak:
     b) add Connected to DJ Controlelrs
 
 5)*CON* OR *CAM* Handle the opening of the app
-    a) When you open the app we need to handle how the music iplayer handles that
+    a) When you open the app we need to handle how the music player handles that
 
-6)*CAM* Figure out how to make conneciton go back and forth
+6)*CAM* Figure out how to make connection go back and forth
