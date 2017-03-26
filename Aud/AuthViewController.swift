@@ -41,7 +41,13 @@ class AuthViewController: UIViewController {
                 print("authorized")
                 //authorized so segue
                 self.loadingIndicator.stopAnimating()
-                self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
+                DispatchQueue.global().async {
+                    DispatchQueue.main.async {
+                        
+                        self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
+                    }
+                }
+                
                 
             case .denied:
                 self.loadingIndicator.stopAnimating()
