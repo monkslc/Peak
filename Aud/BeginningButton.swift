@@ -21,7 +21,7 @@ class BeginningButton: UIButton {
     
     func setUp(){
         
-        setImage(#imageLiteral(resourceName: "Go Back-50"), for: .normal)
+        setImage(#imageLiteral(resourceName: "Backward Filled-50"), for: .normal)
         addTarget(self, action: #selector(restartSong), for: .touchUpInside)
     }
     
