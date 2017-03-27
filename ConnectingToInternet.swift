@@ -17,12 +17,15 @@ class ConnectingToInternet {
             (json) -> Void in
             
             if let json = json as? [String:Any] {
-                if let songsJSON = json["body"] as? [String: Any] {
-                    if let lyricsBody = songsJSON["lyrics"] as? [String: Any] {
-                        if let lyrics = lyricsBody["lyrics_body"] as? String {
-                            completion(lyrics)
+                if let messageJSON = json["message"] as? [String: Any] {
+                    if let songsJSON = messageJSON["body"] as? [String: Any] {
+                        if let lyricsBody = songsJSON["lyrics"] as? [String: Any] {
+                            if let lyrics = lyricsBody["lyrics_body"] as? String {
+                                completion(lyrics)
+                            }
                         }
                     }
+
                 }
             }
         })

@@ -17,7 +17,16 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"        
+        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"
+        let bobDylan : [String] = ["17532817", "115119393"]
+        
+        for id in bobDylan {
+            ConnectingToInternet.getLyrics(songID: id, completion: {
+                (lyrics) -> Void in
+                
+                print(lyrics)
+            })
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
