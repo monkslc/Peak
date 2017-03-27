@@ -260,7 +260,7 @@
                                         <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                     </searchBar>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbU-4X-gif">
-                                        <rect key="frame" x="329.5" y="56" width="1" height="1"/>
+                                        <rect key="frame" x="330" y="56" width="1" height="1"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="0V5-hu-rmr"/>
