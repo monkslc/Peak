@@ -405,7 +405,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Remove all the subviews
         for view in currPlayingView.subviews {
             
-            print("removing view")
+        
             view.removeFromSuperview()
         }
         
