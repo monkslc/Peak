@@ -73,19 +73,25 @@ class SongProgressView: UIView {
         let currentTime = peakMusicController.systemMusicPlayer.currentPlaybackTime
         currentTimeLabel.text = formatTime(currentTime)
         
-        let duration = peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration
-        songDurationLabel.text = formatTime(duration!)
+        let duration = peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration ?? 0.0
+        songDurationLabel.text = formatTime(duration)
     }
     
     private func formatTime(_ time: TimeInterval) -> String{
         
         
+        if !time.isNaN {
+            
+            let minutes = Int(floor(time / 60))
+            let seconds = (time - (Double(minutes) * 60)) / 100
+            let secondsFormat = String(format: "%.2f", seconds)
+            let timeFormatted = String(minutes) + ":" + String(secondsFormat).replacingOccurrences(of: "0.", with: "")
+            return timeFormatted
+        } else {
+            
+            return "0:00"
+        }
         
-        let minutes = Int(floor(time / 60))
-        let seconds = (time - (Double(minutes) * 60)) / 100
-        let secondsFormat = String(format: "%.2f", seconds)
-        let timeFormatted = String(minutes) + ":" + String(secondsFormat).replacingOccurrences(of: "0.", with: "")
-        return timeFormatted
         
     }
 
