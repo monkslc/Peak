@@ -13,6 +13,7 @@ protocol PeakMusicControllerDelegate{
     
     func showSignifier()
     func updateDisplay()
+    func playerTypeDidChange()
 }
 
 class PeakMusicController {
@@ -22,6 +23,8 @@ class PeakMusicController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: systemMusicPlayer)
     }
+    
+    var delegate: PeakMusicControllerDelegate?
     
     enum PlayerType {
         //Enum to determine what the connection status is for the music player
@@ -47,7 +50,12 @@ class PeakMusicController {
             else {
                 MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
             }
+            
+            //Update the views here
+            delegate?.playerTypeDidChange()
+            
         }
+        
     }
     
     let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
@@ -70,7 +78,7 @@ class PeakMusicController {
         }
     }
     
-    var delegate: PeakMusicControllerDelegate?
+    
     
     
     /*QUEUE METHODS*/

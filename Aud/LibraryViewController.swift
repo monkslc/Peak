@@ -392,6 +392,26 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         currPlayingView.updateInfoDisplay()
     }
+    
+    func playerTypeDidChange(){
+        /********NEED: To update this*************/
+        
+        //Rid everything from the currently playing system
+        peakMusicController.systemMusicPlayer.stop()
+        peakMusicController.currPlayQueue = []
+        
+        
+        //Update the currently playing view
+        //Remove all the subviews
+        for view in currPlayingView.subviews {
+            
+            print("removing view")
+            view.removeFromSuperview()
+        }
+        
+        //Add them back
+        currPlayingView.addAllViews()
+    }
     /*End of Peak Music Controller Delegate Methods*/
     
     

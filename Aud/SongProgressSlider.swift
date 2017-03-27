@@ -34,7 +34,7 @@ class SongProgressSlider: UISlider {
     func updateToSongTime(){
         //Method to update the value of the slider and labels
         
-        maximumValue = Float((peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration)!)
+        maximumValue = Float((peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration) ?? 0.0)
         minimumValue = 0
         value = Float(peakMusicController.systemMusicPlayer.currentPlaybackTime)
     }
