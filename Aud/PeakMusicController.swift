@@ -32,7 +32,7 @@ class PeakMusicController {
         case Individual //Just playing indivdually
     }
     
-    var playerType = PlayerType.Contributor {
+    var playerType = PlayerType.Individual {
         didSet {
             if playerType == .Host {
                 MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()

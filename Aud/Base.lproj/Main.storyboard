@@ -349,17 +349,51 @@
                                 <segments>
                                     <segment title="Airplane"/>
                                     <segment title="Client"/>
-                                    <segment title=""/>
+                                    <segment title="Dj"/>
                                 </segments>
+                                <connections>
+                                    <action selector="playerTypeSegementedControlValueChanged:" destination="xZU-02-YAm" eventType="valueChanged" id="rkK-6v-8mU"/>
+                                </connections>
                             </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BRG-Bh-jpU">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="popOverBasicCellID" textLabel="V8R-iI-OJ7" style="IBUITableViewCellStyleDefault" id="O3G-Zd-mC0">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O3G-Zd-mC0" id="4Xx-ak-JJ7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8R-iI-OJ7">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="BRG-Bh-jpU" secondAttribute="trailing" id="Abn-yu-9Ze"/>
+                            <constraint firstItem="BRG-Bh-jpU" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leading" id="Ikw-W1-tv0"/>
+                            <constraint firstItem="Cre-wi-rkK" firstAttribute="top" secondItem="BRG-Bh-jpU" secondAttribute="bottom" id="V0w-5q-plY"/>
                             <constraint firstItem="hKE-sb-elV" firstAttribute="trailing" secondItem="WZK-7a-vwc" secondAttribute="trailingMargin" id="W9f-Bq-I74"/>
+                            <constraint firstItem="BRG-Bh-jpU" firstAttribute="top" secondItem="hKE-sb-elV" secondAttribute="bottom" constant="8" id="inW-61-08N"/>
                             <constraint firstItem="hKE-sb-elV" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leadingMargin" id="xgu-cA-eHz"/>
                             <constraint firstItem="hKE-sb-elV" firstAttribute="top" secondItem="2rV-Zj-LbX" secondAttribute="bottom" constant="8" id="zms-VB-wFl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="BRG-Bh-jpU" id="QZz-WJ-IJk"/>
+                        <outlet property="typeOfUserSegmentedControl" destination="hKE-sb-elV" id="0J6-fQ-pJ1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VM2-Kb-vYA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

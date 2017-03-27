@@ -94,6 +94,9 @@ class AuthViewController: UIViewController {
             if name.contains("’") {
                 return name.subString(toIndex: name.indexOf(target: "’"))
             }
+            else if name.contains("'") {
+                return name.subString(toIndex: name.indexOf(target: "'"))
+            }
             else {
                 return name.subString(toIndex: name.indexOf(target: " iPhone"))
             }

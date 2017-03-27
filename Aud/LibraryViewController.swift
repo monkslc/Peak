@@ -62,8 +62,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //appDelegate.mpcManager.delegate = self
         //appDelegate.mpcManager.browser.startBrowsingForPeers()
         //appDelegate.mpcManager.advertiser.startAdvertisingPeer()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleMPCDJRecievedSongIDWithNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleMPCDJRecievedSongIDWithNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
     }
     
     
@@ -472,12 +471,65 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: Bluetooth Stuff
     
+    func sendSongIdToHost(id: String) {
+        let messageDictionary: [String: String] = ["id": id]
+        
+        if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
+            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.session.connectedPeers[0] as MCPeerID) {
+                
+                
+            }
+            else {
+                let alert = UIAlertController(title: "Could Not Send", message: "Try Again", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        else {
+            let alert = UIAlertController(title: "Could Not Send", message: "You are not connected to a device", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+
+    }
+    
+    func sendSongIdsToClient(ids: [String]) {
+        
+        var messageDictionary: [String: String] = [:]
+        
+        for (index, id) in ids.enumerated() {
+            messageDictionary["\(index)"] = id
+        }
+        
+        for peers in MPCManager.defaultMPCManager.session.connectedPeers {
+            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: peers as MCPeerID) {
+                
+                print("Sent")
+            }
+            else {
+                print("ERROR SENDING DATA COULD HAPPEN LibraryViewController -> sendSongIdsToClient")
+            }
+        }
+    }
+    
     // MARK: Notification
+    func handleMPCNotification(notification: NSNotification) {
+        switch peakMusicController.playerType {
+        case .Host:
+            handleMPCClientReceivedSongIdsWithNotification(notification: notification)
+        case .Contributor:
+            handleMPCDJRecievedSongIDWithNotification(notification: notification)
+        default:
+            print("ERROR: THIS SHOULD NEVER HAPPEN LibraryViewController -> handleMPCNotification")
+        }
+    }
+    
     func handleMPCDJRecievedSongIDWithNotification(notification: NSNotification) {
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         
         let data = receivedDataDictionary["data"] as? NSData
-        //let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
         
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
@@ -495,7 +547,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         
         let data = receivedDataDictionary["data"] as? NSData
-        //let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
         
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
