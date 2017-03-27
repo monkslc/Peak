@@ -20,7 +20,7 @@ class ForwardButton: UIButton {
 
     func setUp(){
         
-        setImage(#imageLiteral(resourceName: "Go Forward-50"), for: .normal)
+        setImage(#imageLiteral(resourceName: "Forward Filled-50"), for: .normal)
         addTarget(self, action: #selector(nextSong), for: .touchUpInside)
     }
     

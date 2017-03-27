@@ -76,7 +76,7 @@ class CurrentlyPlayingView: UIView{
             
             
             //Add the Previous Button
-            let previousButton = BeginningButton(frame: CGRect(x: (whiteView.frame.maxX * 0.25) - 50, y: whiteView.frame.minY, width: 50, height: 50))
+            let previousButton = BeginningButton(frame: CGRect(x: (whiteView.frame.maxX * 0.25) - 50, y: whiteView.frame.minY + 5, width: 50, height: 50))
             previousButton.setUp()
             addSubview(previousButton)
             
