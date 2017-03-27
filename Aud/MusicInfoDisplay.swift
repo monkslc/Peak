@@ -116,9 +116,9 @@ class MusicInfoDisplay: UIView {
             
             if peakMusicController.groupPlayQueue.count > 0 {
                 
-                artistLabel.text = peakMusicController.groupPlayQueue[0].collectionName
-                albumLabel.text = peakMusicController.groupPlayQueue[0].id
-                titleLabel.text = peakMusicController.groupPlayQueue[0].id
+                artistLabel.text = peakMusicController.groupPlayQueue[0].artistName
+                albumLabel.text = peakMusicController.groupPlayQueue[0].collectionName
+                titleLabel.text = peakMusicController.groupPlayQueue[0].trackName
             }
             
         }else {

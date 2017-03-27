@@ -67,14 +67,15 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             
             cell.albumArt.image = songToAdd.image
             cell.songTitle.text = songToAdd.trackName
-            cell.songArtist.text = songToAdd.trackName
+            cell.songArtist.text = songToAdd.artistName
             
             //get the time until the song plays
-            var timeUntil: Double = 0
+            var timeUntil: Double = Double(songToAdd.trackTimeMillis)
             for index in 0..<peakMusicController.groupPlayQueue.count {
                 
                 if index < indexPath.row {
-                    //Accumulate the time until here
+                    
+                    timeUntil += Double(peakMusicController.groupPlayQueue[index].trackTimeMillis)
                 }
             }
             
