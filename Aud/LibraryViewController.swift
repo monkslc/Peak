@@ -394,11 +394,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func playerTypeDidChange(){
-        /********NEED: To update this*************/
         
-        //Rid everything from the currently playing system
-        peakMusicController.systemMusicPlayer.stop()
-        peakMusicController.currPlayQueue = []
+        
+        //Rid everything from the currently playing system, only if the user has switched to contributed
+        if peakMusicController.playerType == .Contributor {
+            
+            peakMusicController.systemMusicPlayer.stop()
+            peakMusicController.currPlayQueue = []
+        }
+        
         
         
         //Update the currently playing view
@@ -493,7 +497,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
                 //add the entity to the queue
-                song = ent[0] as! MPMediaItem  // Error with this line
+                song = ent[0] as! MPMediaItem  // Error with this line //Might be because the search didn't return a song //Maybe we should try checking if there was an error first? //Not going to mess with it now because I'm not sure how the error was produced
                 
                 DispatchQueue.main.async {
                     peakMusicController.playAtEndOfQueue([song])

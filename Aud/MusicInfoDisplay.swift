@@ -134,7 +134,48 @@ class MusicInfoDisplay: UIView {
     }
     
     private func updateWithLyrics(){
-        //show the lyrics to the song
+        
+        //Create the text view
+        let lyricOffset: CGFloat = 0.10
+        let lyricsView = UITextView(frame: CGRect(x: bounds.width * lyricOffset, y: 0, width: bounds.width * (1-(2*lyricOffset)), height: infoDisplay.frame.height))
+        lyricsView.isEditable = false
+        lyricsView.backgroundColor = UIColor.clear
+        infoDisplay.addSubview(lyricsView)
+        
+        //get the currently playing song
+        
+        if peakMusicController.playerType != .Contributor {
+            //The player is not a contributor so the currently playing song will be in the system music player
+            
+            //First check if there is an item playing
+            if let currentlyPlayingSong = peakMusicController.systemMusicPlayer.nowPlayingItem {
+                
+                /*******NEED: Fetch song lyrics based on... title?, artist? **********/
+                //use the attributes of currentlyPlayingSong
+                
+                /********NEED: Plug song lyrics into the UITextView *********/
+                //lyricsView.text = ?
+            }
+            
+            
+        } else {
+            //The player is a contributor so the currently playing song will be in the groupPlayQueue
+            
+            //First check if there is an item playing
+            if peakMusicController.groupPlayQueue.count > 0 {
+                
+                let currentlyPlayingSong = peakMusicController.groupPlayQueue[0]
+                
+                /*******NEED: Fetch song lyrics based on... title?, artist? **********/
+                //use the attributes of currentlyPlayingSong
+                
+                
+                /********NEED: Plug song lyrics into the UITextView *********/
+                //lyricsView.text = ?
+                
+            }
+            
+        }
         
     }
     
