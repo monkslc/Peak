@@ -23,30 +23,66 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return peakMusicController.currPlayQueue.count - 1 - peakMusicController.systemMusicPlayer.indexOfNowPlayingItem
+        //change the return based on the type of player
+        if peakMusicController.playerType != .Contributor {
+            
+            return peakMusicController.currPlayQueue.count - 1 - peakMusicController.systemMusicPlayer.indexOfNowPlayingItem
+        } else {
+            
+            return peakMusicController.groupPlayQueue.count - 1 //subtract 1 to take into account the song currently playing
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let mediaItemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.indexOfNowPlayingItem + 1 + indexPath.row]
+        
         
         let cell = library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
         
-        cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize())
-        cell.songTitle.text =  mediaItemToAdd.title
-        cell.songArtist.text = mediaItemToAdd.artist
-        
-        //get the time until the song plays
-        var timeUntil: Double = (peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration)!
-        for index in 0..<peakMusicController.currPlayQueue.count {
+        //update the cell dependign on the type of player
+        if peakMusicController.playerType != .Contributor{
             
-            //check if we should add the duration, by checking the current index
-            if index < indexPath.row {
-                timeUntil += Double(peakMusicController.currPlayQueue[index].playbackDuration)
+            let mediaItemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.indexOfNowPlayingItem + 1 + indexPath.row]
+            cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize())
+            cell.songTitle.text =  mediaItemToAdd.title
+            cell.songArtist.text = mediaItemToAdd.artist
+            
+            //get the time until the song plays
+            var timeUntil: Double = (peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration)!
+            for index in 0..<peakMusicController.currPlayQueue.count {
+                
+                //check if we should add the duration, by checking the current index
+                if index < indexPath.row {
+                    timeUntil += Double(peakMusicController.currPlayQueue[index].playbackDuration)
+                } else {
+                    //NEED: Add a break here
+                }
             }
+            
+            cell.songDurationLabel.text = formatTimeInterval(timeUntil)
+        } else {
+            //we are a contributor so get the information from the group play queue
+            let songToAdd = peakMusicController.groupPlayQueue[0]
+            
+            cell.albumArt.image = songToAdd.image
+            cell.songTitle.text = songToAdd.trackName
+            cell.songArtist.text = songToAdd.artistName
+            
+            //get the time until the song plays
+            var timeUntil: Double = Double(songToAdd.trackTimeMillis)
+            for index in 0..<peakMusicController.groupPlayQueue.count {
+                
+                if index < indexPath.row {
+                    
+                    timeUntil += Double(peakMusicController.groupPlayQueue[index].trackTimeMillis)
+                }
+            }
+            
+            cell.songDurationLabel.text = formatTimeInterval(timeUntil)
+            
         }
         
-        cell.songDurationLabel.text = formatTimeInterval(timeUntil)
         cell.backgroundColor = UIColor.clear
         
         return cell

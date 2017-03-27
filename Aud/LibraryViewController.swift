@@ -445,6 +445,21 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /************************TEST METHODS FOR BLUETOOTH******************************/
     
+    func receivedGroupPlayQueue(_ songIds: [String]){
+        
+        var tempSongHolder = [Song]()
+        for songId in songIds {
+            
+            ConnectingToInternet.getSong(id: songId, completion: {(song) in
+            
+                tempSongHolder.append(song)
+            })
+        }
+        
+        peakMusicController.groupPlayQueue = tempSongHolder
+       
+    }
+    
     //120954025
     /*TEST OF RECEVING A SONG FROM A USER*/
     func receivedSong(_ songID: String){

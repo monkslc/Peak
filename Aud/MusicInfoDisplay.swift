@@ -79,38 +79,56 @@ class MusicInfoDisplay: UIView {
     private func updateWithSongInfo(){
         //Show the title, album and artist of the song
       
-        if let song = peakMusicController.systemMusicPlayer.nowPlayingItem {
+        
+        //if let song = peakMusicController.systemMusicPlayer.nowPlayingItem {
             
-            let heightLarge = max(infoDisplay.frame.height * 0.05, 30)
-            let heightSmall = max(infoDisplay.frame.height * 0.03, 25)
+        let heightLarge = max(infoDisplay.frame.height * 0.05, 30)
+        let heightSmall = max(infoDisplay.frame.height * 0.03, 25)
             
-            //Show the title of the song
-            let titleLabel = UILabel(frame: CGRect(x: bounds.minX, y: bounds.minY + 10, width: bounds.width, height: heightLarge))
-            titleLabel.text = song.title
-            titleLabel.textAlignment = .center
-            titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-            titleLabel.adjustsFontForContentSizeCategory = true
-            infoDisplay.addSubview(titleLabel)
+        //Show the title of the song
+        let titleLabel = UILabel(frame: CGRect(x: bounds.minX, y: bounds.minY + 10, width: bounds.width, height: heightLarge))
+        //titleLabel.text = song.title
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.adjustsFontForContentSizeCategory = true
+        infoDisplay.addSubview(titleLabel)
             
-            //Show the Album
-            let albumLabel = UILabel(frame: CGRect(x: bounds.minX, y: titleLabel.frame.maxY + 10, width: bounds.width, height: heightSmall))
-            albumLabel.text = song.albumTitle
-            albumLabel.textAlignment = .center
-            albumLabel.font = UIFont.systemFont(ofSize: 16)
-            albumLabel.adjustsFontForContentSizeCategory = true
-            infoDisplay.addSubview(albumLabel)
+        //Show the Album
+        let albumLabel = UILabel(frame: CGRect(x: bounds.minX, y: titleLabel.frame.maxY + 10, width: bounds.width, height: heightSmall))
+        //albumLabel.text = song.albumTitle
+        albumLabel.textAlignment = .center
+        albumLabel.font = UIFont.systemFont(ofSize: 16)
+        albumLabel.adjustsFontForContentSizeCategory = true
+        infoDisplay.addSubview(albumLabel)
             
-            //Show the Artist
-            let artistLabel = UILabel(frame: CGRect(x: bounds.minX, y: albumLabel.frame.maxY + 10, width: bounds.width, height: heightLarge))
-            artistLabel.text = song.artist
-            artistLabel.textColor = UIColor.artistColor
-            artistLabel.textAlignment = .center
-            artistLabel.font = UIFont.systemFont(ofSize: 20, weight: 0.1)
-            artistLabel.adjustsFontForContentSizeCategory = true
-            artistLabel.backgroundColor = UIColor.clear
-            infoDisplay.addSubview(artistLabel)
+        //Show the Artist
+        let artistLabel = UILabel(frame: CGRect(x: bounds.minX, y: albumLabel.frame.maxY + 10, width: bounds.width, height: heightLarge))
+        //artistLabel.text = song.artist
+        artistLabel.textColor = UIColor.artistColor
+        artistLabel.textAlignment = .center
+        artistLabel.font = UIFont.systemFont(ofSize: 20, weight: 0.1)
+        artistLabel.adjustsFontForContentSizeCategory = true
+        artistLabel.backgroundColor = UIColor.clear
+        infoDisplay.addSubview(artistLabel)
             
-            /*Maybe add a show on Apple Music Here*/
+        //Update the text depending on the player type
+        if peakMusicController.playerType == .Contributor{
+            
+            if peakMusicController.groupPlayQueue.count > 0 {
+                
+                artistLabel.text = peakMusicController.groupPlayQueue[0].artistName
+                albumLabel.text = peakMusicController.groupPlayQueue[0].collectionName
+                titleLabel.text = peakMusicController.groupPlayQueue[0].trackName
+            }
+            
+        }else {
+            
+            if let song = peakMusicController.systemMusicPlayer.nowPlayingItem {
+                artistLabel.text = song.artist
+                albumLabel.text = song.albumTitle
+                titleLabel.text = song.title
+            }
+            
         }
         
     }
@@ -123,7 +141,6 @@ class MusicInfoDisplay: UIView {
     private func updateWithQueue(){
         //show the queue of the current play queue
         
-        //Delegate and Data Source
         
         let queue = UITableView(frame: infoDisplay.bounds)
         queue.rowHeight = 75

@@ -29,7 +29,7 @@ class ConnectingToInternet {
                         ConnectingToInternet.getImage(url: imageURL, completion: {
                             (image) -> Void in
                             
-                            songs.append(Song(id: songJSON["trackId"] as! Int, trackName: songJSON["trackName"]! as! String, collectionName: songJSON["collectionName"]! as! String, artistName: songJSON["artistName"]! as! String, trackTimeMillis: Int(songJSON["trackTimeMillis"]! as! String)!, image: image))
+                            songs.append(Song(id: songJSON["trackId"] as! String, trackName: songJSON["trackName"]! as! String, collectionName: songJSON["collectionName"]! as! String, artistName: songJSON["artistName"] as! String, trackTimeMillis: Int(songJSON["trackTimeMillis"]! as! String)!, image: image))
                             
                             if songs.count == limit || !sendSongsAlltogether {
                                 completion(songs)
@@ -42,7 +42,7 @@ class ConnectingToInternet {
         })
     }
     
-    static func getSong(id: Int, completion: @escaping (Song) -> Void) {
+    static func getSong(id: String, completion: @escaping (Song) -> Void) {
         
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/lookup?id=\(id)", completion: {
             (json) -> Void in
