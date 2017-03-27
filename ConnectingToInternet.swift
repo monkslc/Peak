@@ -11,6 +11,24 @@ import UIKit
 
 class ConnectingToInternet {
     
+    static func getLyrics(songID: String, completion: @escaping (String) -> Void) {
+        
+        ConnectingToInternet.getJSON(url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=\(songID)&apikey=cfd3476032d5a320c990029163e1d621", completion: {
+            (json) -> Void in
+            
+            if let json = json as? [String:Any] {
+                if let songsJSON = json["body"] as? [String: Any] {
+                    if let lyricsBody = songsJSON["lyrics"] as? [String: Any] {
+                        if let lyrics = lyricsBody["lyrics_body"] as? String {
+                            completion(lyrics)
+                        }
+                    }
+                }
+            }
+        })
+
+    }
+    
     static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void) {
         
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(searchTerm)&country=US&media=music&limit=\(limit)", completion: {
