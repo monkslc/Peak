@@ -453,6 +453,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
         
             peakMusicController.playAtEndOfQueue([song])
+            //self.sendSongIdToHost(id: "\(song.persistentID)") // @cam added this. may want to change
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
@@ -482,7 +483,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //120954025
     /*TEST OF RECEVING A SONG FROM A USER*/
-    func receivedSong(_ songID: String){
+    func receivedSong(_ songID: String) {
         
         //add the song to the user's library, async
         DispatchQueue.global().async {
@@ -492,7 +493,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
                 //add the entity to the queue
-                song = ent[0] as! MPMediaItem
+                song = ent[0] as! MPMediaItem  // Error with this line
                 
                 DispatchQueue.main.async {
                     peakMusicController.playAtEndOfQueue([song])
@@ -512,7 +513,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
             if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.session.connectedPeers[0] as MCPeerID) {
                 
-                
+                print("Successfully send song id \(id)")
             }
             else {
                 let alert = UIAlertController(title: "Could Not Send", message: "Try Again", preferredStyle: .alert)
@@ -553,9 +554,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func handleMPCNotification(notification: NSNotification) {
         switch peakMusicController.playerType {
         case .Host:
-            handleMPCClientReceivedSongIdsWithNotification(notification: notification)
-        case .Contributor:
             handleMPCDJRecievedSongIDWithNotification(notification: notification)
+        case .Contributor:
+            handleMPCClientReceivedSongIdsWithNotification(notification: notification)
         default:
             print("ERROR: THIS SHOULD NEVER HAPPEN LibraryViewController -> handleMPCNotification")
         }
@@ -570,6 +571,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         if let id = dataDictionary["id"] {
+            print("DJ Recieved ID \(id)")
             receivedSong(id)
         }
         else {
@@ -600,6 +602,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             index += 1
         }
+        
+        print("Recieved")
+        print(dataDictionary)
+        print(songIDs)
         
         // Con add yourFunction(songIDs)
     }

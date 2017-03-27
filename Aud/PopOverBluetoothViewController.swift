@@ -27,6 +27,15 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         //appDelegate.mpcManager.browser.startBrowsingForPeers()
         //MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
         
+        switch peakMusicController.playerType {
+        case .Host:
+            typeOfUserSegmentedControl.selectedSegmentIndex = 2
+        case .Contributor:
+            typeOfUserSegmentedControl.selectedSegmentIndex = 1
+        case .Individual:
+            typeOfUserSegmentedControl.selectedSegmentIndex = 0
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +86,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         }
         
         updateMPCManager()
+        tableView.reloadData()
     }
     
     
@@ -84,22 +94,44 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedPeer = MPCManager.defaultMPCManager.foundPeers[indexPath.row] as MCPeerID
-        
-        MPCManager.defaultMPCManager.browser.invitePeer(selectedPeer, to: MPCManager.defaultMPCManager.session, withContext: nil, timeout: 20)
+        switch peakMusicController.playerType {
+        case .Host:
+            print("Clicked On \(MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName)")
+        case .Contributor:
+            let selectedPeer = MPCManager.defaultMPCManager.foundPeers[indexPath.row] as MCPeerID
+            
+            MPCManager.defaultMPCManager.browser.invitePeer(selectedPeer, to: MPCManager.defaultMPCManager.session, withContext: nil, timeout: 20)
+        case .Individual:
+            print("ERROR PopOverBluetoothViewController->tableView->UITableViewCell INDEXPATH: \(indexPath.row)")
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "popOverBasicCellID")!
         
-        cell.textLabel?.text = MPCManager.defaultMPCManager.foundPeers[indexPath.row].displayName
+        switch peakMusicController.playerType {
+        case .Host:
+            cell.textLabel?.text = MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName
+        case .Contributor:
+            cell.textLabel?.text = MPCManager.defaultMPCManager.foundPeers[indexPath.row].displayName
+        case .Individual:
+            print("ERROR PopOverBluetoothViewController->tableView->UITableViewCell INDEXPATH: \(indexPath.row)")
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MPCManager.defaultMPCManager.foundPeers.count
+        
+        switch peakMusicController.playerType {
+        case .Host:
+            return MPCManager.defaultMPCManager.session.connectedPeers.count
+        case .Contributor:
+            return MPCManager.defaultMPCManager.foundPeers.count
+        case .Individual:
+            return 0
+        }
     }
 
     
@@ -109,21 +141,54 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         tableView.reloadData()
     }
     
-    
     func lostPeer() {
         tableView.reloadData()
     }
     
     func connectedWithPeer(peerID: MCPeerID) {
-        //OperationQueue.main.addOperation { () -> Void in
-        //    self.performSegue(withIdentifier: "idSegueClient", sender: self)
-        //}
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+            
+        print("Connected")
+        
+        if peakMusicController.playerType == .Host {
+            
+            var ids: [String] = []
+            
+            for song in peakMusicController.currPlayQueue {
+                ids.append("\(song.persistentID)")
+            }
+            
+            sendSongIdsToClient(ids: ids)
+        }
     }
     
     func invitationWasReceived(fromPeer: String) {
         
         if peakMusicController.playerType == .Host {
             MPCManager.defaultMPCManager.invitationHandler(true, MPCManager.defaultMPCManager.session)
+        }
+    }
+    
+    // Not Delegate
+    func sendSongIdsToClient(ids: [String]) {
+        
+        var messageDictionary: [String: String] = [:]
+        
+        for (index, id) in ids.enumerated() {
+            messageDictionary["\(index)"] = id
+        }
+        
+        for peers in MPCManager.defaultMPCManager.session.connectedPeers {
+            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: peers as MCPeerID) {
+                
+                print("Sent")
+            }
+            else {
+                print("ERROR SENDING DATA COULD HAPPEN LibraryViewController -> sendSongIdsToClient")
+            }
         }
     }
 
