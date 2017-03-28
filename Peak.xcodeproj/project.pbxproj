@@ -12,6 +12,7 @@
 		90E2DFE61E87FF0900762B9D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE51E87FF0900762B9D /* Song.swift */; };
 		90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */; };
 		90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */; };
+		90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */; };
 		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
@@ -45,6 +46,7 @@
 		90E2DFE51E87FF0900762B9D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingToInternet.swift; sourceTree = "<group>"; };
 		90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverBluetoothViewController.swift; sourceTree = "<group>"; };
+		90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingBluetooth.swift; sourceTree = "<group>"; };
 		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */,
+				90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */,
 				90E2DFE51E87FF0900762B9D /* Song.swift */,
 				90E2DFDF1E87509C00762B9D /* MPCManager.swift */,
 				90E2DFE11E87560700762B9D /* StringExtension.swift */,
@@ -299,6 +302,7 @@
 				C4D117691E806E75000A854A /* CurrentlyPlayingAlbumView.swift in Sources */,
 				C4E896631E7458620096EC72 /* LibraryViewController.swift in Sources */,
 				C4D117671E805DF8000A854A /* Signifier.swift in Sources */,
+				90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */,
 				C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */,
 				C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */,
 				C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */,

@@ -154,14 +154,17 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         print("Connected")
         
         if peakMusicController.playerType == .Host {
-            
+            SendingBluetooth.sendSongIdsFromHost(songs: peakMusicController.currPlayQueue)
+            /*
             var ids: [String] = []
             
             for song in peakMusicController.currPlayQueue {
-                ids.append("\(song.persistentID)")
+                
+                ids.append("\(song.artistPersistentID)")
             }
             
             sendSongIdsToClient(ids: ids)
+ */
         }
     }
     
@@ -174,6 +177,8 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     // Not Delegate
     func sendSongIdsToClient(ids: [String]) {
+        
+        print("\n\nPopOverBluetoothViewController->sendSongIdsToClient:\nSENDING SONG ID TO CLIENT \(ids)\n")
         
         var messageDictionary: [String: String] = [:]
         

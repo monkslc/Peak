@@ -130,7 +130,7 @@ class ConnectingToInternet {
                         ConnectingToInternet.getImage(url: imageURL, completion: {
                             (image) -> Void in
                             
-                            songs.append(Song(id: songJSON["trackId"] as! String, trackName: songJSON["trackName"]! as! String, collectionName: songJSON["collectionName"]! as! String, artistName: songJSON["artistName"] as! String, trackTimeMillis: Int(songJSON["trackTimeMillis"]! as! String)!, image: image))
+                            songs.append(Song(id: "\(songJSON["trackId"]!)", trackName: "\(songJSON["trackName"]!)", collectionName: "\(songJSON["collectionName"]!)", artistName: "\(songJSON["artistName"])", trackTimeMillis: Int("\(songJSON["trackTimeMillis"]!)")!, image: image))
                             
                             if songs.count == limit || !sendSongsAlltogether {
                                 completion(songs)

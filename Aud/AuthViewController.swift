@@ -19,8 +19,17 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        ConnectingToInternet.getSongs(searchTerm: "Bastille", completion: {
+            (songs) -> Void in
+            
+            print(songs)
+            
+            for song in songs {
+                print("\(song.trackName)")
+            }
+        })
         
-        welcomeToLabel.text = "Hello \(getUserName())\nWelcome  To Peak"
+        welcomeToLabel.text = "Hello \(getUserName())\nWelcome To Peak"
     }
     
     override func viewDidAppear(_ animated: Bool) {

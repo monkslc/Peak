@@ -542,6 +542,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: Bluetooth Stuff
     
     func sendSongIdToHost(id: String) {
+        print("SONG ID: \(id)")
+        
         let messageDictionary: [String: String] = ["id": id]
         
         if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
@@ -565,25 +567,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     }
     
-    func sendSongIdsToClient(ids: [String]) {
-        
-        var messageDictionary: [String: String] = [:]
-        
-        for (index, id) in ids.enumerated() {
-            messageDictionary["\(index)"] = id
-        }
-        
-        for peers in MPCManager.defaultMPCManager.session.connectedPeers {
-            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: peers as MCPeerID) {
-                
-                print("Sent")
-            }
-            else {
-                print("ERROR SENDING DATA COULD HAPPEN LibraryViewController -> sendSongIdsToClient")
-            }
-        }
-    }
-    
     // MARK: Notification
     func handleMPCNotification(notification: NSNotification) {
         switch peakMusicController.playerType {
@@ -602,7 +585,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let data = receivedDataDictionary["data"] as? NSData
         
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
-        
         
         if let id = dataDictionary["id"] {
             print("DJ Recieved ID \(id)")
@@ -641,7 +623,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         print(dataDictionary)
         print(songIDs)
         
-        // Con add yourFunction(songIDs)
+        receivedGroupPlayQueue(songIDs)
     }
     
     
