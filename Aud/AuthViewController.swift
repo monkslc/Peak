@@ -19,17 +19,13 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        ConnectingToInternet.getFullLyrics(song: Song(id: "", trackName: "favorite song", collectionName: "", artistName: "Chance The Rapper", trackTimeMillis: 0, image: nil), completion: {
-            (lyrics) -> Void in
-            
-            print(lyrics)
-        })
         
         welcomeToLabel.text = "Hello \(getUserName())\nWelcome  To Peak"
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
+        //This methods makes it so it automatically segues to apple music without user interaction on welcome screen
         if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
             
             print("authorized, maybe not performing segue because it hasn't been identified yet")
@@ -86,6 +82,7 @@ class AuthViewController: UIViewController {
         self.loadingIndicator.stopAnimating()
     }
     
+    //let the user know their access to apple music is restricted
     func alertRestrictedAccess(){
         
         let alert = UIAlertController(title: "Access to Apple Music is restricted.", message: nil, preferredStyle: .alert)

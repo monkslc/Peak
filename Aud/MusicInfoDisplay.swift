@@ -136,10 +136,11 @@ class MusicInfoDisplay: UIView {
     private func updateWithLyrics(){
         
         //Create the text view
-        let lyricOffset: CGFloat = 0.10
+        let lyricOffset: CGFloat = 0.05
         let lyricsView = UITextView(frame: CGRect(x: bounds.width * lyricOffset, y: 0, width: bounds.width * (1-(2*lyricOffset)), height: infoDisplay.frame.height))
         lyricsView.isEditable = false
         lyricsView.backgroundColor = UIColor.clear
+        lyricsView.font = UIFont.systemFont(ofSize: 15)
         infoDisplay.addSubview(lyricsView)
         
         //get the currently playing song
@@ -150,14 +151,24 @@ class MusicInfoDisplay: UIView {
             //First check if there is an item playing
             if let currentlyPlayingSong = peakMusicController.systemMusicPlayer.nowPlayingItem {
                 
-                /*******NEED: Fetch song lyrics based on... title?, artist? **********/
-                //use the attributes of currentlyPlayingSong
+                //Use song struct to fetch the lyrics
+                let song = Song(id: "", trackName: currentlyPlayingSong.title!, collectionName: "", artistName: currentlyPlayingSong.artist!, trackTimeMillis: 0, image: nil)
+               
+
                 
-                /********NEED: Plug song lyrics into the UITextView *********/
-                //lyricsView.text = ?
+                //get and pug lyrics into lyrics view
+                ConnectingToInternet.getFullLyrics(song: song, completion: {(lyrics) in
+                
+                    
+                    DispatchQueue.main.async {
+                
+                        lyricsView.text = lyrics
+                    }
+                })
+                
             }
             
-            
+    
         } else {
             //The player is a contributor so the currently playing song will be in the groupPlayQueue
             
@@ -166,12 +177,14 @@ class MusicInfoDisplay: UIView {
                 
                 let currentlyPlayingSong = peakMusicController.groupPlayQueue[0]
                 
-                /*******NEED: Fetch song lyrics based on... title?, artist? **********/
-                //use the attributes of currentlyPlayingSong
+                //Fetch the lyrics and plug them into the lyrics view
+                ConnectingToInternet.getFullLyrics(song: currentlyPlayingSong, completion: {(lyrics) in
                 
-                
-                /********NEED: Plug song lyrics into the UITextView *********/
-                //lyricsView.text = ?
+                    DispatchQueue.main.async {
+                        
+                        lyricsView.text = lyrics
+                    }
+                })
                 
             }
             

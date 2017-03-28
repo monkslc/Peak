@@ -86,7 +86,6 @@ class ConnectingToInternet {
         
         let url = URL(string: urlNew)
         
-        print(url)
         
         URLSession.shared.dataTask(with: url!) { data, response, error in
             
