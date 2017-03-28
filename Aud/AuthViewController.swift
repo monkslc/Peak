@@ -18,7 +18,7 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+    
         
         welcomeToLabel.text = "Hello \(getUserName())\nWelcome  To Peak"
     }

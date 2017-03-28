@@ -92,5 +92,5 @@ extension String
     func lastCharacter() -> Character {
         return self[length - 1]
     }
-    
+
 }

@@ -51,6 +51,7 @@ class ConnectingToInternet {
                         
                         let lyricsSection = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
                         
+                        
                         var lastIndex = 0
                         
                         while (lastIndex != -1) {
@@ -66,17 +67,16 @@ class ConnectingToInternet {
                                 lastIndex = -1
                             }
                         }
-                        
+ 
+                        let replacingCharacters: [String: String] = ["&quot;": "\""]
+                        for (key, value) in replacingCharacters {
+                            lyrics = (lyrics as NSString).replacingOccurrences(of: key, with: value)
+                        }
+                            
                         completion(lyrics)
                     }
-                    
-                    
-                    
-                    
                 }
-                
             }
-            
         }.resume()
     }
     
