@@ -14,10 +14,13 @@ class AuthViewController: UIViewController {
     
     @IBOutlet var welcomeToLabel: UILabel!
     
+    @IBOutlet weak var appleMusicButton: RoundedButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        welcomeToLabel.text = "Welcome \(getUserName()) To Peak"
+        
+        welcomeToLabel.text = "Hello \(getUserName())\nWelcome  To Peak"
         let bobDylan : [String] = ["17532817", "115119393"]
         
         for id in bobDylan {
@@ -27,6 +30,8 @@ class AuthViewController: UIViewController {
                 print(lyrics)
             })
         }
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -36,6 +41,7 @@ class AuthViewController: UIViewController {
             print("authorized, maybe not performing segue because it hasn't been identified yet")
             //performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
         }
+        
     }
     
     @IBAction func checkAppleAuthentication() {

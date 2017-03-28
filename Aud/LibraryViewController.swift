@@ -32,6 +32,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    //holds the recents in case we decide to shuffle them
+    var recentSongsDownloaded = [MPMediaItem]()
+    
+    
     
     @IBOutlet weak var recentsView: RecentlyAddedView!
     
@@ -50,9 +54,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Now set up the music controller
         peakMusicController.delegate = self
         peakMusicController.setUp()
-        
-        //Now we want to enable the settings for the recents view at the top of the table
-        //recentsView.setUp()
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
@@ -102,7 +103,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             if peakMusicController.playerType != .Contributor {
                 
             //Add Play Song Option
-                alert.addAction(UIAlertAction(title: "Play Song", style: .default, handler: {(alert) in
+                alert.addAction(UIAlertAction(title: "Play Now", style: .default, handler: {(alert) in
                     
                     if let cell: SongCell = sender.view as? SongCell {
                         
@@ -172,6 +173,33 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                     
                 }))
+                
+                
+                //Add Shuffle All Option
+                
+                //First check if the gesture is in recents or library so we know whether to shuffle reents or whole library
+                if let _: SongCell = sender.view as? SongCell {
+                    
+                    //peakMusicController.play(artist: cell.mediaItemInCell)
+                    //now create the action
+                    alert.addAction(UIAlertAction(title: "Shuffle All", style: .default, handler: {(alert) in
+                    
+                        //shuffle and play
+                        peakMusicController.play(peakMusicController.shuffleQueue(shuffle: self.mediaItemsInLibrary))
+                    }))
+                    
+                } else if let _: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                    
+                    //peakMusicController.play(artist: albumView.mediaItemAssocWithImage)
+                    //now create the action
+                    alert.addAction(UIAlertAction(title: "Shuffle Recents", style: .default, handler: {(alert) in
+                    
+                        //shuffle and play
+                        peakMusicController.play(peakMusicController.shuffleQueue(shuffle: self.recentSongsDownloaded))
+                    }))
+                }
+                
+                
             
             } else { //User is a contributor so display those methods
                 
@@ -303,6 +331,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         var counter = 0
         for song in recents {
             
+            //add the song to the recents
+            recentSongsDownloaded.append(song)
             
             //Create the AlbumView
             let albumImage = RecentsAlbumView(frame: CGRect(x: CGFloat(Double(counter * 100) + 12.5), y: 0, width: 75, height: 75))

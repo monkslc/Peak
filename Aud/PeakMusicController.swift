@@ -114,6 +114,9 @@ class PeakMusicController {
                 }
             }
             
+            //shuffle the media items to play
+            mediaItemsToPlay = self.shuffleQueue(shuffle: mediaItemsToPlay)
+            
             DispatchQueue.main.async {
                 
                 self.play(mediaItemsToPlay)
@@ -139,6 +142,9 @@ class PeakMusicController {
                     break
                 }
             }
+            
+            //shuffle the mediaItems to player
+            mediaItemsToPlay = self.shuffleQueue(shuffle: mediaItemsToPlay)
             
             DispatchQueue.main.async {
                 
@@ -185,6 +191,28 @@ class PeakMusicController {
             /*******NEED: Implmepent sending the songId to another device**********/
         }
         
+    }
+    
+    func shuffleQueue(shuffle songs: [MPMediaItem]) -> [MPMediaItem]{
+        
+        var songsToShuffle = songs
+        
+        var placeHolderQueue = [MPMediaItem]()
+        for _ in 0..<songs.count {
+            
+            //Get a random song from songs
+            let randomSongIndex = Int(arc4random_uniform(UInt32(songsToShuffle.count)))
+            
+            //add it to the placeholderqueue
+            placeHolderQueue.append(songsToShuffle[randomSongIndex])
+            
+            //remove it from songs so we don't add it again
+            songsToShuffle.remove(at: randomSongIndex)
+            
+            
+        }
+        
+        return placeHolderQueue
     }
     
     /*END OF QUEUE METHODS*/
