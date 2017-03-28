@@ -22,6 +22,8 @@ class AuthViewController: UIViewController {
             
             print(lyrics)
         })
+        
+        welcomeToLabel.text = "Hello \(getUserName())\nWelcome  To Peak"
     }
     
     override func viewDidAppear(_ animated: Bool) {
