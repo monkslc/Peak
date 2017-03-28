@@ -32,6 +32,87 @@ class ConnectingToInternet {
 
     }
     
+    static func getFullLyrics(endingURL: String, completion : @escaping (String) -> Void) {
+        
+        let url = URL(string: "http://www.azlyrics.com/lyrics/\(endingURL)") // chancetherapper/acidrain
+        
+        URLSession.shared.dataTask(with: url!) { data, response, error in
+            
+            if error == nil, let data = data {
+                
+                if let urlContent = NSString(data: data, encoding: String.Encoding.ascii.rawValue) as NSString! {
+                    
+                    if let urlContent = urlContent as? String {
+                        
+                        var lyrics = ""
+                        let beginingLine = "!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->"
+                        let beginingIndex = urlContent.indexOf(target: beginingLine) + beginingLine.length
+                        let endingIndex = urlContent.indexOf(target: "</div>", startIndex: beginingIndex)
+                        
+                        let lyricsSection = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
+                        
+                        var lastIndex = 0
+                        
+                        while (lastIndex != -1) {
+                            let indexOfNextTag = lyricsSection.indexOf(target: "<", startIndex: lastIndex)
+                            if indexOfNextTag != -1 {
+                                let newLine = lyricsSection.subString(startIndex: lastIndex, endIndex: indexOfNextTag)
+                                lyrics = "\(lyrics)\(newLine)"
+                                
+                                lastIndex = lyricsSection.indexOf(target: ">", startIndex: indexOfNextTag) + 1
+                                
+                            }
+                            else {
+                                lastIndex = -1
+                            }
+                        }
+                        
+                        completion(lyrics)
+                    }
+                    
+                    
+                    
+                    
+                }
+                
+            }
+            
+        }.resume()
+    }
+    
+    static func getFullLyrics(song: Song, completion : @escaping (String) -> Void) {
+        let creatingURL = "http://search.azlyrics.com/search.php?q=\(song.trackName) \(song.artistName)"
+        let urlNew:String = creatingURL.replacingOccurrences(of: " ", with: "%20")
+        
+        let url = URL(string: urlNew)
+        
+        print(url)
+        
+        URLSession.shared.dataTask(with: url!) { data, response, error in
+            
+            if error == nil, let data = data {
+                
+                if let urlContent = NSString(data: data, encoding: String.Encoding.ascii.rawValue) as NSString! {
+                    
+                    if let urlContent = urlContent as? String {
+                     
+                        let beginingOfUrl = "http://www.azlyrics.com/lyrics/"
+                        let beginingIndex = urlContent.indexOf(target: beginingOfUrl) + beginingOfUrl.length
+                        let endingIndex = urlContent.indexOf(target: "\"", startIndex: beginingIndex)
+                        
+                        let lyricsUrl = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
+                        
+                        ConnectingToInternet.getFullLyrics(endingURL: lyricsUrl, completion: completion)
+                    }
+                    
+                }
+                
+            }
+            
+        }.resume()
+        
+    }
+    
     static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void) {
         
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(searchTerm)&country=US&media=music&limit=\(limit)", completion: {
@@ -131,5 +212,4 @@ class ConnectingToInternet {
         
     }
     
-
 }
