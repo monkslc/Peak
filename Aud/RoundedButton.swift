@@ -11,6 +11,7 @@ import UIKit
 @IBDesignable
 class RoundedButton: UIButton {
 
+    
     override func draw(_ rect: CGRect) {
         
         backgroundColor = UIColor.clear
@@ -22,5 +23,6 @@ class RoundedButton: UIButton {
         layer.shadowOpacity = 1.0
     }
 
-
+    
+  
 }

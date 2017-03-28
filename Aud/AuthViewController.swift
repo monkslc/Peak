@@ -14,6 +14,8 @@ class AuthViewController: UIViewController {
     
     @IBOutlet var welcomeToLabel: UILabel!
     
+    @IBOutlet weak var appleMusicButton: RoundedButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -33,6 +35,7 @@ class AuthViewController: UIViewController {
             print("authorized, maybe not performing segue because it hasn't been identified yet")
             //performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
         }
+        
     }
     
     @IBAction func checkAppleAuthentication() {
