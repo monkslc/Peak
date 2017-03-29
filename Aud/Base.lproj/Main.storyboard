@@ -248,7 +248,7 @@
                                             <constraint firstAttribute="width" constant="30" id="elC-r8-npF"/>
                                             <constraint firstAttribute="height" constant="30" id="vSE-06-DJl"/>
                                         </constraints>
-                                        <state key="normal" image="Conference-64"/>
+                                        <state key="normal" image="Individual Play Icon"/>
                                         <connections>
                                             <action selector="presentBluetoothPopover" destination="BYZ-38-t0r" eventType="touchUpInside" id="gox-bK-dCo"/>
                                         </connections>
@@ -426,7 +426,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Conference-64" width="64" height="64"/>
+        <image name="Individual Play Icon" width="155" height="155"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
         <image name="landscape-with-mountains-3" width="512" height="512"/>
     </resources>
