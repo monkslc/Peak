@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -115,10 +115,10 @@
             </objects>
             <point key="canvasLocation" x="-786.39999999999998" y="95.802098950524751"/>
         </scene>
-        <!--View Controller-->
+        <!--Search Bar Pop Over View View Controller-->
         <scene sceneID="8rc-4x-PGA">
             <objects>
-                <viewController id="C9k-4V-WA7" sceneMemberID="viewController">
+                <viewController id="C9k-4V-WA7" customClass="SearchBarPopOverViewViewController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K2v-46-Qbk"/>
                         <viewControllerLayoutGuide type="bottom" id="jds-1z-GEK"/>
@@ -138,13 +138,27 @@
                                     <segment title="Apple Music"/>
                                 </segments>
                             </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
+                                <rect key="frame" x="0.0" y="61" width="375" height="225"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="225" id="b0U-09-WXR"/>
+                                </constraints>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="top" secondItem="K2v-46-Qbk" secondAttribute="bottom" constant="8" id="2ps-GR-dmX"/>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="centerX" secondItem="ER5-Le-L27" secondAttribute="centerX" id="DLX-Cm-qYF"/>
+                            <constraint firstItem="Ic7-NQ-VMo" firstAttribute="leading" secondItem="ER5-Le-L27" secondAttribute="leading" id="gWO-pK-oy9"/>
+                            <constraint firstItem="Ic7-NQ-VMo" firstAttribute="top" secondItem="qyV-Wc-mB8" secondAttribute="bottom" constant="8" id="gp2-9Z-7Qc"/>
+                            <constraint firstAttribute="trailing" secondItem="Ic7-NQ-VMo" secondAttribute="trailing" id="xyu-M9-gP8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchedSongsTableView" destination="Ic7-NQ-VMo" id="SPQ-Gj-2dl"/>
+                        <outlet property="selectMusicFromSegment" destination="qyV-Wc-mB8" id="UPL-r8-Sn8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adK-uv-mVE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
