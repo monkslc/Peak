@@ -73,8 +73,12 @@ class PeakMusicController {
     var groupPlayQueue = [Song](){
         
         didSet{
+            
+            print("Got Group Play")
+            
             //Here we want to update the visuals
-            DispatchQueue.main.async {  // HHHHHHCMAMSJFION DUJSJSJdgoslvsedbvsdkvbs,v
+            DispatchQueue.main.async {
+                print("Ok running async")
                 self.delegate?.updateDisplay()
             }
         }

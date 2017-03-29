@@ -12,6 +12,8 @@ import MultipeerConnectivity
 class SendingBluetooth {
     
     static func sendSongIdsWithPeerId(ids: [String], peerID: MCPeerID) {
+        
+        
         var messageDictionary: [String: String] = [:]
         
         for (index, id) in ids.enumerated() {

@@ -522,6 +522,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func receivedGroupPlayQueue(_ songIds: [String]){
         
+        print("Recevied Group Play Queue\n\n\n\n\n\n\n")
         var tempSongHolder = [Song]()
         for songId in songIds {
             
@@ -531,7 +532,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 if tempSongHolder.count == songIds.count {
                     
+                    print("Okay it equals it, now what")
                     DispatchQueue.main.async {
+                        print("Dispatchign off the main queue")
                         peakMusicController.groupPlayQueue = tempSongHolder
                     }
                 }
@@ -593,6 +596,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: Notification
     func handleMPCNotification(notification: NSNotification) {
+        print("Is this notification getting called?")
         switch peakMusicController.playerType {
         case .Host:
             handleMPCDJRecievedSongIDWithNotification(notification: notification)
