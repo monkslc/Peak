@@ -16,8 +16,7 @@ let peakMusicController = PeakMusicController()
 
 class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate {
     
-    
-    
+
     //view that displays currently playing options
     @IBOutlet weak var currPlayingView: CurrentlyPlayingView!
     
@@ -62,9 +61,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
 
         // Bluetooth
-        //appDelegate.mpcManager.delegate = self
-        //appDelegate.mpcManager.browser.startBrowsingForPeers()
-        //appDelegate.mpcManager.advertiser.startAdvertisingPeer()
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
     }
     
@@ -532,10 +528,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             ConnectingToInternet.getSong(id: songId, completion: {(song) in
             
                 tempSongHolder.append(song)
+                
+                if tempSongHolder.count == songIds.count {
+                    
+                    DispatchQueue.main.async {
+                        peakMusicController.groupPlayQueue = tempSongHolder
+                    }
+                }
             })
         }
-        
-        peakMusicController.groupPlayQueue = tempSongHolder
        
     }
     

@@ -130,7 +130,7 @@ class ConnectingToInternet {
                         ConnectingToInternet.getImage(url: imageURL, completion: {
                             (image) -> Void in
                             
-                            songs.append(Song(id: "\(songJSON["trackId"]!)", trackName: "\(songJSON["trackName"]!)", collectionName: "\(songJSON["collectionName"]!)", artistName: "\(songJSON["artistName"])", trackTimeMillis: Int("\(songJSON["trackTimeMillis"]!)")!, image: image))
+                            songs.append(Song(id: "\(songJSON["trackId"]!)", trackName: "\(songJSON["trackName"]!)", collectionName: "\(songJSON["collectionName"]!)", artistName: "\(String(describing: songJSON["artistName"]))", trackTimeMillis: Int("\(songJSON["trackTimeMillis"]!)")!, image: image))
                             
                             if songs.count == limit || !sendSongsAlltogether {
                                 completion(songs)
@@ -157,7 +157,7 @@ class ConnectingToInternet {
                     ConnectingToInternet.getImage(url: imageURL, completion: {
                         (image) -> Void in
                         
-                        completion(Song(id: id, trackName: songJSON[0]["trackName"]! as! String, collectionName: songJSON[0]["collectionName"]! as! String, artistName: songJSON[0]["artistName"]! as! String, trackTimeMillis: Int(songJSON[0]["trackTimeMillis"]! as! String)!, image: image))
+                        completion(Song(id: id, trackName: "\(songJSON[0]["trackName"]!)", collectionName: "\(songJSON[0]["collectionName"]!)", artistName: "\(songJSON[0]["artistName"]!)", trackTimeMillis: Int("\(songJSON[0]["trackTimeMillis"]!)")!, image: image))
                     })
                     
                 }

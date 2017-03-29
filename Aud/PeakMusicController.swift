@@ -74,7 +74,9 @@ class PeakMusicController {
         
         didSet{
             //Here we want to update the visuals
-            delegate?.updateDisplay()
+            DispatchQueue.main.async {  // HHHHHHCMAMSJFION DUJSJSJdgoslvsedbvsdkvbs,v
+                self.delegate?.updateDisplay()
+            }
         }
     }
     

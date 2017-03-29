@@ -18,16 +18,6 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        ConnectingToInternet.getSongs(searchTerm: "Bastille", completion: {
-            (songs) -> Void in
-            
-            print(songs)
-            
-            for song in songs {
-                print("\(song.trackName)")
-            }
-        })
         
         welcomeToLabel.text = "Hello \(getUserName())\nWelcome To Peak"
     }
@@ -103,20 +93,17 @@ class AuthViewController: UIViewController {
     
     // used to get the name of the user
     private func getUserName() -> String {
-        let name = UIDevice.current.name
+        var name = UIDevice.current.name
         
-        if name.contains(" iPhone") {
-            if name.contains("’") {
-                return name.subString(toIndex: name.indexOf(target: "’"))
-            }
-            else if name.contains("'") {
-                return name.subString(toIndex: name.indexOf(target: "'"))
-            }
-            else {
-                return name.subString(toIndex: name.indexOf(target: " iPhone"))
+        let possibleThingsToCutOff: [String] = [" iphone", "'", "’"]
+        
+        for p in possibleThingsToCutOff {
+            if name.lowercased().contains(p) {
+                let index = name.lowercased().indexOf(target: p)
+                name = name.subString(toIndex: index)
             }
         }
-        
+    
         return name
     }
     
