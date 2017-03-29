@@ -54,6 +54,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //set up the search bar
         searchForMediaBar.delegate = self
+        //searchForMediaBar.returnKeyType = .done
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
