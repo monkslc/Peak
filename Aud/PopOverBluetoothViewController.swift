@@ -13,7 +13,9 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
 
     @IBOutlet var tableView: UITableView!
     
-    @IBOutlet var typeOfUserSegmentedControl: UISegmentedControl!
+    @IBOutlet var isHostSwitch: UISwitch!
+    
+    @IBOutlet var connectedToLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,18 +26,18 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         tableView.dataSource = self
         
         MPCManager.defaultMPCManager.delegate = self
-        //appDelegate.mpcManager.browser.startBrowsingForPeers()
-        //MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
         
         switch peakMusicController.playerType {
         case .Host:
-            typeOfUserSegmentedControl.selectedSegmentIndex = 2
+            isHostSwitch.isOn = true
+            connectedToLabel.text = "Connected to you:"
         case .Contributor:
-            typeOfUserSegmentedControl.selectedSegmentIndex = 1
+            isHostSwitch.isOn = false
+            connectedToLabel.text = "Connect to:"
         case .Individual:
-            typeOfUserSegmentedControl.selectedSegmentIndex = 0
+            isHostSwitch.isOn = false
+            peakMusicController.playerType = .Contributor
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,16 +45,6 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // should be updated when PeakMusicController->EnumPlayerType is changed but cant
     // gets updated in self.playerTypeSegementedControlValueChanged which is an @IBACtion
@@ -72,21 +64,25 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     // MARK: IBOutlet
     
-    @IBAction func playerTypeSegementedControlValueChanged(_ sender: UISegmentedControl) {
+    @IBAction func isHostValueChanged(_ sender: UISwitch) {
         
-        switch sender.selectedSegmentIndex {
-        case 0:
-            peakMusicController.playerType = .Individual
-        case 1:
-            peakMusicController.playerType = .Contributor
-        case 2:
+        if sender.isOn {
+            connectedToLabel.text = "Connected to you:"
             peakMusicController.playerType = .Host
-        default:
-            print("ERROR: PopOverBluetoothViewController->playerTypeSegementedControlValueChanged \(sender.selectedSegmentIndex)")
+        }
+        else {
+            connectedToLabel.text = "Connect to:"
+            peakMusicController.playerType = .Contributor
         }
         
         updateMPCManager()
         tableView.reloadData()
+    }
+    
+    @IBAction func disconectButonClicked(_ sender: UIButton) {
+        
+        peakMusicController.playerType = .Individual
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -154,8 +150,8 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         print("Connected")
         
         if peakMusicController.playerType == .Host {
-            SendingBluetooth.sendSongIdsFromHost(songs: peakMusicController.currPlayQueue)
-            /*
+            //SendingBluetooth.sendSongIdsFromHost(songs: peakMusicController.currPlayQueue)
+            
             var ids: [String] = []
             
             for song in peakMusicController.currPlayQueue {
@@ -163,8 +159,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
                 ids.append("\(song.artistPersistentID)")
             }
             
-            sendSongIdsToClient(ids: ids)
- */
+            SendingBluetooth.sendSongIdsWithPeerId(ids: ids, peerID: peerID)
         }
     }
     
@@ -172,28 +167,6 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         
         if peakMusicController.playerType == .Host {
             MPCManager.defaultMPCManager.invitationHandler(true, MPCManager.defaultMPCManager.session)
-        }
-    }
-    
-    // Not Delegate
-    func sendSongIdsToClient(ids: [String]) {
-        
-        print("\n\nPopOverBluetoothViewController->sendSongIdsToClient:\nSENDING SONG ID TO CLIENT \(ids)\n")
-        
-        var messageDictionary: [String: String] = [:]
-        
-        for (index, id) in ids.enumerated() {
-            messageDictionary["\(index)"] = id
-        }
-        
-        for peers in MPCManager.defaultMPCManager.session.connectedPeers {
-            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: peers as MCPeerID) {
-                
-                print("Sent")
-            }
-            else {
-                print("ERROR SENDING DATA COULD HAPPEN LibraryViewController -> sendSongIdsToClient")
-            }
         }
     }
 

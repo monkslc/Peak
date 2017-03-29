@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -347,19 +347,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hKE-sb-elV">
-                                <rect key="frame" x="16" y="28" width="343" height="29"/>
-                                <segments>
-                                    <segment title="Airplane"/>
-                                    <segment title="Client"/>
-                                    <segment title="Dj"/>
-                                </segments>
-                                <connections>
-                                    <action selector="playerTypeSegementedControlValueChanged:" destination="xZU-02-YAm" eventType="valueChanged" id="rkK-6v-8mU"/>
-                                </connections>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BRG-Bh-jpU">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="539"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="popOverBasicCellID" textLabel="V8R-iI-OJ7" style="IBUITableViewCellStyleDefault" id="O3G-Zd-mC0">
@@ -381,21 +370,54 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you host?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4F-sv-uJ6">
+                                <rect key="frame" x="16" y="28" width="105" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTO-Tr-c31">
+                                <rect key="frame" x="310" y="28" width="51" height="31"/>
+                                <connections>
+                                    <action selector="isHostValueChanged:" destination="xZU-02-YAm" eventType="valueChanged" id="N6X-du-9of"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected To You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBI-wR-1ci">
+                                <rect key="frame" x="16" y="67" width="343" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQN-El-BkG">
+                                <rect key="frame" x="16" y="637" width="343" height="30"/>
+                                <state key="normal" title="Disconect"/>
+                                <connections>
+                                    <action selector="disconectButonClicked:" destination="xZU-02-YAm" eventType="touchUpInside" id="Wpg-ih-6cy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="BRG-Bh-jpU" secondAttribute="trailing" id="Abn-yu-9Ze"/>
-                            <constraint firstItem="BRG-Bh-jpU" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leading" id="Ikw-W1-tv0"/>
-                            <constraint firstItem="Cre-wi-rkK" firstAttribute="top" secondItem="BRG-Bh-jpU" secondAttribute="bottom" id="V0w-5q-plY"/>
-                            <constraint firstItem="hKE-sb-elV" firstAttribute="trailing" secondItem="WZK-7a-vwc" secondAttribute="trailingMargin" id="W9f-Bq-I74"/>
-                            <constraint firstItem="BRG-Bh-jpU" firstAttribute="top" secondItem="hKE-sb-elV" secondAttribute="bottom" constant="8" id="inW-61-08N"/>
-                            <constraint firstItem="hKE-sb-elV" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leadingMargin" id="xgu-cA-eHz"/>
-                            <constraint firstItem="hKE-sb-elV" firstAttribute="top" secondItem="2rV-Zj-LbX" secondAttribute="bottom" constant="8" id="zms-VB-wFl"/>
+                            <constraint firstItem="FBI-wR-1ci" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leadingMargin" id="51g-UT-rk2"/>
+                            <constraint firstItem="vTO-Tr-c31" firstAttribute="top" secondItem="2rV-Zj-LbX" secondAttribute="bottom" constant="8" id="B2E-Ys-XaO"/>
+                            <constraint firstItem="VQN-El-BkG" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leadingMargin" id="KTm-M6-GAP"/>
+                            <constraint firstItem="BRG-Bh-jpU" firstAttribute="top" secondItem="FBI-wR-1ci" secondAttribute="bottom" constant="8" id="KgT-Oo-fKv"/>
+                            <constraint firstItem="VQN-El-BkG" firstAttribute="trailing" secondItem="WZK-7a-vwc" secondAttribute="trailingMargin" id="NVV-kj-12S"/>
+                            <constraint firstItem="FBI-wR-1ci" firstAttribute="trailing" secondItem="WZK-7a-vwc" secondAttribute="trailingMargin" id="RKM-R0-f30"/>
+                            <constraint firstItem="Cre-wi-rkK" firstAttribute="top" secondItem="VQN-El-BkG" secondAttribute="bottom" id="WO6-u2-0nr"/>
+                            <constraint firstItem="r4F-sv-uJ6" firstAttribute="top" secondItem="2rV-Zj-LbX" secondAttribute="bottom" constant="8" id="ZT7-eU-cSt"/>
+                            <constraint firstAttribute="trailing" secondItem="BRG-Bh-jpU" secondAttribute="trailing" id="jIh-0c-4Ua"/>
+                            <constraint firstItem="VQN-El-BkG" firstAttribute="top" secondItem="BRG-Bh-jpU" secondAttribute="bottom" id="rxB-7B-qgd"/>
+                            <constraint firstItem="vTO-Tr-c31" firstAttribute="trailing" secondItem="WZK-7a-vwc" secondAttribute="trailingMargin" id="vYy-UI-eFM"/>
+                            <constraint firstItem="FBI-wR-1ci" firstAttribute="top" secondItem="vTO-Tr-c31" secondAttribute="bottom" constant="8" id="wVm-iz-Esq"/>
+                            <constraint firstItem="r4F-sv-uJ6" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leadingMargin" id="xeo-5f-NDP"/>
+                            <constraint firstItem="BRG-Bh-jpU" firstAttribute="leading" secondItem="WZK-7a-vwc" secondAttribute="leading" id="xvJ-Ul-vf5"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connectedToLabel" destination="FBI-wR-1ci" id="fe2-LO-9Ht"/>
+                        <outlet property="isHostSwitch" destination="vTO-Tr-c31" id="fJe-wG-Sx9"/>
                         <outlet property="tableView" destination="BRG-Bh-jpU" id="QZz-WJ-IJk"/>
-                        <outlet property="typeOfUserSegmentedControl" destination="hKE-sb-elV" id="0J6-fQ-pJ1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VM2-Kb-vYA" userLabel="First Responder" sceneMemberID="firstResponder"/>
