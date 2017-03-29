@@ -496,7 +496,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
         
             peakMusicController.playAtEndOfQueue([song])
-            //self.sendSongIdToHost(id: "\(song.persistentID)") // @cam added this. may want to change
+            SendingBluetooth.sendSongIdToHost(id: "\(song.playbackStoreID)", error: {
+                () -> Void in
+                
+                let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }) // @cam added this. may want to change
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
@@ -524,23 +530,24 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func receivedGroupPlayQueue(_ songIds: [String]){
         
         print("Recevied Group Play Queue\n\n\n\n\n\n\n")
-        var tempSongHolder = [Song]()
-        for songId in songIds {
+        var tempSongHolder = [Song?].init(repeating: nil, count: songIds.count)
+        for i in 0..<songIds.count {
             
-            ConnectingToInternet.getSong(id: songId, completion: {(song) in
+            ConnectingToInternet.getSong(id: songIds[i], completion: {(song) in
             
                 print(song.trackName)
                 print("In Connecting to internet")
-                tempSongHolder.append(song)
+                //tempSongHolder.append(song)
+                tempSongHolder[i] = song
                 
-                
-                if tempSongHolder.count == songIds.count {
+                if var songs = tempSongHolder as? [Song] {
                     
+                    songs.append(Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil))
                     
                     print("Okay it equals it, now what")
                     DispatchQueue.main.async {
                         print("Dispatchign off the main queue")
-                        peakMusicController.groupPlayQueue = tempSongHolder
+                        peakMusicController.groupPlayQueue = songs
                     }
                 }
             })
@@ -556,6 +563,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             var song = MPMediaItem()
             let library = MPMediaLibrary()
+            print(songID)
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
                 //add the entity to the queue
@@ -569,34 +577,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             })
         }
         
-    }
-    
-    // MARK: Bluetooth Stuff
-    
-    func sendSongIdToHost(id: String) {
-        print("SONG ID: \(id)")
-        
-        let messageDictionary: [String: String] = ["id": id]
-        
-        if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
-            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.session.connectedPeers[0] as MCPeerID) {
-                
-                print("Successfully send song id \(id)")
-            }
-            else {
-                let alert = UIAlertController(title: "Could Not Send", message: "Try Again", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-        else {
-            let alert = UIAlertController(title: "Could Not Send", message: "You are not connected to a device", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            
-            self.present(alert, animated: true, completion: nil)
-        }
-
     }
     
     // MARK: Notification
