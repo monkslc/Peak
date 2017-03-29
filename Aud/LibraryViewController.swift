@@ -42,8 +42,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //systemMusicPlayer.setQueueWithStoreIDs(["966997496"])
-        //systemMusicPlayer.setQueueWithStoreIDs(["798928362"])
         
         //First thing we want to do is start the fetch the user's library
         DispatchQueue.global().async {
@@ -73,12 +71,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if loadedViews == false {
         
+            /*************DO WE NEED THESE ANYMORE*****CONNOR NOTE FOR LATER*****/
             currPlayingView.library = library
             currPlayingView.addAllViews()
             recentsView.setUp()
             loadedViews = true
-            //currPlayingView.setNeedsDisplay() //otherwise it doesn't draw the bezier path
-            //recentsView.setNeedsDisplay() //Otherwise it doesn't draw the bezier path
         }
         
         
@@ -439,7 +436,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Remove all the subviews
         for view in currPlayingView.subviews {
             
-        
             view.removeFromSuperview()
         }
         
@@ -515,7 +511,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
        
     }
     
-    //120954025
     /*TEST OF RECEVING A SONG FROM A USER*/
     func receivedSong(_ songID: String) {
         
