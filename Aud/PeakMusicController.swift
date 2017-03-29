@@ -66,6 +66,8 @@ class PeakMusicController {
             
             systemMusicPlayer.setQueue(with: MPMediaItemCollection(items: currPlayQueue))
             systemMusicPlayer.prepareToPlay()
+            
+            SendingBluetooth.sendFullQue() // @CAM BLAHA HAHHAHA
         }
     }
     

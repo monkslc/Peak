@@ -13,7 +13,6 @@ class SendingBluetooth {
     
     static func sendSongIdsWithPeerId(ids: [String], peerID: MCPeerID) {
         
-        
         var messageDictionary: [String: String] = [:]
         
         for (index, id) in ids.enumerated() {
@@ -34,7 +33,6 @@ class SendingBluetooth {
     }
     
     static func sendSongIds(ids: [String]) {
-        print("\n\nSendingBluetooth->sendSongIdsToClient:\nSENDING SONG ID TO CLIENT \(ids)\n")
         
         var messageDictionary: [String: String] = [:]
         
@@ -86,5 +84,35 @@ class SendingBluetooth {
             }
 
         })
+    }
+    
+    static func sendSongIdToHost(id: String, error: () -> Void) {
+        print("SONG ID: \(id)")
+        
+        let messageDictionary: [String: String] = ["id": id]
+        
+        if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
+            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.session.connectedPeers[0] as MCPeerID) {
+                
+                print("Successfully send song id \(id)")
+            }
+            else {
+                error()
+            }
+        }
+        else {
+            error()
+        }
+        
+    }
+    
+    static func sendFullQue() {
+        var ids: [String] = []
+        
+        for song in peakMusicController.currPlayQueue {
+            ids.append("\(song.playbackStoreID)")
+        }
+        
+        SendingBluetooth.sendSongIds(ids: ids)
     }
 }

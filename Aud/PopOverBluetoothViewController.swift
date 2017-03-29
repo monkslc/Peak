@@ -158,7 +158,6 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             
                 for song in peakMusicController.currPlayQueue {
                 
-                
                     ids.append("\(song.playbackStoreID)")
                 }
             
