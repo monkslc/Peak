@@ -429,6 +429,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func updateDisplay() {
         
+        
         currPlayingView.updateInfoDisplay()
     }
     
@@ -528,9 +529,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             ConnectingToInternet.getSong(id: songId, completion: {(song) in
             
+                print(song.trackName)
+                print("In Connecting to internet")
                 tempSongHolder.append(song)
                 
+                
                 if tempSongHolder.count == songIds.count {
+                    
                     
                     print("Okay it equals it, now what")
                     DispatchQueue.main.async {

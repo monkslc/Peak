@@ -63,7 +63,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             cell.songDurationLabel.text = formatTimeInterval(timeUntil)
         } else {
             //we are a contributor so get the information from the group play queue
-            let songToAdd = peakMusicController.groupPlayQueue[0]
+            let songToAdd = peakMusicController.groupPlayQueue[indexPath.row]
             
             cell.albumArt.image = songToAdd.image
             cell.songTitle.text = songToAdd.trackName
