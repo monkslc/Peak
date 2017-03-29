@@ -115,6 +115,41 @@
             </objects>
             <point key="canvasLocation" x="-786.39999999999998" y="95.802098950524751"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="8rc-4x-PGA">
+            <objects>
+                <viewController id="C9k-4V-WA7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K2v-46-Qbk"/>
+                        <viewControllerLayoutGuide type="bottom" id="jds-1z-GEK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ER5-Le-L27">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qyV-Wc-mB8">
+                                <rect key="frame" x="87.5" y="28" width="200" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="cXq-Bs-xwR"/>
+                                    <constraint firstAttribute="width" constant="200" id="y1v-82-Kqr"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Library"/>
+                                    <segment title="Apple Music"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qyV-Wc-mB8" firstAttribute="top" secondItem="K2v-46-Qbk" secondAttribute="bottom" constant="8" id="2ps-GR-dmX"/>
+                            <constraint firstItem="qyV-Wc-mB8" firstAttribute="centerX" secondItem="ER5-Le-L27" secondAttribute="centerX" id="DLX-Cm-qYF"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="adK-uv-mVE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="461.60000000000002" y="-689.5052473763119"/>
+        </scene>
         <!--Library View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -260,7 +295,7 @@
                                             <constraint firstAttribute="height" constant="30" id="Z1W-L1-uv8"/>
                                         </constraints>
                                         <color key="barTintColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                     </searchBar>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbU-4X-gif">
                                         <rect key="frame" x="330" y="56" width="1" height="1"/>
@@ -270,6 +305,14 @@
                                             <constraint firstAttribute="width" constant="1" id="H01-js-YIL"/>
                                         </constraints>
                                     </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLL-D6-UDL">
+                                        <rect key="frame" x="10" y="57" width="211" height="3"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="211" id="UIQ-Rb-TtE"/>
+                                            <constraint firstAttribute="height" constant="3" id="b9P-gr-WWY"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -277,10 +320,12 @@
                                     <constraint firstItem="zbU-4X-gif" firstAttribute="centerX" secondItem="WRU-Kx-gTx" secondAttribute="centerX" id="8gS-6C-mSH"/>
                                     <constraint firstItem="zbU-4X-gif" firstAttribute="bottom" secondItem="WRU-Kx-gTx" secondAttribute="bottom" id="FuI-NM-CUQ"/>
                                     <constraint firstAttribute="bottom" secondItem="WRU-Kx-gTx" secondAttribute="bottom" constant="3" id="GHh-WV-4Uz"/>
+                                    <constraint firstItem="gLL-D6-UDL" firstAttribute="leading" secondItem="EIB-1O-glD" secondAttribute="leading" constant="10" id="QQK-sw-uxI"/>
                                     <constraint firstAttribute="trailing" secondItem="WRU-Kx-gTx" secondAttribute="trailing" constant="30" id="Zog-RW-xpi"/>
                                     <constraint firstAttribute="height" constant="60" id="gqc-oc-Cwa"/>
                                     <constraint firstAttribute="bottom" secondItem="EIB-1O-glD" secondAttribute="bottom" constant="3" id="kfR-zb-fzf"/>
                                     <constraint firstItem="WRU-Kx-gTx" firstAttribute="leading" secondItem="EIB-1O-glD" secondAttribute="trailing" constant="30" id="q8h-JW-xqD"/>
+                                    <constraint firstItem="gLL-D6-UDL" firstAttribute="top" secondItem="EIB-1O-glD" secondAttribute="bottom" id="tVt-Ck-ZeR"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -321,7 +366,11 @@
                         <outlet property="currPlayingView" destination="KBe-nq-laQ" id="Ssy-Za-3In"/>
                         <outlet property="library" destination="05J-pc-yQM" id="TO1-nn-R66"/>
                         <outlet property="recentsView" destination="bEX-s4-cqX" id="Z44-qM-IKr"/>
+                        <outlet property="searchForMediaBar" destination="EIB-1O-glD" id="Z1w-m2-7D5"/>
                         <segue destination="xZU-02-YAm" kind="popoverPresentation" identifier="Popover Bluetooth Controller" popoverAnchorView="zbU-4X-gif" id="xrx-rc-dLg">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
+                        </segue>
+                        <segue destination="C9k-4V-WA7" kind="popoverPresentation" identifier="Show Search Options" popoverAnchorView="gLL-D6-UDL" id="SwC-T0-bVD">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
                         </segue>
                     </connections>
@@ -333,7 +382,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="109.59999999999999" y="86.806596701649184"/>
+            <point key="canvasLocation" x="99.5" y="31.5"/>
         </scene>
         <!--Pop Over Bluetooth View Controller-->
         <scene sceneID="rDx-zi-8aI">

@@ -14,7 +14,7 @@ import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
 
-class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate {
+class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate {
     
     
     
@@ -35,10 +35,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     //holds the recents in case we decide to shuffle them
     var recentSongsDownloaded = [MPMediaItem]()
     
-    
-    
     @IBOutlet weak var recentsView: RecentlyAddedView!
     
+    //Search Bar in header view
+    @IBOutlet weak var searchForMediaBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +53,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         peakMusicController.delegate = self
         peakMusicController.setUp()
         
+    
+        //Set up the search Bar
+        searchForMediaBar.delegate = self
+        searchForMediaBar.returnKeyType = .done
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
@@ -253,6 +257,18 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             controller.delegate = self
         
             //segue.destinationViewController?.popoverPresentationController?.sourceRect = anchorView.frame
+        } else if segue.identifier == "Show Search Options" {
+            
+            //We are showing search options
+            
+            let popOverVC = segue.destination
+            
+            //Set the bounds for the popOverVc
+            
+            popOverVC.preferredContentSize = CGSize(width: view.bounds.width, height: 300)
+            
+            let controller = popOverVC.popoverPresentationController!
+            controller.delegate = self
         }
     }
     
@@ -492,6 +508,18 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /*END OF GESTURE TARGET METHODS*/
     
+    
+    /*MARK: SEARCH METHODS*/
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        performSegue(withIdentifier: "Show Search Options", sender: nil)
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        searchBar.resignFirstResponder()
+        return true
+    }
     
     
     /************************TEST METHODS FOR BLUETOOTH******************************/
