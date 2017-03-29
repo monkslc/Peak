@@ -39,16 +39,23 @@ class PeakMusicController {
         didSet {
             if playerType == .Host {
                 MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
+                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
             }
             else {
                 MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
+                
             }
             
             if playerType == .Contributor {
                 MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
+                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIcon"), for: .normal)
             }
             else {
                 MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
+            }
+            
+            if playerType == .Individual{
+                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "IndieIcon"), for: .normal)
             }
             
             //Update the views here

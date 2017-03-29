@@ -297,7 +297,7 @@
                                             <constraint firstAttribute="width" constant="30" id="elC-r8-npF"/>
                                             <constraint firstAttribute="height" constant="30" id="vSE-06-DJl"/>
                                         </constraints>
-                                        <state key="normal" image="Individual Play Icon"/>
+                                        <state key="normal" image="IndieIcon"/>
                                         <connections>
                                             <action selector="presentBluetoothPopover" destination="BYZ-38-t0r" eventType="touchUpInside" id="gox-bK-dCo"/>
                                         </connections>
@@ -377,6 +377,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connectButton" destination="WRU-Kx-gTx" id="Fu1-gU-5PA"/>
                         <outlet property="currPlayingView" destination="KBe-nq-laQ" id="Ssy-Za-3In"/>
                         <outlet property="library" destination="05J-pc-yQM" id="TO1-nn-R66"/>
                         <outlet property="recentsView" destination="bEX-s4-cqX" id="Z44-qM-IKr"/>
@@ -489,7 +490,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Individual Play Icon" width="155" height="155"/>
+        <image name="IndieIcon" width="155" height="155"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
         <image name="landscape-with-mountains-3" width="512" height="512"/>
     </resources>
