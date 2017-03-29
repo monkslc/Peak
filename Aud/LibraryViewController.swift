@@ -500,10 +500,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             ConnectingToInternet.getSong(id: songId, completion: {(song) in
             
                 tempSongHolder.append(song)
+                
+                if tempSongHolder.count == songIds.count {
+                    
+                    DispatchQueue.main.async {
+                        peakMusicController.groupPlayQueue = tempSongHolder
+                    }
+                }
             })
         }
-        
-        peakMusicController.groupPlayQueue = tempSongHolder
        
     }
     

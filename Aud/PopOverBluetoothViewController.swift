@@ -37,6 +37,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         case .Individual:
             isHostSwitch.isOn = false
             peakMusicController.playerType = .Contributor
+            connectedToLabel.text = "Connect to:"
         }
     }
 
@@ -152,14 +153,21 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         if peakMusicController.playerType == .Host {
             //SendingBluetooth.sendSongIdsFromHost(songs: peakMusicController.currPlayQueue)
             
-            var ids: [String] = []
+            if #available(iOS 10.3, *) {
+                var ids: [String] = []
             
-            for song in peakMusicController.currPlayQueue {
+                for song in peakMusicController.currPlayQueue {
                 
-                ids.append("\(song.artistPersistentID)")
-            }
+                
+                    ids.append("\(song.playbackStoreID)")
+                }
             
-            SendingBluetooth.sendSongIdsWithPeerId(ids: ids, peerID: peerID)
+                SendingBluetooth.sendSongIdsWithPeerId(ids: ids, peerID: peerID)
+            }
+            else {
+                SendingBluetooth.sendSongIdsFromHost(songs: peakMusicController.currPlayQueue)
+            }
+
         }
     }
     
