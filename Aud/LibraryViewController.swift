@@ -14,7 +14,7 @@ import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
 
-class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate {
+class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate{
     
 
     //view that displays currently playing options
@@ -52,10 +52,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         peakMusicController.delegate = self
         peakMusicController.setUp()
         
-    
-        //Set up the search Bar
+        //set up the search bar
         searchForMediaBar.delegate = self
-        searchForMediaBar.returnKeyType = .done
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
@@ -256,11 +254,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else if segue.identifier == "Show Search Options" {
             
             //We are showing search options
-            
-            let popOverVC = segue.destination
+            //remark
+            let popOverVC = segue.destination as! SearchBarPopOverViewViewController
+            popOverVC.delegate = self
+            searchForMediaBar.delegate = popOverVC
             
             //Set the bounds for the popOverVc
-            
             popOverVC.preferredContentSize = CGSize(width: view.bounds.width, height: 300)
             
             let controller = popOverVC.popoverPresentationController!
@@ -416,6 +415,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*End of Table View Data Source/Delegate Methods*/
     
+    /*MARK: SearchBarPopOver Delegate Methods*/
+    func returnLibrary() -> [MPMediaItem]{
+        
+        return mediaItemsInLibrary
+    }
     
     /*MARK: PEAK MUSIC CONTROLLER DELEGATE METHODS, USED TO UPDATE VIEWS*/
     func showSignifier(){
@@ -511,18 +515,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /*END OF GESTURE TARGET METHODS*/
     
-    
-    /*MARK: SEARCH METHODS*/
+    /*SEARCH BAR DELEGATE METHODS*/
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
         
         performSegue(withIdentifier: "Show Search Options", sender: nil)
     }
     
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        
-        searchBar.resignFirstResponder()
-        return true
-    }
     
     
     /************************TEST METHODS FOR BLUETOOTH******************************/
