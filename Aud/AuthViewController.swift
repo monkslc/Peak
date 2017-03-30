@@ -26,7 +26,7 @@ class AuthViewController: UIViewController {
         ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
         ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters
         
-        welcomeToLabel.text = "Hello \(getUserName())\n\nWelcome To Peak"
+        welcomeToLabel.text = "Hello \(getUserName())\nWelcome To Peak"
         welcomeToLabel.adjustsFontSizeToFitWidth = true
         
     }

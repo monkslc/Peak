@@ -146,17 +146,15 @@
                                 </segments>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
-                                <rect key="frame" x="0.0" y="61" width="375" height="225"/>
+                                <rect key="frame" x="0.0" y="61" width="375" height="606"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="225" id="b0U-09-WXR"/>
-                                </constraints>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="top" secondItem="K2v-46-Qbk" secondAttribute="bottom" constant="8" id="2ps-GR-dmX"/>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="centerX" secondItem="ER5-Le-L27" secondAttribute="centerX" id="DLX-Cm-qYF"/>
+                            <constraint firstItem="jds-1z-GEK" firstAttribute="top" secondItem="Ic7-NQ-VMo" secondAttribute="bottom" id="LrU-0o-55A"/>
                             <constraint firstItem="Ic7-NQ-VMo" firstAttribute="leading" secondItem="ER5-Le-L27" secondAttribute="leading" id="gWO-pK-oy9"/>
                             <constraint firstItem="Ic7-NQ-VMo" firstAttribute="top" secondItem="qyV-Wc-mB8" secondAttribute="bottom" constant="8" id="gp2-9Z-7Qc"/>
                             <constraint firstAttribute="trailing" secondItem="Ic7-NQ-VMo" secondAttribute="trailing" id="xyu-M9-gP8"/>
