@@ -19,10 +19,10 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    
         //change the return based on the type of player
         if peakMusicController.playerType != .Contributor {
             
@@ -37,8 +37,8 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        
         let cell = library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
+    
         
         //update the cell dependign on the type of player
         if peakMusicController.playerType != .Contributor{
