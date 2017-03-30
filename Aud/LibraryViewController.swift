@@ -468,7 +468,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*GESTURE TARGET METHODS*/
     
-    func handleTapOnSong(_ gesture: UITapGestureRecognizer){
+    func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
         //first get the media item
         var mediaItemOnTap = MPMediaItem()
@@ -497,7 +497,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    func promptUserToSendToGroupQueue(_ song: MPMediaItem){
+    func promptUserToSendToGroupQueue(_ song: MPMediaItem) {
         //Method to ask the user if they'd like to add an item to the group queue
         
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.title ?? "this song") to the group queue?", preferredStyle: .alert)
@@ -527,29 +527,19 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    
     /************************TEST METHODS FOR BLUETOOTH******************************/
     
-    func receivedGroupPlayQueue(_ songIds: [String]){
+    func receivedGroupPlayQueue(_ songIds: [String]) {
         
-        print("Recevied Group Play Queue\n\n\n\n\n\n\n")
         var tempSongHolder = [Song?].init(repeating: nil, count: songIds.count)
         for i in 0..<songIds.count {
             
             ConnectingToInternet.getSong(id: songIds[i], completion: {(song) in
-            
-                print(song.trackName)
-                print("In Connecting to internet")
-                //tempSongHolder.append(song)
                 tempSongHolder[i] = song
                 
-                if var songs = tempSongHolder as? [Song] {
+                if let songs = tempSongHolder as? [Song] {
                     
-                    songs.append(Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil))
-                    
-                    print("Okay it equals it, now what")
                     DispatchQueue.main.async {
-                        print("Dispatchign off the main queue")
                         peakMusicController.groupPlayQueue = songs
                     }
                 }
@@ -641,6 +631,5 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         receivedGroupPlayQueue(songIDs)
     }
-    
     
 }

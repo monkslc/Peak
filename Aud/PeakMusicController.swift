@@ -48,7 +48,10 @@ class PeakMusicController {
             
             if playerType == .Contributor {
                 MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
-                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
+                
+                DispatchQueue.main.async { // @cam wrote this ccccacba;.vsfgbsldlgslfb,scjgcABclavhbclagucbued
+                    (self.delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
+                }
             }
             else {
                 MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()

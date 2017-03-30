@@ -109,7 +109,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
     
     
-    
     /*MARK: SEARCH BAR DELEGATE METHODS*/
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
