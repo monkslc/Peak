@@ -143,8 +143,6 @@ class MusicInfoDisplay: UIView {
         lyricsView.font = UIFont.systemFont(ofSize: 15)
         infoDisplay.addSubview(lyricsView)
         
-        //get the currently playing song
-        
         if peakMusicController.playerType != .Contributor {
             //The player is not a contributor so the currently playing song will be in the system music player
             

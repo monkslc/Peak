@@ -27,29 +27,25 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         
         MPCManager.defaultMPCManager.delegate = self
         
+        //Check what the player type is so we can set up the view
         switch peakMusicController.playerType {
         case .Host:
             isHostSwitch.isOn = true
-            connectedToLabel.text = "Connected to you:"
+            connectedToLabel.text = "Session Members:"
         case .Contributor:
             isHostSwitch.isOn = false
-            connectedToLabel.text = "Connect to:"
+            connectedToLabel.text = "Joined:"
         case .Individual:
             isHostSwitch.isOn = false
             peakMusicController.playerType = .Contributor
-            connectedToLabel.text = "Connect to:"
+            connectedToLabel.text = "Join a Session:"
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     // should be updated when PeakMusicController->EnumPlayerType is changed but cant
     // gets updated in self.playerTypeSegementedControlValueChanged which is an @IBACtion
     private func updateMPCManager() {
+        
         switch peakMusicController.playerType {
         case .Host:
             MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
@@ -66,13 +62,14 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: IBOutlet
     
     @IBAction func isHostValueChanged(_ sender: UISwitch) {
+        //Gets called when the Host Session switch changes
         
         if sender.isOn {
-            connectedToLabel.text = "Connected to you:"
+            connectedToLabel.text = "Session Members:"
             peakMusicController.playerType = .Host
         }
         else {
-            connectedToLabel.text = "Connect to:"
+            connectedToLabel.text = "Join A Session:"
             peakMusicController.playerType = .Contributor
         }
         
