@@ -48,7 +48,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         //return 5 because we only want the top 5 results
-        return 5
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,7 +97,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         //Check whether we should search the library or apple music
         if selectMusicFromSegment.selectedSegmentIndex == 0 {
-            //we are searching the library so get the library
+            //we are searching the library so get the library // 3 cam store in top 5 results
             let library = delegate?.returnLibrary()
             
             /********CAMERON MONKS THIS IS WHERE YOU NEED TO GET THE SEARCH RESULTS AND STORE IT IN topFiveResults*******/
