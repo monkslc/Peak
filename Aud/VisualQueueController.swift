@@ -19,17 +19,17 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    
         //change the return based on the type of player
         if peakMusicController.playerType != .Contributor {
             
             return peakMusicController.currPlayQueue.count - 1 - peakMusicController.systemMusicPlayer.indexOfNowPlayingItem
         } else {
             
-            return peakMusicController.groupPlayQueue.count - 1 //subtract 1 to take into account the song currently playing
+            return peakMusicController.groupPlayQueue.count - 1 //subtract 2 to take into account the song currently playing
         }
         
     }
@@ -37,8 +37,8 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        
         let cell = library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
+    
         
         //update the cell dependign on the type of player
         if peakMusicController.playerType != .Contributor{
@@ -56,26 +56,26 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
                 if index < indexPath.row {
                     timeUntil += Double(peakMusicController.currPlayQueue[index].playbackDuration)
                 } else {
-                    //NEED: Add a break here
+                    break
                 }
             }
             
             cell.songDurationLabel.text = formatTimeInterval(timeUntil)
         } else {
             //we are a contributor so get the information from the group play queue
-            let songToAdd = peakMusicController.groupPlayQueue[indexPath.row]
+            let songToAdd = peakMusicController.groupPlayQueue[indexPath.row + 1]
             
             cell.albumArt.image = songToAdd.image
             cell.songTitle.text = songToAdd.trackName
             cell.songArtist.text = songToAdd.artistName
             
             //get the time until the song plays
-            var timeUntil: Double = Double(songToAdd.trackTimeMillis)
+            var timeUntil: Double = Double(songToAdd.trackTimeMillis / 1000)
             for index in 0..<peakMusicController.groupPlayQueue.count {
                 
                 if index < indexPath.row {
                     
-                    timeUntil += Double(peakMusicController.groupPlayQueue[index].trackTimeMillis)
+                    timeUntil += Double(peakMusicController.groupPlayQueue[index].trackTimeMillis / 1000)
                 }
             }
             

@@ -93,14 +93,20 @@ class CurrentlyPlayingView: UIView{
         albumView = CurrentlyPlayingAlbumView(frame: CGRect(x: bounds.midX - 50, y: bounds.minY, width: 100, height: 100))
         albumView.setUp()
         addSubview(albumView)
-        albumView.addPausePlay()
         albumView.addListeners()
+        
+        //only add pause play if the user is not a contributer
+        if peakMusicController.playerType != .Contributor {
+            albumView.addPausePlay()
+        }
         
         
     }
     
     func addHiddenViews(){
 
+        //Get the location of segmented control based on the type of music player
+        
         //Add the music info display
         musicInfo = MusicInfoDisplay(frame: CGRect(x: bounds.minX, y: bounds.minY + 145, width: bounds.width, height: frame.height - (145 + 30)))
         musicInfo.library = library
@@ -121,6 +127,10 @@ class CurrentlyPlayingView: UIView{
     
     func updateInfoDisplay(){
         
+        if peakMusicController.playerType == .Contributor && peakMusicController.groupPlayQueue.count > 0 {
+            
+            albumView.image = peakMusicController.groupPlayQueue[0].image
+        }
         musicInfo.updateDisplay()
     }
     

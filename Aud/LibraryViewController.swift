@@ -39,6 +39,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     //Search Bar in header view
     @IBOutlet weak var searchForMediaBar: UISearchBar!
     
+    //Bluetooth connectivity button in header
+    @IBOutlet weak var connectButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,6 +57,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //set up the search bar
         searchForMediaBar.delegate = self
+        //searchForMediaBar.returnKeyType = .done
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         

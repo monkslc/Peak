@@ -22,7 +22,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     @IBOutlet weak var searchedSongsTableView: UITableView!
     
-    var topFiveResults = [Song]() {
+    private enum SongType {
+        
+        case AppleMusic(Song)
+        case Library(MPMediaItem)
+    }
+    
+    private var topThreeResults = [AnyObject]() {
         
         didSet{
             
@@ -34,12 +40,14 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         //add a listener so we know when segment changed
         selectMusicFromSegment.addTarget(self, action: #selector(searchRequestChanged), for: .valueChanged)
+        selectMusicFromSegment.tintColor = UIColor.peakColor
     }
     
     
+    /*MARK: TABLE VIEW DELEGATE METHODS*/
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 0
@@ -56,36 +64,47 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
         
         //Double Check to make sure we have that many songs in the topFiveResults
-        if topFiveResults.count - 1 == indexPath.row {
+        if topThreeResults.count - 1 <= indexPath.row {
             
-            let songToAdd = topFiveResults[indexPath.row]
             
-            //create the cell in here
-            cell.albumArt.image = songToAdd.image
-            cell.songArtist.text = songToAdd.artistName
-            cell.songTitle.text = songToAdd.trackName
-            
-            /************ADD FUNCTIONALITY TO METHOD: CONNOR******************/
-            //check if we are searching the library or Apple Music
-            if selectMusicFromSegment.selectedSegmentIndex == 1{
+            //Check whether we are adding a Apple Music or Library Item
+            if let songToAdd: MPMediaItem = topThreeResults[indexPath.row] as? MPMediaItem{
+                //we are adding an item from the library
                 
-                //we are searching the apple music store so add a plus button
-                /***THIS IS WHERE THE FUNCTIONALITY NEEdS TO BE ADDED: CONNOR***/
+                cell.albumArt.image = songToAdd.artwork?.image(at: CGSize())
+                cell.songArtist.text = songToAdd.artist
+                cell.songTitle.text = songToAdd.title
+                
+                //add the gestures
+                cell.addGestureRecognizer(UITapGestureRecognizer(target: delegate, action: #selector(handleTap(_:))))
+                cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
+                
+            } else if let songToAdd: Song = topThreeResults[indexPath.row] as? Song{
+                //we are adding an item from Apple Music
+                
+                cell.albumArt.image = songToAdd.image
+                cell.songArtist.text = songToAdd.artistName
+                cell.songTitle.text = songToAdd.trackName
+                
+                //add an add to library button here
+                
+                //add gestures here, not sure what they'll be yet
             }
-            
-            
-            
+        
             
         }
         
         return cell
     }
     
+    
+    
     /*MARK: SEARCH BAR DELEGATE METHODS*/
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         
-        searchBar.resignFirstResponder()
+        print("Search Bar should end editing")
+        //searchBar.resignFirstResponder()
         if let LVCDel:LibraryViewController = delegate as? LibraryViewController{
             
             searchBar.delegate = LVCDel
@@ -103,16 +122,20 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             /********CAMERON MONKS THIS IS WHERE YOU NEED TO GET THE SEARCH RESULTS AND STORE IT IN topFiveResults*******/
             /******GET ALL THE RESULTS AND THEN STORE THEM BECAUSE table view load each time you change topFiveResults******/
             
+            //Store an MPMediaItem in topThreeResults
+            
         } else {
             //we are searching apple music
             
             /********CAMERON MONKS THIS IS ALSO WHERE YOU NEEd TO GET THE SEARCH RESULTS BUT FROM APPLE MUSIC THIS TIME********/
             
+            //Store an instance of the Song struct in topThree Results
         }
     }
     
     
     func searchRequestChanged(){
+        //Gets called when the segmented control changes
         
         /*******CAM THE USER CHANGED FROM LIBRARY TO APPLE MUSIC OR VISA VERSA SO UPDATE THE RESULTS*******/
         //I'll get the search bar text for you
@@ -123,6 +146,36 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             searchText = LVCdel.searchForMediaBar.text!
         }
         
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        print("Search Bar button clicked")
+        
+        searchBar.resignFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        //Called when the popover is about to go away
+        //Resign first responder status for the search bar
+        
+        if let LVCDel:LibraryViewController = delegate as? LibraryViewController {
+            
+            LVCDel.searchForMediaBar.resignFirstResponder()
+        }
+        
+    }
+    
+    
+    /*MARK: GESTURE RECOGNIZERS*/
+    func handleLongPress(_ gesture: UILongPressGestureRecognizer){
+        
+        (delegate as! LibraryViewController).displaySongOptions(gesture)
+    }
+    
+    func handleTap(_ gesture: UITapGestureRecognizer){
+        
+        (delegate as! LibraryViewController).handleTapOnSong(gesture)
     }
 
 }

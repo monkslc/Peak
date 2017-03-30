@@ -39,16 +39,23 @@ class PeakMusicController {
         didSet {
             if playerType == .Host {
                 MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
+                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
             }
             else {
                 MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
+                
             }
             
             if playerType == .Contributor {
                 MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
+                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
             }
             else {
                 MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
+            }
+            
+            if playerType == .Individual{
+                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "IndieBigIcon"), for: .normal)
             }
             
             //Update the views here
@@ -76,11 +83,9 @@ class PeakMusicController {
         
         didSet{
             
-            print("Got Group Play")
-            
             //Here we want to update the visuals
             DispatchQueue.main.async {
-                print("Ok running async")
+            
                 self.delegate?.updateDisplay()
             }
         }
