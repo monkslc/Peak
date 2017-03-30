@@ -16,10 +16,19 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var appleMusicButton: RoundedButton!
     
+    @IBOutlet weak var ConnectToAppleMusicLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        welcomeToLabel.text = "Hello \(getUserName())\nWelcome To Peak"
+        //Allow the label to properly display connect to apple music button
+        ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
+        ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters
+        
+        welcomeToLabel.text = "Hello \(getUserName())\n\nWelcome To Peak"
+        welcomeToLabel.adjustsFontSizeToFitWidth = true
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
