@@ -13,6 +13,7 @@ import AVKit
 import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
+let userLibrary = MPMediaLibrary.default()
 
 class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate{
     
@@ -61,6 +62,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged(_:)), name: .MPMediaLibraryDidChange, object: userLibrary)
+        userLibrary.beginGeneratingLibraryChangeNotifications()
 
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
@@ -281,7 +284,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*MARK: Notification Methods*/
     
-    
+    func libraryChanged(_ notification: NSNotification){
+        
+        print("Library Changed")
+        fetchLibrary()
+    }
     
     func enteringForeground(_ notification: NSNotification){
         
@@ -333,6 +340,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*END OF FETCHING METHODS*/
     
     func displayRecentlyPlayed(_ recents: ArraySlice<MPMediaItem>){
+        
+        //First Remove All Subviews
+        for sub in recentsView.subviews {
+            
+            sub.removeFromSuperview()
+        }
         
         //First Add The Subview
         let reView = UIView(frame: CGRect(x: 0, y: 0, width: (recents.count * 100), height: Int(recentsView.frame.height)))
@@ -556,11 +569,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             var song = MPMediaItem()
             let library = MPMediaLibrary()
-            print(songID)
+    
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
                 //add the entity to the queue
-                song = ent[0] as! MPMediaItem  // Error with this line //Might be because the search didn't return a song //Maybe we should try checking if there was an error first? //Not going to mess with it now because I'm not sure how the error was produced
+                song = ent[0] as! MPMediaItem  
                 
                 DispatchQueue.main.async {
                     peakMusicController.playAtEndOfQueue([song])
