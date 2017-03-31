@@ -13,6 +13,7 @@ import AVKit
 import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
+let userLibrary = MPMediaLibrary.default()
 
 class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate{
     
@@ -61,6 +62,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged(_:)), name: .MPMediaLibraryDidChange, object: userLibrary)
+        userLibrary.beginGeneratingLibraryChangeNotifications()
 
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
@@ -101,125 +104,22 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             //Change what appears based on the user's type
             if peakMusicController.playerType != .Contributor {
                 
-            //Add Play Song Option
-                alert.addAction(UIAlertAction(title: "Play Now", style: .default, handler: {(alert) in
-                    
-                    if let cell: SongCell = sender.view as? SongCell {
-                        
-                        peakMusicController.play([cell.mediaItemInCell])
-                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                        
-                        peakMusicController.play([albumView.mediaItemAssocWithImage])
-                    }
-                    
-                }))
-            
-            
-            
-            //Add Play Next Option
-            
-                alert.addAction(UIAlertAction(title: "Play Next", style: .default, handler: {(alert) in
-                    
-                    if let cell: SongCell = sender.view as? SongCell {
-                        
-                        peakMusicController.playNext([cell.mediaItemInCell])
-                    }else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                        
-                        peakMusicController.playNext([albumView.mediaItemAssocWithImage])
-                    }
-                }))
-            
-            
-            
-            //Add Add to end of Queue
-                alert.addAction(UIAlertAction(title: "Play Last", style: .default, handler: {(alert) in
-            
-                    if let cell: SongCell = sender.view as? SongCell {
-                    
-                        peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
-                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                    
-                        peakMusicController.playAtEndOfQueue([albumView.mediaItemAssocWithImage])
-                    }
-                
-                }))
-            
-            //Add play album
-                
-                alert.addAction(UIAlertAction(title: "Play Album", style: .default, handler: {(action) in
-                    
-                    if let cell: SongCell = sender.view as? SongCell {
-                        
-                        peakMusicController.play(album: cell.mediaItemInCell)
-                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                        
-                        peakMusicController.play(album: albumView.mediaItemAssocWithImage)
-                    }
-                    
-                }))
-            
-            
-            //Add Play Artist
-                
-                alert.addAction(UIAlertAction(title: "Play Artist", style: .default, handler: {(action ) in
-                    
-                    if let cell: SongCell = sender.view as? SongCell {
-                        
-                        peakMusicController.play(artist: cell.mediaItemInCell)
-                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                        
-                        peakMusicController.play(artist: albumView.mediaItemAssocWithImage)
-                    }
-                    
-                }))
-                
-                
-                //Add Shuffle All Option
-                
-                //First check if the gesture is in recents or library so we know whether to shuffle reents or whole library
-                if let _: SongCell = sender.view as? SongCell {
-                    
-                    //peakMusicController.play(artist: cell.mediaItemInCell)
-                    //now create the action
-                    alert.addAction(UIAlertAction(title: "Shuffle All", style: .default, handler: {(alert) in
-                    
-                        //shuffle and play
-                        peakMusicController.play(peakMusicController.shuffleQueue(shuffle: self.mediaItemsInLibrary))
-                    }))
-                    
-                } else if let _: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                    
-                    //peakMusicController.play(artist: albumView.mediaItemAssocWithImage)
-                    //now create the action
-                    alert.addAction(UIAlertAction(title: "Shuffle Recents", style: .default, handler: {(alert) in
-                    
-                        //shuffle and play
-                        peakMusicController.play(peakMusicController.shuffleQueue(shuffle: self.recentSongsDownloaded))
-                    }))
-                }
-                
-                
+                alert.addAction(Alerts.playNowAlert(sender))
+                alert.addAction(Alerts.playNextAlert(sender))
+                alert.addAction(Alerts.playLastAlert(sender))
+                alert.addAction(Alerts.playAlbumAlert(sender))
+                alert.addAction(Alerts.playArtistAlert(sender))
+                alert.addAction(Alerts.shuffleAlert(sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded))
             
             } else { //User is a contributor so display those methods
                 
-                alert.addAction(UIAlertAction(title: "Add to End of Queue", style: .default, handler: {(alert) in
-                    
-                    if let cell: SongCell = sender.view as? SongCell {
-                        
-                        peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
-                    } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                        
-                        peakMusicController.playAtEndOfQueue([albumView.mediaItemAssocWithImage])
-                    }
-                    
-                }))
+                alert.addAction(Alerts.sendToGroupQueueAlert(sender))
             }
             
             
             //Add a cancel action
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-            //self.present(alert, animated: true, completion: nil)
             alert.modalPresentationStyle = .popover
             let ppc = alert.popoverPresentationController
             ppc?.sourceRect = (sender.view?.bounds)!
@@ -281,7 +181,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*MARK: Notification Methods*/
     
-    
+    func libraryChanged(_ notification: NSNotification){
+        
+        fetchLibrary()
+    }
     
     func enteringForeground(_ notification: NSNotification){
         
@@ -333,6 +236,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*END OF FETCHING METHODS*/
     
     func displayRecentlyPlayed(_ recents: ArraySlice<MPMediaItem>){
+        
+        //First Remove All Subviews
+        for sub in recentsView.subviews {
+            
+            sub.removeFromSuperview()
+        }
         
         //First Add The Subview
         let reView = UIView(frame: CGRect(x: 0, y: 0, width: (recents.count * 100), height: Int(recentsView.frame.height)))
@@ -505,7 +414,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.title ?? "this song") to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
         
-            peakMusicController.playAtEndOfQueue([song])
+            //peakMusicController.playAtEndOfQueue([song])
             SendingBluetooth.sendSongIdToHost(id: "\(song.playbackStoreID)", error: {
                 () -> Void in
                 
@@ -558,19 +467,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             var song = MPMediaItem()
             let library = MPMediaLibrary()
-            
-            print(songID)
-            
-            print("\n\nERROR:\n /**************************\n * THIS NEXT LINE IS NOT WORKING *\n ****************************/\n\n")
+    
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
-                print("NEVER MIND IT WORKED")
                 //add the entity to the queue
-                song = ent[0] as! MPMediaItem  // Error with this line //Might be because the search didn't return a song //Maybe we should try checking if there was an error first? //Not going to mess with it now because I'm not sure how the error was produced
+                song = ent[0] as! MPMediaItem  
                 
-                print("029")
                 DispatchQueue.main.async {
-                    print("HERE 572")
                     peakMusicController.playAtEndOfQueue([song])
                 }
                 

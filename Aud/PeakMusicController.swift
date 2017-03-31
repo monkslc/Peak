@@ -111,10 +111,10 @@ class PeakMusicController {
         }
     }
     
-    func play(artist: MPMediaItem){
+    func play(artist: [MPMediaItem]){
         //Fetch the artists songs async and use play() to play the results
         
-        let artistToPlay = artist.artist
+        let artistToPlay = artist[0].artist
         var mediaItemsToPlay = [MPMediaItem]()
         
         //fetch the songs from the artist and add the to the queue
@@ -140,11 +140,11 @@ class PeakMusicController {
         }
     }
     
-    func play(album: MPMediaItem){
+    func play(album: [MPMediaItem]){
         //Fetch the album songs async and use play() to play the results
         
         
-        let albumTitleToPlay = album.albumTitle
+        let albumTitleToPlay = album[0].albumTitle
         var mediaItemsToPlay = [MPMediaItem]()
         
         //fetch the songs from the album and add them to the queue

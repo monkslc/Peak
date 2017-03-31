@@ -32,6 +32,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     var delegate: SearchBarPopOverViewViewControllerDelegate?
     
+    
+    /*MARK: LifeCycle Methods*/
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +44,18 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         searchedSongsTableView.delegate = self
         searchedSongsTableView.dataSource = self
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        //Called when the popover is about to go away
+        //Resign first responder status for the search bar
+        
+        if let LVCDel:LibraryViewController = delegate as? LibraryViewController {
+            
+            LVCDel.searchForMediaBar.resignFirstResponder()
+        }
+        
     }
     
     
@@ -74,8 +88,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             cell.mediaItemInCell = topThreeResults[indexPath.row] as! MPMediaItem
                 
             //add the gestures
-            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
-            cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
+            
                 
         } else if let songToAdd: Song = topThreeResults[indexPath.row] as? Song{
             //we are adding an item from Apple Music
@@ -87,10 +100,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             cell.songInCell = topThreeResults[indexPath.row] as? Song
             
             //add an add to library button here
-                
-            //add gestures here, not sure what they'll be yet
-            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+            
         }
+        
+        //add the gestures
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+        cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
         
         return cell
     }
@@ -120,9 +135,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func searchRequestChanged() {
         //Gets called when the segmented control changes
-        
-        /*******CAM THE USER CHANGED FROM LIBRARY TO APPLE MUSIC OR VISA VERSA SO UPDATE THE RESULTS*******/
-        //I'll get the search bar text for you
+       
         
         var searchText = String()
         if let LVCdel: LibraryViewController = delegate as? LibraryViewController {
@@ -139,16 +152,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         searchBar.resignFirstResponder()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        //Called when the popover is about to go away
-        //Resign first responder status for the search bar
-        
-        if let LVCDel:LibraryViewController = delegate as? LibraryViewController {
-            
-            LVCDel.searchForMediaBar.resignFirstResponder()
-        }
-        
-    }
+ 
     
     
     /*MARK: GESTURE RECOGNIZERS*/
@@ -165,74 +169,46 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             //Change what appears based on the user's type
             if peakMusicController.playerType != .Contributor {
                 
-                //Add Play Song Option
-                alert.addAction(UIAlertAction(title: "Play Now", style: .default, handler: {(alert) in
+                //Get the cell
+                if let cell: SongCell = gesture.view as? SongCell{
                     
-                    if let cell: SongCell = gesture.view as? SongCell {
+                    //Add A play now
+                    alert.addAction(Alerts.playNowAlert(gesture))
+                    
+                    //change what appears based on the music type
+                    if cell.songInCell == nil{
+                        //Library
                         
-                        peakMusicController.play([cell.mediaItemInCell])
-                    }
-                    
-                }))
-                
-                
-                //Add Play Next Option
-                
-                alert.addAction(UIAlertAction(title: "Play Next", style: .default, handler: {(alert) in
-                    
-                    if let cell: SongCell = gesture.view as? SongCell {
+                        //Add Actions for library non contributors
+                        alert.addAction(Alerts.playNextAlert(gesture))
+                        alert.addAction(Alerts.playLastAlert(gesture))
+                        alert.addAction(Alerts.playAlbumAlert(gesture))
+                        alert.addAction(Alerts.playArtistAlert(gesture))
                         
-                        peakMusicController.playNext([cell.mediaItemInCell])
-                    }
-                }))
-                
-                
-                
-                //Add Add to end of Queue
-                alert.addAction(UIAlertAction(title: "Play Last", style: .default, handler: {(alert) in
-                    
-                    if let cell: SongCell = gesture.view as? SongCell {
+        
+
+                    } else {
+                        //Apple Music
                         
-                        peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
+                        //Add Actions For Apple Music Non Contributors
+                        alert.addAction(addToLibraryAlert(gesture))
                     }
-                    
-                }))
+                }
                 
-                //Add play album
-                
-                alert.addAction(UIAlertAction(title: "Play Album", style: .default, handler: {(action) in
-                    
-                    if let cell: SongCell = gesture.view as? SongCell {
-                        
-                        peakMusicController.play(album: cell.mediaItemInCell)
-                    }
-                    
-                }))
-                
-                
-                //Add Play Artist
-                
-                alert.addAction(UIAlertAction(title: "Play Artist", style: .default, handler: {(action ) in
-                    
-                    if let cell: SongCell = gesture.view as? SongCell {
-                        
-                        peakMusicController.play(artist: cell.mediaItemInCell)
-                    }
-                    
-                }))
-                
-                
-                
+    
             } else { //User is a contributor so display those methods
                 
-                alert.addAction(UIAlertAction(title: "Add to End of Queue", style: .default, handler: {(alert) in
+                
+                if let cell: SongCell = gesture.view as? SongCell {
                     
-                    if let cell: SongCell = gesture.view as? SongCell {
+                    alert.addAction(Alerts.sendToGroupQueueAlert(gesture))
+                    
+                    //Add an add to library option if we are in Apple Music
+                    if cell.songInCell != nil {
                         
-                        peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
+                        alert.addAction(addToLibraryAlert(gesture))
                     }
-                    
-                }))
+                }
             }
             
             
@@ -260,34 +236,111 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Check player type
         if peakMusicController.playerType != .Contributor {
             
-            //Check library or apple music
-            if cell.mediaItemInCell != MPMediaItem() {
-               //library
-
-                peakMusicController.play([cell.mediaItemInCell])
-                
-            }else {
-                //Apple Music
-                //Play a song by song id, because we won't have the MPMediaItem
-                
-                if cell.songInCell != nil {
-                    
-                    peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([(cell.songInCell?.id)!])
-                    peakMusicController.systemMusicPlayer.play()
-                }
-                
-            }
+            notContributorTap(cell)
             
         } else {
             //We are a contributor
             
+            contributorTap(cell)
         }
         
     }
-    
+
     
     /*MARK: Song Interaction Functionality Methods*/
-
+    
+    
+    func addToLibraryAlert(_ gesture: UIGestureRecognizer) -> UIAlertAction{
+        
+        return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
+            
+            self.showSignifier()
+            
+            let cell:SongCell = (gesture.view as? SongCell)!
+            
+            userLibrary.addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                
+                /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
+                /*******DO SOMETHING WITH THE ERROR******/
+            })
+        })
+    }
+    
+    /*TAP METHODS*/
+    
+    func notContributorTap(_ cell: SongCell){
+        //Handle the music for the non contributor
+        
+        //Check library or apple music
+        if cell.mediaItemInCell != MPMediaItem() {
+            //library
+            
+            peakMusicController.play([cell.mediaItemInCell])
+            
+        }else {
+            //Apple Music
+            //Play a song by song id, because we won't have the MPMediaItem
+            
+            peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([(cell.songInCell?.id)!])
+            peakMusicController.systemMusicPlayer.play()
+            
+        }
+    }
+    
+    func contributorTap(_ cell: SongCell){
+        //Handle the music for a contributor
+        
+        var songId = String()
+        var songTitle = String()
+        
+        //Check if we are in apple music or library and get the song id + title
+        if cell.songInCell == nil{
+            //Library
+            
+            songId = cell.mediaItemInCell.playbackStoreID
+            songTitle = cell.mediaItemInCell.title!
+        } else {
+            //Apple Music
+            
+            songId = (cell.songInCell?.id)!
+            songTitle = (cell.songInCell?.trackName)!
+        }
+        
+        //Alert the user
+        promptUserToSendToGroupQueue(songTitle: songTitle, songId: songId)
+        
+    }
+    
+    func promptUserToSendToGroupQueue(songTitle: String, songId: String){
+        //Makes sure the user wants to send the item to the group queue
+        
+        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(songTitle) to the group queue?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
+            
+            SendingBluetooth.sendSongIdToHost(id: "\(songId)", error: {
+                () -> Void in
+                
+                let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }) // @cam added this. may want to change
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func showSignifier(){
+        
+        //Show Signifier to let the user know they added it
+        let sig = Signifier(frame: CGRect(x: view.bounds.midX - 50, y: view.bounds.midY - 50, width: 100, height: 100))
+        sig.animationSetUp()
+        view.addSubview(sig)
+        sig.animate()
+    }
+    
     
     /*MARK: SEARCH FUNCTIONALITY METHODS*/
     
@@ -304,9 +357,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     private func searchLibrary(search: String) {
         //we are searching the library so get the library // 3 cam store in top 5 results
         guard let library = delegate?.returnLibrary() else { return }
-        
-        /********CAMERON MONKS THIS IS WHERE YOU NEED TO GET THE SEARCH RESULTS AND STORE IT IN topFiveResults*******/
-        /******GET ALL THE RESULTS AND THEN STORE THEM BECAUSE table view load each time you change topFiveResults******/
         
         var songs: [MPMediaItem] = []
         var points: [Int: Int] = [:]
