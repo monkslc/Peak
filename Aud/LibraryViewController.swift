@@ -461,7 +461,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         //Add them back
-        currPlayingView.addAllViews()
+        DispatchQueue.main.async {
+            self.currPlayingView.addAllViews()
+        }
     }
     /*End of Peak Music Controller Delegate Methods*/
     
@@ -556,13 +558,19 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             var song = MPMediaItem()
             let library = MPMediaLibrary()
+            
             print(songID)
+            
+            print("\n\nERROR:\n /**************************\n * THIS NEXT LINE IS NOT WORKING *\n ****************************/\n\n")
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
+                print("NEVER MIND IT WORKED")
                 //add the entity to the queue
                 song = ent[0] as! MPMediaItem  // Error with this line //Might be because the search didn't return a song //Maybe we should try checking if there was an error first? //Not going to mess with it now because I'm not sure how the error was produced
                 
+                print("029")
                 DispatchQueue.main.async {
+                    print("HERE 572")
                     peakMusicController.playAtEndOfQueue([song])
                 }
                 

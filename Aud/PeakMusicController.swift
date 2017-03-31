@@ -49,7 +49,9 @@ class PeakMusicController {
             if playerType == .Contributor {
                 MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
                 
-                    (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
+                DispatchQueue.main.async {
+                    (self.delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
+                }
             }
             else {
                 MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
@@ -192,8 +194,10 @@ class PeakMusicController {
     func playAtEndOfQueue(_ songs: [MPMediaItem]) {
         
         
+        print("HERE 911")
         //Check what type of player it is
         if playerType != .Contributor {
+            print("Here 465")
             
             currPlayQueue.append(contentsOf: songs)
             
@@ -201,7 +205,7 @@ class PeakMusicController {
             delegate?.showSignifier()
             delegate?.updateDisplay()
         } else {
-            
+            print("HEre 411")
             /*******NEED: Implmepent sending the songId to another device**********/
         }
         
