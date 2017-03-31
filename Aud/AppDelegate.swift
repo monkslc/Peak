@@ -13,20 +13,33 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    var mpcManager: MPCManager?
-
+    
+    var shortcutItem: UIApplicationShortcutItem?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        mpcManager = MPCManager()
+        var performShortcutDelegate = true
         
-        return true
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
+            
+            self.shortcutItem = shortcutItem
+            
+            performShortcutDelegate = false
+        }
+        
+        return !performShortcutDelegate
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        
+        guard let shortcut = shortcutItem else { return }
+        
+        _ = handleShortcut(shortcutItem: shortcut)
+        
+        self.shortcutItem = nil
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -46,6 +59,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        print("Shortcut tapped")
+        completionHandler(handleShortcut(shortcutItem: shortcutItem))
+    }
+    
+    func handleShortcut( shortcutItem:UIApplicationShortcutItem ) -> Bool {
+        print("Handling shortcut")
+        
+        var succeeded = true
+        
+        switch shortcutItem.type {
+        case "appleMusicId":
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedAppleMusicForceTouchNotification"), object: nil)
+        case "djId":
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
+        default:
+            print("DONT KNOW \(shortcutItem.type)")
+            succeeded = false
+        }
+        
+        return succeeded
+        
+    }
 
 }
 
