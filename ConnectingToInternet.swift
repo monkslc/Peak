@@ -44,44 +44,57 @@ class ConnectingToInternet {
                     
                     let urlContent = urlContent as String
                         
-                        var lyrics = ""
-                        let beginingLine = "!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->"
-                        let beginingIndex = urlContent.indexOf(target: beginingLine) + beginingLine.length
-                        let endingIndex = urlContent.indexOf(target: "</div>", startIndex: beginingIndex)
-                        
-                        let lyricsSection = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
-                        
-                        
-                        var lastIndex = 0
-                        
-                        while (lastIndex != -1) {
-                            let indexOfNextTag = lyricsSection.indexOf(target: "<", startIndex: lastIndex)
-                            if indexOfNextTag != -1 {
-                                let newLine = lyricsSection.subString(startIndex: lastIndex, endIndex: indexOfNextTag)
-                                lyrics = "\(lyrics)\(newLine)"
-                                
-                                lastIndex = lyricsSection.indexOf(target: ">", startIndex: indexOfNextTag) + 1
-                                
-                            }
-                            else {
-                                lastIndex = -1
-                            }
-                        }
- 
-                        let replacingCharacters: [String: String] = ["&quot;": "\""]
-                        for (key, value) in replacingCharacters {
-                            lyrics = (lyrics as NSString).replacingOccurrences(of: key, with: value)
-                        }
+                    var lyrics = ""
+                    let beginingLine = "!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->"
+                    let beginingIndex = urlContent.indexOf(target: beginingLine) + beginingLine.length
+                    let endingIndex = urlContent.indexOf(target: "</div>", startIndex: beginingIndex)
+                    
+                    let lyricsSection = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
+                    
+                    
+                    var lastIndex = 0
+                    
+                    while (lastIndex != -1) {
+                        let indexOfNextTag = lyricsSection.indexOf(target: "<", startIndex: lastIndex)
+                        if indexOfNextTag != -1 {
+                            let newLine = lyricsSection.subString(startIndex: lastIndex, endIndex: indexOfNextTag)
+                            lyrics = "\(lyrics)\(newLine)"
                             
-                        completion(lyrics)
+                            lastIndex = lyricsSection.indexOf(target: ">", startIndex: indexOfNextTag) + 1
+                            
+                        }
+                        else {
+                            lastIndex = -1
+                        }
+                    }
+                    
+                    let replacingCharacters: [String: String] = ["&quot;": "\"", "â": "’"]
+                    for (key, value) in replacingCharacters {
+                        lyrics = (lyrics as NSString).replacingOccurrences(of: key, with: value)
+                    }
+                    
+                    if lyrics.contains("AZLyrics - Song Lyrics from A to Z") {
+                        lyrics = "Sorry we don't have these lyrics"
+                    }
+                    
+                    completion(lyrics)
                 }
             }
         }.resume()
     }
     
     static func getFullLyrics(song: Song, completion : @escaping (String) -> Void) {
-        let creatingURL = "http://search.azlyrics.com/search.php?q=\(song.trackName) \(song.artistName)"
-        let urlNew:String = creatingURL.replacingOccurrences(of: " ", with: "%20")
+        
+        var songName = song.trackName
+        if songName.contains("(") {
+            songName = songName.subString(toIndex: songName.indexOf(target: "(")).trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        let search = ("\(songName) \(song.artistName)").addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)
+        
+        let urlNew = "http://search.azlyrics.com/search.php?q=\(search!)"
+        //let urlNew:String = creatingURL.replacingOccurrences(of: " ", with: "%20")
+        
+        print(urlNew)
         
         let url = URL(string: urlNew)
         
