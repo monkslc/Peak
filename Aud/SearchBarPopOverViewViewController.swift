@@ -169,57 +169,44 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             //Change what appears based on the user's type
             if peakMusicController.playerType != .Contributor {
                 
-                
+                //Get the cell
                 if let cell: SongCell = gesture.view as? SongCell{
+                    
+                    //Add A play now
+                    alert.addAction(Alerts.playNowAlert(gesture))
                     
                     //change what appears based on the music type
                     if cell.songInCell == nil{
                         //Library
                         
-                        //Loop through appropriate actions and add them
-                        for action in returnActionsForNonContributorLibrary(cell){
-                            
-                            alert.addAction(action)
-                        }
+                        //Add Actions for library non contributors
+                        alert.addAction(Alerts.playNextAlert(gesture))
+                        alert.addAction(Alerts.playLastAlert(gesture))
+                        alert.addAction(Alerts.playAlbumAlert(gesture))
+                        alert.addAction(Alerts.playArtistAlert(gesture))
+                        
+        
 
                     } else {
                         //Apple Music
                         
-                        for action in returnActionsForNonContributorAppleMusic(cell){
-                            
-                            alert.addAction(action)
-                        }
+                        //Add Actions For Apple Music Non Contributors
+                        alert.addAction(addToLibraryAlert(gesture))
                     }
                 }
                 
-                
-                
-                
+    
             } else { //User is a contributor so display those methods
                 
                 
                 if let cell: SongCell = gesture.view as? SongCell {
                     
+                    alert.addAction(Alerts.sendToGroupQueueAlert(gesture))
                     
-                    
-                    //Check if we're in Apple Music or Library
-                    if cell.songInCell == nil {
-                        //library
+                    //Add an add to library option if we are in Apple Music
+                    if cell.songInCell != nil {
                         
-                        for action in returnActionsForContributorLibrary(cell) {
-                         
-                            alert.addAction(action)
-                         }
-                        
-                        
-                    } else {
-                        //Apple Music
-                        
-                        for action in returnActionsForContributorAppleMusic(cell){
-                            
-                            alert.addAction(action)
-                        }
-                        
+                        alert.addAction(addToLibraryAlert(gesture))
                     }
                 }
             }
@@ -261,6 +248,23 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
 
     
     /*MARK: Song Interaction Functionality Methods*/
+    
+    
+    func addToLibraryAlert(_ gesture: UIGestureRecognizer) -> UIAlertAction{
+        
+        return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
+            
+            self.showSignifier()
+            
+            let cell:SongCell = (gesture.view as? SongCell)!
+            
+            userLibrary.addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                
+                /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
+                /*******DO SOMETHING WITH THE ERROR******/
+            })
+        })
+    }
     
     /*TAP METHODS*/
     
@@ -325,132 +329,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
-    }
-    
-    /*RETURN ACTION METHODS*/
-    func returnActionsForNonContributorLibrary(_ cell: SongCell) -> [UIAlertAction]{
-        
-        var actions = [UIAlertAction]()
-       
-        //Add Play Song Option
-        let playAction = UIAlertAction(title: "Play Now", style: .default, handler: {(alert) in
-            
-            peakMusicController.play([cell.mediaItemInCell])
-            
-        })
-        actions.append(playAction)
-        
-        
-        //Add Play Next Option
-        let playNextAction = UIAlertAction(title: "Play Next", style: .default, handler: {(alert) in
-            
-            peakMusicController.playNext([cell.mediaItemInCell])
-            
-        })
-        actions.append(playNextAction)
-        
-        
-        //Add Add to end of Queue
-        let endOfQueue = UIAlertAction(title: "Play Last", style: .default, handler: {(alert) in
-            
-            peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
-            
-        })
-        actions.append(endOfQueue)
-        
-        //Add play album
-        let playAlbum = UIAlertAction(title: "Play Album", style: .default, handler: {(action) in
-            
-            peakMusicController.play(album: cell.mediaItemInCell)
-            
-        })
-        actions.append(playAlbum)
-        
-        
-        //Add Play Artist
-        let playArtist = UIAlertAction(title: "Play Artist", style: .default, handler: {(action ) in
-            
-            peakMusicController.play(artist: cell.mediaItemInCell)
-        })
-        actions.append(playArtist)
-        
-        
-        return actions
-    }
-    
-    
-    func returnActionsForNonContributorAppleMusic(_ cell: SongCell) -> [UIAlertAction]{
-        
-        var actions = [UIAlertAction]()
-        
-        //Play Song Option
-        let playSongOption = UIAlertAction(title: "Play Song", style: .default, handler: {(action) in
-            
-            peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([(cell.songInCell?.id)!])
-            peakMusicController.systemMusicPlayer.play()
-        })
-        actions.append(playSongOption)
-        
-        
-        //Add an add to library option
-        let addToLibrary = UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
-            
-            self.showSignifier()
-            
-            userLibrary.addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
-                
-                /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
-                print(err)
-            })
-            
-            
-        })
-        actions.append(addToLibrary)
-        
-        
-        return actions
-    }
-    
-    func returnActionsForContributorLibrary(_ cell: SongCell) -> [UIAlertAction]{
-        
-        var actions = [UIAlertAction]()
-        
-        let addToEndOfQueue = UIAlertAction(title: "Add to End of Queue", style: .default, handler: {(alert) in
-            
-            peakMusicController.playAtEndOfQueue([cell.mediaItemInCell])
-            
-        })
-        actions.append(addToEndOfQueue)
-        
-        return actions
-    }
-    
-    func returnActionsForContributorAppleMusic(_ cell: SongCell) -> [UIAlertAction] {
-        
-        var actions = [UIAlertAction]()
-        
-        let addToEndOfQueue = UIAlertAction(title: "Add to End of Queue", style: .default, handler: {(alert) in
-            
-            peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([(cell.songInCell?.id)!])
-            
-        })
-        actions.append(addToEndOfQueue)
-        
-        let addToLibrary = UIAlertAction(title: "Add To Library", style: .default, handler: {(alert) in
-            
-            self.showSignifier()
-            
-            userLibrary.addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
-                
-                /******************HANDLE SOME ERRORS HERE************/
-                print(err)
-            })
-            
-        })
-        actions.append(addToLibrary)
-        
-        return actions
-        
     }
     
     
