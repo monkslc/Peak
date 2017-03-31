@@ -19,8 +19,9 @@ class SongCell: UITableViewCell {
     
     @IBOutlet weak var songDurationLabel: UILabel!
     
-    
     var mediaItemInCell = MPMediaItem()
+   
+    var songInCell: Song?
     
     override func awakeFromNib() {
         super.awakeFromNib()
