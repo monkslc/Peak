@@ -27,18 +27,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         
         MPCManager.defaultMPCManager.delegate = self
         
-        //Check what the player type is so we can set up the view
-        switch peakMusicController.playerType {
-        case .Host:
-            isHostSwitch.isOn = true
-            connectedToLabel.text = "Session Members:"
-        case .Contributor:
-            isHostSwitch.isOn = false
-            connectedToLabel.text = "Joined:"
-        case .Individual:
-            isHostSwitch.isOn = false
-            connectedToLabel.text = "Join a Session:"
-        }
+        isHostSwitch.isOn = peakMusicController.playerType == .Host
         
         updateMPCManager()
     }
@@ -55,12 +44,21 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         case .Host:
             MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
+            DispatchQueue.main.async {
+                self.connectedToLabel.text = "Session Members:"
+            }
         case .Contributor:
             MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
+            DispatchQueue.main.async {
+                self.connectedToLabel.text = "Joined:"
+            }
         case .Individual:
             MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
+            DispatchQueue.main.async {
+                self.connectedToLabel.text = "Join a Session:"
+            }
         }
     }
     
@@ -171,6 +169,8 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         }
         else if peakMusicController.playerType == .Individual {
             peakMusicController.playerType = .Contributor
+            
+            updateMPCManager()
         }
     }
     

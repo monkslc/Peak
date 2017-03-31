@@ -32,6 +32,9 @@ class AuthViewController: UIViewController {
         welcomeToLabel.text = "Hello \(getUserName())\nWelcome To Peak"
         welcomeToLabel.adjustsFontSizeToFitWidth = true
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAppleMusicForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedAppleMusicForceTouchNotification"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDjForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,7 +93,7 @@ class AuthViewController: UIViewController {
     }
     
     //Let the user know how to give us access to apple music
-    func instructUserToAllowUsToAppleMusic(){
+    func instructUserToAllowUsToAppleMusic() {
         
         let alert = UIAlertController(title: "Head to settings > Privacy > Media & Apple Music and allow Peak to access Media & Apple Music.", message: nil,preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -99,7 +102,7 @@ class AuthViewController: UIViewController {
     }
     
     //let the user know their access to apple music is restricted
-    func alertRestrictedAccess(){
+    func alertRestrictedAccess() {
         
         let alert = UIAlertController(title: "Access to Apple Music is restricted.", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style:
@@ -124,4 +127,12 @@ class AuthViewController: UIViewController {
         return name
     }
     
+    // Handle Notification For Force Touché
+    func handleAppleMusicForceTouchNotification(notification: NSNotification) {
+        checkAppleAuthentication()
+    }
+    
+    func handleDjForceTouchNotification(notification: NSNotification) {
+        print("DJ Notification got")
+    }
 }

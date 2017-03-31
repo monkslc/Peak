@@ -42,7 +42,7 @@ class ConnectingToInternet {
                 
                 if let urlContent = NSString(data: data, encoding: String.Encoding.ascii.rawValue) as NSString! {
                     
-                    if let urlContent = urlContent as? String {
+                    let urlContent = urlContent as String
                         
                         var lyrics = ""
                         let beginingLine = "!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->"
@@ -74,7 +74,6 @@ class ConnectingToInternet {
                         }
                             
                         completion(lyrics)
-                    }
                 }
             }
         }.resume()
@@ -93,16 +92,15 @@ class ConnectingToInternet {
                 
                 if let urlContent = NSString(data: data, encoding: String.Encoding.ascii.rawValue) as NSString! {
                     
-                    if let urlContent = urlContent as? String {
+                    let urlContent = urlContent as String
                      
-                        let beginingOfUrl = "http://www.azlyrics.com/lyrics/"
-                        let beginingIndex = urlContent.indexOf(target: beginingOfUrl) + beginingOfUrl.length
-                        let endingIndex = urlContent.indexOf(target: "\"", startIndex: beginingIndex)
-                        
-                        let lyricsUrl = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
-                        
-                        ConnectingToInternet.getFullLyrics(endingURL: lyricsUrl, completion: completion)
-                    }
+                    let beginingOfUrl = "http://www.azlyrics.com/lyrics/"
+                    let beginingIndex = urlContent.indexOf(target: beginingOfUrl) + beginingOfUrl.length
+                    let endingIndex = urlContent.indexOf(target: "\"", startIndex: beginingIndex)
+                    
+                    let lyricsUrl = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
+                    
+                    ConnectingToInternet.getFullLyrics(endingURL: lyricsUrl, completion: completion)
                     
                 }
                 

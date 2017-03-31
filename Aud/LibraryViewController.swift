@@ -474,7 +474,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         //Add them back
-        currPlayingView.addAllViews()
+        DispatchQueue.main.async {
+            self.currPlayingView.addAllViews()
+        }
     }
     /*End of Peak Music Controller Delegate Methods*/
     
@@ -572,10 +574,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
+                print("NEVER MIND IT WORKED")
                 //add the entity to the queue
                 song = ent[0] as! MPMediaItem  
                 
+                print("029")
                 DispatchQueue.main.async {
+                    print("HERE 572")
                     peakMusicController.playAtEndOfQueue([song])
                 }
                 
