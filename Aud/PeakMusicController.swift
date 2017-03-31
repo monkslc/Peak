@@ -193,9 +193,7 @@ class PeakMusicController {
     
     func playAtEndOfQueue(_ songs: [MPMediaItem]) {
         
-        
-        print("HERE 911")
-        //Check what type of player it is
+        //Just to be sure the player isn't a contributor
         if playerType != .Contributor {
             print("Here 465")
             
@@ -204,9 +202,6 @@ class PeakMusicController {
             //now update the delegate
             delegate?.showSignifier()
             delegate?.updateDisplay()
-        } else {
-            print("HEre 411")
-            /*******NEED: Implmepent sending the songId to another device**********/
         }
         
     }

@@ -76,32 +76,22 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
     
-            
-            
         //Check whether we are adding a Apple Music or Library Item
         if let songToAdd: MPMediaItem = topThreeResults[indexPath.row] as? MPMediaItem{
             //we are adding an item from the library
-                
-            cell.albumArt.image = songToAdd.artwork?.image(at: CGSize())
-            cell.songArtist.text = songToAdd.artist
-            cell.songTitle.text = songToAdd.title
-            cell.mediaItemInCell = topThreeResults[indexPath.row] as! MPMediaItem
-                
-            //add the gestures
             
-                
+            cell.mediaItemInCell = songToAdd
+        
         } else if let songToAdd: Song = topThreeResults[indexPath.row] as? Song{
             //we are adding an item from Apple Music
-                
-            cell.albumArt.image = songToAdd.image
-            cell.songArtist.text = songToAdd.artistName
-            cell.songTitle.text = songToAdd.trackName
             
-            cell.songInCell = topThreeResults[indexPath.row] as? Song
+            cell.songInCell = songToAdd
             
             //add an add to library button here
             
         }
+        
+        cell.addItems()
         
         //add the gestures
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))

@@ -485,7 +485,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: Notification
     func handleMPCNotification(notification: NSNotification) {
-        print("Is this notification getting called?")
+    
+        
         switch peakMusicController.playerType {
         case .Host:
             handleMPCDJRecievedSongIDWithNotification(notification: notification)
@@ -504,7 +505,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
         if let id = dataDictionary["id"] {
-            print("DJ Recieved ID \(id)")
+            
             receivedSong(id)
         }
         else {

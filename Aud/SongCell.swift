@@ -38,5 +38,24 @@ class SongCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
+    func addItems(){
+        
+        //check whether to add mediaItem or song
+        if songInCell == nil{
+            //mediaItem
+            
+            albumArt.image = mediaItemInCell.artwork?.image(at: CGSize())
+            songTitle.text = mediaItemInCell.title
+            songArtist.text = mediaItemInCell.artist
+        } else {
+            //Song in Cell
+            
+            albumArt.image = songInCell?.image
+            songTitle.text = songInCell?.trackName
+            songArtist.text = songInCell?.artistName
+        }
+    }
 
 }
