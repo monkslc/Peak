@@ -18,9 +18,12 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var ConnectToAppleMusicLabel: UILabel!
     
+    @IBOutlet weak var Disc: DiscAnimation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         //Allow the label to properly display connect to apple music button
         ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
@@ -43,10 +46,12 @@ class AuthViewController: UIViewController {
             //performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
         }
         
+    
     }
     
     @IBAction func checkAppleAuthentication() {
         
+        //Disc.animateMe()
         loadingIndicator.startAnimating()
         //check if we have authorization to the user's apple music
         SKCloudServiceController.requestAuthorization({(authorization) in
@@ -60,6 +65,7 @@ class AuthViewController: UIViewController {
                 DispatchQueue.global().async {
                     DispatchQueue.main.async {
                         
+                        //self.Disc.stopMyAnimation()
                         self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
                     }
                 }
@@ -67,15 +73,17 @@ class AuthViewController: UIViewController {
                 
             case .denied:
                 self.loadingIndicator.stopAnimating()
+                //self.Disc.stopMyAnimation()
                 self.instructUserToAllowUsToAppleMusic()
 
             case .notDetermined:
                 print("Can't be determined")
+                //self.Disc.stopMyAnimation()
                 self.loadingIndicator.stopAnimating()
                 
             case .restricted:
                 print("Restricted")
-                
+                //self.Disc.stopMyAnimation()
                 self.loadingIndicator.stopAnimating()
             }
             
