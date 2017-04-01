@@ -27,8 +27,6 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         //Allow the label to properly display connect to apple music button
         ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
         ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters

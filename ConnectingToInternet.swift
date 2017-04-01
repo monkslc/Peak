@@ -125,7 +125,7 @@ class ConnectingToInternet {
     
     static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void) {
         
-        let search = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
+        let search = searchTerm.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
         
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(search)&country=US&media=music&limit=\(limit)", completion: {
             (json) -> Void in
@@ -143,7 +143,7 @@ class ConnectingToInternet {
                         ConnectingToInternet.getImage(url: imageURL, completion: {
                             (image) -> Void in
                             
-                            songs.append(Song(id: "\(songJSON["trackId"]!)", trackName: "\(songJSON["trackName"]!)", collectionName: "\(songJSON["collectionName"]!)", artistName: "\(String(describing: songJSON["artistName"]))", trackTimeMillis: Int("\(songJSON["trackTimeMillis"]!)")!, image: image))
+                            songs.append(Song(id: "\(songJSON["trackId"]!)", trackName: "\(songJSON["trackName"]!)", collectionName: "\(songJSON["collectionName"]!)", artistName: "\(songJSON["artistName"]!)", trackTimeMillis: Int("\(songJSON["trackTimeMillis"]!)")!, image: image))
                             
                             if songs.count == limit || !sendSongsAlltogether {
                                 completion(songs)
@@ -224,4 +224,86 @@ class ConnectingToInternet {
         
     }
     
+    static func searchTopCharts(completion: @escaping ([Song]) -> Void) {
+        
+        let url = URL(string: "http://www.apple.com/itunes/charts/songs/")
+        
+        URLSession.shared.dataTask(with: url!) { data, response, error in
+            
+            if error == nil, let data = data {
+                
+                if let urlContent = NSString(data: data, encoding: String.Encoding.ascii.rawValue) as NSString! {
+                    
+                    let urlContent = urlContent as String
+                    
+                    let beginingIndex = urlContent.indexOf(target: "<strong>1.</strong>")
+                    let endingIndex = urlContent.indexOf(target: "<strong>51.</strong>", startIndex: beginingIndex)
+                    let section = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
+                    
+                    var songs = [Song?](repeating: nil, count: 49)
+                    
+                    var startIndex = 0
+                    var songIndex = 1
+                    while startIndex != -1 && songIndex <= 50 {
+                        
+                        let endSongSectionIndex = section.indexOf(target: "<strong>\(songIndex).</strong>", startIndex: startIndex)
+                        
+                        if endSongSectionIndex == -1 {
+                            startIndex = -1
+                        }
+                        else {
+                            let songSection = section.subString(startIndex: startIndex, endIndex: endSongSectionIndex)
+                        
+                            let songStuff = takeOutTags(htmlCode: songSection, sectionCharacter: "|")
+                        
+                            let thisSongIndex = songIndex - 2
+                            let sectionsOfSong = songStuff.components(separatedBy: "|")
+                            if sectionsOfSong.count > 2 {
+                                ConnectingToInternet.getSongs(searchTerm: "\(sectionsOfSong[1]) \(sectionsOfSong[2])".replacingOccurrences(of: "’", with: ""), limit: 1, sendSongsAlltogether: true, completion: {
+                                    (newSong) -> Void in
+                                
+                                    songs[thisSongIndex] = newSong[0]
+                                    
+                                    if let s = songs as? [Song] {
+                                        completion(s)
+                                    }
+                                    
+                                })
+                            }
+                            
+                            songIndex += 1
+                            
+                            startIndex = endSongSectionIndex
+                        }
+                    }
+                }
+            }
+        }.resume()
+    }
+    
+    static func takeOutTags(htmlCode: String, sectionCharacter: String = "") -> String {
+        var str = ""
+        
+        var beginingIndex = 0
+        while beginingIndex != -1 {
+            
+            let endingIndex = htmlCode.indexOf(target: "<", startIndex: beginingIndex)
+            if endingIndex != -1 {
+                let newSection = htmlCode.subString(startIndex: beginingIndex, endIndex: endingIndex).trimmingCharacters(in: .whitespacesAndNewlines)
+                if newSection.length > 0 {
+                    str.append("\(newSection)\(sectionCharacter)")
+                }
+                beginingIndex = htmlCode.indexOf(target: ">", startIndex: endingIndex) + 1
+            }
+            else {
+                beginingIndex = -1
+            }
+        }
+        
+        let replacingCharacters: [String: String] = ["&quot;": "\"", "â": "’"]
+        for (key, value) in replacingCharacters {
+            str = (str as NSString).replacingOccurrences(of: key, with: value)
+        }
+        return str
+    }
 }

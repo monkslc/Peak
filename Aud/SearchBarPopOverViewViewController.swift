@@ -67,7 +67,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        //return 3 because we only want the top 3 results
         return topThreeResults.count
     }
     
@@ -356,18 +355,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     /*MARK: SEARCH FUNCTIONALITY METHODS*/
     
     private func searchSongs(search: String) {
+        searchedSongsTableView.setContentOffset(CGPoint.zero, animated: true)
         if selectMusicFromSegment.selectedSegmentIndex == 0 {
             searchLibrary(search: search)
         }
-        else if selectMusicFromSegment.selectedSegmentIndex == 1{
-            
+        else if selectMusicFromSegment.selectedSegmentIndex == 1 {
             searchAppleMusic(search: search)
         } else {
-            
-            /*CAM IMPLEMENT TOP CHARTS SEARCH HERE*/
+            searchTopCharts()
         }
     }
-    
 
     private func searchLibrary(search: String) {
         //we are searching the library so get the library // 3 cam store in top 5 results
@@ -407,27 +404,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         let foo = Array(points.keys).sorted()
         
-        var top3 : [MPMediaItem] = []
+        var top : [MPMediaItem] = []
         for i in foo {
-            top3.append(songs[i])
-            if top3.count == 3 {
-                break
-            }
+            top.append(songs[i])
         }
         
-        topThreeResults = top3
-        
-        //Store an MPMediaItem in topThreeResults
+        topThreeResults = top
     }
     
     private func searchAppleMusic(search: String) {
-        //we are searching apple music
         
-        /********CAMERON MONKS THIS IS ALSO WHERE YOU NEEd TO GET THE SEARCH RESULTS BUT FROM APPLE MUSIC THIS TIME********/
-        
-        //Store an instance of the Song struct in topThree Results
-        
-        ConnectingToInternet.getSongs(searchTerm: search, limit: 3, sendSongsAlltogether: true, completion: {
+        ConnectingToInternet.getSongs(searchTerm: search, limit: 7, sendSongsAlltogether: true, completion: {
             (songs) -> Void in
             
             var top3 : [Song] = []
@@ -438,6 +425,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             DispatchQueue.main.async {
                 self.topThreeResults = top3 as [AnyObject]
+            }
+        })
+    }
+    
+    private func searchTopCharts() {
+        
+        ConnectingToInternet.searchTopCharts(completion: {
+            (songs) -> Void in
+            
+            DispatchQueue.main.async {
+                self.topThreeResults = songs as [AnyObject]
             }
         })
     }
