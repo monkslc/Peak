@@ -316,8 +316,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(displaySongOptions(_:))))
         
-        //Stop The Library button from showing
+        //Stop the cell from showing...
         cell.addToLibraryButton.isHidden = true
+        cell.songDurationLabel.isHidden = true
         
         return cell
         

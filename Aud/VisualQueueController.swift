@@ -85,6 +85,9 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         
         cell.backgroundColor = UIColor.clear
         
+        //show the duration label
+        cell.songDurationLabel.isHidden = false
+        
         return cell
     }
     
