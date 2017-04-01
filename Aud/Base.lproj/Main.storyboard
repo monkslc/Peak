@@ -530,6 +530,7 @@
                     </view>
                     <connections>
                         <outlet property="connectedToLabel" destination="FBI-wR-1ci" id="fe2-LO-9Ht"/>
+                        <outlet property="disconectButton" destination="VQN-El-BkG" id="PX0-sS-gnS"/>
                         <outlet property="isHostSwitch" destination="vTO-Tr-c31" id="fJe-wG-Sx9"/>
                         <outlet property="tableView" destination="BRG-Bh-jpU" id="QZz-WJ-IJk"/>
                     </connections>

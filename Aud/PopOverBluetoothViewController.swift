@@ -17,6 +17,8 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBOutlet var connectedToLabel: UILabel!
     
+    @IBOutlet var disconectButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,18 +48,21 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
             DispatchQueue.main.async {
                 self.connectedToLabel.text = "Session Members:"
+                self.disconectButton.isHidden = true
             }
         case .Contributor:
             MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
             DispatchQueue.main.async {
                 self.connectedToLabel.text = "Joined:"
+                self.disconectButton.isHidden = false
             }
         case .Individual:
             MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
             DispatchQueue.main.async {
                 self.connectedToLabel.text = "Join a Session:"
+                self.disconectButton.isHidden = true
             }
         }
     }
@@ -65,16 +70,8 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: IBOutlet
     
     @IBAction func isHostValueChanged(_ sender: UISwitch) {
-        //Gets called when the Host Session switch changes
         
-        if sender.isOn {
-            connectedToLabel.text = "Session Members:"
-            peakMusicController.playerType = .Host
-        }
-        else {
-            connectedToLabel.text = "Join A Session:"
-            peakMusicController.playerType = .Contributor
-        }
+        peakMusicController.playerType = (sender.isOn) ? .Host : .Individual
         
         updateMPCManager()
         tableView.reloadData()
