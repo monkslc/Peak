@@ -127,7 +127,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func searchRequestChanged() {
         //Gets called when the segmented control changes
-       
+        topThreeResults = []
         
         var searchText = String()
         if let LVCdel: LibraryViewController = delegate as? LibraryViewController {
@@ -414,30 +414,41 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchAppleMusic(search: String) {
         
-        ConnectingToInternet.getSongs(searchTerm: search, limit: 7, sendSongsAlltogether: true, completion: {
+        SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
             (songs) -> Void in
             
-            var top3 : [Song] = []
-            
-            for i in 0..<songs.count {
-                top3.append(songs[i])
-            }
-            
-            DispatchQueue.main.async {
-                self.topThreeResults = top3 as [AnyObject]
+            if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
+                DispatchQueue.main.async {
+                
+                    self.topThreeResults = songs as [AnyObject]
+                }
             }
         })
-    }
-    
-    private func searchTopCharts() {
         
-        ConnectingToInternet.searchTopCharts(completion: {
+        /*
+        ConnectingToInternet.getSongs(searchTerm: search, limit: 7, sendSongsAlltogether: true, completion: {
             (songs) -> Void in
             
             DispatchQueue.main.async {
                 self.topThreeResults = songs as [AnyObject]
             }
         })
+ */
+    }
+    
+    private func searchTopCharts() {
+        
+        if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
+            DispatchQueue.main.async {
+                ConnectingToInternet.searchTopCharts(completion: {
+                    (songs) -> Void in
+                    
+                    DispatchQueue.main.async {
+                        self.topThreeResults = songs as [AnyObject]
+                    }
+                })
+            }
+        }
     }
 
 }
