@@ -145,14 +145,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qyV-Wc-mB8">
-                                <rect key="frame" x="87.5" y="28" width="200" height="26"/>
+                                <rect key="frame" x="37.5" y="28" width="300" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="cXq-Bs-xwR"/>
-                                    <constraint firstAttribute="width" constant="200" id="y1v-82-Kqr"/>
+                                    <constraint firstAttribute="width" constant="300" id="y1v-82-Kqr"/>
                                 </constraints>
                                 <segments>
                                     <segment title="Library"/>
                                     <segment title="Apple Music"/>
+                                    <segment title="Top Charts"/>
                                 </segments>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
@@ -243,13 +244,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9T-Vk-Y7s">
-                                                    <rect key="frame" x="75" y="8" width="292" height="29"/>
+                                                    <rect key="frame" x="75" y="8" width="225" height="29"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5H1-Oq-re3">
-                                                    <rect key="frame" x="75" y="37" width="292" height="29"/>
+                                                    <rect key="frame" x="75" y="37" width="225" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="1" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -271,7 +272,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="bottom" secondItem="sPN-BM-PGO" secondAttribute="bottomMargin" id="01h-33-j3b"/>
-                                                <constraint firstItem="d9T-Vk-Y7s" firstAttribute="trailing" secondItem="sPN-BM-PGO" secondAttribute="trailingMargin" id="0iP-3x-Mk1"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="leading" secondItem="Xc4-PS-l4Q" secondAttribute="trailing" constant="8" id="1tR-Kd-Mdf"/>
                                                 <constraint firstItem="iWC-48-2GY" firstAttribute="centerY" secondItem="Xc4-PS-l4Q" secondAttribute="centerY" id="6dY-yR-mVn"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="top" secondItem="d9T-Vk-Y7s" secondAttribute="bottom" id="7i4-Gs-5B9"/>
@@ -280,11 +280,12 @@
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="leading" secondItem="sPN-BM-PGO" secondAttribute="leadingMargin" id="Lbb-xF-Psa"/>
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="top" secondItem="sPN-BM-PGO" secondAttribute="topMargin" id="NF2-vb-XwD"/>
                                                 <constraint firstItem="iWC-48-2GY" firstAttribute="width" secondItem="Xc4-PS-l4Q" secondAttribute="width" id="NQ0-O9-eGg"/>
-                                                <constraint firstItem="5H1-Oq-re3" firstAttribute="trailing" secondItem="sPN-BM-PGO" secondAttribute="trailingMargin" id="O9d-9W-kpV"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fZj-sx-OI6" secondAttribute="bottom" id="OWu-2z-CyC"/>
+                                                <constraint firstItem="iWC-48-2GY" firstAttribute="leading" secondItem="d9T-Vk-Y7s" secondAttribute="trailing" id="Pi9-Ux-A8W"/>
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="top" secondItem="sPN-BM-PGO" secondAttribute="topMargin" id="RIj-Th-EkO"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="iWC-48-2GY" secondAttribute="trailing" constant="8" id="RRm-V7-n9d"/>
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="leading" secondItem="Xc4-PS-l4Q" secondAttribute="trailing" constant="8" id="eMO-DN-tBB"/>
+                                                <constraint firstItem="iWC-48-2GY" firstAttribute="leading" secondItem="5H1-Oq-re3" secondAttribute="trailing" id="g9S-UR-82x"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="bottom" secondItem="sPN-BM-PGO" secondAttribute="bottomMargin" id="kG9-Hz-N2F"/>
                                                 <constraint firstItem="iWC-48-2GY" firstAttribute="height" secondItem="Xc4-PS-l4Q" secondAttribute="height" id="pHe-wa-6ky"/>
                                             </constraints>
@@ -421,7 +422,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="99.5" y="31.5"/>
+            <point key="canvasLocation" x="98.400000000000006" y="31.03448275862069"/>
         </scene>
         <!--Pop Over Bluetooth View Controller-->
         <scene sceneID="rDx-zi-8aI">
