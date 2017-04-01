@@ -70,16 +70,8 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: IBOutlet
     
     @IBAction func isHostValueChanged(_ sender: UISwitch) {
-        //Gets called when the Host Session switch changes
         
-        if sender.isOn {
-            connectedToLabel.text = "Session Members:"
-            peakMusicController.playerType = .Host
-        }
-        else {
-            connectedToLabel.text = "Join A Session:"
-            peakMusicController.playerType = .Contributor
-        }
+        peakMusicController.playerType = (sender.isOn) ? .Host : .Individual
         
         updateMPCManager()
         tableView.reloadData()
