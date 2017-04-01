@@ -24,7 +24,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private var topThreeResults = [AnyObject]() {
         
-        didSet{
+        didSet {
 
             searchedSongsTableView.reloadData()
         }
@@ -414,16 +414,18 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchAppleMusic(search: String) {
         
-        SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
-            (songs) -> Void in
-            
-            if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
-                DispatchQueue.main.async {
+        if search.length > 0 {
+            SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
+                (songs) -> Void in
                 
-                    self.topThreeResults = songs as [AnyObject]
+                if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
+                    DispatchQueue.main.async {
+                        
+                        self.topThreeResults = songs as [AnyObject]
+                    }
                 }
-            }
-        })
+            })
+        }
         
         /*
         ConnectingToInternet.getSongs(searchTerm: search, limit: 7, sendSongsAlltogether: true, completion: {

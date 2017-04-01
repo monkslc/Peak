@@ -123,7 +123,7 @@ class ConnectingToInternet {
         
     }
     
-    static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void) {
+    static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void, error: @escaping () -> Void = {}) {
         
         let search = searchTerm.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
         
@@ -143,17 +143,22 @@ class ConnectingToInternet {
                         ConnectingToInternet.getImage(url: imageURL, completion: {
                             (image) -> Void in
                             
-                            songs.append(Song(id: "\(songJSON["trackId"]!)", trackName: "\(songJSON["trackName"]!)", collectionName: "\(songJSON["collectionName"]!)", artistName: "\(songJSON["artistName"]!)", trackTimeMillis: Int("\(songJSON["trackTimeMillis"]!)")!, image: image))
+                            guard let id = songJSON["trackId"] as? Int, let name = songJSON["trackName"] as? String, let album = songJSON["collectionName"] as? String, let artist = songJSON["artistName"] as? String, let time = songJSON["trackTimeMillis"] as? Int else {
+                                
+                                print("ERROR")
+                                return
+                            }
                             
-                            if songs.count == limit || !sendSongsAlltogether {
+                            songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image))
+                            
+                            if songs.count == songsJSON.count || !sendSongsAlltogether {
                                 completion(songs)
                             }
                         })
                     }
-                    
-                }
-            }
-        })
+                } else { error() }
+            } else { error() }
+        }, errorCompletion: error)
     }
     
     static func getSong(id: String, completion: @escaping (Song) -> Void) {
@@ -201,17 +206,19 @@ class ConnectingToInternet {
         }.resume()
     }
     
-    static func getJSON(url urlAsString:String, completion : @escaping (Any) -> Void) {
+    static func getJSON(url urlAsString:String, completion : @escaping (Any) -> Void, errorCompletion: @escaping () -> Void = {}) {
         let url = URL(string: urlAsString)
         
         URLSession.shared.dataTask(with: url!) { data, response, error in
             
             guard error == nil else {
                 print(error!)
+                errorCompletion()
                 return
             }
             guard let data = data else {
                 print("Data is empty")
+                errorCompletion()
                 return
             }
             
