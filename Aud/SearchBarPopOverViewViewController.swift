@@ -359,8 +359,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         if selectMusicFromSegment.selectedSegmentIndex == 0 {
             searchLibrary(search: search)
         }
-        else {
+        else if selectMusicFromSegment.selectedSegmentIndex == 1{
+            
             searchAppleMusic(search: search)
+        } else {
+            
+            /*CAM IMPLEMENT TOP CHARTS SEARCH HERE*/
         }
     }
     
