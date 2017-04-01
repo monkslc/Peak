@@ -20,6 +20,10 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var Disc: DiscAnimation!
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
