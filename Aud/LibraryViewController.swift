@@ -61,6 +61,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
+        //Detect LIbrary changes
         NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged(_:)), name: .MPMediaLibraryDidChange, object: MPMediaLibrary.default())
         MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
 
@@ -75,7 +76,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if loadedViews == false {
         
-            /*************DO WE NEED THESE ANYMORE*****CONNOR NOTE FOR LATER*****/
             currPlayingView.library = library
             currPlayingView.addAllViews()
             recentsView.setUp()
@@ -90,6 +90,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
        
     }
+    
+    
+    /*MARK: User Interaction Methods*/
     
     @IBAction func displaySongOptions(_ sender: UILongPressGestureRecognizer) {
         //Used to pop up alert view for more song options
@@ -256,12 +259,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             //Create the AlbumView
             let albumImage = RecentsAlbumView(frame: CGRect(x: CGFloat(Double(counter * 100) + 12.5), y: 0, width: 75, height: 75))
-            albumImage.image = song.artwork?.image(at: CGSize())
-            albumImage.layer.cornerRadius = 5
-            albumImage.clipsToBounds = true
-            albumImage.layer.borderColor = UIColor.lightGray.cgColor
-            albumImage.layer.borderWidth = 1.0
-            albumImage.mediaItemAssocWithImage = song
+            albumImage.setUp(song)
             reView.addSubview(albumImage)
             
             //Add the gesture recognizers to the album view

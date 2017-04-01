@@ -22,4 +22,18 @@ class RecentsAlbumView: UIImageView {
     }
     */
 
+    
+    //Do some setup stuff
+    func setUp(_ song: MPMediaItem){
+        
+        //set up the border
+        layer.cornerRadius = 5
+        clipsToBounds = true
+        layer.borderColor = UIColor.lightGray.cgColor
+        layer.borderWidth = 1.0
+        
+        //add the song ingo
+        image = song.artwork?.image(at: CGSize())
+        mediaItemAssocWithImage = song
+    }
 }
