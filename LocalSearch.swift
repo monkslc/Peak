@@ -92,11 +92,13 @@ class LocalSearch {
             
             let dif = differanceBetweenTwoPhrases(searchTerm: search.lowercased(), songAndAuthour: "\(s.title!) \(s.artist!)".lowercased())
             
-            points[index] = dif
-            
-            songs.append(s)
-            
-            index += 1
+            if dif < 10 {
+                points[index] = dif
+                
+                songs.append(s)
+                
+                index += 1
+            }
             
             /*
             if s.title!.lowercased().contains(search.lowercased()) || s.albumArtist!.lowercased().contains(search.lowercased()) {
@@ -137,6 +139,10 @@ class LocalSearch {
         
         for (key, _) in sorted {
             top.append(songs[key])
+            
+            if top.count > 25 {
+                break
+            }
         }
         
         
