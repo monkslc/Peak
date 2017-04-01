@@ -155,7 +155,7 @@
                                     <segment title="Apple Music"/>
                                 </segments>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
                                 <rect key="frame" x="0.0" y="61" width="375" height="606"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -237,19 +237,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xc4-PS-l4Q">
-                                                    <rect key="frame" x="8" y="8" width="58" height="58"/>
+                                                    <rect key="frame" x="8" y="8" width="59" height="58"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="58" id="xiy-gi-V1P"/>
+                                                        <constraint firstAttribute="width" secondItem="Xc4-PS-l4Q" secondAttribute="height" constant="1" id="ouK-zw-CJV"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9T-Vk-Y7s">
-                                                    <rect key="frame" x="74" y="8" width="293" height="29"/>
+                                                    <rect key="frame" x="75" y="8" width="292" height="29"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5H1-Oq-re3">
-                                                    <rect key="frame" x="74" y="37" width="293" height="29"/>
+                                                    <rect key="frame" x="75" y="37" width="292" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="1" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -264,25 +264,34 @@
                                                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-48-2GY">
+                                                    <rect key="frame" x="300" y="8" width="59" height="58"/>
+                                                    <state key="normal" image="Plus Math_1edcbb_100"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="bottom" secondItem="sPN-BM-PGO" secondAttribute="bottomMargin" id="01h-33-j3b"/>
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="trailing" secondItem="sPN-BM-PGO" secondAttribute="trailingMargin" id="0iP-3x-Mk1"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="leading" secondItem="Xc4-PS-l4Q" secondAttribute="trailing" constant="8" id="1tR-Kd-Mdf"/>
+                                                <constraint firstItem="iWC-48-2GY" firstAttribute="centerY" secondItem="Xc4-PS-l4Q" secondAttribute="centerY" id="6dY-yR-mVn"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="top" secondItem="d9T-Vk-Y7s" secondAttribute="bottom" id="7i4-Gs-5B9"/>
                                                 <constraint firstItem="fZj-sx-OI6" firstAttribute="trailing" secondItem="sPN-BM-PGO" secondAttribute="trailingMargin" constant="-15" id="FMv-o0-cnZ"/>
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="height" secondItem="5H1-Oq-re3" secondAttribute="height" id="K8F-Lk-X9L"/>
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="leading" secondItem="sPN-BM-PGO" secondAttribute="leadingMargin" id="Lbb-xF-Psa"/>
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="top" secondItem="sPN-BM-PGO" secondAttribute="topMargin" id="NF2-vb-XwD"/>
+                                                <constraint firstItem="iWC-48-2GY" firstAttribute="width" secondItem="Xc4-PS-l4Q" secondAttribute="width" id="NQ0-O9-eGg"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="trailing" secondItem="sPN-BM-PGO" secondAttribute="trailingMargin" id="O9d-9W-kpV"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fZj-sx-OI6" secondAttribute="bottom" id="OWu-2z-CyC"/>
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="top" secondItem="sPN-BM-PGO" secondAttribute="topMargin" id="RIj-Th-EkO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="iWC-48-2GY" secondAttribute="trailing" constant="8" id="RRm-V7-n9d"/>
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="leading" secondItem="Xc4-PS-l4Q" secondAttribute="trailing" constant="8" id="eMO-DN-tBB"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="bottom" secondItem="sPN-BM-PGO" secondAttribute="bottomMargin" id="kG9-Hz-N2F"/>
+                                                <constraint firstItem="iWC-48-2GY" firstAttribute="height" secondItem="Xc4-PS-l4Q" secondAttribute="height" id="pHe-wa-6ky"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
                                         <connections>
+                                            <outlet property="addToLibraryButton" destination="iWC-48-2GY" id="QtM-ym-2AG"/>
                                             <outlet property="albumArt" destination="Xc4-PS-l4Q" id="6rE-El-dpG"/>
                                             <outlet property="songArtist" destination="5H1-Oq-re3" id="6fR-WL-7Mf"/>
                                             <outlet property="songDurationLabel" destination="fZj-sx-OI6" id="k48-j5-RyD"/>
@@ -529,6 +538,7 @@
     </scenes>
     <resources>
         <image name="IndieBigIcon" width="142" height="137"/>
+        <image name="Plus Math_1edcbb_100" width="96" height="96"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
         <image name="landscape-with-mountains-3" width="512" height="512"/>
         <image name="music" width="512" height="512"/>

@@ -13,7 +13,6 @@ import AVKit
 import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
-let userLibrary = MPMediaLibrary.default()
 
 class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate{
     
@@ -62,8 +61,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged(_:)), name: .MPMediaLibraryDidChange, object: userLibrary)
-        userLibrary.beginGeneratingLibraryChangeNotifications()
+        NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged(_:)), name: .MPMediaLibraryDidChange, object: MPMediaLibrary.default())
+        MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
 
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
@@ -316,9 +315,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.mediaItemInCell = mediaItemToAdd
         
         //ADD GESTURES
-    
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(displaySongOptions(_:))))
+        
+        //Stop The Library button from showing
+        cell.addToLibraryButton.isHidden = true
         
         return cell
         

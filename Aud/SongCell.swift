@@ -19,6 +19,9 @@ class SongCell: UITableViewCell {
     
     @IBOutlet weak var songDurationLabel: UILabel!
     
+    @IBOutlet weak var addToLibraryButton: UIButton!
+    
+    
     var mediaItemInCell = MPMediaItem()
    
     var songInCell: Song?

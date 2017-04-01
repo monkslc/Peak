@@ -87,7 +87,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             cell.songInCell = songToAdd
             
-            //add an add to library button here
+            //Add the library button
+            cell.addToLibraryButton.isHidden = false
+            
+            cell.addToLibraryButton.addTarget(self, action: #selector(addToLibrary(_:)), for: .touchUpInside)
             
         }
         
@@ -248,7 +251,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             let cell:SongCell = (gesture.view as? SongCell)!
             
-            userLibrary.addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+            MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
                 
                 /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
                 /*******DO SOMETHING WITH THE ERROR******/
@@ -256,6 +259,24 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         })
     }
     
+    
+    func addToLibrary(_ button: UIButton){
+        
+        showSignifier()
+        
+        if let cell: SongCell = button.superview?.superview as? SongCell{
+            
+            if cell.songInCell != nil {
+                
+                MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                    
+                    /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
+                    /*******DO SOMETHING WITH THE ERROR******/
+                })
+            }
+        }
+        
+    }
     /*TAP METHODS*/
     
     func notContributorTap(_ cell: SongCell){
