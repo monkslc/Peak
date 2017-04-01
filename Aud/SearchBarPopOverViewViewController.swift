@@ -370,46 +370,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //we are searching the library so get the library // 3 cam store in top 5 results
         guard let library = delegate?.returnLibrary() else { return }
         
-        var songs: [MPMediaItem] = []
-        var points: [Int: Int] = [:]
-        
-        var index = 0
-        for s in library {
-            if s.title!.lowercased().contains(search.lowercased()) || s.albumArtist!.lowercased().contains(search.lowercased()) {
-                
-                var point = 1
-                var multilier = 1
-                
-                var i = s.title!.lowercased().indexOf(target: search.lowercased())
-                if i >= 0 {
-                    point += i
-                } else {
-                    multilier += 1
-                }
-                
-                i = s.albumArtist!.lowercased().indexOf(target: search.lowercased())
-                if i >= 0 {
-                    point += i
-                } else {
-                    multilier += 1
-                }
-                
-                points[index] = point * multilier
-                
-                songs.append(s)
-                
-                index += 1
+        DispatchQueue.global().async {
+            let results = LocalSearch.search(search, library: library)
+            
+            DispatchQueue.main.async {
+                self.topThreeResults = results
             }
         }
-        
-        let foo = Array(points.keys).sorted()
-        
-        var top : [MPMediaItem] = []
-        for i in foo {
-            top.append(songs[i])
-        }
-        
-        topThreeResults = top
     }
     
     private func searchAppleMusic(search: String) {

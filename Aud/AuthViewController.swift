@@ -27,6 +27,10 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let dif = LocalSearch.differanceBetweenTwoPhrases(searchTerm: "Balls", songAndAuthour: "Pompeii Bastille")
+        
+        print(dif)
+        
         //Allow the label to properly display connect to apple music button
         ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
         ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters
