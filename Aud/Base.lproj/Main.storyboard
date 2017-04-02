@@ -246,13 +246,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9T-Vk-Y7s">
-                                                    <rect key="frame" x="75" y="8" width="225" height="29"/>
+                                                    <rect key="frame" x="75" y="8" width="240" height="29"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5H1-Oq-re3">
-                                                    <rect key="frame" x="75" y="37" width="225" height="29"/>
+                                                    <rect key="frame" x="75" y="37" width="240" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="1" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -268,7 +268,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-48-2GY">
-                                                    <rect key="frame" x="300" y="8" width="59" height="58"/>
+                                                    <rect key="frame" x="315" y="15.5" width="44" height="43.5"/>
                                                     <state key="normal" image="Plus Math_1edcbb_100"/>
                                                 </button>
                                             </subviews>
@@ -281,7 +281,7 @@
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="height" secondItem="5H1-Oq-re3" secondAttribute="height" id="K8F-Lk-X9L"/>
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="leading" secondItem="sPN-BM-PGO" secondAttribute="leadingMargin" id="Lbb-xF-Psa"/>
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="top" secondItem="sPN-BM-PGO" secondAttribute="topMargin" id="NF2-vb-XwD"/>
-                                                <constraint firstItem="iWC-48-2GY" firstAttribute="width" secondItem="Xc4-PS-l4Q" secondAttribute="width" id="NQ0-O9-eGg"/>
+                                                <constraint firstItem="iWC-48-2GY" firstAttribute="width" secondItem="Xc4-PS-l4Q" secondAttribute="width" multiplier="3:4" id="NQ0-O9-eGg"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fZj-sx-OI6" secondAttribute="bottom" id="OWu-2z-CyC"/>
                                                 <constraint firstItem="iWC-48-2GY" firstAttribute="leading" secondItem="d9T-Vk-Y7s" secondAttribute="trailing" id="Pi9-Ux-A8W"/>
                                                 <constraint firstItem="Xc4-PS-l4Q" firstAttribute="top" secondItem="sPN-BM-PGO" secondAttribute="topMargin" id="RIj-Th-EkO"/>
@@ -289,7 +289,7 @@
                                                 <constraint firstItem="d9T-Vk-Y7s" firstAttribute="leading" secondItem="Xc4-PS-l4Q" secondAttribute="trailing" constant="8" id="eMO-DN-tBB"/>
                                                 <constraint firstItem="iWC-48-2GY" firstAttribute="leading" secondItem="5H1-Oq-re3" secondAttribute="trailing" id="g9S-UR-82x"/>
                                                 <constraint firstItem="5H1-Oq-re3" firstAttribute="bottom" secondItem="sPN-BM-PGO" secondAttribute="bottomMargin" id="kG9-Hz-N2F"/>
-                                                <constraint firstItem="iWC-48-2GY" firstAttribute="height" secondItem="Xc4-PS-l4Q" secondAttribute="height" id="pHe-wa-6ky"/>
+                                                <constraint firstItem="iWC-48-2GY" firstAttribute="height" secondItem="Xc4-PS-l4Q" secondAttribute="height" multiplier="3:4" id="pHe-wa-6ky"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
