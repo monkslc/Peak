@@ -43,6 +43,9 @@
 		C4E896661E7458620096EC72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4E896641E7458620096EC72 /* Main.storyboard */; };
 		C4E896681E7458620096EC72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4E896671E7458620096EC72 /* Assets.xcassets */; };
 		C4E8966B1E7458620096EC72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4E896691E7458620096EC72 /* LaunchScreen.storyboard */; };
+		C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FCDF8E1E909D7B0046C1F9 /* ScrollBar.swift */; };
+		C4FCDF931E90A83A0046C1F9 /* DisplayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FCDF921E90A83A0046C1F9 /* DisplayLabelView.swift */; };
+		C4FCDF951E90AE9E0046C1F9 /* ScrollPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FCDF941E90AE9E0046C1F9 /* ScrollPresenterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +87,9 @@
 		C4E896671E7458620096EC72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4E8966A1E7458620096EC72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4E8966C1E7458620096EC72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4FCDF8E1E909D7B0046C1F9 /* ScrollBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollBar.swift; path = ../ScrollBar.swift; sourceTree = "<group>"; };
+		C4FCDF921E90A83A0046C1F9 /* DisplayLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLabelView.swift; sourceTree = "<group>"; };
+		C4FCDF941E90AE9E0046C1F9 /* ScrollPresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollPresenterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +208,7 @@
 		C4D1177D1E819FB9000A854A /* Main View Controller Methods */ = {
 			isa = PBXGroup;
 			children = (
+				C4FBB3001E90B6CD000B5AB3 /* Scroll Stuff */,
 				C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */,
 				C4D117661E805DF8000A854A /* Signifier.swift */,
 				C4E896621E7458620096EC72 /* LibraryViewController.swift */,
@@ -243,6 +250,16 @@
 				C4D1177C1E819F9A000A854A /* Supporting Files */,
 			);
 			path = Aud;
+			sourceTree = "<group>";
+		};
+		C4FBB3001E90B6CD000B5AB3 /* Scroll Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				C4FCDF8E1E909D7B0046C1F9 /* ScrollBar.swift */,
+				C4FCDF921E90A83A0046C1F9 /* DisplayLabelView.swift */,
+				C4FCDF941E90AE9E0046C1F9 /* ScrollPresenterView.swift */,
+			);
+			name = "Scroll Stuff";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +355,7 @@
 				C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */,
 				C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */,
 				C4E896611E7458620096EC72 /* AppDelegate.swift in Sources */,
+				C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */,
 				C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */,
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,
 				904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */,
@@ -350,6 +368,8 @@
 				C4D117761E80A52E000A854A /* MusicInfoDisplay.swift in Sources */,
 				90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */,
 				C4D1176D1E809A91000A854A /* ForwardButton.swift in Sources */,
+				C4FCDF931E90A83A0046C1F9 /* DisplayLabelView.swift in Sources */,
+				C4FCDF951E90AE9E0046C1F9 /* ScrollPresenterView.swift in Sources */,
 				C45625381E8DEC8600311750 /* DiscAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

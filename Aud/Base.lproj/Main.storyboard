@@ -37,7 +37,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqJ-B8-8Hk" customClass="RoundedButton" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="47.5" y="429" width="281" height="65"/>
+                                <rect key="frame" x="47" y="429" width="281" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ZqJ-B8-8Hk" secondAttribute="height" multiplier="281:65" id="BDs-Un-5vJ"/>
                                 </constraints>
@@ -49,13 +49,13 @@
                                 <rect key="frame" x="47" y="-20" width="281" height="271"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple-music-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="zjD-wT-Hef">
-                                <rect key="frame" x="63" y="437.5" width="48.5" height="48.5"/>
+                                <rect key="frame" x="62" y="438" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zjD-wT-Hef" secondAttribute="height" multiplier="1:1" id="Wiy-4i-t8a"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23l-FC-L3f">
-                                <rect key="frame" x="120" y="461.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="118" y="462" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music" translatesAutoresizingMaskIntoConstraints="NO" id="Lrv-Ay-5h2" customClass="DiscAnimation" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="162" y="328.5" width="50" height="50"/>
+                                <rect key="frame" x="162" y="329" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="PaP-RN-aHN"/>
                                     <constraint firstAttribute="width" constant="50" id="paW-cQ-pNN"/>
@@ -82,7 +82,7 @@
                                 <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect Using Apple Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xA-j1-HKd">
-                                <rect key="frame" x="121" y="434.5" width="187.5" height="54"/>
+                                <rect key="frame" x="120" y="435" width="188" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -147,7 +147,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qyV-Wc-mB8">
-                                <rect key="frame" x="37.5" y="28" width="300" height="26"/>
+                                <rect key="frame" x="38" y="28" width="300" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="cXq-Bs-xwR"/>
                                     <constraint firstAttribute="width" constant="300" id="y1v-82-Kqr"/>
@@ -194,7 +194,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="05J-pc-yQM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="05J-pc-yQM">
                                 <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="3" id="5Pe-XS-hZ5">
@@ -236,7 +236,7 @@
                                         <rect key="frame" x="0.0" y="160" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mCT-ad-6vR" id="sPN-BM-PGO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xc4-PS-l4Q">
@@ -307,6 +307,20 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="VeB-0o-s4c"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3h-BM-8Rk" customClass="ScrollBar" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="365" y="60" width="10" height="607"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="Ogj-kV-xQN"/>
+                                </constraints>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CC-oP-P7H" customClass="ScrollPresenterView" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="150" y="60" width="200" height="607"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="8bX-yg-lVZ"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KBe-nq-laQ" customClass="CurrentlyPlayingView" customModule="Aud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="532" width="375" height="506"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -391,15 +405,21 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="5:6" id="11a-mA-ZAv"/>
+                            <constraint firstAttribute="trailing" secondItem="t3h-BM-8Rk" secondAttribute="trailing" id="5Ye-4a-K9b"/>
+                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="4CC-oP-P7H" secondAttribute="trailing" constant="15" id="8HW-OH-slo"/>
+                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" id="B4Z-lo-Gbf"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pot-3q-ikk"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="TmU-vj-MbG"/>
+                            <constraint firstItem="4CC-oP-P7H" firstAttribute="height" secondItem="t3h-BM-8Rk" secondAttribute="height" id="VIf-kp-HvL"/>
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
+                            <constraint firstItem="4CC-oP-P7H" firstAttribute="centerY" secondItem="t3h-BM-8Rk" secondAttribute="centerY" id="alj-ou-KeL"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dai-it-Ks8"/>
                             <constraint firstAttribute="trailing" secondItem="KBe-nq-laQ" secondAttribute="trailing" id="lmz-uB-wyv"/>
                             <constraint firstAttribute="trailing" secondItem="6hn-Lo-zOk" secondAttribute="trailing" id="luU-L8-zdQ"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="6hn-Lo-zOk" secondAttribute="bottom" id="oAA-ER-Ach"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
+                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="centerY" secondItem="05J-pc-yQM" secondAttribute="centerY" id="vcC-SI-ELN"/>
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" constant="-135" id="yoL-fE-dcn"/>
                         </constraints>
                     </view>
@@ -408,6 +428,8 @@
                         <outlet property="currPlayingView" destination="KBe-nq-laQ" id="Ssy-Za-3In"/>
                         <outlet property="library" destination="05J-pc-yQM" id="TO1-nn-R66"/>
                         <outlet property="recentsView" destination="bEX-s4-cqX" id="Z44-qM-IKr"/>
+                        <outlet property="scrollBar" destination="t3h-BM-8Rk" id="rbO-AK-ECe"/>
+                        <outlet property="scrollPresenter" destination="4CC-oP-P7H" id="K8E-tm-ahn"/>
                         <outlet property="searchForMediaBar" destination="EIB-1O-glD" id="Z1w-m2-7D5"/>
                         <segue destination="xZU-02-YAm" kind="popoverPresentation" identifier="Popover Bluetooth Controller" popoverAnchorView="zbU-4X-gif" id="xrx-rc-dLg">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
@@ -446,11 +468,11 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O3G-Zd-mC0" id="4Xx-ak-JJ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8R-iI-OJ7">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>

@@ -14,7 +14,7 @@ import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
 
-class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate{
+class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, ScrollBarDelegate{
     
 
     //view that displays currently playing options
@@ -42,6 +42,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     //Bluetooth connectivity button in header
     @IBOutlet weak var connectButton: UIButton!
     
+    //View that controls the scroll bar
+    @IBOutlet weak var scrollBar: ScrollBar!
+    @IBOutlet weak var scrollPresenter: ScrollPresenterView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,7 +61,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //set up the search bar
         searchForMediaBar.delegate = self
-        //searchForMediaBar.returnKeyType = .done
+        
+        //set up the scroll bar
+        scrollBar.delegate = self
+        scrollBar.setUp()
+        scrollPresenter.setUp()
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
@@ -67,8 +76,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
-        
-        
         
     }
     
@@ -379,6 +386,41 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /*End of Peak Music Controller Delegate Methods*/
     
+    /*MARK: Scroll Bar Delegate Methods*/
+    func scrolling(_ yLoc: CGFloat,_ state: UIGestureRecognizerState) {
+        
+        //Get the index of the cell we want to scroll to
+        let indexToScrollTo = floor(yLoc / (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count + 2))) //add two because we did that for num of rows
+        
+        //Make sure our index path is in range
+        if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(mediaItemsInLibrary.count){
+            
+            library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
+        }
+        
+        //Now update the label
+        
+        if state == .began{
+            
+            scrollPresenter.displayLabelView.isHidden = false
+        } else if state == .ended{
+            
+            scrollPresenter.displayLabelView.isHidden = true
+        }
+        
+        scrollPresenter.positionOfLabel = yLoc
+        scrollPresenter.displayLabel.text = mediaItemsInLibrary[Int(indexToScrollTo)].artist
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        //Get the top cell and its position
+        let topCell = library.visibleCells[0]
+        let pos = library.indexPath(for: topCell)?.row
+        
+        //Now set the scroll bar's position
+        scrollBar.position = CGFloat(pos!) * (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count))
+    }
     
     /*GESTURE TARGET METHODS*/
     
