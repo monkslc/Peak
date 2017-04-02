@@ -268,7 +268,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-48-2GY">
-                                                    <rect key="frame" x="315" y="15.5" width="44" height="43.5"/>
+                                                    <rect key="frame" x="315" y="16" width="44" height="43"/>
                                                     <state key="normal" image="Plus Math_1edcbb_100"/>
                                                 </button>
                                             </subviews>
