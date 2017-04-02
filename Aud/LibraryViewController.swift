@@ -67,6 +67,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
+        
+        
+        
     }
     
     
