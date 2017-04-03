@@ -56,6 +56,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             LVCDel.searchForMediaBar.resignFirstResponder()
         }
         
+        (delegate as! LibraryViewController).searchForMediaBar.showsCancelButton = false
     }
     
     
@@ -99,6 +100,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
         
+        cell.backgroundColor = UIColor.clear
+        
         return cell
     }
     
@@ -109,13 +112,30 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
        
         
         //searchBar.resignFirstResponder()
+        /*if let LVCDel:LibraryViewController = delegate as? LibraryViewController{
+            
+            searchBar.delegate = LVCDel
+        }*/
+        
+        searchBar.text = ""
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        
+        //The cancel button was clicked so segue back
+        
         if let LVCDel:LibraryViewController = delegate as? LibraryViewController{
             
             searchBar.delegate = LVCDel
         }
         
         searchBar.text = ""
-        return true
+        
+        
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -220,6 +240,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func handleTap(_ gesture: UITapGestureRecognizer){
         //Gets called when a user taps on a song in the search
+        
+        //resign the keyboard
+        (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
+        
         
         //get the cell
         let cell = gesture.view as! SongCell

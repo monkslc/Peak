@@ -14,7 +14,7 @@ import MultipeerConnectivity
 
 let peakMusicController = PeakMusicController()
 
-class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate{
+class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, ScrollBarDelegate{
     
 
     //view that displays currently playing options
@@ -42,6 +42,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     //Bluetooth connectivity button in header
     @IBOutlet weak var connectButton: UIButton!
     
+    //View that controls the scroll bar
+    @IBOutlet weak var scrollBar: ScrollBar!
+    @IBOutlet weak var scrollPresenter: ScrollPresenterView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,7 +63,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //set up the search bar
         searchForMediaBar.delegate = self
-        //searchForMediaBar.returnKeyType = .done
+        
+        //set up the scroll bar
+        scrollBar.delegate = self
+        scrollBar.setUp()
+        scrollPresenter.setUp()
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
@@ -67,6 +78,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
+        
     }
     
     
@@ -376,6 +388,63 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     /*End of Peak Music Controller Delegate Methods*/
     
+    /*MARK: Scroll Bar Delegate Methods*/
+    func scrolling(_ yLoc: CGFloat,_ state: UIGestureRecognizerState) {
+        
+        //Get the index of the cell we want to scroll to
+        var indexToScrollTo = floor(yLoc / (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count + 2))) //add two because we did that for num of rows
+        
+        //Make sure our index path is in range
+        if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(mediaItemsInLibrary.count){
+            
+            //library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
+            scrollPresenter.positionOfLabel = yLoc
+            scrollPresenter.displayLabel.text = mediaItemsInLibrary[Int(indexToScrollTo)].artist
+        }
+        
+        //Now update the label
+        
+        if state == .began{
+            
+            scrollPresenter.displayLabelView.isHidden = false
+        } else if state == .ended{
+            
+            //Get the cell index we want to scroll to
+            if indexToScrollTo < 0{
+                indexToScrollTo = 0
+            } else if indexToScrollTo > CGFloat(mediaItemsInLibrary.count){
+                
+                indexToScrollTo = CGFloat(mediaItemsInLibrary.count)
+            }
+            
+            library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
+            scrollPresenter.displayLabelView.isHidden = true
+        }
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        //Check if the header view is visible
+        if scrollView.contentOffset.y < (library.tableHeaderView?.frame.height)! {
+            //it's showing
+            
+            //scrollBar.shouldShow = false
+            scrollBar.isHidden = true
+        }else {
+            //it's not
+            
+            //scrollBar.shouldShow = true
+            scrollBar.isHidden = false
+        }
+        
+        //Get the top cell and its position
+        let topCell = library.visibleCells[0]
+        let pos = library.indexPath(for: topCell)?.row
+        
+        //Now set the scroll bar's position
+        scrollBar.position = CGFloat(pos!) * (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count))
+    }
     
     /*GESTURE TARGET METHODS*/
     
@@ -432,9 +501,39 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*SEARCH BAR DELEGATE METHODS*/
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        //When the textfield begins editing, we want to display our other view
+        
+        //Create the search view controller
+        let searchViewController = storyboard?.instantiateViewController(withIdentifier: "Search") as! SearchBarPopOverViewViewController
+        addChildViewController(searchViewController)
+        
+        //set the frame
+        //frame with rounded
+        //searchViewController.view.frame = CGRect(x: library.frame.minX, y: library.frame.minY, width: library.frame.width, height: library.frame.height - 140) //140 because that's the height of the currently playing view
+        searchViewController.view.frame = library.frame
+    
+        
+        //Create the shape layer
+        //let viewOutline = CAShapeLayer()
+        
+        //let rect = CGRect(x: 0, y: 0, width: library.frame.width, height: searchViewController.view.frame.height)
+        //let pathForOutline = UIBezierPath(roundedRect:  rect, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 30, height: 30))
+        //viewOutline.path = pathForOutline.cgPath
+        
+        //searchViewController.view.layer.mask = viewOutline
+        //searchViewController.view.layer.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0).cgColor
         
         
-        performSegue(withIdentifier: "Show Search Options", sender: nil)
+        
+        view.insertSubview(searchViewController.view, at: 2) //Insert behind the currently playing view
+        searchViewController.didMove(toParentViewController: self)
+        
+        //set up the delegates
+        searchViewController.delegate = self
+        searchBar.delegate = searchViewController
+        searchBar.showsCancelButton = true
+        
+        
     }
     
     
