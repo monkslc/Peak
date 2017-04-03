@@ -46,6 +46,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var scrollBar: ScrollBar!
     @IBOutlet weak var scrollPresenter: ScrollPresenterView!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -477,9 +479,37 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*SEARCH BAR DELEGATE METHODS*/
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        //When the textfield begins editing, we want to display our other view
+        
+        //Create the search view controller
+        let searchViewController = storyboard?.instantiateViewController(withIdentifier: "Search") as! SearchBarPopOverViewViewController
+        addChildViewController(searchViewController)
+        
+        //set the frame
+        searchViewController.view.frame = CGRect(x: library.frame.minX, y: library.frame.minY, width: library.frame.width, height: library.frame.height - 140) //140 because that's the height of the currently playing view
+    
+        
+        //Create the shape layer
+        let viewOutline = CAShapeLayer()
+        
+        let rect = CGRect(x: 0, y: 0, width: library.frame.width, height: searchViewController.view.frame.height)
+        let pathForOutline = UIBezierPath(roundedRect:  rect, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 30, height: 30))
+        viewOutline.path = pathForOutline.cgPath
+        
+        searchViewController.view.layer.mask = viewOutline
+        searchViewController.view.layer.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0).cgColor
         
         
-        performSegue(withIdentifier: "Show Search Options", sender: nil)
+        
+        view.insertSubview(searchViewController.view, at: 3) //Insert behind the currently playing view
+        searchViewController.didMove(toParentViewController: self)
+        
+        //set up the delegates
+        searchViewController.delegate = self
+        searchBar.delegate = searchViewController
+        searchBar.showsCancelButton = true
+        
+        
     }
     
     

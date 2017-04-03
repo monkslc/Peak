@@ -37,6 +37,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Loaded the view")
+        
         //add a listener so we know when segment changed
         selectMusicFromSegment.addTarget(self, action: #selector(searchRequestChanged), for: .valueChanged)
         selectMusicFromSegment.tintColor = UIColor.peakColor
@@ -56,6 +58,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             LVCDel.searchForMediaBar.resignFirstResponder()
         }
         
+        (delegate as! LibraryViewController).searchForMediaBar.showsCancelButton = false
     }
     
     
@@ -67,6 +70,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        print("Returning the count")
         return topThreeResults.count
     }
     
@@ -99,6 +103,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
         
+        cell.backgroundColor = UIColor.clear
+        
         return cell
     }
     
@@ -109,18 +115,37 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
        
         
         //searchBar.resignFirstResponder()
+        /*if let LVCDel:LibraryViewController = delegate as? LibraryViewController{
+            
+            searchBar.delegate = LVCDel
+        }*/
+        
+        searchBar.text = ""
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        print("Cancel Button Was Clicked")
+        
+        //The cancel button was clicked so segue back
+        
         if let LVCDel:LibraryViewController = delegate as? LibraryViewController{
             
             searchBar.delegate = LVCDel
         }
         
         searchBar.text = ""
-        return true
+        
+        
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let search = searchBar.text else { return }
         
+        print("Search Text Changed")
         searchSongs(search: search)
     }
     

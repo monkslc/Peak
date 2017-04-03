@@ -137,7 +137,7 @@
         <!--Search Bar Pop Over View View Controller-->
         <scene sceneID="8rc-4x-PGA">
             <objects>
-                <viewController id="C9k-4V-WA7" customClass="SearchBarPopOverViewViewController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Search" id="C9k-4V-WA7" customClass="SearchBarPopOverViewViewController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="K2v-46-Qbk"/>
                         <viewControllerLayoutGuide type="bottom" id="jds-1z-GEK"/>
@@ -147,7 +147,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qyV-Wc-mB8">
-                                <rect key="frame" x="38" y="28" width="300" height="26"/>
+                                <rect key="frame" x="38" y="35" width="300" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="cXq-Bs-xwR"/>
                                     <constraint firstAttribute="width" constant="300" id="y1v-82-Kqr"/>
@@ -158,18 +158,19 @@
                                     <segment title="Top Charts"/>
                                 </segments>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
-                                <rect key="frame" x="0.0" y="61" width="375" height="606"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
+                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qyV-Wc-mB8" firstAttribute="top" secondItem="K2v-46-Qbk" secondAttribute="bottom" constant="8" id="2ps-GR-dmX"/>
+                            <constraint firstItem="qyV-Wc-mB8" firstAttribute="top" secondItem="K2v-46-Qbk" secondAttribute="bottom" constant="15" id="2ps-GR-dmX"/>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="centerX" secondItem="ER5-Le-L27" secondAttribute="centerX" id="DLX-Cm-qYF"/>
                             <constraint firstItem="jds-1z-GEK" firstAttribute="top" secondItem="Ic7-NQ-VMo" secondAttribute="bottom" id="LrU-0o-55A"/>
                             <constraint firstItem="Ic7-NQ-VMo" firstAttribute="leading" secondItem="ER5-Le-L27" secondAttribute="leading" id="gWO-pK-oy9"/>
-                            <constraint firstItem="Ic7-NQ-VMo" firstAttribute="top" secondItem="qyV-Wc-mB8" secondAttribute="bottom" constant="8" id="gp2-9Z-7Qc"/>
+                            <constraint firstItem="Ic7-NQ-VMo" firstAttribute="top" secondItem="qyV-Wc-mB8" secondAttribute="bottom" constant="15" id="gp2-9Z-7Qc"/>
                             <constraint firstAttribute="trailing" secondItem="Ic7-NQ-VMo" secondAttribute="trailing" id="xyu-M9-gP8"/>
                         </constraints>
                     </view>
