@@ -392,12 +392,14 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func scrolling(_ yLoc: CGFloat,_ state: UIGestureRecognizerState) {
         
         //Get the index of the cell we want to scroll to
-        let indexToScrollTo = floor(yLoc / (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count + 2))) //add two because we did that for num of rows
+        var indexToScrollTo = floor(yLoc / (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count + 2))) //add two because we did that for num of rows
         
         //Make sure our index path is in range
         if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(mediaItemsInLibrary.count){
             
-            library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
+            //library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
+            scrollPresenter.positionOfLabel = yLoc
+            scrollPresenter.displayLabel.text = mediaItemsInLibrary[Int(indexToScrollTo)].artist
         }
         
         //Now update the label
@@ -407,14 +409,33 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             scrollPresenter.displayLabelView.isHidden = false
         } else if state == .ended{
             
+            //Get the cell index we want to scroll to
+            if indexToScrollTo < 0{
+                indexToScrollTo = 0
+            } else if indexToScrollTo > CGFloat(mediaItemsInLibrary.count){
+                
+                indexToScrollTo = CGFloat(mediaItemsInLibrary.count)
+            }
+            
+            library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
             scrollPresenter.displayLabelView.isHidden = true
+            library.isScrollEnabled = true
         }
         
-        scrollPresenter.positionOfLabel = yLoc
-        scrollPresenter.displayLabel.text = mediaItemsInLibrary[Int(indexToScrollTo)].artist
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        //Check if the header view is visible
+        if scrollView.contentOffset.y < (library.tableHeaderView?.frame.height)! {
+            //it's showing
+            
+            scrollBar.shouldShow = false
+        }else {
+            //it's not
+            
+            scrollBar.shouldShow = true
+        }
         
         //Get the top cell and its position
         let topCell = library.visibleCells[0]

@@ -30,18 +30,25 @@ class ScrollBar: UIView {
             setNeedsDisplay()
         }
     }
+    
+    var shouldShow = false
 
     var delegate: ScrollBarDelegate?
     
     override func draw(_ rect: CGRect) {
         
         //Draw the scroll bar
-        let scrollBarRect = CGRect(x: 0.0, y: position, width: frame.width/2, height: heightOfScrollBar)
-        let scrollBar = UIBezierPath(roundedRect: scrollBarRect, cornerRadius: barRadius)
         
-        colorOfScrollBar.withAlphaComponent(0.7).set()
-        scrollBar.stroke()
-        scrollBar.fill()
+        if shouldShow == true {
+            
+            let scrollBarRect = CGRect(x: 0.0, y: position, width: frame.width/2, height: heightOfScrollBar)
+            let scrollBar = UIBezierPath(roundedRect: scrollBarRect, cornerRadius: barRadius)
+            
+            colorOfScrollBar.withAlphaComponent(0.7).set()
+            scrollBar.stroke()
+            scrollBar.fill()
+        }
+        
     }
  
     
@@ -50,12 +57,16 @@ class ScrollBar: UIView {
         
         //Add the gesture recognizer
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(isScrolling(_:))))
+        
+        
+        
     }
     
     
     //method that gets called when the scroll bar is scrolling
     func isScrolling(_ pan: UIPanGestureRecognizer){
         
+    
         //Get the y location of the pan
         let panLoc = pan.location(in: self).y
         
@@ -66,11 +77,11 @@ class ScrollBar: UIView {
         if pan.velocity(in: self).y < 0 {
             //We are scrolling up
             
-            newPos = max(1, panLoc)
+            newPos = max(0, panLoc)
         } else {
             //we are scrolling down
             
-            newPos = min(frame.height - 1, panLoc)
+            newPos = min(frame.height, panLoc)
         }
         
         
