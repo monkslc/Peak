@@ -31,7 +31,7 @@ class ScrollBar: UIView {
         }
     }
     
-    var shouldShow = false
+    //var shouldShow = false
 
     var delegate: ScrollBarDelegate?
     
@@ -39,21 +39,23 @@ class ScrollBar: UIView {
         
         //Draw the scroll bar
         
-        if shouldShow == true {
+        //if shouldShow == true {
+        //}
+        let scrollBarRect = CGRect(x: 0.0, y: position, width: frame.width/2, height: heightOfScrollBar)
+        let scrollBar = UIBezierPath(roundedRect: scrollBarRect, cornerRadius: barRadius)
             
-            let scrollBarRect = CGRect(x: 0.0, y: position, width: frame.width/2, height: heightOfScrollBar)
-            let scrollBar = UIBezierPath(roundedRect: scrollBarRect, cornerRadius: barRadius)
-            
-            colorOfScrollBar.withAlphaComponent(0.7).set()
-            scrollBar.stroke()
-            scrollBar.fill()
-        }
+        colorOfScrollBar.withAlphaComponent(0.7).set()
+        scrollBar.stroke()
+        scrollBar.fill()
+        
         
     }
  
     
     //Method to do the set up... Needs to be called in the view controller when it loads
     func setUp(){
+        
+        isHidden = true
         
         //Add the gesture recognizer
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(isScrolling(_:))))

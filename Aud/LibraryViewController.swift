@@ -419,7 +419,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
             scrollPresenter.displayLabelView.isHidden = true
-            library.isScrollEnabled = true
         }
         
     }
@@ -430,11 +429,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         if scrollView.contentOffset.y < (library.tableHeaderView?.frame.height)! {
             //it's showing
             
-            scrollBar.shouldShow = false
+            //scrollBar.shouldShow = false
+            scrollBar.isHidden = true
         }else {
             //it's not
             
-            scrollBar.shouldShow = true
+            //scrollBar.shouldShow = true
+            scrollBar.isHidden = false
         }
         
         //Get the top cell and its position

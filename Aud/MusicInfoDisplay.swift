@@ -143,6 +143,10 @@ class MusicInfoDisplay: UIView {
         lyricsView.font = UIFont.systemFont(ofSize: 15)
         infoDisplay.addSubview(lyricsView)
         
+        
+        
+    
+        
         if peakMusicController.playerType != .Contributor {
             //The player is not a contributor so the currently playing song will be in the system music player
             
@@ -160,7 +164,13 @@ class MusicInfoDisplay: UIView {
                     
                     DispatchQueue.main.async {
                 
-                        lyricsView.text = lyrics
+                        //Add more spacing
+                        let style = NSMutableParagraphStyle()
+                        style.lineSpacing = 5
+                        let attributes = [NSParagraphStyleAttributeName : style]
+                        lyricsView.attributedText = NSAttributedString(string: lyrics, attributes:attributes)
+                        lyricsView.font = UIFont.systemFont(ofSize: 14)
+                        //lyricsView.text = lyrics
                     }
                 })
                 

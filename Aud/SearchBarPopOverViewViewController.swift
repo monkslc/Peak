@@ -37,8 +37,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Loaded the view")
-        
         //add a listener so we know when segment changed
         selectMusicFromSegment.addTarget(self, action: #selector(searchRequestChanged), for: .valueChanged)
         selectMusicFromSegment.tintColor = UIColor.peakColor
@@ -70,7 +68,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print("Returning the count")
         return topThreeResults.count
     }
     
@@ -126,7 +123,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
-        print("Cancel Button Was Clicked")
         
         //The cancel button was clicked so segue back
         
@@ -145,7 +141,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let search = searchBar.text else { return }
         
-        print("Search Text Changed")
         searchSongs(search: search)
     }
     
