@@ -40,14 +40,7 @@ class CurrentlyPlayingAlbumView: UIImageView {
     
     func updateAlbumImage(_ notification: NSNotification){
         
-        if let artwork = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork {
-        
-            image = artwork.image(at: CGSize())
-        } else {
-            
-            image = #imageLiteral(resourceName: "defaultAlbum")
-        }
-        
+        image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "defaultAlbum")
     }
     
     

@@ -13,7 +13,7 @@ import UIKit
 class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSource{
     
     
-    var library = UITableView()
+    var library = UITableView() //Need this to get the cell
     
     //always want one section
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,11 +40,11 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         let cell = library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
     
         
-        //update the cell dependign on the type of player
+        //update the cell depending on the type of player
         if peakMusicController.playerType != .Contributor{
             
             let mediaItemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.indexOfNowPlayingItem + 1 + indexPath.row]
-            cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize())
+            cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "defaultAlbum")
             cell.songTitle.text =  mediaItemToAdd.title
             cell.songArtist.text = mediaItemToAdd.artist
             
@@ -106,6 +106,29 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
                 tableView.reloadData()
             })
         }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        //A cell got moved so the currently playing queue should update
+        
+        //Get the song we need to move
+        let indexOfItemToMove = sourceIndexPath.row + 1
+        let itemToMove = peakMusicController.currPlayQueue[indexOfItemToMove]
+        
+        //remove and reinsert the item at the appropriate index
+        peakMusicController.currPlayQueue.remove(at: indexOfItemToMove)
+        peakMusicController.currPlayQueue.insert(itemToMove, at: destinationIndexPath.row + 1)
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        
+        return .none
     }
     
     func formatTimeInterval(_ ti: TimeInterval) -> String {

@@ -209,6 +209,7 @@ class MusicInfoDisplay: UIView {
         queue.backgroundColor = UIColor.clear
         queue.delegate = visualQueueCont
         queue.dataSource = visualQueueCont
+        queue.isEditing = true
         infoDisplay.addSubview(queue)
         
     }
