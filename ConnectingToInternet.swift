@@ -68,7 +68,7 @@ class ConnectingToInternet {
                         }
                     }
                     
-                    let replacingCharacters: [String: String] = ["&quot;": "\"", "â": "’", "Ã©": "é", "&amp": "&", "&apos": "\'", "&lt": "<", "&gt": ">", "&nbsp;": "\u{00a0}", "&diams;": "♦"]
+                    let replacingCharacters: [String: String] = ["&quot;": "\"", "â": "’", "Ã©": "é", "&amp;": "&", "&apos;": "\'", "&lt;": "<", "&gt;": ">", "&nbsp;": "\u{00a0}", "&diams;": "♦"]
                     for (key, value) in replacingCharacters {
                         lyrics = (lyrics as NSString).replacingOccurrences(of: key, with: value)
                     }
