@@ -523,7 +523,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        view.insertSubview(searchViewController.view, at: 3) //Insert behind the currently playing view
+        view.insertSubview(searchViewController.view, at: 2) //Insert behind the currently playing view
         searchViewController.didMove(toParentViewController: self)
         
         //set up the delegates

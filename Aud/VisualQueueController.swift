@@ -108,28 +108,6 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        //A cell got moved so the currently playing queue should update
-        
-        //Get the song we need to move
-        let indexOfItemToMove = sourceIndexPath.row + 1
-        let itemToMove = peakMusicController.currPlayQueue[indexOfItemToMove]
-        
-        //remove and reinsert the item at the appropriate index
-        peakMusicController.currPlayQueue.remove(at: indexOfItemToMove)
-        peakMusicController.currPlayQueue.insert(itemToMove, at: destinationIndexPath.row + 1)
-        
-        
-    }
-    
-    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        
-        return .none
-    }
     
     func formatTimeInterval(_ ti: TimeInterval) -> String {
         

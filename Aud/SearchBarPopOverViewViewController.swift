@@ -241,6 +241,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func handleTap(_ gesture: UITapGestureRecognizer){
         //Gets called when a user taps on a song in the search
         
+        //resign the keyboard
+        (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
+        
+        
         //get the cell
         let cell = gesture.view as! SongCell
         
