@@ -11,6 +11,7 @@ import MediaPlayer
 import StoreKit
 import AVKit
 import MultipeerConnectivity
+import CoreData
 
 let peakMusicController = PeakMusicController()
 
@@ -22,11 +23,20 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var library: UITableView!
     
-    //Data for the library
+    //Data for the apple music library
     var mediaItemsInLibrary = [MPMediaItem]() {
         
         didSet{
-
+        
+            library.reloadData()
+        }
+    }
+    
+    //Data for the guest library
+    var guestItemsInLibrary = [Song](){
+        
+        didSet{
+            
             library.reloadData()
         }
     }
@@ -115,30 +125,44 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             let alert = UIAlertController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
             
             
-            //Change what appears based on the user's type
-            if peakMusicController.playerType != .Contributor {
+            //Check the user's Music Type
+            if peakMusicController.musicType == .AppleMusic{
                 
-                alert.addAction(Alerts.playNowAlert(sender))
-                alert.addAction(Alerts.playNextAlert(sender))
-                alert.addAction(Alerts.playLastAlert(sender))
-                alert.addAction(Alerts.playAlbumAlert(sender))
-                alert.addAction(Alerts.playArtistAlert(sender))
-                alert.addAction(Alerts.shuffleAlert(sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded))
-            
-            } else { //User is a contributor so display those methods
+                //Change what appears based on the user's type
+                if peakMusicController.playerType != .Contributor {
+                    
+                    alert.addAction(Alerts.playNowAlert(sender))
+                    alert.addAction(Alerts.playNextAlert(sender))
+                    alert.addAction(Alerts.playLastAlert(sender))
+                    alert.addAction(Alerts.playAlbumAlert(sender))
+                    alert.addAction(Alerts.playArtistAlert(sender))
+                    alert.addAction(Alerts.shuffleAlert(sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded))
+                    
+                } else { //User is a contributor so display those methods
+                    
+                    alert.addAction(Alerts.sendToGroupQueueAlert(sender))
+                }
                 
-                alert.addAction(Alerts.sendToGroupQueueAlert(sender))
+                
+            } else if peakMusicController.musicType == .Guest{
+                
+                if peakMusicController.playerType == .Contributor{
+                    
+                    alert.addAction(Alerts.sendToGroupQueueAlert(sender))
+                }
+                
             }
             
             
             //Add a cancel action
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
+            
             alert.modalPresentationStyle = .popover
             let ppc = alert.popoverPresentationController
             ppc?.sourceRect = (sender.view?.bounds)!
             ppc?.sourceView = sender.view
             present(alert, animated: true, completion: nil)
+            
         }
         
     }
@@ -209,44 +233,138 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*MARK: Fetching Methods*/
     func fetchLibrary(){
         
-        
-        //Temp Sort Method
-        func sort(_ item1: MPMediaItem, _ item2: MPMediaItem) -> Bool {
+        //Check what the music type is
+        if peakMusicController.musicType == .AppleMusic {
             
-            if item1.dateAdded > item2.dateAdded {
+            //Temp Sort Method
+            func sort(_ item1: MPMediaItem, _ item2: MPMediaItem) -> Bool {
+                
+                if item1.dateAdded > item2.dateAdded {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            
+            
+            //Do this async
+            DispatchQueue.global().async {
+                
+                //Fetch by artists
+                
+                let retreivedItems = MPMediaQuery.artists().items
+                
+                //Retreive the recently played items
+                let maxItemsToRetrieve = min(retreivedItems!.count, 20)
+                var recentlyPlayedItems = retreivedItems
+                recentlyPlayedItems = recentlyPlayedItems?.sorted(by: sort)
+                
+                let recentList = recentlyPlayedItems?[0..<maxItemsToRetrieve]
+                
+                DispatchQueue.main.async {
+                    
+                    self.mediaItemsInLibrary = retreivedItems!
+                    self.displayRecentlyPlayed(recentList!)
+                    
+                }
+                
+            }
+        } else if peakMusicController.musicType == .Guest {
+        
+            //Fetch Songs From Core Data
+
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
+            request.returnsObjectsAsFaults = false
+            
+            var storedSongs = [Song]()
+            
+            do{
+                
+                let results = try context.fetch(request)
+                
+                var counter = 0
+                //loop through all the song Entities
+                for result in results {
+                    
+                    let song = result as! StoredSong
+                    
+                    //Create Song Entities and add them to the accumulator variable
+                    ConnectingToInternet.getSong(id: song.value(forKey: "storedID") as! String, completion: {(retSong) in
+                    
+                        var songToAppend = retSong
+                        songToAppend.dateAdded = song.downloaded! as Date
+                        storedSongs.append(songToAppend)
+                        
+                        counter += 1
+                        if counter == results.count{
+                            self.finishFetchForGuest(storedSongs)
+                        }
+                    })
+                    
+                    
+                    
+                    
+                }
+                
+            } catch {
+                
+                print("These Visions of Johanna, are now all that remain")
+            }
+
+            
+            
+            
+            
+        } //END OF GUEST FETCHING DATA
+        
+    } //END OF FETCHING LIBRARY METHOD
+
+    
+    func finishFetchForGuest(_ storedSongs: [Song]){
+        
+        //Temp Sort Method for Date
+        func sort(_ item1: Song, _ item2: Song) -> Bool {
+            
+            if item1.dateAdded! > item2.dateAdded! {
                 return true
             } else {
                 return false
             }
         }
         
+        func sortAlpha(_ item1: Song, _ item2: Song) -> Bool{
+            
+            if item1.artistName > item2.artistName {
+                return true
+            }else {
+                return false
+            }
+        }
         
-        //Do this async
+        //Retreive the recently played items
+       
+        
         DispatchQueue.global().async {
             
-            //Fetch by artists
+            let maxItemsToRetrieve = min(storedSongs.count, 20)
             
-            let retreivedItems = MPMediaQuery.artists().items
+            //Get the recently downloaded Items
+            let recentlyDownloadedItems = storedSongs.sorted(by: sort)
+            let recentList = recentlyDownloadedItems[0..<maxItemsToRetrieve]
             
-            //Retreive the recently played items
-            let maxItemsToRetrieve = min(retreivedItems!.count, 20)
-            var recentlyPlayedItems = retreivedItems
-            recentlyPlayedItems = recentlyPlayedItems?.sorted(by: sort)
-            
-            let recentList = recentlyPlayedItems?[0..<maxItemsToRetrieve]
+            let sortedGuestItems = storedSongs.sorted(by: sortAlpha)
             
             DispatchQueue.main.async {
-            
-                self.mediaItemsInLibrary = retreivedItems!
-                self.displayRecentlyPlayed(recentList!)
-                
+                self.guestItemsInLibrary = sortedGuestItems
+                self.displayRecentlyPlayed(guestRecents: recentList)
             }
-            
         }
- 
-       
+        
     }
-
     /*END OF FETCHING METHODS*/
     
     func displayRecentlyPlayed(_ recents: ArraySlice<MPMediaItem>){
@@ -290,6 +408,47 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    func displayRecentlyPlayed(guestRecents: ArraySlice<Song>){
+        print("Displaying Recently Played")
+        
+        //First Remove All Subviews
+        for sub in recentsView.subviews {
+            
+            sub.removeFromSuperview()
+        }
+        
+        //First Add The Subview
+        let reView = UIView(frame: CGRect(x: 0, y: 0, width: (guestRecents.count * 100), height: Int(recentsView.frame.height)))
+        recentsView.contentSize = CGSize(width: reView.frame.width, height: reView.frame.height)
+        recentsView.addSubview(reView)
+        
+        //Loop through and add each recent
+        var counter = 0
+        for song in guestRecents {
+            
+            //add the song to the recents
+            //recentSongsDownloaded.append(song)
+            
+            //Create the AlbumView
+            let albumImage = RecentsAlbumView(frame: CGRect(x: CGFloat(Double(counter * 100) + 12.5), y: 0, width: 75, height: 75))
+            albumImage.setUp(guestSong: song)
+            reView.addSubview(albumImage)
+            
+            //Add the gesture recognizers to the album view
+            albumImage.isUserInteractionEnabled = true
+            albumImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
+            albumImage.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(displaySongOptions(_:))))
+            
+            //Create the Label
+            let songTitle = UILabel(frame: CGRect(x: counter*100, y: 80, width: 100, height: 20))
+            songTitle.textAlignment = .center
+            songTitle.text = song.trackName
+            songTitle.font = UIFont.systemFont(ofSize: 10)
+            reView.addSubview(songTitle)
+            counter+=1
+        }
+    }
+    
     /*MARK: Table View Data Source/Delegate Methods*/
     
     //For now always return 1
@@ -301,28 +460,69 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     //We want the number of rows to be equal to the number of media items + 2 so curr Play view doesnt cover
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return mediaItemsInLibrary.count + 2
+        
+        //check where our data source is
+        if peakMusicController.musicType == .AppleMusic{
+            
+            return mediaItemsInLibrary.count + 2
+        } else if peakMusicController.musicType == .Guest{
+            
+            return guestItemsInLibrary.count + 2
+        } else {
+            
+            return 0
+        }
+        
     }
     
     //Create the cells here
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //First check to see if it should be the last empty row
-        if indexPath.row == mediaItemsInLibrary.count || indexPath.row == mediaItemsInLibrary.count + 1 {
+        
+        if peakMusicController.musicType == .AppleMusic {
             
-            let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 100))
+            if indexPath.row == mediaItemsInLibrary.count || indexPath.row == mediaItemsInLibrary.count + 1 {
+                
+                let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 100))
+                
+                return cell
+            }
+        } else if peakMusicController.musicType == .Guest{
             
-            return cell
+            if indexPath.row >= guestItemsInLibrary.count {
+                
+                print("Return a blank cell")
+                let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 100))
+                
+                return cell
+            }
         }
         
-        let mediaItemToAdd = mediaItemsInLibrary[indexPath.row]
+        
+        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
         
-        cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize())
-        cell.songTitle.text = mediaItemToAdd.title
-        cell.songArtist.text = mediaItemToAdd.artist
-        cell.mediaItemInCell = mediaItemToAdd
+        //Check what information we should add to the cell
+        if peakMusicController.musicType == .AppleMusic {
+            
+            let mediaItemToAdd = mediaItemsInLibrary[indexPath.row]
+            
+            cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize())
+            cell.songTitle.text = mediaItemToAdd.title
+            cell.songArtist.text = mediaItemToAdd.artist
+            cell.mediaItemInCell = mediaItemToAdd
+        } else if peakMusicController.musicType == .Guest{
+            
+            let mediaItemToAdd = guestItemsInLibrary[indexPath.row]
+            
+            cell.albumArt.image = mediaItemToAdd.image
+            cell.songTitle.text = mediaItemToAdd.trackName
+            cell.songArtist.text = mediaItemToAdd.artistName
+            cell.songInCell = mediaItemToAdd
+        }
+        
         
         //ADD GESTURES
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
@@ -450,28 +650,60 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
-        //first get the media item
-        var mediaItemOnTap = MPMediaItem()
-        
-        //check to see where the gesture is coming from and respond accordingly
-        if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView {
+        //check what type of music we are dealing with
+        if peakMusicController.musicType == .AppleMusic {
             
-            mediaItemOnTap = albumArt.mediaItemAssocWithImage
+            //first get the media item
+            var mediaItemOnTap = MPMediaItem()
             
-        } else if let cell: SongCell = gesture.view as? SongCell {
-            
-            mediaItemOnTap = cell.mediaItemInCell
-        }
-        
-        //Check to see what the playerType of the user is
-        if peakMusicController.playerType != .Contributor {
+            //check to see where the gesture is coming from and respond accordingly
+            if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView {
                 
-            peakMusicController.play([mediaItemOnTap])
+                mediaItemOnTap = albumArt.mediaItemAssocWithImage
+                
+            } else if let cell: SongCell = gesture.view as? SongCell {
+                
+                mediaItemOnTap = cell.mediaItemInCell
+            }
             
-        } else {
-            //the user is a contributor
-        
-            promptUserToSendToGroupQueue(mediaItemOnTap)
+            //Check to see what the playerType of the user is
+            if peakMusicController.playerType != .Contributor {
+                
+                peakMusicController.play([mediaItemOnTap])
+                
+            } else {
+                //the user is a contributor
+                
+                promptUserToSendToGroupQueue(mediaItemOnTap)
+                
+            }
+
+        } else if peakMusicController.musicType == .Guest{
+            
+            //get the item
+            var songTappedOn = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
+            
+            //Check to see if it is coming from recents or a the library
+            if let cell: SongCell = gesture.view as? SongCell{
+                
+                songTappedOn = cell.songInCell!
+            } else if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView{
+                
+                songTappedOn = albumArt.songAssocWithImage!
+            }
+            
+            //check to see what type of player the user is
+            if peakMusicController.playerType != .Contributor{
+                
+                //User is a guest and not a contributor so alert them how to connect to someone
+                tellUserToConnect(songTappedOn)
+                
+            } else {
+                //the user is a contributor so ask them if they want to send the song
+                
+                promptUserToSendToGroupQueue(guestSong: songTappedOn)
+                
+            }
             
         }
         
@@ -483,7 +715,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.title ?? "this song") to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
         
-            //peakMusicController.playAtEndOfQueue([song])
             SendingBluetooth.sendSongIdToHost(id: "\(song.playbackStoreID)", error: {
                 () -> Void in
                 
@@ -497,6 +728,36 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         present(alert, animated: true, completion: nil)
     }
+    
+    func promptUserToSendToGroupQueue(guestSong: Song){
+        //Ask the user if they'd like to send the song to a host
+        
+        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(guestSong.trackName) to the group queue?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
+            
+            //peakMusicController.playAtEndOfQueue([song])
+            SendingBluetooth.sendSongIdToHost(id: "\(guestSong.id)", error: {
+                () -> Void in
+                
+                let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }) // @cam added this. may want to change
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func tellUserToConnect(_ song: Song){
+        //User can't play locally, let the idiot know
+        
+        let alert = UIAlertController(title: "Connect", message: "Guests cannot play music locally. In order to hear \(song.trackName), connect with another user.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     /*END OF GESTURE TARGET METHODS*/
     
     /*SEARCH BAR DELEGATE METHODS*/
@@ -508,22 +769,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         addChildViewController(searchViewController)
         
         //set the frame
-        //frame with rounded
-        //searchViewController.view.frame = CGRect(x: library.frame.minX, y: library.frame.minY, width: library.frame.width, height: library.frame.height - 140) //140 because that's the height of the currently playing view
         searchViewController.view.frame = library.frame
-    
-        
-        //Create the shape layer
-        //let viewOutline = CAShapeLayer()
-        
-        //let rect = CGRect(x: 0, y: 0, width: library.frame.width, height: searchViewController.view.frame.height)
-        //let pathForOutline = UIBezierPath(roundedRect:  rect, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 30, height: 30))
-        //viewOutline.path = pathForOutline.cgPath
-        
-        //searchViewController.view.layer.mask = viewOutline
-        //searchViewController.view.layer.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0).cgColor
-        
-        
         
         view.insertSubview(searchViewController.view, at: 2) //Insert behind the currently playing view
         searchViewController.didMove(toParentViewController: self)
@@ -537,7 +783,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    /************************TEST METHODS FOR BLUETOOTH******************************/
+    
+    /*MARK: Bluetooth Methods*/
     
     func receivedGroupPlayQueue(_ songIds: [String]) {
         
@@ -558,8 +805,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
        
     }
     
-    /*TEST OF RECEVING A SONG FROM A USER*/
+    
     func receivedSong(_ songID: String) {
+        //Received a song from a contributor
         
         //add the song to the user's library, async
         DispatchQueue.global().async {

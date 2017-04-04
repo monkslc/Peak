@@ -42,7 +42,6 @@ class CurrentlyPlayingView: UIView{
         path.move(to: CGPoint(x:bounds.minX ,y: bounds.minY + 50))
         path.addLine(to: CGPoint(x: bounds.maxX, y: bounds.minY + 50))
         path.lineWidth = 3.0
-        //UIColor(red: 30/255, green: 220/255, blue: 187/255, alpha: 1.0).set()
         borderColor.set()
         path.stroke()
         
@@ -63,7 +62,7 @@ class CurrentlyPlayingView: UIView{
         //Set the background color to clear, then create a view below the top 50 that is white
         backgroundColor = UIColor.clear
         let whiteView = UIView(frame: CGRect(x: bounds.minX, y: bounds.minY + 50, width: bounds.width, height: bounds.height))
-        whiteView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.95)
+        whiteView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.98)
         addSubview(whiteView)
         
         //Only add these views if the user is not a contributor

@@ -8,6 +8,7 @@
 
 import UIKit
 import MediaPlayer
+import CoreData
 
 protocol SearchBarPopOverViewViewControllerDelegate{
     
@@ -73,9 +74,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print("Okay... Starting of method to add songs")
         
-        let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
-    
+        
+        //let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
+        let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
+        
+        
         //Check whether we are adding a Apple Music or Library Item
         if let songToAdd: MPMediaItem = topThreeResults[indexPath.row] as? MPMediaItem{
             //we are adding an item from the library
@@ -102,6 +107,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         cell.backgroundColor = UIColor.clear
         
+        print("About to return the cell")
         return cell
     }
     
@@ -109,15 +115,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     /*MARK: SEARCH BAR DELEGATE METHODS*/
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-       
         
-        //searchBar.resignFirstResponder()
-        /*if let LVCDel:LibraryViewController = delegate as? LibraryViewController{
-            
-            searchBar.delegate = LVCDel
-        }*/
-        
-        searchBar.text = ""
         return true
     }
     
@@ -287,19 +285,56 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         showSignifier()
         
-        if let cell: SongCell = button.superview?.superview as? SongCell{
-            
-            if cell.songInCell != nil {
-                
-                MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
-                    
-                    /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
-                    /*******DO SOMETHING WITH THE ERROR******/
-                })
-            }
-        }
+        //Check what type of musci we are playing
         
+        if peakMusicController.musicType == .AppleMusic{
+            
+            if let cell: SongCell = button.superview?.superview as? SongCell{
+                
+                if cell.songInCell != nil {
+                    
+                    MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                        
+                        /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
+                        /*******DO SOMETHING WITH THE ERROR******/
+                    })
+                }
+            }
+        } else if peakMusicController.musicType == .Guest {
+            
+            /********ADD FUNCTIONALITY: MAKE SURE WE HAVE NOT ALREADY DOWNLOADED THE SONG**********/
+            if let cell: SongCell = button.superview?.superview as? SongCell{
+                
+                if let songToAdd = cell.songInCell{
+                    
+                    //Add the song to core data here, and to the users current library
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let context = appDelegate.persistentContainer.viewContext
+                    
+                    let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
+                    newSong.setValue(songToAdd.id, forKey: "storedID")
+                    newSong.setValue(Date(), forKey: "downloaded")
+                    
+                    
+                    
+                    //now try to save it
+                    do{
+                        try context.save()
+                    }catch{
+                        
+                        print("The fiddler he now steps to the road")
+                    }
+                    
+                }
+            }
+            
+            //Now Reload the Data so the user can see it
+            (delegate as! LibraryViewController).fetchLibrary()
+        }
     }
+    
+    
     /*TAP METHODS*/
     
     func notContributorTap(_ cell: SongCell){
@@ -391,6 +426,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
 
     private func searchLibrary(search: String) {
+        print("Searching Library")
         //we are searching the library so get the library // 3 cam store in top 5 results
         guard let library = delegate?.returnLibrary() else { return }
         
@@ -405,6 +441,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchAppleMusic(search: String) {
         
+        print("Searching Apple Music")
         if search.length > 0 {
             SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
                 (songs) -> Void in
@@ -413,6 +450,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                     DispatchQueue.main.async {
                         
                         self.topThreeResults = songs as [AnyObject]
+                        print("Got the results")
                     }
                 }
             })

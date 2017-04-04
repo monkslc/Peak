@@ -45,6 +45,17 @@
                                     <action selector="checkAppleAuthentication" destination="qyf-Ig-ovY" eventType="touchUpInside" id="1Wp-6c-sLN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBT-Be-4FH" customClass="RoundedButton" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="47" y="529" width="281" height="65"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Connect as a Guest">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="Segue As Guest" id="HrE-iK-OE4"/>
+                                </connections>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Peak App Icon Without Background" translatesAutoresizingMaskIntoConstraints="NO" id="3B7-eX-YEJ">
                                 <rect key="frame" x="47" y="-10" width="281" height="258"/>
                             </imageView>
@@ -87,6 +98,7 @@
                             <constraint firstItem="3xA-j1-HKd" firstAttribute="trailing" secondItem="ZqJ-B8-8Hk" secondAttribute="trailing" constant="-20" id="3Ht-Mk-enu"/>
                             <constraint firstItem="9eS-y4-8j5" firstAttribute="centerY" secondItem="wpt-Cy-qMb" secondAttribute="centerY" constant="50" id="6yJ-xP-VJD"/>
                             <constraint firstItem="ZqJ-B8-8Hk" firstAttribute="centerX" secondItem="wpt-Cy-qMb" secondAttribute="centerX" id="Cdy-6R-70K"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="height" secondItem="ZqJ-B8-8Hk" secondAttribute="height" id="EwB-lU-IJ3"/>
                             <constraint firstItem="9eS-y4-8j5" firstAttribute="top" secondItem="WrG-Jf-eG3" secondAttribute="bottom" constant="25" id="Jkr-wW-VlO"/>
                             <constraint firstAttribute="trailing" secondItem="rbP-qJ-mY0" secondAttribute="trailing" id="MbX-QM-VBj"/>
                             <constraint firstItem="23l-FC-L3f" firstAttribute="leading" secondItem="zjD-wT-Hef" secondAttribute="trailing" constant="8.5" id="NjF-Hl-Hv5"/>
@@ -102,7 +114,10 @@
                             <constraint firstItem="zjD-wT-Hef" firstAttribute="leading" secondItem="ZqJ-B8-8Hk" secondAttribute="leading" constant="15" id="epi-TA-bjE"/>
                             <constraint firstAttribute="trailing" secondItem="WrG-Jf-eG3" secondAttribute="trailing" id="fMB-wW-avd"/>
                             <constraint firstItem="3B7-eX-YEJ" firstAttribute="centerX" secondItem="rbP-qJ-mY0" secondAttribute="centerX" id="fhc-Bg-1of"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="centerX" secondItem="ZqJ-B8-8Hk" secondAttribute="centerX" id="fuy-aN-Zuk"/>
                             <constraint firstItem="23l-FC-L3f" firstAttribute="centerY" secondItem="zjD-wT-Hef" secondAttribute="centerY" id="h0Y-LT-OZ2"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" constant="100" id="khH-0D-bbh"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="width" secondItem="ZqJ-B8-8Hk" secondAttribute="width" id="qVj-Xc-hea"/>
                             <constraint firstItem="WrG-Jf-eG3" firstAttribute="height" secondItem="3B7-eX-YEJ" secondAttribute="height" multiplier="1:3" id="sHd-xi-9CH"/>
                             <constraint firstItem="ZBJ-Kx-hHg" firstAttribute="top" secondItem="rbP-qJ-mY0" secondAttribute="bottom" id="wuz-ze-kRe"/>
                             <constraint firstItem="3xA-j1-HKd" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="xHk-Rg-WlA"/>
@@ -115,6 +130,7 @@
                     <connections>
                         <outlet property="ConnectToAppleMusicLabel" destination="3xA-j1-HKd" id="lTM-kG-l3g"/>
                         <outlet property="appleMusicButton" destination="23l-FC-L3f" id="9om-S9-mhz"/>
+                        <outlet property="guestButton" destination="jBT-Be-4FH" id="gHJ-P7-2MN"/>
                         <outlet property="loadingIndicator" destination="9eS-y4-8j5" id="7YS-2e-8ne"/>
                         <outlet property="welcomeToLabel" destination="WrG-Jf-eG3" id="pgg-PX-9ho"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Segue to Apple Music" id="ZYu-fU-4bw"/>
@@ -227,7 +243,7 @@
                                         <rect key="frame" x="0.0" y="160" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mCT-ad-6vR" id="sPN-BM-PGO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xc4-PS-l4Q">
@@ -459,11 +475,11 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O3G-Zd-mC0" id="4Xx-ak-JJ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8R-iI-OJ7">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -559,4 +575,7 @@
         <image name="Plus Math_1edcbb_100" width="96" height="96"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ZYu-fU-4bw"/>
+    </inferredMetricsTieBreakers>
 </document>
