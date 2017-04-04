@@ -446,9 +446,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
                 (songs) -> Void in
                 
-                if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
-                    DispatchQueue.main.async {
-                        
+                DispatchQueue.main.async {
+                    if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
                         self.topThreeResults = songs as [AnyObject]
                         print("Got the results")
                     }
@@ -469,16 +468,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchTopCharts() {
         
-        if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
-            DispatchQueue.main.async {
-                ConnectingToInternet.searchTopCharts(completion: {
-                    (songs) -> Void in
-                    
-                    DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            ConnectingToInternet.searchTopCharts(completion: {
+                (songs) -> Void in
+                
+                DispatchQueue.main.async {
+                    if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                         self.topThreeResults = songs as [AnyObject]
                     }
-                })
-            }
+                }
+            })
         }
     }
 
