@@ -80,7 +80,7 @@ class LocalSearch {
             while j <= i + 2 {
                 
                 if j + i >= 0 && i + j < newSongAndAuthourWord.length {
-                    let newDif = differanceBetweenTwoLetters(c1: searchTermWord[i], c2: newSongAndAuthourWord[i + j]) + Double(abs(j)) * 1.5
+                    let newDif = differanceBetweenTwoLetters(c1: searchTermWord[i], c2: newSongAndAuthourWord[i + j]) + Double(abs(j))
                     if cDif > newDif {
                         cDif = newDif
                     }
