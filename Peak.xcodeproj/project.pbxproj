@@ -37,6 +37,7 @@
 		C4D117761E80A52E000A854A /* MusicInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117751E80A52E000A854A /* MusicInfoDisplay.swift */; };
 		C4D117781E80A9F2000A854A /* VisualQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117771E80A9F2000A854A /* VisualQueueController.swift */; };
 		C4D1177B1E80B262000A854A /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1177A1E80B262000A854A /* VolumeView.swift */; };
+		C4DBB97D1E9351D600591F7C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4DBB97B1E9351D600591F7C /* Model.xcdatamodeld */; };
 		C4E896611E7458620096EC72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E896601E7458620096EC72 /* AppDelegate.swift */; };
 		C4E896631E7458620096EC72 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E896621E7458620096EC72 /* LibraryViewController.swift */; };
 		C4E896661E7458620096EC72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4E896641E7458620096EC72 /* Main.storyboard */; };
@@ -78,6 +79,7 @@
 		C4D117751E80A52E000A854A /* MusicInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicInfoDisplay.swift; sourceTree = "<group>"; };
 		C4D117771E80A9F2000A854A /* VisualQueueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualQueueController.swift; sourceTree = "<group>"; };
 		C4D1177A1E80B262000A854A /* VolumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; };
+		C4DBB97C1E9351D600591F7C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		C4E8965D1E7458620096EC72 /* Aud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4E896601E7458620096EC72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4E896621E7458620096EC72 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		C4D1177C1E819F9A000A854A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C4DBB97B1E9351D600591F7C /* Model.xcdatamodeld */,
 				C4E896671E7458620096EC72 /* Assets.xcassets */,
 				C4E896691E7458620096EC72 /* LaunchScreen.storyboard */,
 				C4E896601E7458620096EC72 /* AppDelegate.swift */,
@@ -355,6 +358,7 @@
 				C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */,
 				C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */,
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,
+				C4DBB97D1E9351D600591F7C /* Model.xcdatamodeld in Sources */,
 				904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */,
 				C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */,
 				C4D1176B1E809905000A854A /* BeginningButton.swift in Sources */,
@@ -541,6 +545,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C4DBB97B1E9351D600591F7C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C4DBB97C1E9351D600591F7C /* Model.xcdatamodel */,
+			);
+			currentVersion = C4DBB97C1E9351D600591F7C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C4E896551E7458610096EC72 /* Project object */;
 }

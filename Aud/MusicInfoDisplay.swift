@@ -154,7 +154,7 @@ class MusicInfoDisplay: UIView {
             if let currentlyPlayingSong = peakMusicController.systemMusicPlayer.nowPlayingItem {
                 
                 //Use song struct to fetch the lyrics
-                let song = Song(id: "", trackName: currentlyPlayingSong.title!, collectionName: "", artistName: currentlyPlayingSong.artist!, trackTimeMillis: 0, image: nil)
+                let song = Song(id: "", trackName: currentlyPlayingSong.title!, collectionName: "", artistName: currentlyPlayingSong.artist!, trackTimeMillis: 0, image: nil, dateAdded: nil)
                
 
                 

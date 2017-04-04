@@ -11,6 +11,8 @@ import MediaPlayer
 
 class RecentsAlbumView: UIImageView {
 
+    //Used to store a song struct if the user is a guest
+    var songAssocWithImage: Song?
     
     var mediaItemAssocWithImage = MPMediaItem()
     
@@ -35,5 +37,17 @@ class RecentsAlbumView: UIImageView {
         //add the song ingo
         image = song.artwork?.image(at: CGSize())
         mediaItemAssocWithImage = song
+    }
+    
+    func setUp(guestSong: Song){
+        
+        layer.cornerRadius = 5
+        clipsToBounds = true
+        layer.borderColor = UIColor.lightGray.cgColor
+        layer.borderWidth = 1.0
+        
+        //add the song info
+        image = guestSong.image
+        songAssocWithImage = guestSong
     }
 }

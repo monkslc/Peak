@@ -140,13 +140,13 @@ class Alerts {
             if let cell: SongCell = sender.view as? SongCell {
                 //we have a cell
                 
-                //Check if it is in our library or in Apple Music
+                //Check if it is in our library or in Apple Music/Guest Library
                 if cell.songInCell == nil{
                     //Library
                     
                     songId = cell.mediaItemInCell.playbackStoreID
                 } else {
-                    //Apple Music
+                    //Apple Music/GuestLibrary
                     
                     songId = (cell.songInCell?.id)!
                 }

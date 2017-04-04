@@ -150,7 +150,7 @@ class ConnectingToInternet {
                                 return
                             }
                             
-                            songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image))
+                            songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
                             
                             if songs.count == songsJSON.count || !sendSongsAlltogether {
                                 completion(songs)
@@ -176,7 +176,7 @@ class ConnectingToInternet {
                     ConnectingToInternet.getImage(url: imageURL, completion: {
                         (image) -> Void in
                         
-                        completion(Song(id: id, trackName: "\(songJSON[0]["trackName"]!)", collectionName: "\(songJSON[0]["collectionName"]!)", artistName: "\(songJSON[0]["artistName"]!)", trackTimeMillis: Int("\(songJSON[0]["trackTimeMillis"]!)")!, image: image))
+                        completion(Song(id: id, trackName: "\(songJSON[0]["trackName"]!)", collectionName: "\(songJSON[0]["collectionName"]!)", artistName: "\(songJSON[0]["artistName"]!)", trackTimeMillis: Int("\(songJSON[0]["trackTimeMillis"]!)")!, image: image, dateAdded: nil))
                     })
                     
                 }

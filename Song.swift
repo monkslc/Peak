@@ -16,4 +16,5 @@ struct Song {
     var artistName: String
     var trackTimeMillis: Int
     var image: UIImage?
+    var dateAdded: Date?
 }

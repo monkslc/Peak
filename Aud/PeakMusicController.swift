@@ -68,6 +68,15 @@ class PeakMusicController {
         
     }
     
+    enum MusicType {
+        //enum to determine how the user is going to listen to music
+        
+        case AppleMusic
+        case Guest
+    }
+    
+    var musicType = MusicType.Guest
+    
     let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
     
     var currPlayQueue = [MPMediaItem](){

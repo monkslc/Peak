@@ -18,6 +18,7 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var ConnectToAppleMusicLabel: UILabel!
     
+    @IBOutlet weak var guestButton: RoundedButton!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -34,6 +35,9 @@ class AuthViewController: UIViewController {
         ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
         ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters
         
+        
+        
+        
         welcomeToLabel.text = "Hello \(getUserName())\nWelcome To Peak"
         welcomeToLabel.adjustsFontSizeToFitWidth = true
         
@@ -45,11 +49,11 @@ class AuthViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         //This methods makes it so it automatically segues to apple music without user interaction on welcome screen
-        if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
+        /*if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
             
             print("authorized, maybe not performing segue because it hasn't been identified yet")
             //performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
-        }
+        }*/
         
     
     }
@@ -134,5 +138,18 @@ class AuthViewController: UIViewController {
     
     func handleDjForceTouchNotification(notification: NSNotification) {
         print("DJ Notification got")
+    }
+    
+    //Check how we are segueing so we can se tthe music player to the appropriate type
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "Segue to Apple Music"{
+            
+            peakMusicController.musicType = .AppleMusic
+            
+        } else if segue.identifier == "Segue as Guest"{
+        
+            peakMusicController.musicType = .Guest
+        }
     }
 }
