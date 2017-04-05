@@ -62,6 +62,7 @@ class AuthViewController: UIViewController {
         
         loadingIndicator.startAnimating()
         //check if we have authorization to the user's apple music
+        
         SKCloudServiceController.requestAuthorization({(authorization) in
             
             switch authorization{

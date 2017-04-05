@@ -61,6 +61,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //First thing we want to do is start the fetch the user's library
         DispatchQueue.global().async {
             self.fetchLibrary()
@@ -760,7 +761,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*END OF GESTURE TARGET METHODS*/
     
-    /*SEARCH BAR DELEGATE METHODS*/
+    /*MARK: SEARCH BAR DELEGATE METHODS*/
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         //When the textfield begins editing, we want to display our other view
         

@@ -44,7 +44,28 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         if peakMusicController.playerType != .Contributor{
             
             let mediaItemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.indexOfNowPlayingItem + 1 + indexPath.row]
-            cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "defaultAlbum")
+            
+            //Check if we can get the image
+            if let albumImage = mediaItemToAdd.artwork?.image(at: CGSize()){
+                
+                cell.albumArt.image = albumImage
+            } else {
+                
+                //set a temporary default image then fetch the actual
+                cell.albumArt.image = #imageLiteral(resourceName: "defaultAlbum")
+                
+                //the fetch
+                ConnectingToInternet.getSong(id: mediaItemToAdd.playbackStoreID, completion: {(song) in
+                
+                    if song.image != nil{
+                        
+                        cell.albumArt.image = song.image
+                    }
+                    
+                })
+                
+            }
+            //cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "defaultAlbum") //Don't totally do away with this until confirming the visual queue picks up the right album
             cell.songTitle.text =  mediaItemToAdd.title
             cell.songArtist.text = mediaItemToAdd.artist
             
@@ -65,7 +86,15 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             //we are a contributor so get the information from the group play queue
             let songToAdd = peakMusicController.groupPlayQueue[indexPath.row + 1]
             
-            cell.albumArt.image = songToAdd.image
+            //get the image
+            if songToAdd.image == nil{
+                
+                cell.albumArt.image = #imageLiteral(resourceName: "defaultAlbum")
+            } else {
+                
+                cell.albumArt.image = songToAdd.image
+            }
+            
             cell.songTitle.text = songToAdd.trackName
             cell.songArtist.text = songToAdd.artistName
             
