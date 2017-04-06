@@ -782,7 +782,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*END OF GESTURE TARGET METHODS*/
     
-    /*SEARCH BAR DELEGATE METHODS*/
+    /*MARK: SEARCH BAR DELEGATE METHODS*/
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         //When the textfield begins editing, we want to display our other view
         

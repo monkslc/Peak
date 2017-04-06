@@ -350,6 +350,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             //Apple Music
             //Play a song by song id, because we won't have the MPMediaItem
             
+            //Need to clear the current play queue here so it doesn't cause errors
+            peakMusicController.currPlayQueue.removeAll()
             peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([(cell.songInCell?.id)!])
             peakMusicController.systemMusicPlayer.play()
             
