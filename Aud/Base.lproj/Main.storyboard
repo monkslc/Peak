@@ -28,16 +28,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uXh-1Y-i3n">
-                                        <rect key="frame" x="348" y="433" width="10" height="104"/>
+                                        <rect key="frame" x="328" y="418" width="30" height="119"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="uXh-1Y-i3n" firstAttribute="leading" secondItem="rbP-qJ-mY0" secondAttribute="leading" constant="348" id="D9F-rT-NZg"/>
-                                    <constraint firstAttribute="bottom" secondItem="uXh-1Y-i3n" secondAttribute="bottom" constant="130" id="TMO-9h-cjw"/>
-                                    <constraint firstItem="uXh-1Y-i3n" firstAttribute="top" secondItem="rbP-qJ-mY0" secondAttribute="top" constant="433" id="fMR-kY-aoG"/>
-                                    <constraint firstAttribute="trailing" secondItem="uXh-1Y-i3n" secondAttribute="trailing" constant="17" id="oWp-Ps-p2U"/>
+                                    <constraint firstAttribute="bottom" secondItem="uXh-1Y-i3n" secondAttribute="bottom" constant="130" id="Jo9-Qu-Dvt"/>
+                                    <constraint firstAttribute="trailing" secondItem="uXh-1Y-i3n" secondAttribute="trailing" constant="17" id="Kl6-sC-dJg"/>
+                                    <constraint firstItem="uXh-1Y-i3n" firstAttribute="top" secondItem="rbP-qJ-mY0" secondAttribute="top" constant="418" id="iIs-p4-Nzy"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="lightColor">
@@ -48,107 +47,110 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="ryr-Gg-Cxf">
-                                <rect key="frame" x="38" y="429" width="300" height="174"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqJ-B8-8Hk" customClass="RoundedButton" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="69.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="41"/>
-                                        <connections>
-                                            <action selector="checkAppleAuthentication" destination="qyf-Ig-ovY" eventType="touchUpInside" id="1Wp-6c-sLN"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBT-Be-4FH" customClass="RoundedButton" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.5" width="300" height="69.5"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <state key="normal" title="Connect as a Guest">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="layerColor">
-                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="Segue As Guest" id="HrE-iK-OE4"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="ryr-Gg-Cxf" secondAttribute="height" multiplier="200:116" id="lju-OD-MMR"/>
-                                </constraints>
-                            </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PeakLeafyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="3B7-eX-YEJ">
-                                <rect key="frame" x="47" y="-10" width="281" height="258"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple-music-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="zjD-wT-Hef">
-                                <rect key="frame" x="58" y="436" width="55" height="54.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="zjD-wT-Hef" secondAttribute="height" multiplier="1:1" id="ZVG-u1-d6H"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23l-FC-L3f">
-                                <rect key="frame" x="348" y="464.5" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello Steve Welcome To Peak" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrG-Jf-eG3">
-                                <rect key="frame" x="0.0" y="248" width="375" height="86"/>
+                                <rect key="frame" x="20" y="30" width="335" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WrG-Jf-eG3" secondAttribute="height" multiplier="5:1" id="Thb-aS-0tZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <color key="textColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select A Music Player..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T8R-nU-Wug">
+                                <rect key="frame" x="16" y="147" width="343" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="textColor" red="1" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqJ-B8-8Hk" customClass="RoundedButton" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="47" y="372" width="281" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZqJ-B8-8Hk" secondAttribute="height" multiplier="300:61" id="xaE-UW-BFb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
+                                <connections>
+                                    <action selector="checkAppleAuthentication" destination="qyf-Ig-ovY" eventType="touchUpInside" id="1Wp-6c-sLN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBT-Be-4FH" customClass="RoundedButton" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="47" y="479" width="281" height="57"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" title="Guest">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layerColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="Segue As Guest" id="HrE-iK-OE4"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple-music-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="zjD-wT-Hef">
+                                <rect key="frame" x="62" y="378" width="46" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zjD-wT-Hef" secondAttribute="height" multiplier="1:1" id="ZVG-u1-d6H"/>
+                                </constraints>
+                            </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="9eS-y4-8j5">
-                                <rect key="frame" x="162" y="359" width="50" height="50"/>
+                                <rect key="frame" x="162" y="222" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="0rP-GV-E6t"/>
                                     <constraint firstAttribute="height" constant="50" id="hMy-8p-exy"/>
                                 </constraints>
                                 <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect Using Apple Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xA-j1-HKd">
-                                <rect key="frame" x="123.5" y="440.5" width="204.5" height="45.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xA-j1-HKd">
+                                <rect key="frame" x="118" y="382.5" width="200" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEs-Mi-37k">
+                                <rect key="frame" x="33" y="318" width="14" height="146"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rbP-qJ-mY0" firstAttribute="top" secondItem="wpt-Cy-qMb" secondAttribute="top" id="0VC-4A-BW6"/>
+                            <constraint firstItem="zjD-wT-Hef" firstAttribute="height" secondItem="ZqJ-B8-8Hk" secondAttribute="height" multiplier="4:5" id="16Z-jn-17j"/>
+                            <constraint firstItem="9eS-y4-8j5" firstAttribute="top" secondItem="T8R-nU-Wug" secondAttribute="bottom" constant="40" id="2hz-q1-jgQ"/>
                             <constraint firstItem="3xA-j1-HKd" firstAttribute="leading" secondItem="zjD-wT-Hef" secondAttribute="trailing" constant="10" id="5O2-5M-WEy"/>
-                            <constraint firstItem="9eS-y4-8j5" firstAttribute="centerY" secondItem="wpt-Cy-qMb" secondAttribute="centerY" constant="50" id="6yJ-xP-VJD"/>
-                            <constraint firstItem="ryr-Gg-Cxf" firstAttribute="width" secondItem="wpt-Cy-qMb" secondAttribute="width" multiplier="4:5" id="BjU-SR-dJc"/>
-                            <constraint firstItem="3xA-j1-HKd" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="DXv-nA-8hB"/>
-                            <constraint firstItem="ryr-Gg-Cxf" firstAttribute="top" secondItem="9eS-y4-8j5" secondAttribute="bottom" constant="20" id="Flt-eL-Htn"/>
-                            <constraint firstItem="9eS-y4-8j5" firstAttribute="top" secondItem="WrG-Jf-eG3" secondAttribute="bottom" constant="25" id="Jkr-wW-VlO"/>
+                            <constraint firstItem="ZqJ-B8-8Hk" firstAttribute="leading" secondItem="CEs-Mi-37k" secondAttribute="trailing" id="7EJ-gC-sg6"/>
+                            <constraint firstItem="T8R-nU-Wug" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leadingMargin" id="Ad0-TW-IHM"/>
+                            <constraint firstItem="zjD-wT-Hef" firstAttribute="leading" secondItem="CEs-Mi-37k" secondAttribute="trailing" constant="15" id="Amy-IZ-hPJ"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="height" secondItem="ZqJ-B8-8Hk" secondAttribute="height" id="DDR-fW-ejy"/>
+                            <constraint firstItem="CEs-Mi-37k" firstAttribute="top" secondItem="wpt-Cy-qMb" secondAttribute="top" constant="318" id="Jto-L4-u1s"/>
+                            <constraint firstItem="ZBJ-Kx-hHg" firstAttribute="top" secondItem="CEs-Mi-37k" secondAttribute="bottom" constant="203" id="JzX-5j-4LR"/>
                             <constraint firstAttribute="trailing" secondItem="rbP-qJ-mY0" secondAttribute="trailing" id="MbX-QM-VBj"/>
+                            <constraint firstItem="ZqJ-B8-8Hk" firstAttribute="top" secondItem="9eS-y4-8j5" secondAttribute="bottom" constant="100" id="N0H-GY-5m5"/>
+                            <constraint firstItem="ZqJ-B8-8Hk" firstAttribute="width" secondItem="rbP-qJ-mY0" secondAttribute="width" multiplier="3:4" id="Nlm-cW-crG"/>
                             <constraint firstItem="9eS-y4-8j5" firstAttribute="centerX" secondItem="wpt-Cy-qMb" secondAttribute="centerX" id="O8p-GV-X02"/>
-                            <constraint firstItem="23l-FC-L3f" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="P2a-Mc-ZAR"/>
-                            <constraint firstItem="uXh-1Y-i3n" firstAttribute="leading" secondItem="3xA-j1-HKd" secondAttribute="trailing" constant="20" id="RSF-zm-4M4"/>
-                            <constraint firstItem="WrG-Jf-eG3" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leading" id="SUh-Pv-HmG"/>
-                            <constraint firstItem="WrG-Jf-eG3" firstAttribute="top" secondItem="3B7-eX-YEJ" secondAttribute="bottom" id="TT7-E5-YOq"/>
-                            <constraint firstItem="uXh-1Y-i3n" firstAttribute="leading" secondItem="23l-FC-L3f" secondAttribute="trailing" id="XiQ-Ub-mut"/>
-                            <constraint firstItem="3B7-eX-YEJ" firstAttribute="top" secondItem="wpt-Cy-qMb" secondAttribute="topMargin" constant="-10" id="a5j-WO-aHq"/>
-                            <constraint firstAttribute="trailing" secondItem="WrG-Jf-eG3" secondAttribute="trailing" id="fMB-wW-avd"/>
-                            <constraint firstItem="zjD-wT-Hef" firstAttribute="leading" secondItem="ZqJ-B8-8Hk" secondAttribute="leading" constant="20" id="fRy-0b-buO"/>
-                            <constraint firstItem="3B7-eX-YEJ" firstAttribute="centerX" secondItem="rbP-qJ-mY0" secondAttribute="centerX" id="fhc-Bg-1of"/>
-                            <constraint firstItem="ryr-Gg-Cxf" firstAttribute="centerX" secondItem="wpt-Cy-qMb" secondAttribute="centerX" id="pp7-BI-dhI"/>
-                            <constraint firstItem="WrG-Jf-eG3" firstAttribute="height" secondItem="3B7-eX-YEJ" secondAttribute="height" multiplier="1:3" id="sHd-xi-9CH"/>
-                            <constraint firstItem="zjD-wT-Hef" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="vmU-oj-19K"/>
+                            <constraint firstItem="WrG-Jf-eG3" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leading" constant="20" id="RFH-PV-Pmt"/>
+                            <constraint firstItem="CEs-Mi-37k" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leadingMargin" constant="17" id="WHT-ka-uTa"/>
+                            <constraint firstAttribute="trailing" secondItem="WrG-Jf-eG3" secondAttribute="trailing" constant="20" id="Ww2-j9-za6"/>
+                            <constraint firstItem="T8R-nU-Wug" firstAttribute="top" secondItem="WrG-Jf-eG3" secondAttribute="bottom" constant="50" id="XlQ-sP-x0c"/>
+                            <constraint firstItem="uXh-1Y-i3n" firstAttribute="leading" secondItem="3xA-j1-HKd" secondAttribute="trailing" constant="10" id="YUb-Cd-ooQ"/>
+                            <constraint firstItem="zjD-wT-Hef" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="dOZ-QW-eUg"/>
+                            <constraint firstItem="3xA-j1-HKd" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="emJ-MD-3Wj"/>
+                            <constraint firstItem="WrG-Jf-eG3" firstAttribute="top" secondItem="ydL-tI-XZf" secondAttribute="bottom" constant="30" id="gUl-U3-cuh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="T8R-nU-Wug" secondAttribute="trailing" id="iDd-PV-kUf"/>
+                            <constraint firstItem="ZqJ-B8-8Hk" firstAttribute="centerX" secondItem="wpt-Cy-qMb" secondAttribute="centerX" id="jdA-gl-8e7"/>
+                            <constraint firstItem="uXh-1Y-i3n" firstAttribute="leading" secondItem="ZqJ-B8-8Hk" secondAttribute="trailing" id="lKd-ll-dkU"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="top" secondItem="ZqJ-B8-8Hk" secondAttribute="bottom" constant="50" id="lW3-Xt-xjh"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="width" secondItem="ZqJ-B8-8Hk" secondAttribute="width" id="tIo-PJ-LYq"/>
+                            <constraint firstItem="jBT-Be-4FH" firstAttribute="centerX" secondItem="ZqJ-B8-8Hk" secondAttribute="centerX" id="u6A-WL-Dhh"/>
                             <constraint firstItem="ZBJ-Kx-hHg" firstAttribute="top" secondItem="rbP-qJ-mY0" secondAttribute="bottom" id="wuz-ze-kRe"/>
-                            <constraint firstItem="3B7-eX-YEJ" firstAttribute="width" secondItem="wpt-Cy-qMb" secondAttribute="width" multiplier="3:4" id="xwB-G0-AyC"/>
                             <constraint firstItem="rbP-qJ-mY0" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leading" id="yf5-Ty-c9Z"/>
-                            <constraint firstItem="zjD-wT-Hef" firstAttribute="width" secondItem="ZqJ-B8-8Hk" secondAttribute="height" multiplier="4:5" id="yoQ-SP-lNF"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="ConnectToAppleMusicLabel" destination="3xA-j1-HKd" id="lTM-kG-l3g"/>
-                        <outlet property="appleMusicButton" destination="23l-FC-L3f" id="9om-S9-mhz"/>
                         <outlet property="guestButton" destination="jBT-Be-4FH" id="gHJ-P7-2MN"/>
                         <outlet property="loadingIndicator" destination="9eS-y4-8j5" id="7YS-2e-8ne"/>
                         <outlet property="welcomeToLabel" destination="WrG-Jf-eG3" id="pgg-PX-9ho"/>
@@ -157,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s9D-2w-qBf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1103" y="31"/>
+            <point key="canvasLocation" x="-1103.2" y="30.134932533733135"/>
         </scene>
         <!--Search Bar Pop Over View View Controller-->
         <scene sceneID="8rc-4x-PGA">
@@ -183,7 +185,7 @@
                                     <segment title="Top Charts"/>
                                 </segments>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
                                 <rect key="frame" x="0.0" y="75" width="375" height="592"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -590,7 +592,6 @@
     </scenes>
     <resources>
         <image name="IndieBigIcon" width="142" height="137"/>
-        <image name="PeakLeafyLogo" width="250" height="250"/>
         <image name="Plus Math_1edcbb_100" width="96" height="96"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
     </resources>

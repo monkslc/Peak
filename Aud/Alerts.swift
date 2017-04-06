@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MediaPlayer
+import CoreData
 
 class Alerts {
     
@@ -168,7 +169,5 @@ class Alerts {
             
         })
     }
-    
-    
     
 }

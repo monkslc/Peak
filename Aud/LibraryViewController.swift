@@ -152,6 +152,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                     alert.addAction(Alerts.sendToGroupQueueAlert(sender))
                 }
                 
+                alert.addAction(createDeleteAction(sender))
+                
+                
             }
             
             
@@ -167,6 +170,59 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
     }
+    
+    
+    func createDeleteAction(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
+        
+        //Create the alert here and return it
+        return UIAlertAction(title: "Delete Song", style: .default, handler: {(alert) in
+            
+            
+            
+            if let cell: SongCell = sender.view as? SongCell{
+                
+                //get the song to delete
+                let songToDelete = cell.songInCell
+                
+                //now delete it
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                
+                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
+                request.returnsObjectsAsFaults = false
+                
+                do{
+                    
+                    let results = try context.fetch(request)
+                    
+                    for result in results{
+                        
+                        let songInCD = result as! StoredSong
+                        
+                        //check if our songs match and if so delete
+                        if songInCD.storedID == songToDelete?.id{
+                            
+                            context.delete(result as! NSManagedObject)
+                            break
+                        }
+                    }
+                    
+                    try context.save()
+                    
+                } catch {
+                    
+                    print("To dance beneath the diamond sky with one hand waving free")
+                }
+            }
+            
+            print("Should be showing signifier")
+            self.showSignifier()
+            self.fetchLibrary()
+        })
+        
+        
+    }
+    
     
     @IBAction func showHidePlayingView(_ sender: UITapGestureRecognizer) {
         //Method to hand tap on currently playing view
@@ -298,7 +354,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                         var songToAppend = retSong
                         songToAppend.dateAdded = song.downloaded! as Date
-                        storedSongs.append(songToAppend)
+                        
+                        let serialQueue = DispatchQueue(label: "myqueue")
+                        
+                        serialQueue.sync {
+                            storedSongs.append(songToAppend)
+                        }
+                        
                         
                         counter += 1
                         if counter == results.count{
