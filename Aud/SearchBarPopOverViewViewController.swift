@@ -33,6 +33,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     var delegate: SearchBarPopOverViewViewControllerDelegate?
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     
     /*MARK: LifeCycle Methods*/
     override func viewDidLoad() {
@@ -45,6 +47,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         searchedSongsTableView.delegate = self
         searchedSongsTableView.dataSource = self
+        
+        
     }
     
     
@@ -74,9 +78,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print("Okay... Starting of method to add songs")
-        
-        
         //let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
         let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
         
@@ -93,7 +94,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             cell.songInCell = songToAdd
             
             //Add the library button
-            cell.addToLibraryButton.isHidden = false
+            if !checkIfAlreadyInLibrary(songToAdd.id){
+                
+                cell.addToLibraryButton.isHidden = false
+            }
+            
             
             cell.addToLibraryButton.addTarget(self, action: #selector(addToLibrary(_:)), for: .touchUpInside)
             
@@ -107,7 +112,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         cell.backgroundColor = UIColor.clear
         
-        print("About to return the cell")
         return cell
     }
     
@@ -145,6 +149,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func searchRequestChanged() {
         //Gets called when the segmented control changes
+        
+        //need to stop the loading indicator in case the user started it and then switched before results were returned
+        loadingIndicator.stopAnimating()
+        
         topThreeResults = []
         
         var searchText = String()
@@ -153,7 +161,18 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             searchText = LVCdel.searchForMediaBar.text!
         }
         
+        
+        //If we are searching TopCharts, please put away the keyboard and start the loading indicator
+        if selectMusicFromSegment.selectedSegmentIndex == 2{
+            
+            (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
+            loadingIndicator.startAnimating()
+            print("Loading Indicator should have started")
+        }
+        
         searchSongs(search: searchText)
+        
+        
         
     }
     
@@ -242,17 +261,19 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //resign the keyboard
         (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
         
+        //check to make sure we're not a guest
+
         
         //get the cell
         let cell = gesture.view as! SongCell
         
         
         //Check player type
-        if peakMusicController.playerType != .Contributor {
+        if peakMusicController.playerType != .Contributor && peakMusicController.musicType != .Guest{
             
             notContributorTap(cell)
             
-        } else {
+        } else if peakMusicController.playerType == .Contributor{
             //We are a contributor
             
             contributorTap(cell)
@@ -302,12 +323,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
         } else if peakMusicController.musicType == .Guest {
             
-            /********ADD FUNCTIONALITY: MAKE SURE WE HAVE NOT ALREADY DOWNLOADED THE SONG**********/
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
                 if let songToAdd = cell.songInCell{
                     
                     //Add the song to core data here, and to the users current library
+                    
+                    //check if the user has already downloaded it
                     
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
                     let context = appDelegate.persistentContainer.viewContext
@@ -329,8 +351,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 }
             }
             
-            //Now Reload the Data so the user can see it
+            //Now Reload the Data in both talbes so the user can see it
             (delegate as! LibraryViewController).fetchLibrary()
+            searchedSongsTableView.reloadData()
         }
     }
     
@@ -428,7 +451,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
 
     private func searchLibrary(search: String) {
-        print("Searching Library")
+
         //we are searching the library so get the library // 3 cam store in top 5 results
         guard let library = delegate?.returnLibrary() else { return }
         
@@ -443,7 +466,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchAppleMusic(search: String) {
         
-        print("Searching Apple Music")
         if search.length > 0 {
             SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
                 (songs) -> Void in
@@ -451,7 +473,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
                         self.topThreeResults = songs as [AnyObject]
-                        print("Got the results")
                     }
                 }
             })
@@ -477,10 +498,41 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                         self.topThreeResults = songs as [AnyObject]
+                        self.loadingIndicator.stopAnimating()
                     }
                 }
             })
         }
     }
+    
+    
+    /*MARK: EXTRA METHODS*/
+    func checkIfAlreadyInLibrary(_ id: String) -> Bool{
+        //Method to check if the song is already in the users library
+        
+        if peakMusicController.musicType == .AppleMusic{
+            
+            for song in (delegate?.returnLibrary())!{
+                
+                if song.playbackStoreID == id{
+                    
+                    return true
+                }
+            }
+        } else if peakMusicController.musicType == .Guest{
+            
+            for song in (delegate as! LibraryViewController).guestItemsInLibrary{
+                
+                if song.id == id{
+                    return true
+                }
+            }
+        }
+        
+        
+        return false
+    }
+    
+    
 
 }

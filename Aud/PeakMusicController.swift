@@ -40,6 +40,7 @@ class PeakMusicController {
             if playerType == .Host {
                 MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
                 (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
+                delegate?.updateDisplay()
             }
             else {
                 MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
@@ -257,35 +258,80 @@ class PeakMusicController {
     func setUp(){
         //called when initially created to set up the music player for playing
         
-        //Set the initally playing song and queue
-        if peakMusicController.systemMusicPlayer.nowPlayingItem != nil {
+        if musicType == .AppleMusic{
             
-            currPlayQueue = [peakMusicController.systemMusicPlayer.nowPlayingItem!]
+            //Set the initally playing song and queue
+            if peakMusicController.systemMusicPlayer.nowPlayingItem != nil {
+                
+                currPlayQueue = [peakMusicController.systemMusicPlayer.nowPlayingItem!]
+            }
+            
+            
+            //Now set the suffle mode to off so we can control the queue
+            peakMusicController.systemMusicPlayer.shuffleMode = .off
+            
+            //Now begin generating playback notifications
+            peakMusicController.systemMusicPlayer.beginGeneratingPlaybackNotifications()
+        } else if peakMusicController.musicType == .Guest{
+            
+            currPlayQueue = []
+            systemMusicPlayer.nowPlayingItem = nil
         }
         
-        
-        //Now set the suffle mode to off so we can control the queue
-        peakMusicController.systemMusicPlayer.shuffleMode = .off
-        
-        //Now begin generating playback notifications
-        peakMusicController.systemMusicPlayer.beginGeneratingPlaybackNotifications()
     }
     
     func warnUserOfRemovingQueueItems(_ songs: [MPMediaItem]){
         
-        let alert = UIAlertController(title: nil, message: "You currently have items in your queue, are you sure you want to remove them?", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
-        
-            self.currPlayQueue = songs
-            self.systemMusicPlayer.play()
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
-        
-        
-        if let alertDelegate:UIViewController = delegate as? UIViewController {
+        //Check if the user is adding an artist or just one song
+        if songs.count > 1 {
+            //We are adding multiple songs
             
-            alertDelegate.present(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Warning", message: "You currently have items in your queue. How would you like to proceed?", preferredStyle: .alert)
+            
+            //Give a play now option
+            alert.addAction(UIAlertAction(title: "Play Songs Now", style: .default, handler: {(alert) in
+            
+                self.currPlayQueue = songs
+                self.systemMusicPlayer.play()
+            }))
+            
+            //Give a play next option
+            alert.addAction(UIAlertAction(title: "Play Songs Next", style: .default, handler: {(alert) in
+            
+                self.playNext(songs)
+            }))
+            
+            //Give a play last option
+            alert.addAction(UIAlertAction(title: "Play Songs Last", style: .default, handler: {(alert) in
+            
+                self.playAtEndOfQueue(songs)
+            }))
+            
+            //Give a cancel option
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            
+            if let alertDelegate: UIViewController = delegate as? UIViewController {
+                
+                alertDelegate.present(alert, animated: true, completion: nil)
+            }
+            
+        } else{
+            
+            let alert = UIAlertController(title: nil, message: "You currently have items in your queue, are you sure you want to remove them?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
+                
+                self.currPlayQueue = songs
+                self.systemMusicPlayer.play()
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            
+            
+            if let alertDelegate:UIViewController = delegate as? UIViewController {
+                
+                alertDelegate.present(alert, animated: true, completion: nil)
+            }
         }
+        
     }
 }

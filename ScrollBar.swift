@@ -79,18 +79,30 @@ class ScrollBar: UIView {
         if pan.velocity(in: self).y < 0 {
             //We are scrolling up
             
-            newPos = max(0, panLoc)
+            newPos = max(heightOfScrollBar/2, panLoc)
         } else {
             //we are scrolling down
             
-            newPos = min(frame.height, panLoc)
+            newPos = min(frame.height - (heightOfScrollBar / 2), panLoc)
         }
         
         
+        newPos -= heightOfScrollBar / 2
         //now do me updates
         position = newPos
         delegate?.scrolling(newPos, pan.state)
         
+    }
+    
+    func setHeight(_ itemsCount: Int){
+        
+        let height = frame.height - CGFloat((itemsCount * 10))
+        if height <= 50{
+            heightOfScrollBar = 50
+        } else{
+            
+            heightOfScrollBar = height
+        }
     }
 
 }

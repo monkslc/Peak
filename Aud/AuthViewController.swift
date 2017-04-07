@@ -32,13 +32,13 @@ class AuthViewController: UIViewController {
         print(dif)
         
         //Allow the label to properly display connect to apple music button
-        ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
-        ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters
+        //ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
+        //ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters
         
         
         
         
-        welcomeToLabel.text = "Hello \(getUserName())\nWelcome To Peak"
+        welcomeToLabel.text = "Welcome \(getUserName())"
         welcomeToLabel.adjustsFontSizeToFitWidth = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAppleMusicForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedAppleMusicForceTouchNotification"), object: nil)

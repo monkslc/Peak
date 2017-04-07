@@ -136,6 +136,9 @@ class ConnectingToInternet {
                 if let songsJSON = json["results"] as? [[String: Any]] {
                     
                     var songs: [Song] = []
+        
+                    let serialQueue = DispatchQueue(label: "myqueue")
+                    
                     
                     for songJSON in songsJSON {
                     
@@ -150,7 +153,10 @@ class ConnectingToInternet {
                                 return
                             }
                             
-                            songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
+                            serialQueue.sync {
+                                songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
+                            }
+                            
                             
                             if songs.count == songsJSON.count || !sendSongsAlltogether {
                                 completion(songs)
@@ -223,10 +229,20 @@ class ConnectingToInternet {
                 return
             }
             
-            let json = try! JSONSerialization.jsonObject(with: data, options: [])
+            /*TRY CATCH ADDED BY CONNOR, NOT SURE HOW TO HANDLE ERRORS*/
+            do{
+                
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                completion(json)
+            } catch{
+                
+                print("Silhouetted by the sea, circled by the circus sands")
+                print("Cam, if you're reading this... we've got an error in ConnectingToInternet File")
+            }
+            /*End of Try Catch added by Connor, Cam might want to check errors*/
             //print(json)
             
-            completion(json)
+            
             
         }.resume()
         
