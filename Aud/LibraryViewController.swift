@@ -109,7 +109,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Set the albumView
         if peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork != nil {
             
-             currPlayingView.albumView.image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize())
+             currPlayingView.albumView.image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
         }
        
     }
@@ -343,6 +343,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 let results = try context.fetch(request)
                 
+                let serialQueue = DispatchQueue(label: "myqueue")
                 var counter = 0
                 //loop through all the song Entities
                 for result in results {
@@ -355,7 +356,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         var songToAppend = retSong
                         songToAppend.dateAdded = song.downloaded! as Date
                         
-                        let serialQueue = DispatchQueue(label: "myqueue")
+                        
                         
                         serialQueue.sync {
                             storedSongs.append(songToAppend)
@@ -555,7 +556,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             if indexPath.row >= guestItemsInLibrary.count {
                 
-                print("Return a blank cell")
                 let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 100))
                 
                 return cell
@@ -654,15 +654,33 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*MARK: Scroll Bar Delegate Methods*/
     func scrolling(_ yLoc: CGFloat,_ state: UIGestureRecognizerState) {
         
+        
+        var libraryCount = 1
+        if peakMusicController.musicType == .AppleMusic{
+            
+            libraryCount = mediaItemsInLibrary.count
+        } else if peakMusicController.musicType == .Guest{
+            
+            libraryCount = guestItemsInLibrary.count
+        }
+        
         //Get the index of the cell we want to scroll to
-        var indexToScrollTo = floor(yLoc / (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count + 2))) //add two because we did that for num of rows
+        var indexToScrollTo = floor(yLoc / ((scrollBar.frame.height-scrollBar.heightOfScrollBar) / CGFloat(libraryCount + 2))) //add two because we did that for num of rows
         
         //Make sure our index path is in range
-        if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(mediaItemsInLibrary.count){
+        if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(libraryCount){
             
             //library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
             scrollPresenter.positionOfLabel = yLoc
-            scrollPresenter.displayLabel.text = mediaItemsInLibrary[Int(indexToScrollTo)].artist
+            
+            if peakMusicController.musicType == .AppleMusic{
+                
+                scrollPresenter.displayLabel.text = mediaItemsInLibrary[Int(indexToScrollTo)].artist
+            } else if peakMusicController.musicType == .Guest{
+                
+                scrollPresenter.displayLabel.text = guestItemsInLibrary[Int(indexToScrollTo)].artistName
+            }
+            
         }
         
         //Now update the label
@@ -675,9 +693,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             //Get the cell index we want to scroll to
             if indexToScrollTo < 0{
                 indexToScrollTo = 0
-            } else if indexToScrollTo > CGFloat(mediaItemsInLibrary.count){
+            } else if indexToScrollTo > CGFloat(libraryCount){
                 
-                indexToScrollTo = CGFloat(mediaItemsInLibrary.count)
+                indexToScrollTo = CGFloat(libraryCount)
             }
             
             library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
@@ -692,12 +710,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         if scrollView.contentOffset.y < (library.tableHeaderView?.frame.height)! {
             //it's showing
             
-            //scrollBar.shouldShow = false
             scrollBar.isHidden = true
         }else {
             //it's not
             
-            //scrollBar.shouldShow = true
             scrollBar.isHidden = false
         }
         
@@ -705,8 +721,16 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let topCell = library.visibleCells[0]
         let pos = library.indexPath(for: topCell)?.row
         
+        var libraryCount = 1
         //Now set the scroll bar's position
-        scrollBar.position = CGFloat(pos!) * (scrollBar.frame.height / CGFloat(mediaItemsInLibrary.count))
+        if peakMusicController.musicType == .AppleMusic{
+            
+            libraryCount = mediaItemsInLibrary.count
+        } else if peakMusicController.musicType == .Guest {
+            
+            libraryCount = guestItemsInLibrary.count
+        }
+        scrollBar.position = CGFloat(pos!) * (scrollBar.frame.height / CGFloat(libraryCount))
     }
     
     /*GESTURE TARGET METHODS*/

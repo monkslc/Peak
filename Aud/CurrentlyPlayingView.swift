@@ -66,7 +66,7 @@ class CurrentlyPlayingView: UIView{
         addSubview(whiteView)
         
         //Only add these views if the user is not a contributor
-        if peakMusicController.playerType != .Contributor {
+        if peakMusicController.playerType != .Contributor && peakMusicController.musicType != .Guest{
             
             //Add the forward button
             let forwardButton = ForwardButton(frame: CGRect(x: (whiteView.frame.maxX * 0.75), y: whiteView.frame.minY + 5, width: 50, height: 50))
@@ -94,8 +94,8 @@ class CurrentlyPlayingView: UIView{
         addSubview(albumView)
         albumView.addListeners()
         
-        //only add pause play if the user is not a contributer
-        if peakMusicController.playerType != .Contributor {
+        //only add pause play if the user is not a contributer or guest
+        if peakMusicController.playerType != .Contributor && peakMusicController.musicType != .Guest {
             albumView.addPausePlay()
         }
         

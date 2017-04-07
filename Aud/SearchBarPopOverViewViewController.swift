@@ -94,7 +94,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             cell.songInCell = songToAdd
             
             //Add the library button
-            if !checkIfAlreadyInLibrary(songToAdd.trackName, songAlbum: songToAdd.collectionName){
+            if !checkIfAlreadyInLibrary(songToAdd.id){
                 
                 cell.addToLibraryButton.isHidden = false
             }
@@ -152,7 +152,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         //need to stop the loading indicator in case the user started it and then switched before results were returned
         loadingIndicator.stopAnimating()
-        print("Loading Indicator Should Stop")
         
         topThreeResults = []
         
@@ -262,17 +261,19 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //resign the keyboard
         (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
         
+        //check to make sure we're not a guest
+
         
         //get the cell
         let cell = gesture.view as! SongCell
         
         
         //Check player type
-        if peakMusicController.playerType != .Contributor {
+        if peakMusicController.playerType != .Contributor && peakMusicController.musicType != .Guest{
             
             notContributorTap(cell)
             
-        } else {
+        } else if peakMusicController.playerType == .Contributor{
             //We are a contributor
             
             contributorTap(cell)
@@ -322,12 +323,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
         } else if peakMusicController.musicType == .Guest {
             
-            /********ADD FUNCTIONALITY: MAKE SURE WE HAVE NOT ALREADY DOWNLOADED THE SONG**********/
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
                 if let songToAdd = cell.songInCell{
                     
                     //Add the song to core data here, and to the users current library
+                    
+                    //check if the user has already downloaded it
                     
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
                     let context = appDelegate.persistentContainer.viewContext
@@ -496,7 +498,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                         self.topThreeResults = songs as [AnyObject]
-                        print("Loading Indicator should stop")
                         self.loadingIndicator.stopAnimating()
                     }
                 }
@@ -506,18 +507,32 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     
     /*MARK: EXTRA METHODS*/
-    func checkIfAlreadyInLibrary(_ songTitle: String, songAlbum: String) -> Bool{
+    func checkIfAlreadyInLibrary(_ id: String) -> Bool{
         //Method to check if the song is already in the users library
         
-        for song in (delegate?.returnLibrary())!{
+        if peakMusicController.musicType == .AppleMusic{
             
-            if song.title == songTitle && song.albumTitle == songAlbum{
+            for song in (delegate?.returnLibrary())!{
                 
-                return true
+                if song.playbackStoreID == id{
+                    
+                    return true
+                }
+            }
+        } else if peakMusicController.musicType == .Guest{
+            
+            for song in (delegate as! LibraryViewController).guestItemsInLibrary{
+                
+                if song.id == id{
+                    return true
+                }
             }
         }
         
+        
         return false
     }
+    
+    
 
 }

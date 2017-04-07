@@ -29,6 +29,11 @@ class CurrentlyPlayingAlbumView: UIImageView {
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 1.0
         isUserInteractionEnabled = true
+        
+        if peakMusicController.systemMusicPlayer.nowPlayingItem == nil{
+            image = #imageLiteral(resourceName: "ProperPeakyAlbumView")
+        }
+        
     }
     
     func addListeners(){
@@ -42,12 +47,12 @@ class CurrentlyPlayingAlbumView: UIImageView {
         
         if peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork == nil || peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) == UIImage(){
             
-            image = #imageLiteral(resourceName: "defaultAlbum")
+            image = #imageLiteral(resourceName: "ProperPeakyAlbumView")
         }else {
             
             image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize())
         }
-        //image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "defaultAlbum") //Don't delete until we confim the above is fool proof
+        //image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "ProperPeakyIcon") //Don't delete until we confim the above is fool proof
     }
     
     

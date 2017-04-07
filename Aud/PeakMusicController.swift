@@ -258,18 +258,26 @@ class PeakMusicController {
     func setUp(){
         //called when initially created to set up the music player for playing
         
-        //Set the initally playing song and queue
-        if peakMusicController.systemMusicPlayer.nowPlayingItem != nil {
+        if musicType == .AppleMusic{
             
-            currPlayQueue = [peakMusicController.systemMusicPlayer.nowPlayingItem!]
+            //Set the initally playing song and queue
+            if peakMusicController.systemMusicPlayer.nowPlayingItem != nil {
+                
+                currPlayQueue = [peakMusicController.systemMusicPlayer.nowPlayingItem!]
+            }
+            
+            
+            //Now set the suffle mode to off so we can control the queue
+            peakMusicController.systemMusicPlayer.shuffleMode = .off
+            
+            //Now begin generating playback notifications
+            peakMusicController.systemMusicPlayer.beginGeneratingPlaybackNotifications()
+        } else if peakMusicController.musicType == .Guest{
+            
+            currPlayQueue = []
+            systemMusicPlayer.nowPlayingItem = nil
         }
         
-        
-        //Now set the suffle mode to off so we can control the queue
-        peakMusicController.systemMusicPlayer.shuffleMode = .off
-        
-        //Now begin generating playback notifications
-        peakMusicController.systemMusicPlayer.beginGeneratingPlaybackNotifications()
     }
     
     func warnUserOfRemovingQueueItems(_ songs: [MPMediaItem]){

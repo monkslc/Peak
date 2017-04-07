@@ -55,7 +55,8 @@ class MusicInfoDisplay: UIView {
     
     /*DISPLAY UPDATE METHODS*/
     func updateDisplay(){
-
+        
+        
         //First Remove the current views from the display
         for view in infoDisplay.subviews {
             

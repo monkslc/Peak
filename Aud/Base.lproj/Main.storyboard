@@ -347,7 +347,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3h-BM-8Rk" customClass="ScrollBar" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="365" y="78" width="10" height="571"/>
+                                <rect key="frame" x="365" y="70" width="10" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="10" id="Ogj-kV-xQN"/>
@@ -362,7 +362,7 @@
                                 </connections>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CC-oP-P7H" customClass="ScrollPresenterView" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="150" y="78" width="200" height="571"/>
+                                <rect key="frame" x="150" y="70" width="200" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="8bX-yg-lVZ"/>
@@ -446,7 +446,7 @@
                             <constraint firstItem="KBe-nq-laQ" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="5:6" id="11a-mA-ZAv"/>
                             <constraint firstAttribute="trailing" secondItem="t3h-BM-8Rk" secondAttribute="trailing" id="5Ye-4a-K9b"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="4CC-oP-P7H" secondAttribute="trailing" constant="15" id="8HW-OH-slo"/>
-                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="16:17" id="B4Z-lo-Gbf"/>
+                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="29:30" id="B4Z-lo-Gbf"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pot-3q-ikk"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="TmU-vj-MbG"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="height" secondItem="t3h-BM-8Rk" secondAttribute="height" id="VIf-kp-HvL"/>
