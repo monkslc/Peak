@@ -136,6 +136,9 @@ class ConnectingToInternet {
                 if let songsJSON = json["results"] as? [[String: Any]] {
                     
                     var songs: [Song] = []
+        
+                    let serialQueue = DispatchQueue(label: "myqueue")
+                    
                     
                     for songJSON in songsJSON {
                     
@@ -150,7 +153,10 @@ class ConnectingToInternet {
                                 return
                             }
                             
-                            songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
+                            serialQueue.sync {
+                                songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
+                            }
+                            
                             
                             if songs.count == songsJSON.count || !sendSongsAlltogether {
                                 completion(songs)

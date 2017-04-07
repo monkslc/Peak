@@ -297,7 +297,7 @@
                                                 </label>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-48-2GY">
                                                     <rect key="frame" x="329.5" y="23" width="29.5" height="29"/>
-                                                    <state key="normal" image="Plus Math_1edcbb_100"/>
+                                                    <state key="normal" image="Download_1edcbb_100"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -591,8 +591,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Download_1edcbb_100" width="96" height="96"/>
         <image name="IndieBigIcon" width="142" height="137"/>
-        <image name="Plus Math_1edcbb_100" width="96" height="96"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>

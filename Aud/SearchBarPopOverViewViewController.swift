@@ -93,7 +93,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             cell.songInCell = songToAdd
             
             //Add the library button
-            cell.addToLibraryButton.isHidden = false
+            if !checkIfAlreadyInLibrary(songToAdd.trackName, songAlbum: songToAdd.collectionName){
+                
+                cell.addToLibraryButton.isHidden = false
+            }
+            
             
             cell.addToLibraryButton.addTarget(self, action: #selector(addToLibrary(_:)), for: .touchUpInside)
             
@@ -329,8 +333,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 }
             }
             
-            //Now Reload the Data so the user can see it
+            //Now Reload the Data in both talbes so the user can see it
             (delegate as! LibraryViewController).fetchLibrary()
+            searchedSongsTableView.reloadData()
         }
     }
     
@@ -481,6 +486,22 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 }
             })
         }
+    }
+    
+    
+    /*MARK: EXTRA METHODS*/
+    func checkIfAlreadyInLibrary(_ songTitle: String, songAlbum: String) -> Bool{
+        //Method to check if the song is already in the users library
+        
+        for song in (delegate?.returnLibrary())!{
+            
+            if song.title == songTitle && song.albumTitle == songAlbum{
+                
+                return true
+            }
+        }
+        
+        return false
     }
 
 }
