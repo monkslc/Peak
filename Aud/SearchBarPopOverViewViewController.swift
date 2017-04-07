@@ -418,6 +418,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(songTitle) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
             
+            showSignifier()
+            
             SendingBluetooth.sendSongIdToHost(id: "\(songId)", error: {
                 () -> Void in
                 

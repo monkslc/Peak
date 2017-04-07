@@ -134,7 +134,9 @@ class Alerts {
     static func sendToGroupQueueAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
         
         return UIAlertAction(title: "Add to Group Queue", style: .default, handler: {(alert) in
-        
+            
+            (peakMusicController.delegate as! LibraryViewController).showSignifier()
+            
             var songId = String()
             
             //check if we have a song cell or a recents view and get the song id
