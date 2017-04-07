@@ -190,18 +190,29 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Uae-7O-TS4">
+                                <rect key="frame" x="137.5" y="60" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="IhB-iB-LTV"/>
+                                    <constraint firstAttribute="width" constant="100" id="JXI-Iu-K6U"/>
+                                </constraints>
+                                <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="top" secondItem="K2v-46-Qbk" secondAttribute="bottom" constant="15" id="2ps-GR-dmX"/>
+                            <constraint firstItem="Uae-7O-TS4" firstAttribute="top" secondItem="qyV-Wc-mB8" secondAttribute="bottom" id="5zB-IC-EGH"/>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="centerX" secondItem="ER5-Le-L27" secondAttribute="centerX" id="DLX-Cm-qYF"/>
                             <constraint firstItem="jds-1z-GEK" firstAttribute="top" secondItem="Ic7-NQ-VMo" secondAttribute="bottom" id="LrU-0o-55A"/>
                             <constraint firstItem="Ic7-NQ-VMo" firstAttribute="leading" secondItem="ER5-Le-L27" secondAttribute="leading" id="gWO-pK-oy9"/>
                             <constraint firstItem="Ic7-NQ-VMo" firstAttribute="top" secondItem="qyV-Wc-mB8" secondAttribute="bottom" constant="15" id="gp2-9Z-7Qc"/>
+                            <constraint firstItem="Uae-7O-TS4" firstAttribute="centerX" secondItem="ER5-Le-L27" secondAttribute="centerX" id="kS6-UB-3Ax"/>
                             <constraint firstAttribute="trailing" secondItem="Ic7-NQ-VMo" secondAttribute="trailing" id="xyu-M9-gP8"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadingIndicator" destination="Uae-7O-TS4" id="d6s-eO-CV1"/>
                         <outlet property="searchedSongsTableView" destination="Ic7-NQ-VMo" id="SPQ-Gj-2dl"/>
                         <outlet property="selectMusicFromSegment" destination="qyV-Wc-mB8" id="UPL-r8-Sn8"/>
                     </connections>

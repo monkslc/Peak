@@ -229,10 +229,20 @@ class ConnectingToInternet {
                 return
             }
             
-            let json = try! JSONSerialization.jsonObject(with: data, options: [])
+            /*TRY CATCH ADDED BY CONNOR, NOT SURE HOW TO HANDLE ERRORS*/
+            do{
+                
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                completion(json)
+            } catch{
+                
+                print("Silhouetted by the sea, circled by the circus sands")
+                print("Cam, if you're reading this... we've got an error in ConnectingToInternet File")
+            }
+            /*End of Try Catch added by Connor, Cam might want to check errors*/
             //print(json)
             
-            completion(json)
+            
             
         }.resume()
         

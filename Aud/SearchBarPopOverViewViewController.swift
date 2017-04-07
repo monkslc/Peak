@@ -33,6 +33,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     var delegate: SearchBarPopOverViewViewControllerDelegate?
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     
     /*MARK: LifeCycle Methods*/
     override func viewDidLoad() {
@@ -45,6 +47,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         searchedSongsTableView.delegate = self
         searchedSongsTableView.dataSource = self
+        
+        
     }
     
     
@@ -73,9 +77,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        print("Okay... Starting of method to add songs")
-        
         
         //let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
         let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
@@ -111,7 +112,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         cell.backgroundColor = UIColor.clear
         
-        print("About to return the cell")
         return cell
     }
     
@@ -149,6 +149,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func searchRequestChanged() {
         //Gets called when the segmented control changes
+        
+        //need to stop the loading indicator in case the user started it and then switched before results were returned
+        loadingIndicator.stopAnimating()
+        print("Loading Indicator Should Stop")
+        
         topThreeResults = []
         
         var searchText = String()
@@ -157,7 +162,18 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             searchText = LVCdel.searchForMediaBar.text!
         }
         
+        
+        //If we are searching TopCharts, please put away the keyboard and start the loading indicator
+        if selectMusicFromSegment.selectedSegmentIndex == 2{
+            
+            (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
+            loadingIndicator.startAnimating()
+            print("Loading Indicator should have started")
+        }
+        
         searchSongs(search: searchText)
+        
+        
         
     }
     
@@ -433,7 +449,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
 
     private func searchLibrary(search: String) {
-        print("Searching Library")
+
         //we are searching the library so get the library // 3 cam store in top 5 results
         guard let library = delegate?.returnLibrary() else { return }
         
@@ -448,7 +464,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchAppleMusic(search: String) {
         
-        print("Searching Apple Music")
         if search.length > 0 {
             SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
                 (songs) -> Void in
@@ -456,7 +471,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
                         self.topThreeResults = songs as [AnyObject]
-                        print("Got the results")
                     }
                 }
             })
@@ -482,6 +496,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                         self.topThreeResults = songs as [AnyObject]
+                        print("Loading Indicator should stop")
+                        self.loadingIndicator.stopAnimating()
                     }
                 }
             })
