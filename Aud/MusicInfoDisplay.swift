@@ -210,6 +210,7 @@ class MusicInfoDisplay: UIView {
         queue.backgroundColor = UIColor.clear
         queue.delegate = visualQueueCont
         queue.dataSource = visualQueueCont
+        queue.cellLayoutMarginsFollowReadableWidth = false
         infoDisplay.addSubview(queue)
         
     }
