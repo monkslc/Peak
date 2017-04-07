@@ -29,6 +29,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         didSet{
         
             library.reloadData()
+            scrollBar.setHeight(mediaItemsInLibrary.count)
         }
     }
     
@@ -38,6 +39,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         didSet{
             
             library.reloadData()
+            scrollBar.setHeight(guestItemsInLibrary.count)
         }
     }
     
@@ -671,7 +673,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(libraryCount){
             
             //library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
-            scrollPresenter.positionOfLabel = yLoc
+            scrollPresenter.positionOfLabel = yLoc + scrollBar.heightOfScrollBar / 2
             
             if peakMusicController.musicType == .AppleMusic{
                 

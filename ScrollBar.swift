@@ -93,5 +93,16 @@ class ScrollBar: UIView {
         delegate?.scrolling(newPos, pan.state)
         
     }
+    
+    func setHeight(_ itemsCount: Int){
+        
+        let height = frame.height - CGFloat((itemsCount * 10))
+        if height <= 50{
+            heightOfScrollBar = 50
+        } else{
+            
+            heightOfScrollBar = height
+        }
+    }
 
 }
