@@ -137,6 +137,16 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        
+        if peakMusicController.playerType == .Contributor{
+            return .none
+        } else {
+            
+            return .delete
+        }
+    }
+    
     
     func formatTimeInterval(_ ti: TimeInterval) -> String {
         
