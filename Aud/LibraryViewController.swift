@@ -404,10 +404,23 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         func sortAlpha(_ item1: Song, _ item2: Song) -> Bool{
             
-            if item1.artistName > item2.artistName {
-                return true
-            }else {
+            var artistOne = item1.artistName
+            var artistTwo = item2.artistName
+            
+            if item1.artistName.hasPrefix("The"){
+                
+                artistOne = item1.artistName.subString(startIndex: 3)
+            }
+            
+            if item2.artistName.hasPrefix("The"){
+                
+                artistTwo = item2.artistName.subString(startIndex: 3)
+            }
+            
+            if artistOne > artistTwo {
                 return false
+            }else {
+                return true
             }
         }
         
