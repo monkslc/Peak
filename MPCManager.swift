@@ -12,6 +12,8 @@ import MultipeerConnectivity
 protocol MPCManagerDelegate {
     func foundPeer()
     
+    func updatePeersConnected()
+    
     func lostPeer()
     
     func invitationWasReceived(fromPeer: String)
@@ -102,6 +104,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
             print("Connecting to session: \(session)")
         case .notConnected:
             print("Did not connect to session: \(session)")
+            delegate?.updatePeersConnected()
         }
     }
     

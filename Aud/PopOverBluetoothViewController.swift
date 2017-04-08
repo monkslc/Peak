@@ -163,6 +163,12 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         tableView.reloadData()
     }
     
+    func updatePeersConnected() {
+        DispatchQueue.main.sync {
+            self.tableView.reloadData()
+        }
+    }
+    
     func connectedWithPeer(peerID: MCPeerID) {
         
         DispatchQueue.main.async {
