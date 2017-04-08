@@ -63,6 +63,27 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("BLAH")
+        print(SKCloudServiceCapability.addToCloudMusicLibrary)
+        let c = SKCloudServiceController()
+        c.requestCapabilities(completionHandler: {
+            (a, b) -> Void in
+            
+            print("HERErr")
+            print(a)
+            print(b)
+            
+            switch a {
+            case SKCloudServiceCapability.addToCloudMusicLibrary:
+                print("1")
+            case SKCloudServiceCapability.musicCatalogPlayback:
+                print("2")
+            case SKCloudServiceCapability.addToCloudMusicLibrary:
+                print("3")
+            default:
+                print("DEFAULT")
+            }
+        })
         
         //First thing we want to do is start the fetch the user's library
         DispatchQueue.global().async {

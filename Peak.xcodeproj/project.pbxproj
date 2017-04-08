@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */; };
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
+		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
 		90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDF1E87509C00762B9D /* MPCManager.swift */; };
 		90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE11E87560700762B9D /* StringExtension.swift */; };
 		90E2DFE61E87FF0900762B9D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE51E87FF0900762B9D /* Song.swift */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingAppleMusicApi.swift; sourceTree = "<group>"; };
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
+		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
 		90E2DFDF1E87509C00762B9D /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		90E2DFE11E87560700762B9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		90E2DFE51E87FF0900762B9D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -115,12 +117,13 @@
 			name = Cam;
 			sourceTree = "<group>";
 		};
-		90E2DFEF1E88865D00762B9D /* PopOver */ = {
+		90E2DFEF1E88865D00762B9D /* BluetoothPopOver */ = {
 			isa = PBXGroup;
 			children = (
 				90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */,
+				90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */,
 			);
-			name = PopOver;
+			name = BluetoothPopOver;
 			sourceTree = "<group>";
 		};
 		C45625301E8B4F5200311750 /* Search Bar Popover */ = {
@@ -134,7 +137,7 @@
 		C4BA29791E7DCC13000AAD48 /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				90E2DFEF1E88865D00762B9D /* PopOver */,
+				90E2DFEF1E88865D00762B9D /* BluetoothPopOver */,
 				C45625301E8B4F5200311750 /* Search Bar Popover */,
 				C4D1176E1E809BB5000A854A /* CurrentlyPlayingView */,
 				C4D1177D1E819FB9000A854A /* Main View Controller Methods */,
@@ -291,7 +294,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 469H894D48;
+						DevelopmentTeam = 58NU5LV6AX;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -341,6 +344,7 @@
 				C4D117671E805DF8000A854A /* Signifier.swift in Sources */,
 				90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */,
 				C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */,
+				90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */,
 				C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */,
 				C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */,
 				C456253A1E8EF95E00311750 /* Alerts.swift in Sources */,
@@ -490,7 +494,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 469H894D48;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -507,7 +511,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 469H894D48;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

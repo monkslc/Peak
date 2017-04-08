@@ -12,6 +12,8 @@ import MultipeerConnectivity
 protocol MPCManagerDelegate {
     func foundPeer()
     
+    func updatePeersConnected()
+    
     func lostPeer()
     
     func invitationWasReceived(fromPeer: String)
@@ -94,16 +96,15 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        switch state{
+        switch state {
         case MCSessionState.connected:
             print("Connected to session: \(session)")
             delegate?.connectedWithPeer(peerID: peerID)
-            
         case MCSessionState.connecting:
             print("Connecting to session: \(session)")
-            
-        default:
+        case .notConnected:
             print("Did not connect to session: \(session)")
+            delegate?.updatePeersConnected()
         }
     }
     
@@ -133,4 +134,14 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?) { }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
+    
+    func resetSession() {
+        
+        session.disconnect()
+        
+        peer = MCPeerID(displayName: UIDevice.current.name)
+        
+        session = MCSession(peer: peer)
+        session.delegate = self
+    }
 }
