@@ -77,7 +77,6 @@ class ConnectingToInternet {
                         lyrics = "Sorry we don't have these lyrics"
                     }
                     
-                    print(lyrics)
                     completion(lyrics)
                 }
             }
@@ -93,12 +92,8 @@ class ConnectingToInternet {
         let search = ("\(songName) \(song.artistName)").addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)
         
         let urlNew = "http://search.azlyrics.com/search.php?q=\(search!)"
-        //let urlNew:String = creatingURL.replacingOccurrences(of: " ", with: "%20")
-        
-        print(urlNew)
         
         let url = URL(string: urlNew)
-        
         
         URLSession.shared.dataTask(with: url!) { data, response, error in
             
@@ -234,7 +229,7 @@ class ConnectingToInternet {
                 
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 completion(json)
-            } catch{
+            } catch {
                 
                 print("Silhouetted by the sea, circled by the circus sands")
                 print("Cam, if you're reading this... we've got an error in ConnectingToInternet File")
