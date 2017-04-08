@@ -45,14 +45,7 @@ class CurrentlyPlayingAlbumView: UIImageView {
     
     func updateAlbumImage(_ notification: NSNotification){
         
-        if peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork == nil || peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) == UIImage(){
-            
-            image = #imageLiteral(resourceName: "ProperPeakyAlbumView")
-        }else {
-            
-            image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize())
-        }
-        //image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "ProperPeakyIcon") //Don't delete until we confim the above is fool proof
+        image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
     }
     
     

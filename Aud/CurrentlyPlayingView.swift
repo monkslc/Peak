@@ -57,6 +57,7 @@ class CurrentlyPlayingView: UIView{
     /*Start of Functions to add Views*/
     
     func addVisibleViews(){
+
         
         
         //Set the background color to clear, then create a view below the top 50 that is white
@@ -84,8 +85,6 @@ class CurrentlyPlayingView: UIView{
             progressOfSongView.setUp()
             addSubview(progressOfSongView)
         }
-        
-        
         
         
         //Draw the album in the center

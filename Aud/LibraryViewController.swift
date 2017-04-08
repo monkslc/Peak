@@ -425,10 +425,23 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         func sortAlpha(_ item1: Song, _ item2: Song) -> Bool{
             
-            if item1.artistName > item2.artistName {
-                return true
-            }else {
+            var artistOne = item1.artistName
+            var artistTwo = item2.artistName
+            
+            if item1.artistName.hasPrefix("The"){
+                
+                artistOne = item1.artistName.subString(startIndex: 3)
+            }
+            
+            if item2.artistName.hasPrefix("The"){
+                
+                artistTwo = item2.artistName.subString(startIndex: 3)
+            }
+            
+            if artistOne > artistTwo {
                 return false
+            }else {
+                return true
             }
         }
         
@@ -825,6 +838,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.title ?? "this song") to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
         
+            self.showSignifier()
+            
             SendingBluetooth.sendSongIdToHost(id: "\(song.playbackStoreID)", error: {
                 () -> Void in
                 
@@ -845,14 +860,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(guestSong.trackName) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
             
-            //peakMusicController.playAtEndOfQueue([song])
+            self.showSignifier()
+            
             SendingBluetooth.sendSongIdToHost(id: "\(guestSong.id)", error: {
                 () -> Void in
                 
                 let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
-            }) // @cam added this. may want to change
+            })
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))

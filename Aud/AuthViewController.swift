@@ -38,7 +38,7 @@ class AuthViewController: UIViewController {
         
         
         
-        welcomeToLabel.text = "Welcome \(getUserName())"
+        welcomeToLabel.text = "\(getUserName()), how would you like to connect?"
         welcomeToLabel.adjustsFontSizeToFitWidth = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAppleMusicForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedAppleMusicForceTouchNotification"), object: nil)

@@ -73,12 +73,19 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return topThreeResults.count
+        return topThreeResults.count + 2 //so we can see bottom results
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
+        //check if we are in the last two
+        if indexPath.row >= topThreeResults.count{
+            
+            let cell = UITableViewCell(frame: CGRect())
+            
+            return cell
+        }
+        
         let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
         
         
@@ -411,6 +418,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(songTitle) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
             
+            self.showSignifier()
+            
             SendingBluetooth.sendSongIdToHost(id: "\(songId)", error: {
                 () -> Void in
                 
@@ -459,7 +468,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             let results = LocalSearch.search(search, library: library)
             
             DispatchQueue.main.async {
-                self.topThreeResults = results
+                if self.selectMusicFromSegment.selectedSegmentIndex == 0{
+                    self.topThreeResults = results
+                }
             }
         }
     }
