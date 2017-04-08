@@ -468,7 +468,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             let results = LocalSearch.search(search, library: library)
             
             DispatchQueue.main.async {
-                self.topThreeResults = results
+                if self.selectMusicFromSegment.selectedSegmentIndex == 0{
+                    self.topThreeResults = results
+                }
             }
         }
     }
