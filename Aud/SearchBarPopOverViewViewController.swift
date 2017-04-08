@@ -14,6 +14,7 @@ protocol SearchBarPopOverViewViewControllerDelegate{
     
     func returnLibrary() -> [MPMediaItem]
     
+    func getGuestLibrary() -> [Song]
 }
 
 class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
@@ -461,18 +462,33 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
 
     private func searchLibrary(search: String) {
 
-        //we are searching the library so get the library // 3 cam store in top 5 results
-        guard let library = delegate?.returnLibrary() else { return }
-        
-        DispatchQueue.global().async {
-            let results = LocalSearch.search(search, library: library)
+        switch peakMusicController.musicType {
+        case .AppleMusic:
+            guard let library = delegate?.returnLibrary() else { return }
             
-            DispatchQueue.main.async {
-                if self.selectMusicFromSegment.selectedSegmentIndex == 0{
-                    self.topThreeResults = results
+            DispatchQueue.global().async {
+                let results = LocalSearch.search(search, library: library)
+                
+                DispatchQueue.main.async {
+                    if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
+                        self.topThreeResults = results
+                    }
+                }
+            }
+        case .Guest:
+            guard let library = delegate?.getGuestLibrary() else { return }
+            
+            DispatchQueue.global().async {
+                let results = LocalSearch.search(search, library: library)
+                
+                DispatchQueue.main.async {
+                    if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
+                        self.topThreeResults = results as [AnyObject]
+                    }
                 }
             }
         }
+        
     }
     
     private func searchAppleMusic(search: String) {

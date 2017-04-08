@@ -27,16 +27,9 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dif = LocalSearch.differanceBetweenTwoPhrases(searchTerm: "Balls", songAndAuthour: "Pompeii Bastille")
-        
-        print(dif)
-        
         //Allow the label to properly display connect to apple music button
         //ConnectToAppleMusicLabel.adjustsFontSizeToFitWidth = true
         //ConnectToAppleMusicLabel.baselineAdjustment = .alignCenters
-        
-        
-        
         
         welcomeToLabel.text = "\(getUserName()), how would you like to connect?"
         welcomeToLabel.adjustsFontSizeToFitWidth = true
@@ -68,7 +61,7 @@ class AuthViewController: UIViewController {
             switch authorization{
                 
             case .authorized:
-                print("authorized")
+                //print("authorized")
                 //authorized so segue
                 self.loadingIndicator.stopAnimating()
                 DispatchQueue.global().async {
@@ -84,11 +77,11 @@ class AuthViewController: UIViewController {
                 self.instructUserToAllowUsToAppleMusic()
 
             case .notDetermined:
-                print("Can't be determined")
+                //print("Can't be determined")
                 self.loadingIndicator.stopAnimating()
                 
             case .restricted:
-                print("Restricted")
+                //print("Restricted")
                 self.loadingIndicator.stopAnimating()
             }
             
@@ -138,17 +131,19 @@ class AuthViewController: UIViewController {
     }
     
     func handleDjForceTouchNotification(notification: NSNotification) {
-        print("DJ Notification got")
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "Segue as Guest", sender: nil)
+        }
     }
     
     //Check how we are segueing so we can se tthe music player to the appropriate type
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "Segue to Apple Music"{
+        if segue.identifier == "Segue to Apple Music" {
             
             peakMusicController.musicType = .AppleMusic
             
-        } else if segue.identifier == "Segue as Guest"{
+        } else if segue.identifier == "Segue as Guest" {
         
             peakMusicController.musicType = .Guest
         }

@@ -64,12 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         
-        print("Shortcut tapped")
         completionHandler(handleShortcut(shortcutItem: shortcutItem))
     }
     
     func handleShortcut( shortcutItem:UIApplicationShortcutItem ) -> Bool {
-        print("Handling shortcut")
         
         var succeeded = true
         
@@ -79,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case "djId":
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
         default:
-            print("DONT KNOW \(shortcutItem.type)")
+            print("\n\nERROR: THIS SHOULD NEVER HAPPEN: App Delegate.handleShortcut: DONT KNOW SHORTCUT \(shortcutItem.type)\n\n")
             succeeded = false
         }
         

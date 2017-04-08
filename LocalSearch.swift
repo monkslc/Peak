@@ -96,7 +96,7 @@ class LocalSearch {
         return totalDif
     }
     
-    static func differanceBetweenTwoPhrases(searchTerm: String, songAndAuthour: String) -> Double {
+    static private func differanceBetweenTwoPhrases(searchTerm: String, songAndAuthour: String) -> Double {
         let searchTermWords = searchTerm.components(separatedBy: " ")
         let songAndAuthourWords = songAndAuthour.components(separatedBy: " ")
         
@@ -148,6 +148,46 @@ class LocalSearch {
         })
         
         var top : [MPMediaItem] = []
+        
+        for (key, _) in sorted {
+            top.append(songs[key])
+            
+            if top.count > 25 {
+                break
+            }
+        }
+        
+        
+        return top
+    }
+
+    static func search(_ search: String, library: [Song]) -> [Song] {
+        var songs: [Song] = []
+        var points: [Int: Double] = [:]
+        
+        var index = 0
+        for s in library {
+            
+            let dif = differanceBetweenTwoPhrases(searchTerm: search.lowercased(), songAndAuthour: "\(s.trackName) \(s.artistName)".lowercased())
+            
+            let averageDiff = dif / Double(search.length)
+            if averageDiff < 3 || dif < 10 {
+                points[index] = dif
+                
+                songs.append(s)
+                
+                index += 1
+            }
+            
+        }
+        
+        let sorted = points.sorted(by: {
+            (a,b) in
+            
+            return a.value < b.value
+        })
+        
+        var top : [Song] = []
         
         for (key, _) in sorted {
             top.append(songs[key])

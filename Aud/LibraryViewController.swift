@@ -63,16 +63,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("BLAH")
+        // Can we take the next lines out?
         print(SKCloudServiceCapability.addToCloudMusicLibrary)
         let c = SKCloudServiceController()
         c.requestCapabilities(completionHandler: {
             (a, b) -> Void in
             
-            print("HERErr")
-            print(a)
-            print(b)
-            
+            print("Capability")
             switch a {
             case SKCloudServiceCapability.addToCloudMusicLibrary:
                 print("1")
@@ -84,6 +81,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 print("DEFAULT")
             }
         })
+        // I pretty sure I put this here to see what my capabilities are Mine are default
         
         //First thing we want to do is start the fetch the user's library
         DispatchQueue.global().async {
@@ -509,7 +507,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func displayRecentlyPlayed(guestRecents: ArraySlice<Song>){
-        print("Displaying Recently Played")
+        //print("Displaying Recently Played")
         
         //First Remove All Subviews
         for sub in recentsView.subviews {
@@ -640,9 +638,14 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*End of Table View Data Source/Delegate Methods*/
     
     /*MARK: SearchBarPopOver Delegate Methods*/
-    func returnLibrary() -> [MPMediaItem]{
+    func returnLibrary() -> [MPMediaItem] {
         
         return mediaItemsInLibrary
+    }
+    
+    func getGuestLibrary()-> [Song] {
+        
+        return guestItemsInLibrary
     }
     
     /*MARK: PEAK MUSIC CONTROLLER DELEGATE METHODS, USED TO UPDATE VIEWS*/
@@ -966,7 +969,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         case .Contributor:
             handleMPCClientReceivedSongIdsWithNotification(notification: notification)
         default:
-            print("ERROR: THIS SHOULD NEVER HAPPEN LibraryViewController -> handleMPCNotification")
+            print("\n\nERROR: THIS SHOULD NEVER HAPPEN LibraryViewController -> handleMPCNotification\n\n")
         }
     }
     
@@ -982,7 +985,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             receivedSong(id)
         }
         else {
-            print("ERROR: ")
+            print("ERROR: LibraryViewCOntroller.handleMPCDJRecievedSongIDWithNotification THIS SHOULD NEVER HAPPEN: ")
         }
     }
     
@@ -1010,9 +1013,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             index += 1
         }
         
-        print("Recieved")
-        print(dataDictionary)
-        print(songIDs)
+        //print(songIDs)
         
         receivedGroupPlayQueue(songIDs)
     }

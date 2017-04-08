@@ -111,16 +111,10 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch peakMusicController.playerType {
-        case .Host:
-            print("Clicked On \(MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName)")
-        case .Contributor:
-            print("Clicked On \(MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName)")
-        case .Individual:
+        if peakMusicController.playerType == .Individual {
             let selectedPeer = MPCManager.defaultMPCManager.foundPeers[indexPath.row] as MCPeerID
             
             MPCManager.defaultMPCManager.browser.invitePeer(selectedPeer, to: MPCManager.defaultMPCManager.session, withContext: nil, timeout: 20)
-            
         }
     }
     
@@ -164,8 +158,14 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func updatePeersConnected() {
-        DispatchQueue.main.sync {
-            self.tableView.reloadData()
+        switch peakMusicController.playerType {
+        case .Host, .Individual:
+            DispatchQueue.main.sync {
+                self.tableView.reloadData()
+            }
+        case .Contributor:
+            peakMusicController.playerType = .Individual
+            updateMPCManager()
         }
     }
     
@@ -206,7 +206,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             MPCManager.defaultMPCManager.invitationHandler(true, MPCManager.defaultMPCManager.session)
         }
         else {
-            print("ERROR: PopOverBluetoothViewController->invitationWasReceived ELSE \(fromPeer)")
+            print("\n\nERROR: PopOverBluetoothViewController->invitationWasReceived ELSE \(fromPeer)\n\n")
         }
     }
 

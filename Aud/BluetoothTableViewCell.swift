@@ -18,6 +18,7 @@ class BluetoothTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        loader.stopAnimating()
         loader.isHidden = true
     }
 

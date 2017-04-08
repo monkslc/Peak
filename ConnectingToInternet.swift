@@ -144,7 +144,7 @@ class ConnectingToInternet {
                             
                             guard let id = songJSON["trackId"] as? Int, let name = songJSON["trackName"] as? String, let album = songJSON["collectionName"] as? String, let artist = songJSON["artistName"] as? String, let time = songJSON["trackTimeMillis"] as? Int else {
                                 
-                                print("ERROR")
+                                print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getSongs\n\n")
                                 return
                             }
                             
@@ -194,7 +194,7 @@ class ConnectingToInternet {
         session.dataTask(with: url) { (data, response, error) in
             
             if let e = error {
-                print("Error downoading Image in ImageGetter getImage line 23: \(e)")
+                print("\n\nError: THIS SHOULD NEVER HAPPEN: downoading Image in ConnectingToInternet getImage line 192: \(e)\n\n")
             } else if let imageData = data {
                 
                 let image = UIImage(data: imageData)
@@ -203,7 +203,7 @@ class ConnectingToInternet {
                 
             }
             else {
-                print("Error downoading Image in ImageGetter getImage line 33")
+                print("\n\nError: THIS SHOULD NEVER HAPPEN: THIS SHOULD NEVER HAPPEN: downoading Image in ConnectingToInternet getImage line 206\n\n")
             }
         }.resume()
     }
@@ -214,12 +214,13 @@ class ConnectingToInternet {
         URLSession.shared.dataTask(with: url!) { data, response, error in
             
             guard error == nil else {
+                print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getJSON: Error \(String(describing: error)) \n\n")
                 print(error!)
                 errorCompletion()
                 return
             }
             guard let data = data else {
-                print("Data is empty")
+                print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getJSON: Data is empty\n\n")
                 errorCompletion()
                 return
             }
@@ -231,8 +232,7 @@ class ConnectingToInternet {
                 completion(json)
             } catch {
                 
-                print("Silhouetted by the sea, circled by the circus sands")
-                print("Cam, if you're reading this... we've got an error in ConnectingToInternet File")
+                print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getJSON failed to get JSON\n\n")
             }
             /*End of Try Catch added by Connor, Cam might want to check errors*/
             //print(json)
