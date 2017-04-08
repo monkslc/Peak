@@ -898,10 +898,18 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         addChildViewController(searchViewController)
         
         //set the frame
-        searchViewController.view.frame = library.frame
+        //searchViewController.view.frame = library.frame
+        //set it minus it's height and then animate it into the correct position below
+        searchViewController.view.frame = CGRect(x: library.frame.minX, y: library.frame.minY - library.frame.height, width: library.frame.width, height: library.frame.height)
         
         view.insertSubview(searchViewController.view, at: 2) //Insert behind the currently playing view
         searchViewController.didMove(toParentViewController: self)
+        
+        //Now animate the view into place
+        UIView.animate(withDuration: 0.35, animations: {(animate) in
+            
+            searchViewController.view.frame = self.library.frame
+        })
         
         //set up the delegates
         searchViewController.delegate = self

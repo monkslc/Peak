@@ -56,6 +56,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     override func viewWillDisappear(_ animated: Bool) {
         //Called when the popover is about to go away
         //Resign first responder status for the search bar
+
         
         if let LVCDel:LibraryViewController = delegate as? LibraryViewController {
             
@@ -64,7 +65,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         (delegate as! LibraryViewController).searchForMediaBar.showsCancelButton = false
     }
-    
+
     
     /*MARK: TABLE VIEW DELEGATE METHODS*/
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -144,8 +145,15 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         searchBar.text = ""
         
         
-        self.view.removeFromSuperview()
-        self.removeFromParentViewController()
+        
+        UIView.animate(withDuration: 0.35, animations: {(animate) in
+            
+            self.view.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY - self.view.self.frame.height, width: self.view.frame.width, height: self.view.frame.height)
+        }, completion: {(bool) in
+        
+            self.view.removeFromSuperview()
+            self.removeFromParentViewController()
+        })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
