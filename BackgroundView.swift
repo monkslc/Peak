@@ -22,7 +22,8 @@ class BackgroundView: UIView {
         gradientLayer.frame = frame
         
         gradientLayer.colors = [darkColor.cgColor, lightColor.cgColor]
-        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.15, y: 0.15)
+        //gradientLayer.locations = [0.0, 1.0]
         
         layer.addSublayer(gradientLayer)
         
