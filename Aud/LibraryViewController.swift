@@ -934,13 +934,19 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
             library.addItem(withProductID: songID, completionHandler: {(ent, err) in
                 
+                //print(songID)
+
                 //add the entity to the queue
-                song = ent[0] as! MPMediaItem  
+                if ent.count > 0 {
+                    song = ent[0] as! MPMediaItem
                 
-                DispatchQueue.main.async {
-                    peakMusicController.playAtEndOfQueue([song])
+                    DispatchQueue.main.async {
+                        peakMusicController.playAtEndOfQueue([song])
+                    }
                 }
-                
+                else {
+                    print("\n\n\nHUGE ERROR\nSONG \(songID) DID NOT SEND\nI THINK TRACK NOT AVAILABLE THROUGH APPLE MUSIC\n\n")
+                }
                 
             })
         }
@@ -973,7 +979,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             receivedSong(id)
         }
         else {
-            print("ERROR: LibraryViewCOntroller.handleMPCDJRecievedSongIDWithNotification THIS SHOULD NEVER HAPPEN: ")
+            print("\n\nERROR: LibraryViewCOntroller.handleMPCDJRecievedSongIDWithNotification THIS SHOULD NEVER HAPPEN: \n\n")
         }
     }
     

@@ -56,38 +56,48 @@ class AuthViewController: UIViewController {
         loadingIndicator.startAnimating()
         //check if we have authorization to the user's apple music
         
-        SKCloudServiceController.requestAuthorization({(authorization) in
-            
-            switch authorization{
+        
+        if true  {
+            SKCloudServiceController.requestAuthorization({(authorization) in
                 
-            case .authorized:
-                //print("authorized")
-                //authorized so segue
-                self.loadingIndicator.stopAnimating()
-                DispatchQueue.global().async {
-                    DispatchQueue.main.async {
-                        
-                        self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
+                switch authorization{
+                    
+                case .authorized:
+                    //print("authorized")
+                    //authorized so segue
+                    self.loadingIndicator.stopAnimating()
+                    DispatchQueue.global().async {
+                        DispatchQueue.main.async {
+                            
+                            self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
+                        }
                     }
+                case .denied:
+                    //print("DENIED")
+                    self.loadingIndicator.stopAnimating()
+                    self.instructUserToAllowUsToAppleMusic()
+                case .notDetermined:
+                    //print("Can't be determined")
+                    self.loadingIndicator.stopAnimating()
+                case .restricted:
+                    self.loadingIndicator.stopAnimating()
                 }
                 
+            })
+        }
+        else {
+            let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
+            UIApplication.shared.open(url!, options: [:], completionHandler: {
+                (foo) -> Void in
                 
-            case .denied:
-                self.loadingIndicator.stopAnimating()
-                self.instructUserToAllowUsToAppleMusic()
-
-            case .notDetermined:
-                //print("Can't be determined")
-                self.loadingIndicator.stopAnimating()
-                
-            case .restricted:
-                //print("Restricted")
-                self.loadingIndicator.stopAnimating()
-            }
-            
-        })
+                print(foo)
+            })
+        }
         
-        
+    }
+    
+    @IBAction func guestButtonClicked() {
+        self.performSegue(withIdentifier: "Segue as Guest", sender: nil)
     }
     
     //Let the user know how to give us access to apple music
@@ -131,9 +141,9 @@ class AuthViewController: UIViewController {
     }
     
     func handleDjForceTouchNotification(notification: NSNotification) {
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "Segue as Guest", sender: nil)
-        }
+        //DispatchQueue.main.sync {
+            self.guestButtonClicked()
+        //}
     }
     
     //Check how we are segueing so we can se tthe music player to the appropriate type

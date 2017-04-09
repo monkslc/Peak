@@ -33,7 +33,7 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>CommunityPlayIcon</string>
+			<string>CommIconBig</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Connect To Dj</string>
 			<key>UIApplicationShortcutItemType</key>
@@ -41,7 +41,7 @@
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>apple-music-app-icon</string>
+			<string>Host-Icon</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Apple Music</string>
 			<key>UIApplicationShortcutItemType</key>
