@@ -183,7 +183,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
             loadingIndicator.startAnimating()
-            print("Loading Indicator should have started")
         }
         
         searchSongs(search: searchText)

@@ -151,11 +151,28 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     
     func formatTimeInterval(_ ti: TimeInterval) -> String {
         
-        let minutes = floor(ti / 60)
-        let seconds = (ti - (minutes * 60)) / 100
+        let hours = Int(floor(ti / 3600))
+        let minutes = Int(floor((ti - (Double(hours) * 3600)) / 60))
+        let seconds = (ti - ((Double(minutes) * 60) + (Double(hours) * 3600))) / 100
+        
+        
+        //let minutes = floor(ti / 60)
+        //let seconds = (ti - (minutes * 60)) / 100
         let secondsFormat = String(format: "%.2f", seconds)
         let choppedSeconds = secondsFormat.replacingOccurrences(of: "0.", with: "")
-        let formattedTime = String(Int(minutes)) + ":" + choppedSeconds
+        var formattedTime = ""
+        if hours != 0{
+            
+            var formattedMinutes = String(Int(minutes))
+            if minutes < 10 {
+                formattedMinutes = "0" + formattedMinutes
+            }
+            
+            formattedTime = String(hours) + ":" + formattedMinutes + ":" + choppedSeconds
+        } else {
+            
+            formattedTime = String(Int(minutes)) + ":" + choppedSeconds
+        }
         return formattedTime
     }
 }

@@ -63,25 +63,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Can we take the next lines out?
-        print(SKCloudServiceCapability.addToCloudMusicLibrary)
-        let c = SKCloudServiceController()
-        c.requestCapabilities(completionHandler: {
-            (a, b) -> Void in
-            
-            print("Capability")
-            switch a {
-            case SKCloudServiceCapability.addToCloudMusicLibrary:
-                print("1")
-            case SKCloudServiceCapability.musicCatalogPlayback:
-                print("2")
-            case SKCloudServiceCapability.addToCloudMusicLibrary:
-                print("3")
-            default:
-                print("DEFAULT")
-            }
-        })
-        // I pretty sure I put this here to see what my capabilities are Mine are default
         
         //First thing we want to do is start the fetch the user's library
         DispatchQueue.global().async {
@@ -236,7 +217,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
             
-            print("Should be showing signifier")
             self.showSignifier()
             self.fetchLibrary()
         })

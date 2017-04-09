@@ -82,8 +82,9 @@ class SongProgressView: UIView {
         
         if !time.isNaN {
             
-            let minutes = Int(floor(time / 60))
-            let seconds = (time - (Double(minutes) * 60)) / 100
+
+            let minutes = Int(floor((time / 60)))
+            let seconds = (time - ((Double(minutes) * 60))) / 100
             let secondsFormat = String(format: "%.2f", seconds)
             let timeFormatted = String(minutes) + ":" + String(secondsFormat).replacingOccurrences(of: "0.", with: "")
             return timeFormatted
