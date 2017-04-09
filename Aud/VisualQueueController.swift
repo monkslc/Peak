@@ -156,8 +156,6 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         let seconds = (ti - ((Double(minutes) * 60) + (Double(hours) * 3600))) / 100
         
         
-        //let minutes = floor(ti / 60)
-        //let seconds = (ti - (minutes * 60)) / 100
         let secondsFormat = String(format: "%.2f", seconds)
         let choppedSeconds = secondsFormat.replacingOccurrences(of: "0.", with: "")
         var formattedTime = ""
