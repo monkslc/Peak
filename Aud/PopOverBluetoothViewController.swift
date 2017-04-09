@@ -124,11 +124,11 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         
         switch peakMusicController.playerType {
         case .Host:
-            cell.nameLabel?.text = MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName
+            cell.nameLabel!.text = MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName
         case .Contributor:
-            cell.nameLabel?.text = MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName
+            cell.nameLabel!.text = MPCManager.defaultMPCManager.session.connectedPeers[indexPath.row].displayName
         case .Individual:
-            cell.nameLabel?.text = MPCManager.defaultMPCManager.foundPeers[indexPath.row].displayName
+            cell.nameLabel!.text = MPCManager.defaultMPCManager.foundPeers[indexPath.row].displayName
         }
         
         return cell
@@ -159,7 +159,10 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     func updatePeersConnected() {
         switch peakMusicController.playerType {
-        case .Host, .Individual:
+        case .Individual:
+            MPCManager.defaultMPCManager = MPCManager()
+            fallthrough
+        case .Host:
             DispatchQueue.main.sync {
                 self.tableView.reloadData()
             }

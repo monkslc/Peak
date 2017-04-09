@@ -85,7 +85,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="Segue As Guest" id="HrE-iK-OE4"/>
+                                    <action selector="guestButtonClicked" destination="qyf-Ig-ovY" eventType="touchUpInside" id="MqH-wN-NFH"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple-music-app-icon" translatesAutoresizingMaskIntoConstraints="NO" id="zjD-wT-Hef">
@@ -163,7 +163,8 @@
                         <outlet property="guestButton" destination="jBT-Be-4FH" id="gHJ-P7-2MN"/>
                         <outlet property="loadingIndicator" destination="9eS-y4-8j5" id="7YS-2e-8ne"/>
                         <outlet property="welcomeToLabel" destination="WrG-Jf-eG3" id="pgg-PX-9ho"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="Segue to Apple Music" id="ZYu-fU-4bw"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Segue as Guest" id="ZYu-fU-4bw"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Segue to Apple Music" id="F1Y-LY-gnw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s9D-2w-qBf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -284,7 +285,7 @@
                                         <rect key="frame" x="0.0" y="160" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mCT-ad-6vR" id="sPN-BM-PGO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xc4-PS-l4Q">
@@ -508,38 +509,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BRG-Bh-jpU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BRG-Bh-jpU">
                                 <rect key="frame" x="0.0" y="116" width="375" height="501"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="popOverBasicCellID" rowHeight="61" id="7qx-3u-eAT" customClass="BluetoothTableViewCell" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="61"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="popOverBasicCellID" rowHeight="63" id="fRf-Am-Oax" customClass="BluetoothTableViewCell" customModule="Aud" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O3G-Zd-mC0" id="4Xx-ak-JJ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fRf-Am-Oax" id="BZb-xg-6ik">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="62.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8R-iI-OJ7">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DiY-ne-epg">
+                                                    <rect key="frame" x="8" y="21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fEE-Jn-3tc">
-                                                    <rect key="frame" x="347" y="20" width="20" height="20"/>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pmZ-3T-HNO">
+                                                    <rect key="frame" x="347" y="22" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="fEE-Jn-3tc" firstAttribute="centerY" secondItem="EFd-Jj-d73" secondAttribute="centerY" id="DEs-1u-HJe"/>
-                                                <constraint firstItem="EWt-ek-qFw" firstAttribute="centerY" secondItem="EFd-Jj-d73" secondAttribute="centerY" id="Um3-LR-dbl"/>
-                                                <constraint firstItem="EWt-ek-qFw" firstAttribute="leading" secondItem="EFd-Jj-d73" secondAttribute="leadingMargin" id="bOx-Ar-jOS"/>
-                                                <constraint firstItem="fEE-Jn-3tc" firstAttribute="trailing" secondItem="EFd-Jj-d73" secondAttribute="trailingMargin" id="czE-88-eNJ"/>
+                                                <constraint firstItem="DiY-ne-epg" firstAttribute="leading" secondItem="BZb-xg-6ik" secondAttribute="leadingMargin" id="HwH-vn-tEe"/>
+                                                <constraint firstItem="DiY-ne-epg" firstAttribute="centerY" secondItem="BZb-xg-6ik" secondAttribute="centerY" id="UlU-CE-RZw"/>
+                                                <constraint firstItem="pmZ-3T-HNO" firstAttribute="centerY" secondItem="BZb-xg-6ik" secondAttribute="centerY" id="tDO-8l-baS"/>
+                                                <constraint firstItem="pmZ-3T-HNO" firstAttribute="trailing" secondItem="BZb-xg-6ik" secondAttribute="trailingMargin" id="tdU-K6-nql"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="loader" destination="fEE-Jn-3tc" id="S9C-4H-jEx"/>
-                                            <outlet property="nameLabel" destination="EWt-ek-qFw" id="Asn-Xe-FMw"/>
+                                            <outlet property="loader" destination="pmZ-3T-HNO" id="IJ5-e2-Ehe"/>
+                                            <outlet property="nameLabel" destination="DiY-ne-epg" id="Q41-Bv-B5l"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -619,6 +619,6 @@
         <image name="apple-music-app-icon" width="216" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HrE-iK-OE4"/>
+        <segue reference="ZYu-fU-4bw"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -18,14 +18,14 @@ class BluetoothTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        loader.stopAnimating()
+        //loader.stopAnimating()
         loader.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        if selected {
+        if selected && peakMusicController.playerType == .Individual {
             loader.isHidden = false
             loader.startAnimating()
         }
