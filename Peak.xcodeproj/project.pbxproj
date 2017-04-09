@@ -241,9 +241,9 @@
 		C4E8965F1E7458620096EC72 /* Aud */ = {
 			isa = PBXGroup;
 			children = (
-				C45625391E8EF95E00311750 /* Alerts.swift */,
 				C4BA29791E7DCC13000AAD48 /* MusicPlayer */,
 				C4E896641E7458620096EC72 /* Main.storyboard */,
+				C45625391E8EF95E00311750 /* Alerts.swift */,
 				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
 				C4D1175B1E7F2024000A854A /* PeakColorExt.swift */,
 				C4D1175F1E7F6C6F000A854A /* Authentication */,
@@ -294,7 +294,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 58NU5LV6AX;
+						DevelopmentTeam = 469H894D48;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -494,7 +494,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = 469H894D48;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -511,7 +511,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = 469H894D48;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -209,7 +209,6 @@ class PeakMusicController {
         
         //Just to be sure the player isn't a contributor
         if playerType != .Contributor {
-            //print("Here 465")
             
             currPlayQueue.append(contentsOf: songs)
             

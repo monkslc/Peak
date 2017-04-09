@@ -23,7 +23,7 @@ class SendingBluetooth {
             if peers == peerID {
                 if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: peers as MCPeerID) {
                 
-                    //print("Sent")
+                    
                 }
                 else {
                     print("\n\nERROR SENDING DATA COULD HAPPEN LibraryViewController -> sendSongIdsToClient\n\n")
@@ -43,7 +43,7 @@ class SendingBluetooth {
         for peers in MPCManager.defaultMPCManager.session.connectedPeers {
             if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: peers as MCPeerID) {
                 
-                //print("Sent")
+                
             }
             else {
                 print("\n\nERROR SENDING DATA COULD HAPPEN LibraryViewController -> sendSongIdsToClient\n\n")
@@ -76,7 +76,7 @@ class SendingBluetooth {
             for peers in MPCManager.defaultMPCManager.session.connectedPeers {
                 if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: songIds, toPeer: peers as MCPeerID) {
                     
-                    //print("Sent")
+                    
                 }
                 else {
                     print("\n\nERROR SENDING DATA COULD HAPPEN MultipeerConnectivity -> sendSongIdsFromHost\n\n")
@@ -87,14 +87,12 @@ class SendingBluetooth {
     }
     
     static func sendSongIdToHost(id: String, error: () -> Void) {
-        //print("SONG ID: \(id)")
         
         let messageDictionary: [String: String] = ["id": id]
         
         if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
             if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.session.connectedPeers[0] as MCPeerID) {
                 
-                //print("Successfully send song id \(id)")
             }
             else {
                 error()

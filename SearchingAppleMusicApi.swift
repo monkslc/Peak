@@ -33,12 +33,10 @@ class SearchingAppleMusicApi {
                 nextSearchTerm = term
                 nextSearchCompletion = completion
             }
-            //print("IS SEARCHING")
         }
         else {
             isSearching = true
             doSearch(term: term, completion: completion)
-            //print("START SEARCHING")
         }
     }
     
@@ -49,17 +47,16 @@ class SearchingAppleMusicApi {
         Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {
             timer -> Void in
             
-            //print("TIMER WHEN OFF")
             if searchesAtTime == self.searches {
                 self.searches += 1
                 
                 if let search = self.nextSearchTerm {
-                    //print("START NEXT SEARCH")
+            
                     self.doSearch(term: search, completion: self.nextSearchCompletion)
                     self.nextSearchTerm = nil
                 }
                 else {
-                    //print("STOP SEARCHING")
+                  
                     self.isSearching = false
                 }
             }
@@ -73,23 +70,23 @@ class SearchingAppleMusicApi {
             self.searches += 1
             
             if let search = self.nextSearchTerm {
-                //print("START NEXT SEARCH")
+               
                 self.doSearch(term: search, completion: self.nextSearchCompletion)
                 self.nextSearchTerm = nil
             }
             else {
-                //print("STOP SEARCHING")
+               
                 self.isSearching = false
             }
         }, error: {
-            //print("ERROR")
+           
             if let search = self.nextSearchTerm {
-                //print("START NEXT SEARCH")
+                
                 self.doSearch(term: search, completion: self.nextSearchCompletion)
                 self.nextSearchTerm = nil
             }
             else {
-                //print("STOP SEARCHING")
+                
                 self.isSearching = false
             }
         })
