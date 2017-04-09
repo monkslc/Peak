@@ -87,7 +87,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //Detect LIbrary changes
         NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged(_:)), name: .MPMediaLibraryDidChange, object: MPMediaLibrary.default())
-        MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
+        
+        if peakMusicController.musicType != .Guest && peakMusicController.playerType != .Contributor {
+            
+            MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
+        }
+        
 
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
@@ -179,43 +184,48 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Create the alert here and return it
         return UIAlertAction(title: "Delete Song", style: .default, handler: {(alert) in
             
-            
+            var songToDelete = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
             
             if let cell: SongCell = sender.view as? SongCell{
                 
-                //get the song to delete
-                let songToDelete = cell.songInCell
+                songToDelete = cell.songInCell!
+            } else if let album: RecentsAlbumView = sender.view as? RecentsAlbumView {
                 
-                //now delete it
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let context = appDelegate.persistentContainer.viewContext
-                
-                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
-                request.returnsObjectsAsFaults = false
-                
-                do{
-                    
-                    let results = try context.fetch(request)
-                    
-                    for result in results{
-                        
-                        let songInCD = result as! StoredSong
-                        
-                        //check if our songs match and if so delete
-                        if songInCD.storedID == songToDelete?.id{
-                            
-                            context.delete(result as! NSManagedObject)
-                            break
-                        }
-                    }
-                    
-                    try context.save()
-                    
-                } catch {
-                    
-                    print("To dance beneath the diamond sky with one hand waving free")
-                }
+                songToDelete = album.songAssocWithImage!
             }
+    
+                
+            //now delete it
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+                
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
+            request.returnsObjectsAsFaults = false
+                
+            do{
+                    
+                let results = try context.fetch(request)
+                    
+                for result in results{
+                        
+                    let songInCD = result as! StoredSong
+                        
+                    //check if our songs match and if so delete
+                    if songInCD.storedID == songToDelete.id{
+                            
+                        context.delete(result as! NSManagedObject)
+                        break
+                    }
+                }
+                    
+                try context.save()
+                    
+            } catch {
+                    
+                print("To dance beneath the diamond sky with one hand waving free")
+            }
+                
+            
             
             self.showSignifier()
             self.fetchLibrary()

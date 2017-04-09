@@ -38,6 +38,9 @@ class PeakMusicController {
     var playerType = PlayerType.Individual {
         didSet {
             if playerType == .Host {
+                
+                systemMusicPlayer.beginGeneratingPlaybackNotifications()
+                
                 MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
                 (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
                 delegate?.updateDisplay()
@@ -50,6 +53,8 @@ class PeakMusicController {
             if playerType == .Contributor {
                 MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
                 
+                systemMusicPlayer.endGeneratingPlaybackNotifications()
+                
                 DispatchQueue.main.async {
                     (self.delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
                 }
@@ -59,6 +64,9 @@ class PeakMusicController {
             }
             
             if playerType == .Individual{
+                
+                systemMusicPlayer.beginGeneratingPlaybackNotifications()
+                
                 (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "IndieBigIcon"), for: .normal)
             }
             
@@ -273,7 +281,8 @@ class PeakMusicController {
             //Now set the suffle mode to off so we can control the queue
             peakMusicController.systemMusicPlayer.shuffleMode = .off
             
-            //Now begin generating playback notifications
+            //Now set the notifications
+            
             peakMusicController.systemMusicPlayer.beginGeneratingPlaybackNotifications()
         } else if peakMusicController.musicType == .Guest{
             
