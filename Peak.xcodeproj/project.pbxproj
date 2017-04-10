@@ -63,6 +63,7 @@
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
 		C45625391E8EF95E00311750 /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C48B4F111E9B1FF1002D2DB9 /* Aud.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Aud.entitlements; sourceTree = "<group>"; };
 		C48E45831E7479BF00BFFE4C /* SongCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedView.swift; sourceTree = "<group>"; };
 		C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentsAlbumView.swift; path = ../RecentsAlbumView.swift; sourceTree = "<group>"; };
@@ -132,6 +133,13 @@
 				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
 			);
 			name = "Search Bar Popover";
+			sourceTree = "<group>";
+		};
+		C48B4F0E1E9B1FF1002D2DB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C4BA29791E7DCC13000AAD48 /* MusicPlayer */ = {
@@ -227,6 +235,7 @@
 				90E2DFDE1E874F6400762B9D /* Cam */,
 				C4E8965F1E7458620096EC72 /* Aud */,
 				C4E8965E1E7458620096EC72 /* Products */,
+				C48B4F0E1E9B1FF1002D2DB9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -241,6 +250,7 @@
 		C4E8965F1E7458620096EC72 /* Aud */ = {
 			isa = PBXGroup;
 			children = (
+				C48B4F111E9B1FF1002D2DB9 /* Aud.entitlements */,
 				C4BA29791E7DCC13000AAD48 /* MusicPlayer */,
 				C4E896641E7458620096EC72 /* Main.storyboard */,
 				C45625391E8EF95E00311750 /* Alerts.swift */,
@@ -296,6 +306,17 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 469H894D48;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
+							com.apple.WAC = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
