@@ -794,7 +794,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
             }
 
-        } else if peakMusicController.musicType == .Guest{
+        } else if peakMusicController.musicType == .Guest {
             
             //get the item
             var songTappedOn = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)

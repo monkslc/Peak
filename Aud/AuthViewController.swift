@@ -7,6 +7,7 @@
 
 import UIKit
 import StoreKit
+import CloudKit
 
 class AuthViewController: UIViewController {
 
