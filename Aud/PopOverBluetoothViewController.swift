@@ -91,9 +91,15 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         }
         else {
             peakMusicController.playerType = (sender.isOn) ? .Host : .Individual
-        
+            
             updateMPCManager()
             tableView.reloadData()
+            
+            if sender.isOn {
+                let alert = UIAlertController(title: "Warning", message: "Your \(UIDevice.current.model) will download all songs sent to it", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
