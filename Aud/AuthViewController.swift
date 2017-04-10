@@ -58,7 +58,6 @@ class AuthViewController: UIViewController {
                 self.loadingIndicator.stopAnimating()
                 
                 //They're eligible for a subscription so let's take them to get one
-                print("Take me to go get a subscription")
                 
                 let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
                 UIApplication.shared.open(url!, options: [:], completionHandler: {
@@ -71,7 +70,6 @@ class AuthViewController: UIViewController {
                 
                 self.loadingIndicator.stopAnimating()
                 
-                print("Add to Cloud Music library is a go")
                 //We're all set to go lets see if we can segue
                 
                 if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
@@ -87,8 +85,6 @@ class AuthViewController: UIViewController {
                 
 
             } else if capability.contains(SKCloudServiceCapability.musicCatalogPlayback){
-                
-                print("Ok we've got some music Catalog playback featuers")
                 
                 self.loadingIndicator.stopAnimating()
                 
@@ -131,24 +127,13 @@ class AuthViewController: UIViewController {
                     switch authorization{
                         
                     case .authorized:
-                        //print("authorized")
-                        //authorized so segue
                         self.checkAppleAuthentication()
                         
                     case .denied:
-                        //print("DENIED")
-                        self.loadingIndicator.stopAnimating()
                         self.instructUserToAllowUsToAppleMusic()
-                        print("Denied")
                         
-                    case .notDetermined:
-                        //print("Can't be determined")
-                        self.loadingIndicator.stopAnimating()
-                        print("Not Determined")
-                        
-                    case .restricted:
-                        self.loadingIndicator.stopAnimating()
-                        print("Restricted")
+                    default:
+                        print("Shouldn't be here")
                     }
                     
                 })

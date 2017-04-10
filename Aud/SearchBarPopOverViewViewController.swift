@@ -309,7 +309,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
             
             
+            
             self.showSignifier()
+            
+            
             
             let cell:SongCell = (gesture.view as? SongCell)!
             
@@ -320,6 +323,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                     /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
                     /*******DO SOMETHING WITH THE ERROR******/
                 })
+                
+                
             } else if peakMusicController.musicType == .Guest{
                 
                 
@@ -352,7 +357,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
             
             
-            
+            (self.delegate as! LibraryViewController).fetchLibrary()
             self.searchedSongsTableView.reloadData()
         })
     }
@@ -360,7 +365,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func addToLibrary(_ button: UIButton){
         
-        print("Adding to Library")
         button.isHidden = true
         
         showSignifier()
@@ -380,6 +384,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                     })
                 }
             }
+            
+    
+            
         } else if peakMusicController.musicType == .Guest {
             
             if let cell: SongCell = button.superview?.superview as? SongCell{
