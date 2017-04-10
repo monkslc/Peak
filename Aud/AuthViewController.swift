@@ -38,55 +38,43 @@ class AuthViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleDjForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        //This methods makes it so it automatically segues to apple music without user interaction on welcome screen
-        /*if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
-            
-            print("authorized, maybe not performing segue because it hasn't been identified yet")
-            //performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
-        }*/
-        
-    
-    }
+
     
     @IBAction func checkAppleAuthentication() {
         
         loadingIndicator.startAnimating()
         //check if we have authorization to the user's apple music
-        
-        
+    
         let serviceController = SKCloudServiceController()
         /***************TEST CHECK FOR APPLE MUSIC*****************/
+        
+        
+        //let's check if we can take them to get a subscription
         serviceController.requestCapabilities(completionHandler: {(capability: SKCloudServiceCapability, err: Error?) in
         
-            switch capability{
+            if capability.contains(SKCloudServiceCapability.musicCatalogSubscriptionEligible){
                 
-            case SKCloudServiceCapability.addToCloudMusicLibrary:
-                print("Add to Cloud Music Library")
+                self.loadingIndicator.stopAnimating()
                 
-            case SKCloudServiceCapability.musicCatalogPlayback:
-                print("Music Catalog Playback")
+                //They're eligible for a subscription so let's take them to get one
+                print("Take me to go get a subscription")
                 
-            case SKCloudServiceCapability.musicCatalogSubscriptionEligible:
-                print("Music Catalog Subscription Eligible")
-             
-            default:
-                print(err)
-                
-            }
-            
-        })
-        
-        if true  {
-            SKCloudServiceController.requestAuthorization({(authorization) in
-                
-                switch authorization{
+                let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
+                UIApplication.shared.open(url!, options: [:], completionHandler: {
+                    (foo) -> Void in
                     
-                case .authorized:
-                    //print("authorized")
-                    //authorized so segue
+                    print(foo)
+                })
+                
+            } else if capability.contains(SKCloudServiceCapability.addToCloudMusicLibrary){
+                
+                self.loadingIndicator.stopAnimating()
+                
+                print("Add to Cloud Music library is a go")
+                //We're all set to go lets see if we can segue
+                
+                if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
+                    
                     self.loadingIndicator.stopAnimating()
                     DispatchQueue.global().async {
                         DispatchQueue.main.async {
@@ -94,27 +82,80 @@ class AuthViewController: UIViewController {
                             self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
                         }
                     }
-                case .denied:
-                    //print("DENIED")
-                    self.loadingIndicator.stopAnimating()
-                    self.instructUserToAllowUsToAppleMusic()
-                case .notDetermined:
-                    //print("Can't be determined")
-                    self.loadingIndicator.stopAnimating()
-                case .restricted:
-                    self.loadingIndicator.stopAnimating()
                 }
                 
-            })
-        }
-        else {
-            let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
-            UIApplication.shared.open(url!, options: [:], completionHandler: {
-                (foo) -> Void in
+
+            } else if capability.contains(SKCloudServiceCapability.musicCatalogPlayback){
                 
-                print(foo)
-            })
-        }
+                print("Ok we've got some music Catalog playback featuers")
+                
+                self.loadingIndicator.stopAnimating()
+                
+                let alert = UIAlertController(title: "Apple Music", message: "Is Apple Music Downloaded?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
+                
+                    //prompt the user to change their settings
+                    let subLert = UIAlertController(title: nil, message: "Head to Settings > Music > Switch on iCloud Music Library", preferredStyle: .alert)
+                    subLert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    
+                    self.present(subLert, animated: true, completion: nil)
+                    
+                }))
+                
+                alert.addAction(UIAlertAction(title: "No, take me there.", style: .default, handler: {(aciton) in
+                    
+                    let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
+                    UIApplication.shared.open(url!, options: [:], completionHandler: {
+                        (foo) -> Void in
+                        
+                        print(foo)
+                    })
+                    
+                }))
+                
+                
+                
+                self.present(alert, animated: true, completion: nil)
+                //Downloaded but no iCloud selected
+                
+                //App was not downloaded
+                
+            } else {
+                
+                self.loadingIndicator.stopAnimating()
+                
+                //We are yet to get access from the user
+                SKCloudServiceController.requestAuthorization({(authorization) in
+                    
+                    switch authorization{
+                        
+                    case .authorized:
+                        //print("authorized")
+                        //authorized so segue
+                        self.checkAppleAuthentication()
+                        
+                    case .denied:
+                        //print("DENIED")
+                        self.loadingIndicator.stopAnimating()
+                        self.instructUserToAllowUsToAppleMusic()
+                        print("Denied")
+                        
+                    case .notDetermined:
+                        //print("Can't be determined")
+                        self.loadingIndicator.stopAnimating()
+                        print("Not Determined")
+                        
+                    case .restricted:
+                        self.loadingIndicator.stopAnimating()
+                        print("Restricted")
+                    }
+                    
+                })
+                
+            }
+            
+        
+        })
         
     }
     
@@ -124,6 +165,7 @@ class AuthViewController: UIViewController {
     
     //Let the user know how to give us access to apple music
     func instructUserToAllowUsToAppleMusic() {
+        
         
         let alert = UIAlertController(title: "Head to settings > Privacy > Media & Apple Music and allow Peak to access Media & Apple Music.", message: nil,preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
