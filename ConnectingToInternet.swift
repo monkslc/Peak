@@ -264,11 +264,11 @@ class ConnectingToInternet {
                     let endingIndex = urlContent.indexOf(target: "<strong>51.</strong>", startIndex: beginingIndex)
                     let section = urlContent.subString(startIndex: beginingIndex, endIndex: endingIndex)
                     
-                    var songs = [Song?](repeating: nil, count: 49)
+                    var songs : [Song?] = []//(repeating: nil, count: 50)
                     
                     var startIndex = 0
                     var songIndex = 1
-                    while startIndex != -1 && songIndex <= 50 {
+                    while startIndex != -1 && songIndex < 50 {
                         
                         let endSongSectionIndex = section.indexOf(target: "<strong>\(songIndex).</strong>", startIndex: startIndex)
                         
@@ -283,10 +283,12 @@ class ConnectingToInternet {
                             let thisSongIndex = songIndex - 2
                             let sectionsOfSong = songStuff.components(separatedBy: "|")
                             if sectionsOfSong.count > 2 {
+                                songs.append(nil)
                                 ConnectingToInternet.getSongs(searchTerm: "\(sectionsOfSong[1]) \(sectionsOfSong[2])".replacingOccurrences(of: "’", with: ""), limit: 1, sendSongsAlltogether: true, completion: {
                                     (newSong) -> Void in
                                 
                                     songs[thisSongIndex] = newSong[0]
+                                    
                                     
                                     if let s = songs as? [Song] {
                                         completion(s)
