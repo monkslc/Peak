@@ -57,6 +57,28 @@ class AuthViewController: UIViewController {
         //check if we have authorization to the user's apple music
         
         
+        let serviceController = SKCloudServiceController()
+        /***************TEST CHECK FOR APPLE MUSIC*****************/
+        serviceController.requestCapabilities(completionHandler: {(capability: SKCloudServiceCapability, err: Error?) in
+        
+            switch capability{
+                
+            case SKCloudServiceCapability.addToCloudMusicLibrary:
+                print("Add to Cloud Music Library")
+                
+            case SKCloudServiceCapability.musicCatalogPlayback:
+                print("Music Catalog Playback")
+                
+            case SKCloudServiceCapability.musicCatalogSubscriptionEligible:
+                print("Music Catalog Subscription Eligible")
+             
+            default:
+                print(err)
+                
+            }
+            
+        })
+        
         if true  {
             SKCloudServiceController.requestAuthorization({(authorization) in
                 

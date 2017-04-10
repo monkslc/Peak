@@ -54,15 +54,15 @@ class CurrentlyPlayingAlbumView: UIImageView {
         
         pausePlayButton = UIButton(frame: bounds)
         pausePlayButton.addTarget(self, action: #selector(userChangedPlayBackState), for: .touchUpInside)
-        
+            
         //set the intial image
         if peakMusicController.systemMusicPlayer.playbackState == .playing {
             pausePlayButton.setImage(#imageLiteral(resourceName: "Pause Filled-50"), for: .normal)
         }else{
-            
+                
             pausePlayButton.setImage(#imageLiteral(resourceName: "Play Filled-50"), for: .normal)
         }
-        
+            
         pausePlayButton.alpha = 0.85
         pausePlayButton.isUserInteractionEnabled = true
         addSubview(pausePlayButton)

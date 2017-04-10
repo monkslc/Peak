@@ -217,7 +217,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 if let cell: SongCell = gesture.view as? SongCell{
                     
                     //Add A play now
-                    alert.addAction(Alerts.playNowAlert(gesture))
+                    if peakMusicController.musicType != .Guest{
+                        
+                        alert.addAction(Alerts.playNowAlert(gesture))
+                    }
+                    
                     
                     //change what appears based on the music type
                     if cell.songInCell == nil{
@@ -304,20 +308,60 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
             
+            
             self.showSignifier()
             
             let cell:SongCell = (gesture.view as? SongCell)!
             
-            MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+            if peakMusicController.musicType == .AppleMusic{
                 
-                /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
-                /*******DO SOMETHING WITH THE ERROR******/
-            })
+                MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                    
+                    /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
+                    /*******DO SOMETHING WITH THE ERROR******/
+                })
+            } else if peakMusicController.musicType == .Guest{
+                
+                
+                
+                if let songToAdd = cell.songInCell{
+                    
+                    //Add the song to core data here, and to the users current library
+                    
+                    //check if the user has already downloaded it
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let context = appDelegate.persistentContainer.viewContext
+                    
+                    let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
+                    newSong.setValue(songToAdd.id, forKey: "storedID")
+                    newSong.setValue(Date(), forKey: "downloaded")
+                    
+                    
+                    
+                    //now try to save it
+                    do{
+                        try context.save()
+                    }catch{
+                        
+                        print("The fiddler he now steps to the road")
+                    }
+                    
+                }
+                
+            }
+            
+            
+            
+            self.searchedSongsTableView.reloadData()
         })
     }
     
     
     func addToLibrary(_ button: UIButton){
+        
+        print("Adding to Library")
+        button.isHidden = true
         
         showSignifier()
         
