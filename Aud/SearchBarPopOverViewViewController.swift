@@ -127,6 +127,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     /*MARK: SEARCH BAR DELEGATE METHODS*/
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        loadingIndicator.stopAnimating() //In case we are coming from top charts
+        
+        //If we are in Top Charts, change to Apple Music so the user can start searching
+        if selectMusicFromSegment.selectedSegmentIndex == 2{
+            
+            selectMusicFromSegment.selectedSegmentIndex = 1
+        }
+    }
+    
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         
         return true
@@ -165,6 +176,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func searchRequestChanged() {
         //Gets called when the segmented control changes
+        
         
         //need to stop the loading indicator in case the user started it and then switched before results were returned
         loadingIndicator.stopAnimating()
