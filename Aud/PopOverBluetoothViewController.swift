@@ -163,7 +163,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         tableView.reloadData()
     }
     
-    func updatePeersConnected() {
+    func lostConnectionWithPeer(peerID: MCPeerID) {
         switch peakMusicController.playerType {
         case .Individual:
             MPCManager.defaultMPCManager = MPCManager()
@@ -173,8 +173,11 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
                 self.tableView.reloadData()
             }
         case .Contributor:
-            peakMusicController.playerType = .Individual
-            updateMPCManager()
+            if MPCManager.defaultMPCManager.getDj() == peerID {
+                peakMusicController.playerType = .Individual
+                MPCManager.defaultMPCManager.resetSession()
+                updateMPCManager()
+            }
         }
     }
     
