@@ -132,9 +132,9 @@ class ConnectingToInternet {
                     
                     var songs: [Song] = []
         
-                    let serialQueue = DispatchQueue(label: "myqueue")
+                    //let serialQueue = DispatchQueue(label: "myqueue")
                     
-                    
+                    var badSongs = 0
                     for songJSON in songsJSON {
                     
                         let imageURL = songJSON["artworkUrl100"]! as! String
@@ -145,6 +145,7 @@ class ConnectingToInternet {
                             guard let id = songJSON["trackId"] as? Int, let name = songJSON["trackName"] as? String, let album = songJSON["collectionName"] as? String, let artist = songJSON["artistName"] as? String, let time = songJSON["trackTimeMillis"] as? Int, let streamable = songJSON["isStreamable"] as? Bool else {
                                 
                                 print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getSongs\n\n")
+                                error()
                                 return
                             }
                             
@@ -152,13 +153,21 @@ class ConnectingToInternet {
                             
                             if streamable {
                             
-                                serialQueue.sync {
+                                //serialQueue.sync {
                                     songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
-                                }
+                                //}
                                 
                                 
-                                if songs.count == songsJSON.count || !sendSongsAlltogether {
+                                if songs.count == (songsJSON.count - badSongs) || !sendSongsAlltogether {
                                     completion(songs)
+                                }
+                            }
+                            else {
+                                if limit == 1 {
+                                    error()
+                                }
+                                else {
+                                    badSongs += 1
                                 }
                             }
                         })
@@ -190,7 +199,7 @@ class ConnectingToInternet {
         })
     }
     
-    static func getImage(url urlAsString: String, completion: @escaping (UIImage?) -> Void) {
+    static func getImage(url urlAsString: String, completion: @escaping (UIImage?) -> Void, errorCompletion: @escaping () -> Void = {}) {
         
         let url = URL(string: urlAsString)!
         
@@ -199,6 +208,7 @@ class ConnectingToInternet {
         session.dataTask(with: url) { (data, response, error) in
             
             if let e = error {
+                errorCompletion()
                 print("\n\nError: THIS SHOULD NEVER HAPPEN: downoading Image in ConnectingToInternet getImage line 192: \(e)\n\n")
             } else if let imageData = data {
                 
@@ -208,6 +218,7 @@ class ConnectingToInternet {
                 
             }
             else {
+                errorCompletion()
                 print("\n\nError: THIS SHOULD NEVER HAPPEN: THIS SHOULD NEVER HAPPEN: downoading Image in ConnectingToInternet getImage line 206\n\n")
             }
         }.resume()
@@ -238,6 +249,7 @@ class ConnectingToInternet {
             } catch {
                 
                 print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getJSON failed to get JSON\n\n")
+                errorCompletion()
             }
             /*End of Try Catch added by Connor, Cam might want to check errors*/
             //print(json)
@@ -287,6 +299,8 @@ class ConnectingToInternet {
                                 ConnectingToInternet.getSongs(searchTerm: "\(sectionsOfSong[1]) \(sectionsOfSong[2])".replacingOccurrences(of: "’", with: ""), limit: 1, sendSongsAlltogether: true, completion: {
                                     (newSong) -> Void in
                                 
+                                    assert(songs[thisSongIndex] == nil, "\(songs[thisSongIndex] == nil)")
+                                    
                                     songs[thisSongIndex] = newSong[0]
                                     
                                     
@@ -294,6 +308,12 @@ class ConnectingToInternet {
                                         completion(s)
                                     }
                                     
+                                }, error: {
+                                    
+                                    assert(songs[thisSongIndex] == nil, "\(songs[thisSongIndex] == nil)")
+                                    print("ERROR: \(thisSongIndex)")
+                                    
+                                    songs[thisSongIndex] = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
                                 })
                             }
                             
@@ -303,6 +323,12 @@ class ConnectingToInternet {
                         }
                     }
                 }
+                else {
+                    completion([])
+                }
+            }
+            else {
+                completion([])
             }
         }.resume()
     }

@@ -66,7 +66,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
             DispatchQueue.main.async {
-                self.connectedToLabel.text = "Joined: \(MPCManager.defaultMPCManager.session.connectedPeers[0].displayName)"
+                self.connectedToLabel.text = "Joined: \(MPCManager.defaultMPCManager.getDjName())"
                 self.tableView.isHidden = true
                 self.disconectButton.isHidden = false
             }
@@ -203,6 +203,9 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
 
         }
         else if peakMusicController.playerType == .Individual {
+            
+            MPCManager.defaultMPCManager.dj = peerID
+            
             peakMusicController.playerType = .Contributor
             
             updateMPCManager()

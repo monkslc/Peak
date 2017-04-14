@@ -86,17 +86,36 @@ class SendingBluetooth {
         })
     }
     
+    // from contributor
     static func sendSongIdToHost(id: String, error: () -> Void) {
+        
+        print("SENT TO \(MPCManager.defaultMPCManager.getDjName())")
         
         let messageDictionary: [String: String] = ["id": id]
         
         if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
-            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.session.connectedPeers[0] as MCPeerID) {
+            
+            if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.getDj()) {
                 
+                print("SENT")
             }
-            else {
-                error()
+            
+            /*
+            for id in MPCManager.defaultMPCManager.foundPeers {
+                
+                if id == MPCManager.defaultMPCManager.hostID {
+                    if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: messageDictionary, toPeer: MPCManager.defaultMPCManager.session.connectedPeers[0] as MCPeerID) {
+                        
+                        print("SENT TO \(id)")
+                    }
+                    else {
+                        error()
+                    }
+                }
+
             }
+ */
+            
         }
         else {
             error()

@@ -48,6 +48,8 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     
     var delegate: MPCManagerDelegate?
     
+    var dj: MCPeerID?
+    
     override init() {
         super.init()
         
@@ -101,6 +103,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         switch state {
         case MCSessionState.connected:
             //print("Connected to session: \(session)")
+            
             delegate?.connectedWithPeer(peerID: peerID)
         case MCSessionState.connecting:
             break
@@ -146,5 +149,13 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         
         session = MCSession(peer: peer)
         session.delegate = self
+    }
+    
+    func getDj() -> MCPeerID {
+        return dj!
+    }
+    
+    func getDjName() -> String {
+        return getDj().displayName
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		900036F91E9B28E7007BCD94 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900036F81E9B28E7007BCD94 /* CloudKit.framework */; };
 		904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */; };
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
 		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
@@ -50,7 +49,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		900036F81E9B28E7007BCD94 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingAppleMusicApi.swift; sourceTree = "<group>"; };
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
 		C45625391E8EF95E00311750 /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		C48B4F111E9B1FF1002D2DB9 /* Aud.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Aud.entitlements; sourceTree = "<group>"; };
 		C48E45831E7479BF00BFFE4C /* SongCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedView.swift; sourceTree = "<group>"; };
 		C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentsAlbumView.swift; path = ../RecentsAlbumView.swift; sourceTree = "<group>"; };
@@ -100,7 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				900036F91E9B28E7007BCD94 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +249,6 @@
 		C4E8965F1E7458620096EC72 /* Aud */ = {
 			isa = PBXGroup;
 			children = (
-				C48B4F111E9B1FF1002D2DB9 /* Aud.entitlements */,
 				C4BA29791E7DCC13000AAD48 /* MusicPlayer */,
 				C4E896641E7458620096EC72 /* Main.storyboard */,
 				C45625391E8EF95E00311750 /* Alerts.swift */,
@@ -307,7 +302,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 469H894D48;
+						DevelopmentTeam = 58NU5LV6AX;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -518,7 +513,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 469H894D48;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -535,7 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 469H894D48;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
