@@ -299,19 +299,22 @@ class ConnectingToInternet {
                                 ConnectingToInternet.getSongs(searchTerm: "\(sectionsOfSong[1]) \(sectionsOfSong[2])".replacingOccurrences(of: "’", with: ""), limit: 1, sendSongsAlltogether: true, completion: {
                                     (newSong) -> Void in
                                 
-                                    assert(songs[thisSongIndex] == nil, "\(songs[thisSongIndex] == nil)")
-                                    
                                     songs[thisSongIndex] = newSong[0]
                                     
-                                    
-                                    if let s = songs as? [Song] {
+                                    if var s = songs as? [Song] {
+                                        var i = 0
+                                        while i < s.count {
+                                            if s[i].image == nil {
+                                                s.remove(at: i)
+                                            }
+                                            else {
+                                                i += 1
+                                            }
+                                        }
                                         completion(s)
                                     }
                                     
                                 }, error: {
-                                    
-                                    assert(songs[thisSongIndex] == nil, "\(songs[thisSongIndex] == nil)")
-                                    print("ERROR: \(thisSongIndex)")
                                     
                                     songs[thisSongIndex] = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
                                 })
