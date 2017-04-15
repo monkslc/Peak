@@ -52,7 +52,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             } else {
                 
                 //set a temporary default image then fetch the actual
-                cell.albumArt.image = #imageLiteral(resourceName: "apple-music-app-icon") // #imageLiteral(resourceName: "defaultAlbum")                          // GLITCHES OUT HERE WITH MULTIPLE CONTRIBUTER
+                cell.albumArt.image = #imageLiteral(resourceName: "ProperPeakyIcon")
                 
                 //the fetch
                 ConnectingToInternet.getSong(id: mediaItemToAdd.playbackStoreID, completion: {(song) in
