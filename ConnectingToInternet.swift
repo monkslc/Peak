@@ -55,17 +55,20 @@ class ConnectingToInternet {
                     var lastIndex = 0
                     
                     while (lastIndex != -1) {
-                        let indexOfNextTag = lyricsSection.indexOf(target: "<", startIndex: lastIndex)
-                        if indexOfNextTag != -1 {
-                            let newLine = lyricsSection.subString(startIndex: lastIndex, endIndex: indexOfNextTag)
-                            lyrics = "\(lyrics)\(newLine)"
-                            
-                            lastIndex = lyricsSection.indexOf(target: ">", startIndex: indexOfNextTag) + 1
-                            
+                        var indexOfNextTag = lyricsSection.indexOf(target: "<", startIndex: lastIndex)
+                        
+                        if indexOfNextTag == -1 {
+                            indexOfNextTag = lyricsSection.length
                         }
-                        else {
-                            lastIndex = -1
+                        
+                        let newLine = lyricsSection.subString(startIndex: lastIndex, endIndex: indexOfNextTag)
+                        lyrics = "\(lyrics)\(newLine)"
+                            
+                        lastIndex = lyricsSection.indexOf(target: ">", startIndex: indexOfNextTag)
+                        if lastIndex != -1 {
+                            lastIndex += 1
                         }
+                        
                     }
                     
                     let replacingCharacters: [String: String] = ["&quot;": "\"", "â": "’", "Ã©": "é", "&amp;": "&", "&apos;": "\'", "&lt;": "<", "&gt;": ">", "&nbsp;": "\u{00a0}", "&diams;": "♦"]
@@ -299,19 +302,22 @@ class ConnectingToInternet {
                                 ConnectingToInternet.getSongs(searchTerm: "\(sectionsOfSong[1]) \(sectionsOfSong[2])".replacingOccurrences(of: "’", with: ""), limit: 1, sendSongsAlltogether: true, completion: {
                                     (newSong) -> Void in
                                 
-                                    assert(songs[thisSongIndex] == nil, "\(songs[thisSongIndex] == nil)")
-                                    
                                     songs[thisSongIndex] = newSong[0]
                                     
-                                    
-                                    if let s = songs as? [Song] {
+                                    if var s = songs as? [Song] {
+                                        var i = 0
+                                        while i < s.count {
+                                            if s[i].image == nil {
+                                                s.remove(at: i)
+                                            }
+                                            else {
+                                                i += 1
+                                            }
+                                        }
                                         completion(s)
                                     }
                                     
                                 }, error: {
-                                    
-                                    assert(songs[thisSongIndex] == nil, "\(songs[thisSongIndex] == nil)")
-                                    print("ERROR: \(thisSongIndex)")
                                     
                                     songs[thisSongIndex] = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
                                 })
