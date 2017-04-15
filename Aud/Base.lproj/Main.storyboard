@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -112,9 +112,9 @@
                                 <rect key="frame" x="33" y="318" width="14" height="146"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peak" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Qm-y8-boF">
-                                <rect key="frame" x="127" y="182" width="121" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peak" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Qm-y8-boF">
+                                <rect key="frame" x="127" y="172" width="121" height="35.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="61"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -139,7 +139,7 @@
                             <constraint firstItem="CEs-Mi-37k" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leadingMargin" constant="17" id="WHT-ka-uTa"/>
                             <constraint firstItem="uXh-1Y-i3n" firstAttribute="leading" secondItem="3xA-j1-HKd" secondAttribute="trailing" constant="10" id="YUb-Cd-ooQ"/>
                             <constraint firstItem="WrG-Jf-eG3" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leadingMargin" constant="8" id="b4a-0e-tg6"/>
-                            <constraint firstItem="5Qm-y8-boF" firstAttribute="top" secondItem="Q1I-4H-dqn" secondAttribute="bottom" constant="20" id="ccP-Vd-zSv"/>
+                            <constraint firstItem="5Qm-y8-boF" firstAttribute="top" secondItem="Q1I-4H-dqn" secondAttribute="bottom" constant="10" id="ccP-Vd-zSv"/>
                             <constraint firstItem="zjD-wT-Hef" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="dOZ-QW-eUg"/>
                             <constraint firstItem="Q1I-4H-dqn" firstAttribute="width" secondItem="wpt-Cy-qMb" secondAttribute="width" multiplier="3:7" id="e55-gp-f6T"/>
                             <constraint firstItem="3xA-j1-HKd" firstAttribute="centerY" secondItem="ZqJ-B8-8Hk" secondAttribute="centerY" id="emJ-MD-3Wj"/>
@@ -149,6 +149,7 @@
                             <constraint firstItem="uXh-1Y-i3n" firstAttribute="leading" secondItem="ZqJ-B8-8Hk" secondAttribute="trailing" id="lKd-ll-dkU"/>
                             <constraint firstItem="jBT-Be-4FH" firstAttribute="top" secondItem="ZqJ-B8-8Hk" secondAttribute="bottom" constant="50" id="lW3-Xt-xjh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WrG-Jf-eG3" secondAttribute="trailing" constant="8" id="pKr-JU-nmG"/>
+                            <constraint firstItem="5Qm-y8-boF" firstAttribute="height" secondItem="Q1I-4H-dqn" secondAttribute="height" multiplier="1:4" id="sSN-NL-oHE"/>
                             <constraint firstItem="jBT-Be-4FH" firstAttribute="width" secondItem="ZqJ-B8-8Hk" secondAttribute="width" id="tIo-PJ-LYq"/>
                             <constraint firstItem="Q1I-4H-dqn" firstAttribute="top" secondItem="ydL-tI-XZf" secondAttribute="bottom" constant="20" id="tbr-cT-VkC"/>
                             <constraint firstItem="jBT-Be-4FH" firstAttribute="centerX" secondItem="ZqJ-B8-8Hk" secondAttribute="centerX" id="u6A-WL-Dhh"/>
