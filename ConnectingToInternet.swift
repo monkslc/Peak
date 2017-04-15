@@ -55,17 +55,20 @@ class ConnectingToInternet {
                     var lastIndex = 0
                     
                     while (lastIndex != -1) {
-                        let indexOfNextTag = lyricsSection.indexOf(target: "<", startIndex: lastIndex)
-                        if indexOfNextTag != -1 {
-                            let newLine = lyricsSection.subString(startIndex: lastIndex, endIndex: indexOfNextTag)
-                            lyrics = "\(lyrics)\(newLine)"
-                            
-                            lastIndex = lyricsSection.indexOf(target: ">", startIndex: indexOfNextTag) + 1
-                            
+                        var indexOfNextTag = lyricsSection.indexOf(target: "<", startIndex: lastIndex)
+                        
+                        if indexOfNextTag == -1 {
+                            indexOfNextTag = lyricsSection.length
                         }
-                        else {
-                            lastIndex = -1
+                        
+                        let newLine = lyricsSection.subString(startIndex: lastIndex, endIndex: indexOfNextTag)
+                        lyrics = "\(lyrics)\(newLine)"
+                            
+                        lastIndex = lyricsSection.indexOf(target: ">", startIndex: indexOfNextTag)
+                        if lastIndex != -1 {
+                            lastIndex += 1
                         }
+                        
                     }
                     
                     let replacingCharacters: [String: String] = ["&quot;": "\"", "â": "’", "Ã©": "é", "&amp;": "&", "&apos;": "\'", "&lt;": "<", "&gt;": ">", "&nbsp;": "\u{00a0}", "&diams;": "♦"]
