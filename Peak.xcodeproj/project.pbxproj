@@ -18,6 +18,7 @@
 		90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */; };
 		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
+		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
 		C456253A1E8EF95E00311750 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45625391E8EF95E00311750 /* Alerts.swift */; };
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
@@ -60,6 +61,7 @@
 		90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingBluetooth.swift; sourceTree = "<group>"; };
 		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
+		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
 		C45625391E8EF95E00311750 /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,15 @@
 			name = BluetoothPopOver;
 			sourceTree = "<group>";
 		};
+		C452209A1EA2EC3500E9A626 /* Song Option Files */ = {
+			isa = PBXGroup;
+			children = (
+				C45625391E8EF95E00311750 /* Alerts.swift */,
+				C45220981EA2E65000E9A626 /* SongOptionsController.swift */,
+			);
+			name = "Song Option Files";
+			sourceTree = "<group>";
+		};
 		C45625301E8B4F5200311750 /* Search Bar Popover */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +155,7 @@
 		C4BA29791E7DCC13000AAD48 /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				C452209A1EA2EC3500E9A626 /* Song Option Files */,
 				90E2DFEF1E88865D00762B9D /* BluetoothPopOver */,
 				C45625301E8B4F5200311750 /* Search Bar Popover */,
 				C4D1176E1E809BB5000A854A /* CurrentlyPlayingView */,
@@ -251,7 +263,6 @@
 			children = (
 				C4BA29791E7DCC13000AAD48 /* MusicPlayer */,
 				C4E896641E7458620096EC72 /* Main.storyboard */,
-				C45625391E8EF95E00311750 /* Alerts.swift */,
 				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
 				C4D1175B1E7F2024000A854A /* PeakColorExt.swift */,
 				C4D1175F1E7F6C6F000A854A /* Authentication */,
@@ -302,7 +313,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 58NU5LV6AX;
+						DevelopmentTeam = SDRSRURVZA;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -374,6 +385,7 @@
 				C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */,
 				C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */,
 				C4E896611E7458620096EC72 /* AppDelegate.swift in Sources */,
+				C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */,
 				C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */,
 				C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */,
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,
@@ -513,7 +525,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -530,7 +542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

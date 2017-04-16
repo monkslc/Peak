@@ -128,112 +128,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Used to pop up alert view for more song options
         
         if sender.state == .began {
-            
-            //alert the options for the song here
-            let alert = UIAlertController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            
-            
-            //Check the user's Music Type
-            if peakMusicController.musicType == .AppleMusic{
-                
-                //Change what appears based on the user's type
-                if peakMusicController.playerType != .Contributor {
-                    
-                    alert.addAction(Alerts.playNowAlert(sender))
-                    alert.addAction(Alerts.playNextAlert(sender))
-                    alert.addAction(Alerts.playLastAlert(sender))
-                    alert.addAction(Alerts.playAlbumAlert(sender))
-                    alert.addAction(Alerts.playArtistAlert(sender))
-                    alert.addAction(Alerts.shuffleAlert(sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded))
-                    
-                } else { //User is a contributor so display those methods
-                    
-                    alert.addAction(Alerts.sendToGroupQueueAlert(sender))
-                }
-                
-                
-            } else if peakMusicController.musicType == .Guest{
-                
-                if peakMusicController.playerType == .Contributor{
-                    
-                    alert.addAction(Alerts.sendToGroupQueueAlert(sender))
-                }
-                
-                alert.addAction(createDeleteAction(sender))
-                
-                
-            }
-            
-            
-            //Add a cancel action
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            alert.modalPresentationStyle = .popover
-            let ppc = alert.popoverPresentationController
-            ppc?.sourceRect = (sender.view?.bounds)!
-            ppc?.sourceView = sender.view
-            present(alert, animated: true, completion: nil)
-            
+
+            let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
+            alert.addLibraryAlerts(sender: sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded)
+            alert.presentMe(sender, presenterViewController: self)
         }
         
     }
-    
-    
-    func createDeleteAction(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
-        
-        //Create the alert here and return it
-        return UIAlertAction(title: "Delete Song", style: .default, handler: {(alert) in
-            
-            var songToDelete = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
-            
-            if let cell: SongCell = sender.view as? SongCell{
-                
-                songToDelete = cell.songInCell!
-            } else if let album: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                
-                songToDelete = album.songAssocWithImage!
-            }
-    
-                
-            //now delete it
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-                
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
-            request.returnsObjectsAsFaults = false
-                
-            do{
-                    
-                let results = try context.fetch(request)
-                    
-                for result in results{
-                        
-                    let songInCD = result as! StoredSong
-                        
-                    //check if our songs match and if so delete
-                    if songInCD.storedID == songToDelete.id{
-                            
-                        context.delete(result as! NSManagedObject)
-                        break
-                    }
-                }
-                    
-                try context.save()
-                    
-            } catch {
-                    
-                print("To dance beneath the diamond sky with one hand waving free")
-            }
-                
-            
-            
-            self.showSignifier()
-            self.fetchLibrary()
-        })
-        
-        
-    }
-    
     
     @IBAction func showHidePlayingView(_ sender: UITapGestureRecognizer) {
         //Method to hand tap on currently playing view
