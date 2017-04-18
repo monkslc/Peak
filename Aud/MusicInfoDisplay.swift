@@ -39,7 +39,7 @@ class MusicInfoDisplay: UIView {
         displayController = UISegmentedControl(frame: CGRect(x: bounds.minX + 40, y: bounds.minY, width: bounds.width - 80, height: 35))
         displayController.tintColor = UIColor.peakColor
         displayController.insertSegment(withTitle: "Queue", at: 0, animated: false)
-        displayController.insertSegment(withTitle: "Lyrics", at: 0, animated: false)
+        //displayController.insertSegment(withTitle: "Lyrics", at: 0, animated: false)
         displayController.insertSegment(withTitle: "Info", at: 0, animated: false)
         displayController.addTarget(self, action: #selector(updateDisplay), for: .valueChanged)
         displayController.selectedSegmentIndex = 0
@@ -67,10 +67,10 @@ class MusicInfoDisplay: UIView {
         if displayController.selectedSegmentIndex == 0 {
             
             updateWithSongInfo()
-        } else if displayController.selectedSegmentIndex == 1{
+        } else if displayController.selectedSegmentIndex == 2{
             
             updateWithLyrics()
-        } else if displayController.selectedSegmentIndex == 2 {
+        } else if displayController.selectedSegmentIndex == 1 {
             
             updateWithQueue()
         }
