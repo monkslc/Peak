@@ -164,11 +164,125 @@ class Alerts {
             SendingBluetooth.sendSongIdToHost(id: "\(songId)", error: {
                 
                 //not sure what to do if we get an error here yet
-                /************AHHHHHHH DON'T KNOW WHAT TO DO IF WE GET AN ERROR*************/
             })
             
             
             
+        })
+    }
+    
+    
+    static func createDeleteAction(_ sender: UILongPressGestureRecognizer) -> UIAlertAction{
+        
+        //Create the alert here and return it
+        return UIAlertAction(title: "Delete Song", style: .default, handler: {(alert) in
+            
+            var songToDelete = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
+            
+            if let cell: SongCell = sender.view as? SongCell{
+                
+                songToDelete = cell.songInCell!
+            } else if let album: RecentsAlbumView = sender.view as? RecentsAlbumView {
+                
+                songToDelete = album.songAssocWithImage!
+            }
+            
+            
+            //now delete it
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
+            request.returnsObjectsAsFaults = false
+            
+            do{
+                
+                let results = try context.fetch(request)
+                
+                for result in results{
+                    
+                    let songInCD = result as! StoredSong
+                    
+                    //check if our songs match and if so delete
+                    if songInCD.storedID == songToDelete.id{
+                        
+                        context.delete(result as! NSManagedObject)
+                        break
+                    }
+                }
+                
+                try context.save()
+                
+            } catch {
+                
+                print("To dance beneath the diamond sky with one hand waving free")
+            }
+            
+            
+            
+            (peakMusicController.delegate as! LibraryViewController).showSignifier()
+            (peakMusicController.delegate as! LibraryViewController).fetchLibrary()
+        })
+    }
+    
+    
+    static func addToLibraryAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction{
+        
+        
+        return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
+            
+            
+            
+            (peakMusicController.delegate as! LibraryViewController).showSignifier()
+            
+            
+            
+            let cell:SongCell = (sender.view as? SongCell)!
+            
+            if peakMusicController.musicType == .AppleMusic{
+                
+                MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                    
+                    /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
+                    /*******DO SOMETHING WITH THE ERROR******/
+                })
+                
+                
+            } else if peakMusicController.musicType == .Guest{
+                
+                
+                
+                if let songToAdd = cell.songInCell{
+                    
+                    //Add the song to core data here, and to the users current library
+                    
+                    //check if the user has already downloaded it
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let context = appDelegate.persistentContainer.viewContext
+                    
+                    let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
+                    newSong.setValue(songToAdd.id, forKey: "storedID")
+                    newSong.setValue(Date(), forKey: "downloaded")
+                    
+                    
+                    
+                    //now try to save it
+                    do{
+                        try context.save()
+                    }catch{
+                        
+                        print("The fiddler he now steps to the road")
+                    }
+                    
+                }
+                
+            }
+            
+            
+            (peakMusicController.delegate as! LibraryViewController).fetchLibrary()
+            
+            //self.searchedSongsTableView.reloadData()
         })
     }
     

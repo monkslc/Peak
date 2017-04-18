@@ -218,69 +218,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         if gesture.state == .began {
             
-            //alert the options for the song here
-            let alert = UIAlertController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            
-            
-            //Change what appears based on the user's type
-            if peakMusicController.playerType != .Contributor {
-                
-                //Get the cell
-                if let cell: SongCell = gesture.view as? SongCell{
-                    
-                    //Add A play now
-                    if peakMusicController.musicType != .Guest{
-                        
-                        alert.addAction(Alerts.playNowAlert(gesture))
-                    }
-                    
-                    
-                    //change what appears based on the music type
-                    if cell.songInCell == nil{
-                        //Library
-                        
-                        //Add Actions for library non contributors
-                        alert.addAction(Alerts.playNextAlert(gesture))
-                        alert.addAction(Alerts.playLastAlert(gesture))
-                        alert.addAction(Alerts.playAlbumAlert(gesture))
-                        alert.addAction(Alerts.playArtistAlert(gesture))
-                        
-        
-
-                    } else {
-                        //Apple Music
-                        
-                        //Add Actions For Apple Music Non Contributors
-                        alert.addAction(addToLibraryAlert(gesture))
-                    }
-                }
-                
-    
-            } else { //User is a contributor so display those methods
-                
-                
-                if let cell: SongCell = gesture.view as? SongCell {
-                    
-                    alert.addAction(Alerts.sendToGroupQueueAlert(gesture))
-                    
-                    //Add an add to library option if we are in Apple Music
-                    if cell.songInCell != nil {
-                        
-                        alert.addAction(addToLibraryAlert(gesture))
-                    }
-                }
-            }
-            
-            
-            //Add a cancel action
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            
-            alert.modalPresentationStyle = .popover
-            let ppc = alert.popoverPresentationController
-            ppc?.sourceRect = (gesture.view?.bounds)!
-            ppc?.sourceView = gesture.view
-            present(alert, animated: true, completion: nil)
+            let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
+            alert.addSearchAlerts(gesture, delegateViewController: (delegate as! LibraryViewController))
+            alert.presentMe(gesture, presenterViewController: self)
         }
         
     }
@@ -314,66 +254,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
 
     
     /*MARK: Song Interaction Functionality Methods*/
-    
-    
-    func addToLibraryAlert(_ gesture: UIGestureRecognizer) -> UIAlertAction{
-        
-        return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
-            
-            
-            
-            self.showSignifier()
-            
-            
-            
-            let cell:SongCell = (gesture.view as? SongCell)!
-            
-            if peakMusicController.musicType == .AppleMusic{
-                
-                MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
-                    
-                    /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
-                    /*******DO SOMETHING WITH THE ERROR******/
-                })
-                
-                
-            } else if peakMusicController.musicType == .Guest{
-                
-                
-                
-                if let songToAdd = cell.songInCell{
-                    
-                    //Add the song to core data here, and to the users current library
-                    
-                    //check if the user has already downloaded it
-                    
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    let context = appDelegate.persistentContainer.viewContext
-                    
-                    let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
-                    newSong.setValue(songToAdd.id, forKey: "storedID")
-                    newSong.setValue(Date(), forKey: "downloaded")
-                    
-                    
-                    
-                    //now try to save it
-                    do{
-                        try context.save()
-                    }catch{
-                        
-                        print("The fiddler he now steps to the road")
-                    }
-                    
-                }
-                
-            }
-            
-            
-            (self.delegate as! LibraryViewController).fetchLibrary()
-            self.searchedSongsTableView.reloadData()
-        })
-    }
-    
     
     func addToLibrary(_ button: UIButton){
         
