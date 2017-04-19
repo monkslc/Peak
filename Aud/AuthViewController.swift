@@ -41,9 +41,15 @@ class AuthViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleDjForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive(notification:)), name: NSNotification.Name(rawValue: "applicationDidBecomeActive"), object: nil)
+        
+        makePeakGlow()
+    }
+    
+    
+    private func makePeakGlow() {
         addGradientMaskToView(view: peakLabel, gradientWidth: 30)
     }
-
     fileprivate func addGradientMaskToView(view:UIView, transparency:CGFloat = 0.5, gradientWidth:CGFloat = 40.0) {
         let gradientMask = CAGradientLayer()
         gradientMask.frame = view.bounds
@@ -222,6 +228,10 @@ class AuthViewController: UIViewController {
         //DispatchQueue.main.sync {
             self.guestButtonClicked()
         //}
+    }
+    
+    func handleApplicationDidBecomeActive(notification: NSNotification) {
+        makePeakGlow()
     }
     
     //Check how we are segueing so we can se tthe music player to the appropriate type
