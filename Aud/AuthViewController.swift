@@ -15,6 +15,8 @@ class AuthViewController: UIViewController {
     
     @IBOutlet var welcomeToLabel: UILabel!
     
+    @IBOutlet var peakLabel: UILabel!
+    
     @IBOutlet weak var appleMusicButton: RoundedButton!
     
     @IBOutlet weak var ConnectToAppleMusicLabel: UILabel!
@@ -38,8 +40,34 @@ class AuthViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleAppleMusicForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedAppleMusicForceTouchNotification"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleDjForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
+        
+        addGradientMaskToView(view: peakLabel, gradientWidth: 30)
     }
 
+    fileprivate func addGradientMaskToView(view:UIView, transparency:CGFloat = 0.5, gradientWidth:CGFloat = 40.0) {
+        let gradientMask = CAGradientLayer()
+        gradientMask.frame = view.bounds
+        let gradientSize = gradientWidth/view.frame.size.width
+        let gradientColor = UIColor(white: 1, alpha: transparency)
+        //let gradientColor = UIColor(colorLiteralRed: 0.6, green: 0.2, blue: 0.2, alpha: Float(transparency))
+        let startLocations = [0, gradientSize/2, gradientSize]
+        let endLocations = [(1 - gradientSize), (1 - gradientSize/2), 1]
+        let animation = CABasicAnimation(keyPath: "locations")
+        
+        gradientMask.colors = [gradientColor.cgColor, UIColor.white.cgColor, gradientColor.cgColor]
+        gradientMask.locations = startLocations as [NSNumber]?
+        gradientMask.startPoint = CGPoint(x:0 - (gradientSize * 2) - 0.1, y: 0.5)
+        gradientMask.endPoint = CGPoint(x:1 + gradientSize + 0.1, y: 0.5)
+        
+        view.layer.mask = gradientMask
+        
+        animation.fromValue = startLocations
+        animation.toValue = endLocations
+        animation.repeatCount = HUGE
+        animation.duration = 4
+        
+        gradientMask.add(animation, forKey: nil)
+    }
     
     @IBAction func checkAppleAuthentication() {
         
