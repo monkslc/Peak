@@ -16,10 +16,6 @@ class GettingTopCharts {
     
     var lastTopCharts: [Song]?
     
-    init() {
-        searchTopCharts()
-    }
-    
     func searchTopCharts() {
         
         let url = URL(string: "http://www.apple.com/itunes/charts/songs/")
