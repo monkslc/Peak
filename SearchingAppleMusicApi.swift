@@ -21,6 +21,9 @@ class SearchingAppleMusicApi {
     
     private var lastSearch: TimeInterval = 0
     
+    private var lastSearchIndex = -1
+    private var searchCount = 0
+    
     func addSearch(term: String, completion: @escaping ([Song]) -> Void) {
         if isSearching {
             nextSearchTerm = term
@@ -41,6 +44,9 @@ class SearchingAppleMusicApi {
     }
     
     private func doSearch(term: String, completion: @escaping ([Song]) -> Void) {
+        let currentSearchIndex = searchCount
+        searchCount += 1
+        
         lastSearch = NSDate().timeIntervalSince1970
         
         let searchesAtTime = searches
@@ -65,7 +71,10 @@ class SearchingAppleMusicApi {
         ConnectingToInternet.getSongs(searchTerm: term, limit: 7, sendSongsAlltogether: true, completion: {
             (songs) -> Void in
             
-            completion(songs)
+            if currentSearchIndex > self.lastSearchIndex {
+                self.lastSearchIndex = currentSearchIndex
+                completion(songs)
+            }
             
             self.searches += 1
             
