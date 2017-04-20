@@ -9,11 +9,8 @@
 import Foundation
 import SystemConfiguration
 
-protocol Utilities {
-}
 
-extension NSObject:Utilities{
-    
+class CheckInternetConnection {
     
     enum ReachabilityStatus {
         case notReachable
@@ -21,7 +18,7 @@ extension NSObject:Utilities{
         case reachableViaWiFi
     }
     
-    var currentReachabilityStatus: ReachabilityStatus {
+    private static var currentReachabilityStatus: ReachabilityStatus {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
@@ -60,5 +57,9 @@ extension NSObject:Utilities{
             return .notReachable
         }
     }
+
     
+    static func isConnectedToWifi() -> Bool {
+        return currentReachabilityStatus == .reachableViaWiFi
+    }
 }

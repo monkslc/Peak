@@ -20,12 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        if currentReachabilityStatus == .reachableViaWiFi {
-            print("Conected to wifi")
+        if CheckInternetConnection.isConnectedToWifi() {
             GettingTopCharts.defaultGettingTopCharts.searchTopCharts()
-        }
-        else {
-            print("Not connected to wifi")
         }
         
         var performShortcutDelegate = true

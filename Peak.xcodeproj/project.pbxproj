@@ -18,7 +18,7 @@
 		90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */; };
 		90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */; };
 		90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */; };
-		90F817221EA8EF9E0073D0B9 /* CheckIfConnectedToWifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F817211EA8EF9E0073D0B9 /* CheckIfConnectedToWifi.swift */; };
+		90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */; };
 		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
@@ -63,7 +63,7 @@
 		90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingToInternet.swift; sourceTree = "<group>"; };
 		90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverBluetoothViewController.swift; sourceTree = "<group>"; };
 		90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingBluetooth.swift; sourceTree = "<group>"; };
-		90F817211EA8EF9E0073D0B9 /* CheckIfConnectedToWifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckIfConnectedToWifi.swift; path = Aud/CheckIfConnectedToWifi.swift; sourceTree = "<group>"; };
+		90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckInternetConnection.swift; path = Aud/CheckInternetConnection.swift; sourceTree = "<group>"; };
 		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		90E2DFDE1E874F6400762B9D /* Cam */ = {
 			isa = PBXGroup;
 			children = (
-				90F817211EA8EF9E0073D0B9 /* CheckIfConnectedToWifi.swift */,
+				90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */,
 				904885E11E902D5900F090F1 /* LocalSearch.swift */,
 				90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */,
 				90323D341EA8D2FE00489B50 /* GettingTopCharts.swift */,
@@ -390,7 +390,7 @@
 				904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */,
 				C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */,
 				C4D1176B1E809905000A854A /* BeginningButton.swift in Sources */,
-				90F817221EA8EF9E0073D0B9 /* CheckIfConnectedToWifi.swift in Sources */,
+				90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */,
 				904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */,
 				90E2DFE61E87FF0900762B9D /* Song.swift in Sources */,
 				C4D117701E809C20000A854A /* SongProgressSlider.swift in Sources */,
