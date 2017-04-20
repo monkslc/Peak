@@ -16,7 +16,14 @@ class GettingTopCharts {
     
     var lastTopCharts: [Song]?
     
+    var isSearching = false
+    
     func searchTopCharts() {
+        
+        if isSearching {
+            return
+        }
+        isSearching = true
         
         let url = URL(string: "http://www.apple.com/itunes/charts/songs/")
         
@@ -69,6 +76,7 @@ class GettingTopCharts {
                                         }
                                         self.completion(s)
                                         self.lastTopCharts = s
+                                        self.isSearching = false
                                     }
                                     
                                 }, error: {
@@ -85,13 +93,14 @@ class GettingTopCharts {
                 }
                 else {
                     self.completion([])
-                    self.lastTopCharts = []
+                    self.isSearching = false
                 }
             }
             else {
                 self.completion([])
-                self.lastTopCharts = []
+                self.isSearching = false
             }
         }.resume()
     }
+ 
 }

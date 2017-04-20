@@ -607,6 +607,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                     }
                 }
             }
+            GettingTopCharts.defaultGettingTopCharts.searchTopCharts()
         }
         /*
         DispatchQueue.main.async {
