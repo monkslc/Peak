@@ -588,6 +588,27 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchTopCharts() {
         
+        if let songs = GettingTopCharts.defaultGettingTopCharts.lastTopCharts {
+            DispatchQueue.main.async {
+                if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
+                    self.topThreeResults = songs as [AnyObject]
+                    self.loadingIndicator.stopAnimating()
+                }
+            }
+        }
+        else {
+            GettingTopCharts.defaultGettingTopCharts.completion = {
+                (songs) -> Void in
+                
+                DispatchQueue.main.async {
+                    if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
+                        self.topThreeResults = songs as [AnyObject]
+                        self.loadingIndicator.stopAnimating()
+                    }
+                }
+            }
+        }
+        /*
         DispatchQueue.main.async {
             ConnectingToInternet.searchTopCharts(completion: {
                 (songs) -> Void in
@@ -600,6 +621,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 }
             })
         }
+ */
     }
     
     
