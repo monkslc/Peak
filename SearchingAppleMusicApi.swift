@@ -74,9 +74,11 @@ class SearchingAppleMusicApi {
             if currentSearchIndex > self.lastSearchIndex {
                 self.lastSearchIndex = currentSearchIndex
                 completion(songs)
+                
+                self.searches += 1
             }
             
-            self.searches += 1
+            // self.searches += 1
             
             if let search = self.nextSearchTerm {
                
