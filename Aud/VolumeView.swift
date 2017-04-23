@@ -42,11 +42,11 @@ class VolumeView: UIView {
     
     func setUpIcons(){
         
-        minimumVolumeIcon = UIImageView(frame: CGRect(x: bounds.minX + 25, y: bounds.midY - 7.5, width: 15, height: 15))
+        minimumVolumeIcon = UIImageView(frame: CGRect(x: bounds.minX + 20, y: bounds.midY - 6, width: 15, height: 15))
         minimumVolumeIcon.image = #imageLiteral(resourceName: "Low Volume Filled-50")
         addSubview(minimumVolumeIcon)
         
-        maximumVolumeIcon = UIImageView(frame: CGRect(x: bounds.maxX - 40, y: bounds.midY - 7.5, width: 15, height: 15))
+        maximumVolumeIcon = UIImageView(frame: CGRect(x: bounds.maxX - 35, y: bounds.midY - 6, width: 15, height: 15))
         maximumVolumeIcon.image = #imageLiteral(resourceName: "High Volume Filled-50")
         addSubview(maximumVolumeIcon)
     }
