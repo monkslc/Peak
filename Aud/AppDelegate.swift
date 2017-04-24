@@ -1,4 +1,4 @@
-//
+//  This is for all our new features post V1
 //  AppDelegate.swift
 //  Aud
 //
@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if CheckInternetConnection.isConnectedToWifi() {
+            GettingTopCharts.defaultGettingTopCharts.searchTopCharts()
+        }
         
         var performShortcutDelegate = true
         
@@ -54,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "applicationDidBecomeActive"), object: nil)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

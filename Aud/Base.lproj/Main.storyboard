@@ -153,6 +153,7 @@
                             <constraint firstItem="Q1I-4H-dqn" firstAttribute="top" secondItem="ydL-tI-XZf" secondAttribute="bottom" constant="20" id="tbr-cT-VkC"/>
                             <constraint firstItem="jBT-Be-4FH" firstAttribute="centerX" secondItem="ZqJ-B8-8Hk" secondAttribute="centerX" id="u6A-WL-Dhh"/>
                             <constraint firstItem="ZBJ-Kx-hHg" firstAttribute="top" secondItem="rbP-qJ-mY0" secondAttribute="bottom" id="wuz-ze-kRe"/>
+                            <constraint firstItem="5Qm-y8-boF" firstAttribute="top" secondItem="Q1I-4H-dqn" secondAttribute="bottom" constant="8" id="yCO-60-ukx"/>
                             <constraint firstItem="rbP-qJ-mY0" firstAttribute="leading" secondItem="wpt-Cy-qMb" secondAttribute="leading" id="yf5-Ty-c9Z"/>
                         </constraints>
                     </view>
@@ -162,6 +163,7 @@
                         <outlet property="ConnectToAppleMusicLabel" destination="3xA-j1-HKd" id="lTM-kG-l3g"/>
                         <outlet property="guestButton" destination="jBT-Be-4FH" id="gHJ-P7-2MN"/>
                         <outlet property="loadingIndicator" destination="9eS-y4-8j5" id="7YS-2e-8ne"/>
+                        <outlet property="peakLabel" destination="5Qm-y8-boF" id="sYQ-5W-syE"/>
                         <outlet property="welcomeToLabel" destination="WrG-Jf-eG3" id="pgg-PX-9ho"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Segue as Guest" id="ZYu-fU-4bw"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Segue to Apple Music" id="F1Y-LY-gnw"/>

@@ -160,8 +160,7 @@ class MusicInfoDisplay: UIView {
 
                 
                 //get and pug lyrics into lyrics view
-                ConnectingToInternet.getFullLyrics(song: song, completion: {(lyrics) in
-                
+                GettingLyrics.defaultGettingLyrics.getFullLyrics(song: song, completion: {(lyrics) in
                     
                     DispatchQueue.main.async {
                 
@@ -187,7 +186,7 @@ class MusicInfoDisplay: UIView {
                 let currentlyPlayingSong = peakMusicController.groupPlayQueue[0]
                 
                 //Fetch the lyrics and plug them into the lyrics view
-                ConnectingToInternet.getFullLyrics(song: currentlyPlayingSong, completion: {(lyrics) in
+                GettingLyrics.defaultGettingLyrics.getFullLyrics(song: currentlyPlayingSong, completion: {(lyrics) in
                 
                     DispatchQueue.main.async {
                         
