@@ -30,7 +30,7 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Peak wants to use Media Library</string>
+	<string></string>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
@@ -69,6 +69,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>kTCCServiceMediaLibrary</key>
-	<string>Peak wants to use Apple Music</string>
+	<string>Peak wants to access Apple Music</string>
 </dict>
 </plist>
