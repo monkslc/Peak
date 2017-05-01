@@ -13,8 +13,6 @@ import UIKit
 class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSource{
     
     
-    var library = UITableView() //Need this to get the cell
-    
     //always want one section
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -37,7 +35,9 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        let cell = library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
+        //Get the cell we want to use
+        let LVC = peakMusicController.delegate as! LibraryViewController
+        let cell = LVC.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
     
         
         //update the cell depending on the type of player

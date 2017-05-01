@@ -20,12 +20,21 @@
 		90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */; };
 		90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */; };
 		90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */; };
-		C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */; };
+		C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
 		C456253A1E8EF95E00311750 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45625391E8EF95E00311750 /* Alerts.swift */; };
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
+		C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */; };
+		C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */; };
+		C47FC7BE1EB695E700B1A352 /* PlaybackStateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */; };
+		C47FC7C01EB6993F00B1A352 /* SICDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BF1EB6993F00B1A352 /* SICDisplay.swift */; };
+		C47FC7C21EB69E8F00B1A352 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7C11EB69E8F00B1A352 /* NotificationExtension.swift */; };
+		C47FC7C51EB6A3B500B1A352 /* SicSongProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7C41EB6A3B500B1A352 /* SicSongProgress.swift */; };
+		C47FC7C71EB6A8EA00B1A352 /* SongProgressLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7C61EB6A8EA00B1A352 /* SongProgressLabel.swift */; };
+		C47FC7C91EB6AE7E00B1A352 /* SICForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7C81EB6AE7E00B1A352 /* SICForwardButton.swift */; };
+		C47FC7CB1EB6AF2100B1A352 /* SICBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7CA1EB6AF2100B1A352 /* SICBackButton.swift */; };
 		C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48E45831E7479BF00BFFE4C /* SongCell.swift */; };
 		C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */; };
 		C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */; };
@@ -34,14 +43,7 @@
 		C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1175D1E7F6C69000A854A /* RoundedButton.swift */; };
 		C4D117611E803A74000A854A /* PeakMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117601E803A74000A854A /* PeakMusicController.swift */; };
 		C4D117671E805DF8000A854A /* Signifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117661E805DF8000A854A /* Signifier.swift */; };
-		C4D117691E806E75000A854A /* CurrentlyPlayingAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117681E806E75000A854A /* CurrentlyPlayingAlbumView.swift */; };
-		C4D1176B1E809905000A854A /* BeginningButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1176A1E809905000A854A /* BeginningButton.swift */; };
-		C4D1176D1E809A91000A854A /* ForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1176C1E809A91000A854A /* ForwardButton.swift */; };
-		C4D117701E809C20000A854A /* SongProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1176F1E809C20000A854A /* SongProgressSlider.swift */; };
-		C4D117731E80A0AD000A854A /* SongProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117721E80A0AD000A854A /* SongProgressView.swift */; };
-		C4D117761E80A52E000A854A /* MusicInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117751E80A52E000A854A /* MusicInfoDisplay.swift */; };
 		C4D117781E80A9F2000A854A /* VisualQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117771E80A9F2000A854A /* VisualQueueController.swift */; };
-		C4D1177B1E80B262000A854A /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1177A1E80B262000A854A /* VolumeView.swift */; };
 		C4DBB97D1E9351D600591F7C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4DBB97B1E9351D600591F7C /* Model.xcdatamodeld */; };
 		C4E896611E7458620096EC72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E896601E7458620096EC72 /* AppDelegate.swift */; };
 		C4E896631E7458620096EC72 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E896621E7458620096EC72 /* LibraryViewController.swift */; };
@@ -67,12 +69,21 @@
 		90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverBluetoothViewController.swift; sourceTree = "<group>"; };
 		90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingBluetooth.swift; sourceTree = "<group>"; };
 		90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckInternetConnection.swift; path = Aud/CheckInternetConnection.swift; sourceTree = "<group>"; };
-		C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingView.swift; sourceTree = "<group>"; };
+		C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICSongInfoDisplay.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
 		C45625391E8EF95E00311750 /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInteractionController.swift; sourceTree = "<group>"; };
+		C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICAlbumArt.swift; sourceTree = "<group>"; };
+		C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackStateButton.swift; sourceTree = "<group>"; };
+		C47FC7BF1EB6993F00B1A352 /* SICDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICDisplay.swift; sourceTree = "<group>"; };
+		C47FC7C11EB69E8F00B1A352 /* NotificationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationExtension.swift; path = ../NotificationExtension.swift; sourceTree = "<group>"; };
+		C47FC7C41EB6A3B500B1A352 /* SicSongProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SicSongProgress.swift; sourceTree = "<group>"; };
+		C47FC7C61EB6A8EA00B1A352 /* SongProgressLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongProgressLabel.swift; sourceTree = "<group>"; };
+		C47FC7C81EB6AE7E00B1A352 /* SICForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICForwardButton.swift; sourceTree = "<group>"; };
+		C47FC7CA1EB6AF2100B1A352 /* SICBackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICBackButton.swift; sourceTree = "<group>"; };
 		C48E45831E7479BF00BFFE4C /* SongCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedView.swift; sourceTree = "<group>"; };
 		C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentsAlbumView.swift; path = ../RecentsAlbumView.swift; sourceTree = "<group>"; };
@@ -81,14 +92,7 @@
 		C4D1175D1E7F6C69000A854A /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4D117601E803A74000A854A /* PeakMusicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeakMusicController.swift; sourceTree = "<group>"; };
 		C4D117661E805DF8000A854A /* Signifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signifier.swift; sourceTree = "<group>"; };
-		C4D117681E806E75000A854A /* CurrentlyPlayingAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentlyPlayingAlbumView.swift; sourceTree = "<group>"; };
-		C4D1176A1E809905000A854A /* BeginningButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeginningButton.swift; sourceTree = "<group>"; };
-		C4D1176C1E809A91000A854A /* ForwardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardButton.swift; sourceTree = "<group>"; };
-		C4D1176F1E809C20000A854A /* SongProgressSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongProgressSlider.swift; sourceTree = "<group>"; };
-		C4D117721E80A0AD000A854A /* SongProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongProgressView.swift; sourceTree = "<group>"; };
-		C4D117751E80A52E000A854A /* MusicInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicInfoDisplay.swift; sourceTree = "<group>"; };
 		C4D117771E80A9F2000A854A /* VisualQueueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualQueueController.swift; sourceTree = "<group>"; };
-		C4D1177A1E80B262000A854A /* VolumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; };
 		C4DBB97C1E9351D600591F7C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		C4E8965D1E7458620096EC72 /* Aud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4E896601E7458620096EC72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +160,32 @@
 			name = "Search Bar Popover";
 			sourceTree = "<group>";
 		};
+		C47FC7BA1EB6925E00B1A352 /* Song Interaction Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */,
+				C47FC7C61EB6A8EA00B1A352 /* SongProgressLabel.swift */,
+				C47FC7C81EB6AE7E00B1A352 /* SICForwardButton.swift */,
+				C47FC7CA1EB6AF2100B1A352 /* SICBackButton.swift */,
+				C4D117771E80A9F2000A854A /* VisualQueueController.swift */,
+				C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */,
+				C47FC7BF1EB6993F00B1A352 /* SICDisplay.swift */,
+				C47FC7C41EB6A3B500B1A352 /* SicSongProgress.swift */,
+				C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */,
+				C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */,
+			);
+			name = "Song Interaction Controller";
+			sourceTree = "<group>";
+		};
+		C47FC7C31EB69E9C00B1A352 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C47FC7C11EB69E8F00B1A352 /* NotificationExtension.swift */,
+				C4D1175B1E7F2024000A854A /* PeakColorExt.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		C48B4F0E1E9B1FF1002D2DB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +199,6 @@
 				C452209A1EA2EC3500E9A626 /* Song Option Files */,
 				90E2DFEF1E88865D00762B9D /* BluetoothPopOver */,
 				C45625301E8B4F5200311750 /* Search Bar Popover */,
-				C4D1176E1E809BB5000A854A /* CurrentlyPlayingView */,
 				C4D1177D1E819FB9000A854A /* Main View Controller Methods */,
 			);
 			name = MusicPlayer;
@@ -183,46 +212,6 @@
 				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
 			);
 			name = Authentication;
-			sourceTree = "<group>";
-		};
-		C4D1176E1E809BB5000A854A /* CurrentlyPlayingView */ = {
-			isa = PBXGroup;
-			children = (
-				C4D117711E809C30000A854A /* ForwardAndBegButtons */,
-				C4D117741E80A3C9000A854A /* SongProgress */,
-				C4D117791E80AE77000A854A /* MusicInfoDisplay */,
-				C4D117681E806E75000A854A /* CurrentlyPlayingAlbumView.swift */,
-				C402051A1E785AEE00E676C5 /* CurrentlyPlayingView.swift */,
-				C4D1177A1E80B262000A854A /* VolumeView.swift */,
-			);
-			name = CurrentlyPlayingView;
-			sourceTree = "<group>";
-		};
-		C4D117711E809C30000A854A /* ForwardAndBegButtons */ = {
-			isa = PBXGroup;
-			children = (
-				C4D1176C1E809A91000A854A /* ForwardButton.swift */,
-				C4D1176A1E809905000A854A /* BeginningButton.swift */,
-			);
-			name = ForwardAndBegButtons;
-			sourceTree = "<group>";
-		};
-		C4D117741E80A3C9000A854A /* SongProgress */ = {
-			isa = PBXGroup;
-			children = (
-				C4D117721E80A0AD000A854A /* SongProgressView.swift */,
-				C4D1176F1E809C20000A854A /* SongProgressSlider.swift */,
-			);
-			name = SongProgress;
-			sourceTree = "<group>";
-		};
-		C4D117791E80AE77000A854A /* MusicInfoDisplay */ = {
-			isa = PBXGroup;
-			children = (
-				C4D117771E80A9F2000A854A /* VisualQueueController.swift */,
-				C4D117751E80A52E000A854A /* MusicInfoDisplay.swift */,
-			);
-			name = MusicInfoDisplay;
 			sourceTree = "<group>";
 		};
 		C4D1177C1E819F9A000A854A /* Supporting Files */ = {
@@ -275,8 +264,9 @@
 			children = (
 				C4BA29791E7DCC13000AAD48 /* MusicPlayer */,
 				C4E896641E7458620096EC72 /* Main.storyboard */,
+				C47FC7C31EB69E9C00B1A352 /* Extensions */,
 				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
-				C4D1175B1E7F2024000A854A /* PeakColorExt.swift */,
+				C47FC7BA1EB6925E00B1A352 /* Song Interaction Controller */,
 				C4D1175F1E7F6C6F000A854A /* Authentication */,
 				C4D1177C1E819F9A000A854A /* Supporting Files */,
 			);
@@ -325,7 +315,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 58NU5LV6AX;
+						DevelopmentTeam = SDRSRURVZA;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -378,20 +368,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4D1177B1E80B262000A854A /* VolumeView.swift in Sources */,
+				C47FC7C91EB6AE7E00B1A352 /* SICForwardButton.swift in Sources */,
+				C47FC7C51EB6A3B500B1A352 /* SicSongProgress.swift in Sources */,
 				90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */,
-				C402051B1E785AEE00E676C5 /* CurrentlyPlayingView.swift in Sources */,
+				C47FC7BE1EB695E700B1A352 /* PlaybackStateButton.swift in Sources */,
 				C4D117611E803A74000A854A /* PeakMusicController.swift in Sources */,
-				C4D117691E806E75000A854A /* CurrentlyPlayingAlbumView.swift in Sources */,
 				C4E896631E7458620096EC72 /* LibraryViewController.swift in Sources */,
 				C4D117671E805DF8000A854A /* Signifier.swift in Sources */,
+				C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */,
 				90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */,
+				C47FC7CB1EB6AF2100B1A352 /* SICBackButton.swift in Sources */,
 				C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */,
 				90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */,
+				C47FC7C01EB6993F00B1A352 /* SICDisplay.swift in Sources */,
 				C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */,
 				C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */,
 				C456253A1E8EF95E00311750 /* Alerts.swift in Sources */,
-				C4D117731E80A0AD000A854A /* SongProgressView.swift in Sources */,
 				90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */,
 				C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */,
 				90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */,
@@ -405,16 +397,16 @@
 				C4DBB97D1E9351D600591F7C /* Model.xcdatamodeld in Sources */,
 				904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */,
 				C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */,
-				C4D1176B1E809905000A854A /* BeginningButton.swift in Sources */,
+				C47FC7C21EB69E8F00B1A352 /* NotificationExtension.swift in Sources */,
 				90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */,
 				904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */,
+				C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */,
 				90E2DFE61E87FF0900762B9D /* Song.swift in Sources */,
-				C4D117701E809C20000A854A /* SongProgressSlider.swift in Sources */,
+				C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */,
 				C4D117781E80A9F2000A854A /* VisualQueueController.swift in Sources */,
 				90323D351EA8D2FE00489B50 /* GettingTopCharts.swift in Sources */,
-				C4D117761E80A52E000A854A /* MusicInfoDisplay.swift in Sources */,
 				90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */,
-				C4D1176D1E809A91000A854A /* ForwardButton.swift in Sources */,
+				C47FC7C71EB6A8EA00B1A352 /* SongProgressLabel.swift in Sources */,
 				C4FCDF931E90A83A0046C1F9 /* DisplayLabelView.swift in Sources */,
 				C4FCDF951E90AE9E0046C1F9 /* ScrollPresenterView.swift in Sources */,
 				90323D331EA8D10D00489B50 /* GettingLyrics.swift in Sources */,
@@ -541,7 +533,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -558,7 +550,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
