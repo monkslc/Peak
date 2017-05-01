@@ -20,6 +20,7 @@
 		90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */; };
 		90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */; };
 		C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */; };
+		C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405151F1EB7DC0B00F1471F /* BeastController.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
@@ -68,6 +69,7 @@
 		90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingBluetooth.swift; sourceTree = "<group>"; };
 		90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckInternetConnection.swift; path = Aud/CheckInternetConnection.swift; sourceTree = "<group>"; };
 		C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICSongInfoDisplay.swift; sourceTree = "<group>"; };
+		C405151F1EB7DC0B00F1471F /* BeastController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeastController.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 			children = (
 				C4BA29791E7DCC13000AAD48 /* MusicPlayer */,
 				C4E896641E7458620096EC72 /* Main.storyboard */,
+				C405151F1EB7DC0B00F1471F /* BeastController.swift */,
 				C47FC7C31EB69E9C00B1A352 /* Extensions */,
 				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
 				C47FC7BA1EB6925E00B1A352 /* Song Interaction Controller */,
@@ -364,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */,
 				C47FC7C91EB6AE7E00B1A352 /* SICForwardButton.swift in Sources */,
 				C47FC7C51EB6A3B500B1A352 /* SicSongProgress.swift in Sources */,
 				90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */,

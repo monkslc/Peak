@@ -14,7 +14,6 @@ class SICBackButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        print("Back Button initialization")
         //Add the target
         addTarget(self, action: #selector(restartSong), for: .touchUpInside)
     }

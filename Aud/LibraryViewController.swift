@@ -55,10 +55,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var scrollBar: ScrollBar!
     @IBOutlet weak var scrollPresenter: ScrollPresenterView!
     
-    @IBOutlet weak var songInteractionContainer: UIView!
-    var isPoppedUp = false
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,19 +92,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
         
-        //Set up the song interaction container
-        songInteractionContainer.isUserInteractionEnabled = true
-        songInteractionContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOnSic)))
         
-        //Add the Swipe Gestures
-        let swipeUP = UISwipeGestureRecognizer(target: self, action: #selector(swipeSIC(_:)))
-        swipeUP.direction = .up
-        
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(swipeSIC(_:)))
-        swipeDown.direction = .down
-        
-        songInteractionContainer.addGestureRecognizer(swipeDown)
-        songInteractionContainer.addGestureRecognizer(swipeUP)
         
     }
     
@@ -132,60 +116,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    /*MARK: SIC CONTAINER VIEW METHODS*/
-    func swipeSIC(_ gesture: UISwipeGestureRecognizer){
-        
-        if gesture.direction == .up{
-            
-            if !isPoppedUp {
-                
-                animateSic(up: true)
-            }
-        } else if gesture.direction == .down{
-            
-            if isPoppedUp {
-                
-                animateSic(up: false)
-            }
-        }
-    }
     
-    func tappedOnSic(){
-        
-        if isPoppedUp{
-            
-            animateSic(up: false)
-            
-        } else {
-            
-            animateSic(up: true)
-        }
-    }
-    
-    func animateSic(up: Bool){
-        
-        if up{
-            
-            //Animate it up
-            UIView.animate(withDuration: 0.5, animations: {
-                
-                self.songInteractionContainer.transform = CGAffineTransform(translationX: 0, y: (self.songInteractionContainer.frame.height - 135) * -1)
-            }, completion: {(finished) in
-                
-                self.isPoppedUp = true
-            })
-        } else {
-            
-            //Animate it down
-            UIView.animate(withDuration: 0.5, animations: {
-                
-                self.songInteractionContainer.transform = CGAffineTransform(translationX: 0, y: 0)
-            }, completion: {(finished) in
-                
-                self.isPoppedUp = false
-            })
-        }
-    }
     
     
     
