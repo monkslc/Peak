@@ -163,13 +163,58 @@
                         <outlet property="loadingIndicator" destination="9eS-y4-8j5" id="7YS-2e-8ne"/>
                         <outlet property="peakLabel" destination="5Qm-y8-boF" id="sYQ-5W-syE"/>
                         <outlet property="welcomeToLabel" destination="WrG-Jf-eG3" id="pgg-PX-9ho"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="Segue as Guest" id="ZYu-fU-4bw"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="Segue to Apple Music" id="F1Y-LY-gnw"/>
+                        <segue destination="aba-Tn-DBx" kind="show" identifier="Segue as Guest" id="xSe-en-KNr"/>
+                        <segue destination="aba-Tn-DBx" kind="show" identifier="Segue to Apple Music" id="OgC-gJ-cgY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s9D-2w-qBf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1103.2" y="30.134932533733135"/>
+        </scene>
+        <!--Beast Controller-->
+        <scene sceneID="5zh-gD-PHv">
+            <objects>
+                <viewController id="aba-Tn-DBx" customClass="BeastController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zzQ-HW-Q0M"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hbw-dp-iPZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KxJ-9A-rmW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yD7-tM-kPX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="embed" id="cLV-96-7YU"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ft-nF-02R">
+                                <rect key="frame" x="0.0" y="532" width="375" height="500.5"/>
+                                <connections>
+                                    <segue destination="7zG-78-0Oe" kind="embed" id="mah-Zk-R4h"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7ft-nF-02R" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" constant="-135" id="5Um-zH-w7f"/>
+                            <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="3:4" id="G0b-wm-byf"/>
+                            <constraint firstItem="yD7-tM-kPX" firstAttribute="centerY" secondItem="KxJ-9A-rmW" secondAttribute="centerY" id="Ps8-H7-z7q"/>
+                            <constraint firstAttribute="trailing" secondItem="7ft-nF-02R" secondAttribute="trailing" id="SIY-em-bRD"/>
+                            <constraint firstItem="yD7-tM-kPX" firstAttribute="height" secondItem="KxJ-9A-rmW" secondAttribute="height" id="WyK-jN-T3v"/>
+                            <constraint firstItem="yD7-tM-kPX" firstAttribute="centerX" secondItem="KxJ-9A-rmW" secondAttribute="centerX" id="g0t-AH-vTB"/>
+                            <constraint firstItem="yD7-tM-kPX" firstAttribute="width" secondItem="KxJ-9A-rmW" secondAttribute="width" id="mgF-Wc-b2i"/>
+                            <constraint firstItem="7ft-nF-02R" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="uuh-ge-v09"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="songInteractionContainer" destination="7ft-nF-02R" id="TOr-hv-oKo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kqn-0S-PHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-758" y="850"/>
         </scene>
         <!--Search Bar Pop Over View View Controller-->
         <scene sceneID="8rc-4x-PGA">
@@ -363,13 +408,6 @@
                                     <constraint firstAttribute="width" constant="10" id="Ogj-kV-xQN"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aI1-yL-FOq">
-                                <rect key="frame" x="0.0" y="532" width="375" height="485.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="7zG-78-0Oe" kind="embed" id="jIA-7C-njg"/>
-                                </connections>
-                            </containerView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CC-oP-P7H" customClass="ScrollPresenterView" customModule="Aud" customModuleProvider="target">
                                 <rect key="frame" x="150" y="70" width="200" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -453,21 +491,16 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="t3h-BM-8Rk" secondAttribute="trailing" id="5Ye-4a-K9b"/>
-                            <constraint firstItem="aI1-yL-FOq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="68i-6b-3AR"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="4CC-oP-P7H" secondAttribute="trailing" constant="15" id="8HW-OH-slo"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="29:30" id="B4Z-lo-Gbf"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pot-3q-ikk"/>
                             <constraint firstItem="6hn-Lo-zOk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="TmU-vj-MbG"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="height" secondItem="t3h-BM-8Rk" secondAttribute="height" id="VIf-kp-HvL"/>
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
-                            <constraint firstItem="aI1-yL-FOq" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="4:5" id="X1z-yy-omS"/>
-                            <constraint firstItem="aI1-yL-FOq" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" constant="-135" id="Z1Q-U1-4gh"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="centerY" secondItem="t3h-BM-8Rk" secondAttribute="centerY" id="alj-ou-KeL"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
                             <constraint firstAttribute="trailing" secondItem="6hn-Lo-zOk" secondAttribute="trailing" id="luU-L8-zdQ"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="6hn-Lo-zOk" secondAttribute="bottom" id="oAA-ER-Ach"/>
-                            <constraint firstItem="aI1-yL-FOq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pWO-Df-FWw"/>
-                            <constraint firstAttribute="trailing" secondItem="aI1-yL-FOq" secondAttribute="trailing" id="qeq-1O-28g"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="centerY" secondItem="05J-pc-yQM" secondAttribute="centerY" id="vcC-SI-ELN"/>
                         </constraints>
@@ -479,7 +512,6 @@
                         <outlet property="scrollBar" destination="t3h-BM-8Rk" id="rbO-AK-ECe"/>
                         <outlet property="scrollPresenter" destination="4CC-oP-P7H" id="K8E-tm-ahn"/>
                         <outlet property="searchForMediaBar" destination="EIB-1O-glD" id="Z1w-m2-7D5"/>
-                        <outlet property="songInteractionContainer" destination="aI1-yL-FOq" id="9FF-9G-BAh"/>
                         <segue destination="xZU-02-YAm" kind="popoverPresentation" identifier="Popover Bluetooth Controller" popoverAnchorView="zbU-4X-gif" id="xrx-rc-dLg">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
                         </segue>
@@ -620,14 +652,14 @@
                         <viewControllerLayoutGuide type="bottom" id="YBX-u8-evD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Pfx-yM-Eml">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="485.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="500.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zt1-CP-WBW" customClass="SICDisplay" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="375" height="435.5"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="450.5"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AIM-ua-687" customClass="MPVolumeView">
-                                        <rect key="frame" x="28" y="405.5" width="319" height="31"/>
+                                        <rect key="frame" x="28" y="420.5" width="319" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.11764705882352941" green="0.86274509803921573" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -635,7 +667,7 @@
                                         </constraints>
                                     </slider>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Low Volume Filled-50" translatesAutoresizingMaskIntoConstraints="NO" id="Z3A-Ue-6Xt">
-                                        <rect key="frame" x="12" y="408.5" width="15" height="15"/>
+                                        <rect key="frame" x="12" y="423.5" width="15" height="15"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -644,7 +676,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="High Volume Filled-50" translatesAutoresizingMaskIntoConstraints="NO" id="dEu-PR-hEX">
-                                        <rect key="frame" x="345" y="408.5" width="15" height="15"/>
+                                        <rect key="frame" x="345" y="423.5" width="15" height="15"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -701,7 +733,7 @@
                                         <color key="tintColor" red="0.1176470588" green="0.86274509799999999" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-Tt-duP" customClass="SICSongInfoDisplay" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="128" width="359" height="272.5"/>
+                                        <rect key="frame" x="8" y="128" width="359" height="287.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
@@ -838,6 +870,6 @@
         <image name="apple-music-app-icon" width="216" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZYu-fU-4bw"/>
+        <segue reference="OgC-gJ-cgY"/>
     </inferredMetricsTieBreakers>
 </document>
