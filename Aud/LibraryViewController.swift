@@ -17,9 +17,6 @@ let peakMusicController = PeakMusicController()
 
 class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, ScrollBarDelegate{
     
-
-    //view that displays currently playing options
-    @IBOutlet weak var currPlayingView: CurrentlyPlayingView!
     
     @IBOutlet weak var library: UITableView!
     
@@ -58,6 +55,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var scrollBar: ScrollBar!
     @IBOutlet weak var scrollPresenter: ScrollPresenterView!
     
+    @IBOutlet weak var songInteractionContainer: UIView!
+    var isPoppedUp = false
     
     
     override func viewDidLoad() {
@@ -97,6 +96,20 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Bluetooth
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
         
+        //Set up the song interaction container
+        songInteractionContainer.isUserInteractionEnabled = true
+        songInteractionContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOnSic)))
+        
+        //Add the Swipe Gestures
+        let swipeUP = UISwipeGestureRecognizer(target: self, action: #selector(swipeSIC(_:)))
+        swipeUP.direction = .up
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(swipeSIC(_:)))
+        swipeDown.direction = .down
+        
+        songInteractionContainer.addGestureRecognizer(swipeDown)
+        songInteractionContainer.addGestureRecognizer(swipeUP)
+        
     }
     
     
@@ -105,9 +118,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLayoutSubviews() {
         
         if loadedViews == false {
-        
-            currPlayingView.library = library
-            currPlayingView.addAllViews()
+            
             recentsView.setUp()
             loadedViews = true
         }
@@ -116,10 +127,67 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Set the albumView
         if peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork != nil {
             
-             currPlayingView.albumView.image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
         }
-       
+        
     }
+    
+    
+    /*MARK: SIC CONTAINER VIEW METHODS*/
+    func swipeSIC(_ gesture: UISwipeGestureRecognizer){
+        
+        if gesture.direction == .up{
+            
+            if !isPoppedUp {
+                
+                animateSic(up: true)
+            }
+        } else if gesture.direction == .down{
+            
+            if isPoppedUp {
+                
+                animateSic(up: false)
+            }
+        }
+    }
+    
+    func tappedOnSic(){
+        
+        if isPoppedUp{
+            
+            animateSic(up: false)
+            
+        } else {
+            
+            animateSic(up: true)
+        }
+    }
+    
+    func animateSic(up: Bool){
+        
+        if up{
+            
+            //Animate it up
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                self.songInteractionContainer.transform = CGAffineTransform(translationX: 0, y: (self.songInteractionContainer.frame.height - 135) * -1)
+            }, completion: {(finished) in
+                
+                self.isPoppedUp = true
+            })
+        } else {
+            
+            //Animate it down
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                self.songInteractionContainer.transform = CGAffineTransform(translationX: 0, y: 0)
+            }, completion: {(finished) in
+                
+                self.isPoppedUp = false
+            })
+        }
+    }
+    
+    
     
     
     /*MARK: User Interaction Methods*/
@@ -139,7 +207,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func showHidePlayingView(_ sender: UITapGestureRecognizer) {
         //Method to hand tap on currently playing view
         
-        currPlayingView.animate()
     }
     
     
@@ -552,7 +619,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func updateDisplay() {
         
         
-        currPlayingView.updateInfoDisplay()
     }
     
     func playerTypeDidChange(){
@@ -565,19 +631,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             peakMusicController.currPlayQueue = []
         }
         
-        
-        
-        //Update the currently playing view
-        //Remove all the subviews
-        for view in currPlayingView.subviews {
-            
-            view.removeFromSuperview()
-        }
-        
-        //Add them back
-        DispatchQueue.main.async {
-            self.currPlayingView.addAllViews()
-        }
     }
     /*End of Peak Music Controller Delegate Methods*/
     

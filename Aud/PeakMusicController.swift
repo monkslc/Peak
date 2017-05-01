@@ -37,6 +37,11 @@ class PeakMusicController {
     
     var playerType = PlayerType.Individual {
         didSet {
+            
+            //send the notification
+            NotificationCenter.default.post(Notification(name: .playerTypeChanged))
+            
+            
             if playerType == .Host {
                 
                 systemMusicPlayer.beginGeneratingPlaybackNotifications()
@@ -84,7 +89,14 @@ class PeakMusicController {
         case Guest
     }
     
-    var musicType = MusicType.Guest
+    var musicType = MusicType.Guest {
+        
+        didSet{
+            
+            //Send a notification
+            NotificationCenter.default.post(Notification(name: .musicTypeChanged))
+        }
+    }
     
     let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
     
