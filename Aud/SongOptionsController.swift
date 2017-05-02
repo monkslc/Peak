@@ -61,6 +61,7 @@ class SongOptionsController: UIAlertController {
     }
 
     
+    /*NEEDS TO BE UPDATED: Why is Delegate View Controller a param?*/
     func addSearchAlerts(_ sender: UILongPressGestureRecognizer,delegateViewController: LibraryViewController){
         
         if peakMusicController.playerType != .Contributor {
@@ -71,7 +72,35 @@ class SongOptionsController: UIAlertController {
                 //Searching Library Non Guest
                 if cell.songInCell == nil && peakMusicController.musicType == .AppleMusic{
                     
-                    addAppleMusicNonContributor(library: delegateViewController.mediaItemsInLibrary, recents: delegateViewController.recentSongsDownloaded, sender, comingFrom: .Search)
+                    /*NEEDS TO BE UPDATED*/
+                    var mediaItemsInLibrary = [MPMediaItem]()
+                    for item in delegateViewController.userLibrary.itemsInLibrary{
+                        
+                        switch item{
+                            
+                        case .MediaItem(let song):
+                            mediaItemsInLibrary.append(song)
+                            
+                        default:
+                            break
+                        }
+                    }
+                    
+                    /*NEEDS TO BE UPDATED*/
+                    var recentSongsDownloaded = [MPMediaItem]()
+                    for item in delegateViewController.userLibrary.recents{
+                        
+                        switch item{
+                            
+                        case .MediaItem(let song):
+                            recentSongsDownloaded.append(song)
+                            
+                        default:
+                            break
+                        }
+                    }
+                    
+                    addAppleMusicNonContributor(library: mediaItemsInLibrary, recents: recentSongsDownloaded, sender, comingFrom: .Search)
                 } else{ //Searching
                     
                     addSearchingAppleMusicOptionsNonContributor(sender)

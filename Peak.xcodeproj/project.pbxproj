@@ -12,7 +12,6 @@
 		904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */; };
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
 		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
-		90C884C31EB7CA2700D5E162 /* TestFile.strings in Resources */ = {isa = PBXBuildFile; fileRef = 90C884C21EB7CA2700D5E162 /* TestFile.strings */; };
 		90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDF1E87509C00762B9D /* MPCManager.swift */; };
 		90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE11E87560700762B9D /* StringExtension.swift */; };
 		90E2DFE61E87FF0900762B9D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE51E87FF0900762B9D /* Song.swift */; };
@@ -22,6 +21,7 @@
 		90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */; };
 		C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */; };
 		C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405151F1EB7DC0B00F1471F /* BeastController.swift */; };
+		C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40515211EB7E18E00F1471F /* UserLibrary.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
@@ -62,7 +62,6 @@
 		904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingAppleMusicApi.swift; sourceTree = "<group>"; };
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
-		90C884C21EB7CA2700D5E162 /* TestFile.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = TestFile.strings; sourceTree = "<group>"; };
 		90E2DFDF1E87509C00762B9D /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		90E2DFE11E87560700762B9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		90E2DFE51E87FF0900762B9D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -72,6 +71,7 @@
 		90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckInternetConnection.swift; path = Aud/CheckInternetConnection.swift; sourceTree = "<group>"; };
 		C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICSongInfoDisplay.swift; sourceTree = "<group>"; };
 		C405151F1EB7DC0B00F1471F /* BeastController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeastController.swift; sourceTree = "<group>"; };
+		C40515211EB7E18E00F1471F /* UserLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLibrary.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +234,7 @@
 				C4FBB3001E90B6CD000B5AB3 /* Scroll Stuff */,
 				C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */,
 				C4D117661E805DF8000A854A /* Signifier.swift */,
+				C40515211EB7E18E00F1471F /* UserLibrary.swift */,
 				C4E896621E7458620096EC72 /* LibraryViewController.swift */,
 				C4D117601E803A74000A854A /* PeakMusicController.swift */,
 				C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */,
@@ -245,7 +246,6 @@
 		C4E896541E7458610096EC72 = {
 			isa = PBXGroup;
 			children = (
-				90C884C21EB7CA2700D5E162 /* TestFile.strings */,
 				90E2DFDE1E874F6400762B9D /* Cam */,
 				C4E8965F1E7458620096EC72 /* Aud */,
 				C4E8965E1E7458620096EC72 /* Products */,
@@ -357,7 +357,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90C884C31EB7CA2700D5E162 /* TestFile.strings in Resources */,
 				C4E8966B1E7458620096EC72 /* LaunchScreen.storyboard in Resources */,
 				C4E896681E7458620096EC72 /* Assets.xcassets in Resources */,
 				C4E896661E7458620096EC72 /* Main.storyboard in Resources */,
@@ -395,6 +394,7 @@
 				C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */,
 				C4E896611E7458620096EC72 /* AppDelegate.swift in Sources */,
 				C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */,
+				C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */,
 				C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */,
 				C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */,
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,

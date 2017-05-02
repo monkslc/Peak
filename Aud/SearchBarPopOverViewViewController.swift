@@ -12,9 +12,11 @@ import CoreData
 
 protocol SearchBarPopOverViewViewControllerDelegate{
     
-    func returnLibrary() -> [MPMediaItem]
+    func returnLibraryItems() -> [LibraryItem]
     
-    func getGuestLibrary() -> [Song]
+    //func returnLibrary() -> [MPMediaItem]
+    
+    //func getGuestLibrary() -> [Song]
 }
 
 class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
@@ -310,7 +312,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
             
             //Now Reload the Data in both talbes so the user can see it
-            (delegate as! LibraryViewController).fetchLibrary()
+            (delegate as! LibraryViewController).userLibrary.fetchLibrary()
             searchedSongsTableView.reloadData()
         }
     }
@@ -412,12 +414,31 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
 
     private func searchLibrary(search: String) {
 
+        guard let packedLibrary = delegate?.returnLibraryItems() else { return }
+
+        var library = [Any]()
+        for item in packedLibrary{
+            
+            switch item{
+                
+            case .MediaItem(let song):
+                library.append(song)
+                
+            case .GuestItem(let song):
+                library.append(song)
+            }
+        }
+        
+        
+        
         switch peakMusicController.musicType {
         case .AppleMusic:
-            guard let library = delegate?.returnLibrary() else { return }
+            //guard let library = delegate?.returnLibrary() else { return }
+            
+            let newLibrary = (library as! [MPMediaItem])
             
             DispatchQueue.global().async {
-                let results = LocalSearch.search(search, library: library)
+                let results = LocalSearch.search(search, library: newLibrary)
                 
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
@@ -426,10 +447,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 }
             }
         case .Guest:
-            guard let library = delegate?.getGuestLibrary() else { return }
+            //guard let library = delegate?.getGuestLibrary() else { return }
+            
+            let newlibrary = (library as! [Song])
             
             DispatchQueue.global().async {
-                let results = LocalSearch.search(search, library: library)
+                let results = LocalSearch.search(search, library: newlibrary)
                 
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
@@ -510,25 +533,24 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func checkIfAlreadyInLibrary(_ id: String) -> Bool{
         //Method to check if the song is already in the users library
         
-        if peakMusicController.musicType == .AppleMusic{
+        
+        
+        for item in (delegate?.returnLibraryItems())!{
             
-            for song in (delegate?.returnLibrary())!{
+            switch item{
                 
+            case .MediaItem(let song):
                 if song.playbackStoreID == id{
+                    return true
+                }
+                
+            case .GuestItem(let song):
+                if song.id == id{
                     
                     return true
                 }
             }
-        } else if peakMusicController.musicType == .Guest{
-            
-            for song in (delegate as! LibraryViewController).guestItemsInLibrary{
-                
-                if song.id == id{
-                    return true
-                }
-            }
         }
-        
         
         return false
     }

@@ -221,7 +221,7 @@ class Alerts {
             
             
             (peakMusicController.delegate as! LibraryViewController).showSignifier()
-            (peakMusicController.delegate as! LibraryViewController).fetchLibrary()
+            (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
         })
     }
     
@@ -280,7 +280,7 @@ class Alerts {
             }
             
             
-            (peakMusicController.delegate as! LibraryViewController).fetchLibrary()
+            (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
             
             //self.searchedSongsTableView.reloadData()
         })

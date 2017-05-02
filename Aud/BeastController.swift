@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import MediaPlayer
+
+let peakMusicController = PeakMusicController()
 
 class BeastController: UIViewController {
 
