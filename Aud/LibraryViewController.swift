@@ -25,9 +25,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var recentsView: RecentlyAddedView!
     
-    //Search Bar in header view
-    @IBOutlet weak var searchForMediaBar: UISearchBar!
-    
     //Bluetooth connectivity button in header
     @IBOutlet weak var connectButton: UIButton!
     
@@ -50,9 +47,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Now set up the music controller
         peakMusicController.delegate = self
         peakMusicController.setUp()
-        
-        //set up the search bar
-        searchForMediaBar.delegate = self
         
         //set up the scroll bar
         scrollBar.delegate = self
@@ -96,11 +90,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    
-    
-    
-    
-    
     /*MARK: User Interaction Methods*/
     
     @IBAction func displaySongOptions(_ sender: UILongPressGestureRecognizer) {
@@ -142,17 +131,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    @IBAction func showHidePlayingView(_ sender: UITapGestureRecognizer) {
-        //Method to hand tap on currently playing view
-        
-    }
-    
     
     /*MARK: Bluetooth PopOverView Methods*/
     @IBAction func presentBluetoothPopover() {
         //Method to show the popover
         performSegue(withIdentifier: "Popover Bluetooth Controller", sender: nil)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -165,22 +148,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let controller = popOverVC.popoverPresentationController!
             controller.delegate = self
-        
-            //segue.destinationViewController?.popoverPresentationController?.sourceRect = anchorView.frame
-        } else if segue.identifier == "Show Search Options" {
-            
-            //We are showing search options
-            //remark
-            let popOverVC = segue.destination as! SearchBarPopOverViewViewController
-            popOverVC.delegate = self
-            searchForMediaBar.delegate = popOverVC
-            
-            //Set the bounds for the popOverVc
-            popOverVC.preferredContentSize = CGSize(width: view.bounds.width, height: 300)
-            
-            let controller = popOverVC.popoverPresentationController!
-            controller.delegate = self
-        }
+        } 
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

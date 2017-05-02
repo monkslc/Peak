@@ -14,9 +14,6 @@ protocol SearchBarPopOverViewViewControllerDelegate{
     
     func returnLibraryItems() -> [LibraryItem]
     
-    //func returnLibrary() -> [MPMediaItem]
-    
-    //func getGuestLibrary() -> [Song]
 }
 
 class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
@@ -60,12 +57,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Resign first responder status for the search bar
 
         
-        if let LVCDel:LibraryViewController = delegate as? LibraryViewController {
+        if let BCDel: BeastController = delegate as? BeastController{
             
-            LVCDel.searchForMediaBar.resignFirstResponder()
+            BCDel.searchForMediaBar.resignFirstResponder()
         }
         
-        (delegate as! LibraryViewController).searchForMediaBar.showsCancelButton = false
+        let BC = delegate as! BeastController
+        BC.searchForMediaBar.showsCancelButton = false
     }
 
     
@@ -90,7 +88,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             return cell
         }
         
-        let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
+        let BC = (delegate as! BeastController)
+        let cell = BC.libraryViewController?.library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
         
         //Add the item to the cell
         cell.itemInCell = topResults[indexPath.row]
@@ -148,9 +147,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         //The cancel button was clicked so segue back
         
-        if let LVCDel:LibraryViewController = delegate as? LibraryViewController{
+        if let BCDel:BeastController = delegate as? BeastController{
             
-            searchBar.delegate = LVCDel
+            searchBar.delegate = BCDel
         }
         
         searchBar.text = ""
@@ -184,16 +183,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         topResults = []
         
         var searchText = String()
-        if let LVCdel: LibraryViewController = delegate as? LibraryViewController {
+        if let BCDel: BeastController = delegate as? BeastController {
             
-            searchText = LVCdel.searchForMediaBar.text!
+            searchText = BCDel.searchForMediaBar.text!
         }
         
         
         //If we are searching TopCharts, please put away the keyboard and start the loading indicator
         if selectMusicFromSegment.selectedSegmentIndex == 2{
             
-            (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
+            
+            (delegate as! BeastController).searchForMediaBar.resignFirstResponder()
             loadingIndicator.startAnimating()
         }
         
@@ -219,7 +219,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         if gesture.state == .began {
             
             let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            alert.addSearchAlerts(gesture, delegateViewController: (delegate as! LibraryViewController))
+            alert.addSearchAlerts(gesture, delegateViewController: (delegate as! BeastController))
             alert.presentMe(gesture, presenterViewController: self)
         }
         
@@ -230,7 +230,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Gets called when a user taps on a song in the search
         
         //resign the keyboard
-        (delegate as! LibraryViewController).searchForMediaBar.resignFirstResponder()
+        let BC = delegate as! BeastController
+        BC.searchForMediaBar.resignFirstResponder()
         
         //check to make sure we're not a guest
 
@@ -317,7 +318,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
             
             //Now Reload the Data in both talbes so the user can see it
-            (delegate as! LibraryViewController).userLibrary.fetchLibrary()
+            (delegate as! BeastController).libraryViewController?.userLibrary.fetchLibrary()
             searchedSongsTableView.reloadData()
         }
     }

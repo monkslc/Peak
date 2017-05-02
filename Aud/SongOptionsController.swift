@@ -62,7 +62,7 @@ class SongOptionsController: UIAlertController {
 
     
     /*NEEDS TO BE UPDATED: Why is Delegate View Controller a param?*/
-    func addSearchAlerts(_ sender: UILongPressGestureRecognizer,delegateViewController: LibraryViewController){
+    func addSearchAlerts(_ sender: UILongPressGestureRecognizer,delegateViewController: BeastController){
         
         if peakMusicController.playerType != .Contributor {
             
@@ -75,7 +75,7 @@ class SongOptionsController: UIAlertController {
                     
                     /*NEEDS TO BE UPDATED*/
                     var mediaItemsInLibrary = [MPMediaItem]()
-                    for item in delegateViewController.userLibrary.itemsInLibrary{
+                    for item in (delegateViewController.libraryViewController?.userLibrary.itemsInLibrary)!{
                         
                         switch item{
                             
@@ -89,7 +89,7 @@ class SongOptionsController: UIAlertController {
                     
                     /*NEEDS TO BE UPDATED*/
                     var recentSongsDownloaded = [MPMediaItem]()
-                    for item in delegateViewController.userLibrary.recents{
+                    for item in (delegateViewController.libraryViewController?.userLibrary.recents)!{
                         
                         switch item{
                             

@@ -11,14 +11,9 @@ import MediaPlayer
 
 class RecentsAlbumView: UIImageView {
 
-    
     /*MARK: PROPERTIES*/
     var itemWithImage = LibraryItem.MediaItem(MPMediaItem())
     
-    //Used to store a song struct if the user is a guest
-    //var songAssocWithImage: Song?
-    
-    //var mediaItemAssocWithImage = MPMediaItem()
     
     /*
     // Only override draw() if you perform custom drawing.

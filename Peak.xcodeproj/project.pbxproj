@@ -22,6 +22,7 @@
 		C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */; };
 		C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405151F1EB7DC0B00F1471F /* BeastController.swift */; };
 		C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40515211EB7E18E00F1471F /* UserLibrary.swift */; };
+		C40515281EB9045B00F1471F /* SicContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40515271EB9045B00F1471F /* SicContainer.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
@@ -72,6 +73,7 @@
 		C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICSongInfoDisplay.swift; sourceTree = "<group>"; };
 		C405151F1EB7DC0B00F1471F /* BeastController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeastController.swift; sourceTree = "<group>"; };
 		C40515211EB7E18E00F1471F /* UserLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLibrary.swift; sourceTree = "<group>"; };
+		C40515271EB9045B00F1471F /* SicContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SicContainer.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		C45625301E8B4F5200311750 /* Search Bar Popover */ = {
 			isa = PBXGroup;
 			children = (
+				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
 				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
 			);
 			name = "Search Bar Popover";
@@ -166,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */,
+				C40515271EB9045B00F1471F /* SicContainer.swift */,
 				C47FC7C61EB6A8EA00B1A352 /* SongProgressLabel.swift */,
 				C47FC7C81EB6AE7E00B1A352 /* SICForwardButton.swift */,
 				C47FC7CA1EB6AF2100B1A352 /* SICBackButton.swift */,
@@ -268,7 +272,6 @@
 				C4E896641E7458620096EC72 /* Main.storyboard */,
 				C405151F1EB7DC0B00F1471F /* BeastController.swift */,
 				C47FC7C31EB69E9C00B1A352 /* Extensions */,
-				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
 				C47FC7BA1EB6925E00B1A352 /* Song Interaction Controller */,
 				C4D1175F1E7F6C6F000A854A /* Authentication */,
 				C4D1177C1E819F9A000A854A /* Supporting Files */,
@@ -392,6 +395,7 @@
 				90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */,
 				C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */,
 				C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */,
+				C40515281EB9045B00F1471F /* SicContainer.swift in Sources */,
 				C4E896611E7458620096EC72 /* AppDelegate.swift in Sources */,
 				C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */,
 				C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */,
