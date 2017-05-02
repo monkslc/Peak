@@ -31,7 +31,13 @@ class Alerts {
             
         } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
             
-            method([recent.mediaItemAssocWithImage])
+            switch recent.itemWithImage{
+                
+            case .MediaItem(let song):
+                method([song])
+                
+            default: break
+            }
         }
         
     }
@@ -50,9 +56,6 @@ class Alerts {
             default: break
             }
         
-        } else {
-            
-            //Nothing here because we don't perform a collection action on recents? still unsure what i did here
         }
     }
     
@@ -81,7 +84,13 @@ class Alerts {
             } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
                 //we have a recents album
                 
-                peakMusicController.play([recent.mediaItemAssocWithImage])
+                switch recent.itemWithImage{
+                    
+                case .MediaItem(let song):
+                    peakMusicController.play([song])
+                    
+                default: break
+                }
             }
         })
         
@@ -175,7 +184,14 @@ class Alerts {
             } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView {
                 //we have recents
                 
-                songId = recent.mediaItemAssocWithImage.playbackStoreID
+            
+                switch recent.itemWithImage{
+                    
+                case .MediaItem(let song):
+                    songId = song.playbackStoreID
+                    
+                default: break
+                }
             }
             
             //send the song id
@@ -209,7 +225,13 @@ class Alerts {
                 
             } else if let album: RecentsAlbumView = sender.view as? RecentsAlbumView {
                 
-                songToDelete = album.songAssocWithImage!
+                switch album.itemWithImage{
+                    
+                case .GuestItem(let song):
+                    songToDelete = song
+                    
+                default: break
+                }
             }
             
             

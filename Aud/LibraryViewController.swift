@@ -237,14 +237,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
             //Set our data depending on the song type
+            albumView.setUp(song)
             switch song{
                 
             case .MediaItem(let item):
-                albumView.setUp(item)
                 songTitle.text = item.title
                 
             case .GuestItem(let item):
-                albumView.setUp(guestSong: item)
                 songTitle.text = item.trackName
                 
             }
@@ -440,7 +439,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             //check to see where the gesture is coming from and respond accordingly
             if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView {
                 
-                mediaItemOnTap = albumArt.mediaItemAssocWithImage
+                switch albumArt.itemWithImage{
+                    
+                case .MediaItem(let song):
+                    mediaItemOnTap = song
+                    
+                default: break
+                }
                 
             } else if let cell: SongCell = gesture.view as? SongCell {
                 
@@ -483,7 +488,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
             } else if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView{
                 
-                songTappedOn = albumArt.songAssocWithImage!
+                switch albumArt.itemWithImage{
+                case .GuestItem(let song):
+                    songTappedOn = song
+                    
+                default: break
+                }
             }
             
             //check to see what type of player the user is

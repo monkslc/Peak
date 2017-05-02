@@ -11,10 +11,14 @@ import MediaPlayer
 
 class RecentsAlbumView: UIImageView {
 
-    //Used to store a song struct if the user is a guest
-    var songAssocWithImage: Song?
     
-    var mediaItemAssocWithImage = MPMediaItem()
+    /*MARK: PROPERTIES*/
+    var itemWithImage = LibraryItem.MediaItem(MPMediaItem())
+    
+    //Used to store a song struct if the user is a guest
+    //var songAssocWithImage: Song?
+    
+    //var mediaItemAssocWithImage = MPMediaItem()
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -26,7 +30,8 @@ class RecentsAlbumView: UIImageView {
 
     
     //Do some setup stuff
-    func setUp(_ song: MPMediaItem){
+    /*MARK: METHODS*/
+    func setUp(_ song: LibraryItem){
         
         //set up the border
         layer.cornerRadius = 5
@@ -34,20 +39,17 @@ class RecentsAlbumView: UIImageView {
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 1.0
         
-        //add the song ingo
-        image = song.artwork?.image(at: CGSize())
-        mediaItemAssocWithImage = song
-    }
-    
-    func setUp(guestSong: Song){
+        //Add the song info
+        switch song{
+            
+        case .MediaItem(let song):
+            image = song.artwork?.image(at: CGSize())
+            
+            
+        case .GuestItem(let song):
+            image = song.image
+        }
         
-        layer.cornerRadius = 5
-        clipsToBounds = true
-        layer.borderColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 1.0
-        
-        //add the song info
-        image = guestSong.image
-        songAssocWithImage = guestSong
+        itemWithImage = song
     }
 }
