@@ -312,6 +312,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.itemInCell = mediaItemToAdd
         
+        //Hide the bullshit
+        cell.addToLibraryButton.isHidden = true
+        cell.songDurationLabel.isHidden = true
+        
         //Add our gestures to the cell
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(displaySongOptions(_:))))
