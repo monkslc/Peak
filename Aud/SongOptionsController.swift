@@ -67,10 +67,11 @@ class SongOptionsController: UIAlertController {
         if peakMusicController.playerType != .Contributor {
             
             //Get the cell
-            if let cell: SongCell = sender.view as? SongCell{
+            if let _: SongCell = sender.view as? SongCell{
                 
                 //Searching Library Non Guest
-                if cell.songInCell == nil && peakMusicController.musicType == .AppleMusic{
+                /*LOOK BACK: JUST COMMENTED THIS OUT BECUASE I THINK WE'LL DO ALRIGHT WITHOUT IT*/
+                if /*cell.songInCell == nil &&*/ peakMusicController.musicType == .AppleMusic{
                     
                     /*NEEDS TO BE UPDATED*/
                     var mediaItemsInLibrary = [MPMediaItem]()
@@ -115,9 +116,12 @@ class SongOptionsController: UIAlertController {
             if let cell: SongCell = sender.view as? SongCell {
                 
                 //Add an add to library option if we are in Apple Music
-                if cell.songInCell != nil {
+                switch cell.itemInCell{
                     
+                case .MediaItem( _):
                     addSearchingAppleMusicOptionsContributor(sender)
+                    
+                default: break
                 }
             }
         }

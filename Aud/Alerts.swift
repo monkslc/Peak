@@ -20,7 +20,15 @@ class Alerts {
         if let cell: SongCell = sender.view as? SongCell{
             //We have a cell
             
-            method([cell.mediaItemInCell])
+            switch cell.itemInCell{
+                
+            case .MediaItem(let song):
+                method([song])
+                
+            default: break
+            }
+            
+            
         } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
             
             method([recent.mediaItemAssocWithImage])
@@ -29,13 +37,22 @@ class Alerts {
     }
     
     private static func performCollectionAction(_ sender: UILongPressGestureRecognizer, _ method: (MPMediaItem) -> Void){
+        //Difference is in the type of method being called
         
         //check if we have a cell or a recents
         if let cell: SongCell = sender.view as? SongCell {
             
-            method(cell.mediaItemInCell)
+            switch cell.itemInCell{
+                
+            case .MediaItem(let song):
+                method(song)
+                
+            default: break
+            }
+        
         } else {
             
+            //Nothing here because we don't perform a collection action on recents? still unsure what i did here
         }
     }
     
@@ -48,17 +65,18 @@ class Alerts {
                 //we have a cell
                 
                 //check if we have are searching apple MUsic
-                if cell.songInCell == nil{
-                    //Library
+                
+                switch cell.itemInCell{
                     
-                    peakMusicController.play([cell.mediaItemInCell])
+                case .MediaItem(let song):
+                    peakMusicController.play([song])
                     
-                } else{
-                    //Apple Music
-                    
-                    peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([(cell.songInCell?.id)!])
+                case .GuestItem(let song):
+                    peakMusicController.currPlayQueue.removeAll()
+                    peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.id])
                     peakMusicController.systemMusicPlayer.play()
                 }
+            
                 
             } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
                 //we have a recents album
@@ -144,15 +162,15 @@ class Alerts {
                 //we have a cell
                 
                 //Check if it is in our library or in Apple Music/Guest Library
-                if cell.songInCell == nil{
-                    //Library
+                switch cell.itemInCell{
                     
-                    songId = cell.mediaItemInCell.playbackStoreID
-                } else {
-                    //Apple Music/GuestLibrary
+                case .MediaItem(let song):
+                    songId = song.playbackStoreID
                     
-                    songId = (cell.songInCell?.id)!
+                case .GuestItem(let song):
+                    songId = song.id
                 }
+                
                 
             } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView {
                 //we have recents
@@ -181,7 +199,14 @@ class Alerts {
             
             if let cell: SongCell = sender.view as? SongCell{
                 
-                songToDelete = cell.songInCell!
+                switch cell.itemInCell{
+                    
+                case .GuestItem(let song):
+                    songToDelete = song
+                    
+                default: break
+                }
+                
             } else if let album: RecentsAlbumView = sender.view as? RecentsAlbumView {
                 
                 songToDelete = album.songAssocWithImage!
@@ -225,7 +250,7 @@ class Alerts {
         })
     }
     
-    
+    /*NEEDS TO BE UPDATED: CAN SWITCH FROM CHECKING APPLE MUSIC AN DGUEST TO A SWITCH STATEMENT DIFFERENCE IS IN THE ADDING*/
     static func addToLibraryAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction{
         
         
@@ -241,7 +266,16 @@ class Alerts {
             
             if peakMusicController.musicType == .AppleMusic{
                 
-                MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                var item: Song?
+                switch cell.itemInCell{
+                    
+                case .GuestItem(let song):
+                    item = song
+                    
+                default: break
+                }
+                
+                MPMediaLibrary().addItem(withProductID: (item!.id), completionHandler: {(ent, err) in
                     
                     /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
                     /*******DO SOMETHING WITH THE ERROR******/
@@ -250,9 +284,19 @@ class Alerts {
                 
             } else if peakMusicController.musicType == .Guest{
                 
+                var songInCell: Song?
+                
+                switch cell.itemInCell{
+                    
+                case .GuestItem(let song):
+                    songInCell = song
+                    
+                default: break
+                }
                 
                 
-                if let songToAdd = cell.songInCell{
+                
+                if let songToAdd = songInCell{
                     
                     //Add the song to core data here, and to the users current library
                     

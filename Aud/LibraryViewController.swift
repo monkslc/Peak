@@ -303,14 +303,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.albumArt.image = song.artwork?.image(at: CGSize())
             cell.songTitle.text = song.title
             cell.songArtist.text = song.artist
-            cell.mediaItemInCell = song
+            
             
         case .GuestItem(let song):
             cell.albumArt.image = song.image
             cell.songTitle.text = song.trackName
             cell.songArtist.text = song.artistName
-            cell.songInCell = song
         }
+        
+        cell.itemInCell = mediaItemToAdd
         
         //Add our gestures to the cell
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
@@ -427,6 +428,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*GESTURE TARGET METHODS*/
     
+    /*NEEDS TO BE UPDATED: CAN PROBABLY SWITCH FROM CHECKING BETWEEN APPLE MUSIC AND GUEST TO A SWITCH PROMPT*/
     func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
         //check what type of music we are dealing with
@@ -442,7 +444,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
             } else if let cell: SongCell = gesture.view as? SongCell {
                 
-                mediaItemOnTap = cell.mediaItemInCell
+                switch cell.itemInCell{
+                    
+                case .MediaItem(let song):
+                    mediaItemOnTap = song
+                    
+                default: break
+                }
             }
             
             //Check to see what the playerType of the user is
@@ -465,7 +473,14 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             //Check to see if it is coming from recents or a the library
             if let cell: SongCell = gesture.view as? SongCell{
                 
-                songTappedOn = cell.songInCell!
+                switch cell.itemInCell{
+                    
+                case .GuestItem(let song):
+                    songTappedOn = song
+                
+                default: break
+                }
+    
             } else if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView{
                 
                 songTappedOn = albumArt.songAssocWithImage!
@@ -488,6 +503,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    /*NEEDS TO BE UPDATED: CAN PROBABLY COMBINE THESE TWO METHODS INTO ONE LIBRARYITEM*/
     func promptUserToSendToGroupQueue(_ song: MPMediaItem) {
         //Method to ask the user if they'd like to add an item to the group queue
         

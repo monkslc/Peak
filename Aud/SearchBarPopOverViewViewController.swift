@@ -26,7 +26,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     @IBOutlet weak var searchedSongsTableView: UITableView!
     
-    private var topThreeResults = [AnyObject]() {
+    private var topResults = [LibraryItem]() {
         
         didSet {
 
@@ -77,13 +77,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return topThreeResults.count + 2 //so we can see bottom results
+        return topResults.count + 2 //so we can see bottom results
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //check if we are in the last two
-        if indexPath.row >= topThreeResults.count{
+        if indexPath.row >= topResults.count{
             
             let cell = UITableViewCell(frame: CGRect())
             
@@ -92,28 +92,26 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         let cell = (delegate as! LibraryViewController).library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
         
+        //Add the item to the cell
+        cell.itemInCell = topResults[indexPath.row]
         
-        //Check whether we are adding a Apple Music or Library Item
-        if let songToAdd: MPMediaItem = topThreeResults[indexPath.row] as? MPMediaItem{
-            //we are adding an item from the library
+        //Check if we need to add it to the library
+        var id = ""
+        switch topResults[indexPath.row]{
             
-            cell.mediaItemInCell = songToAdd
-        
-        } else if let songToAdd: Song = topThreeResults[indexPath.row] as? Song{
-            //we are adding an item from Apple Music
+        case .MediaItem(let song):
+            id = song.playbackStoreID
             
-            cell.songInCell = songToAdd
-            
-            //Add the library button
-            if !checkIfAlreadyInLibrary(songToAdd.id){
-                
-                cell.addToLibraryButton.isHidden = false
-            }
-            
-            
-            cell.addToLibraryButton.addTarget(self, action: #selector(addToLibrary(_:)), for: .touchUpInside)
-            
+        case .GuestItem(let song):
+            id = song.id
         }
+        
+        if !checkIfAlreadyInLibrary(id){
+            
+            cell.addToLibraryButton.isHidden = false
+            cell.addToLibraryButton.addTarget(self, action: #selector(addToLibrary(_:)), for: .touchUpInside)
+        }
+        
         
         cell.addItems()
         
@@ -183,7 +181,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //need to stop the loading indicator in case the user started it and then switched before results were returned
         loadingIndicator.stopAnimating()
         
-        topThreeResults = []
+        topResults = []
         
         var searchText = String()
         if let LVCdel: LibraryViewController = delegate as? LibraryViewController {
@@ -269,14 +267,19 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
-                if cell.songInCell != nil {
+                switch cell.itemInCell{
                     
-                    MPMediaLibrary().addItem(withProductID: (cell.songInCell?.id)!, completionHandler: {(ent, err) in
+                case .GuestItem(let song):
+                    MPMediaLibrary().addItem(withProductID: song.id, completionHandler: {(ent, err) in
                         
                         /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
                         /*******DO SOMETHING WITH THE ERROR******/
                     })
+                    
+                default:
+                    break
                 }
+                
             }
             
     
@@ -285,17 +288,15 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
-                if let songToAdd = cell.songInCell{
+                switch cell.itemInCell{
                     
-                    //Add the song to core data here, and to the users current library
-                    
-                    //check if the user has already downloaded it
+                case .GuestItem(let song):
                     
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
                     let context = appDelegate.persistentContainer.viewContext
                     
                     let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
-                    newSong.setValue(songToAdd.id, forKey: "storedID")
+                    newSong.setValue(song.id, forKey: "storedID")
                     newSong.setValue(Date(), forKey: "downloaded")
                     
                     
@@ -308,7 +309,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                         print("The fiddler he now steps to the road")
                     }
                     
+                default:
+                    break
+                    
                 }
+                
             }
             
             //Now Reload the Data in both talbes so the user can see it
@@ -324,20 +329,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Handle the music for the non contributor
         
         //Check library or apple music
-        if cell.mediaItemInCell != MPMediaItem() {
-            //library
+        
+        switch cell.itemInCell{
             
-            peakMusicController.play([cell.mediaItemInCell])
+        case .MediaItem(let song):
+            peakMusicController.play([song])
             
-        }else {
-            //Apple Music
-            //Play a song by song id, because we won't have the MPMediaItem
+        case .GuestItem(let song):
             
-            //Need to clear the current play queue here so it doesn't cause errors
             peakMusicController.currPlayQueue.removeAll()
-            peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([(cell.songInCell?.id)!])
+            peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.id])
             peakMusicController.systemMusicPlayer.play()
-            
         }
     }
     
@@ -348,21 +350,20 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         var songTitle = String()
         
         //Check if we are in apple music or library and get the song id + title
-        if cell.songInCell == nil{
-            //Library
+        switch cell.itemInCell{
             
-            songId = cell.mediaItemInCell.playbackStoreID
-            songTitle = cell.mediaItemInCell.title!
-        } else {
-            //Apple Music
+        case .MediaItem(let song):
+            songId = song.playbackStoreID
+            songTitle = song.title!
             
-            songId = (cell.songInCell?.id)!
-            songTitle = (cell.songInCell?.trackName)!
+        case .GuestItem(let song):
+            songId = song.id
+            songTitle = song.trackName
         }
+
         
         //Alert the user
         promptUserToSendToGroupQueue(songTitle: songTitle, songId: songId)
-        
     }
     
     func promptUserToSendToGroupQueue(songTitle: String, songId: String){
@@ -442,12 +443,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
-                        self.topThreeResults = results
+                        
+                        var temp = [LibraryItem]()
+                        for result in results{
+                            temp.append(LibraryItem.MediaItem(result))
+                        }
+                        
+                        self.topResults = temp
                     }
                 }
             }
         case .Guest:
-            //guard let library = delegate?.getGuestLibrary() else { return }
             
             let newlibrary = (library as! [Song])
             
@@ -456,7 +462,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
-                        self.topThreeResults = results as [AnyObject]
+                        //self.topResults = results
+                        var temp = [LibraryItem]()
+                        for result in results{
+                            temp.append(LibraryItem.GuestItem(result))
+                        }
+                        self.topResults = temp
                     }
                 }
             }
@@ -472,21 +483,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
-                        self.topThreeResults = songs as [AnyObject]
+                        //self.topResults = songs as [AnyObject]
+                        var temp = [LibraryItem]()
+                        for song in songs{
+                            temp.append(LibraryItem.GuestItem(song))
+                        }
+                        self.topResults = temp
                     }
                 }
             })
         }
-        
-        /*
-        ConnectingToInternet.getSongs(searchTerm: search, limit: 7, sendSongsAlltogether: true, completion: {
-            (songs) -> Void in
-            
-            DispatchQueue.main.async {
-                self.topThreeResults = songs as [AnyObject]
-            }
-        })
- */
     }
     
     private func searchTopCharts() {
@@ -494,7 +500,14 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         if let songs = GettingTopCharts.defaultGettingTopCharts.lastTopCharts {
             DispatchQueue.main.async {
                 if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
-                    self.topThreeResults = songs as [AnyObject]
+            
+                    var temp = [LibraryItem]()
+                    for song in songs{
+                        
+                        temp.append(LibraryItem.GuestItem(song))
+                    }
+                    self.topResults = temp
+                    
                     self.loadingIndicator.stopAnimating()
                 }
             }
@@ -505,27 +518,20 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
-                        self.topThreeResults = songs as [AnyObject]
+                    
+                        var temp = [LibraryItem]()
+                        for song in songs{
+                            
+                            temp.append(LibraryItem.GuestItem(song))
+                        }
+                        self.topResults = temp
+                        
                         self.loadingIndicator.stopAnimating()
                     }
                 }
             }
             GettingTopCharts.defaultGettingTopCharts.searchTopCharts()
         }
-        /*
-        DispatchQueue.main.async {
-            ConnectingToInternet.searchTopCharts(completion: {
-                (songs) -> Void in
-                
-                DispatchQueue.main.async {
-                    if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
-                        self.topThreeResults = songs as [AnyObject]
-                        self.loadingIndicator.stopAnimating()
-                    }
-                }
-            })
-        }
- */
     }
     
     
