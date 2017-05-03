@@ -16,11 +16,11 @@ protocol UserLibraryDelegate{
     func libraryItemsUpdated()
 }
 
-enum LibraryItem{
+/*enum LibraryItem{
     
     case MediaItem(MPMediaItem)
     case GuestItem(Song)
-}
+}*/
 
 class UserLibrary{
     
@@ -38,7 +38,7 @@ class UserLibrary{
     /*MARK: PROPERTIES*/
     
     //Holds all of the items in the user's library
-    var itemsInLibrary = [LibraryItem](){
+    var itemsInLibrary = [BasicSong](){
         
         didSet{
             
@@ -47,7 +47,7 @@ class UserLibrary{
     }
     
     //Holds the most recently downloaded songs
-    var recents = [LibraryItem]()
+    var recents = [BasicSong]()
     
     
     /*MARK: Fetch FUNCITONS*/
@@ -88,28 +88,19 @@ class UserLibrary{
             var recentlyPlayedItems = retreivedItems
             recentlyPlayedItems = recentlyPlayedItems?.sorted(by: sort)
             
-            
-            //Convert our Media Items to Library Items
-            var libItems = [LibraryItem]()
-            for item in retreivedItems!{
-                
-                libItems.append(.MediaItem(item))
-            }
-            
             let recentList = recentlyPlayedItems?[0..<maxItemsToRetrieve]
-            
-            var recentItems = [LibraryItem]()
+
+            var tempRecent = [BasicSong]()
             for item in recentList!{
                 
-                recentItems.append(.MediaItem(item))
+                tempRecent.append(item)
             }
-            
-            
             
             DispatchQueue.main.async {
                 
-                self.recents = recentItems
-                self.itemsInLibrary = libItems
+                
+                self.recents = tempRecent
+                self.itemsInLibrary = retreivedItems!
             }
         }
     }
@@ -164,23 +155,17 @@ class UserLibrary{
                 
                 let sortedGuestItems = storedSongs.sorted(by: sortAlpha)
                 
-                //Convert our songs to library items
-                var libItems = [LibraryItem]()
-                for item in sortedGuestItems{
+                //Convert our recents into an array
+                var tempRecent = [BasicSong]()
+                for song in recentList{
                     
-                    libItems.append(.GuestItem(item))
-                }
-                
-                var recentItems = [LibraryItem]()
-                for item in recentList{
-                    
-                    recentItems.append(.GuestItem(item))
+                    tempRecent.append(song)
                 }
                 
                 DispatchQueue.main.async {
                     
-                    self.recents = recentItems
-                    self.itemsInLibrary = libItems
+                    self.recents = tempRecent
+                    self.itemsInLibrary = sortedGuestItems
                 }
             }
         }

@@ -69,39 +69,17 @@ class SongOptionsController: UIAlertController {
             //Get the cell
             if let _: SongCell = sender.view as? SongCell{
                 
-                //Searching Library Non Guest
-                /*LOOK BACK: JUST COMMENTED THIS OUT BECUASE I THINK WE'LL DO ALRIGHT WITHOUT IT*/
-                if /*cell.songInCell == nil &&*/ peakMusicController.musicType == .AppleMusic{
+            
+                if peakMusicController.musicType == .AppleMusic{
                     
-                    /*NEEDS TO BE UPDATED*/
-                    var mediaItemsInLibrary = [MPMediaItem]()
-                    for item in (delegateViewController.libraryViewController?.userLibrary.itemsInLibrary)!{
+                    if let library: [MPMediaItem] = delegateViewController.libraryViewController?.userLibrary.itemsInLibrary as? [MPMediaItem]{
                         
-                        switch item{
-                            
-                        case .MediaItem(let song):
-                            mediaItemsInLibrary.append(song)
-                            
-                        default:
-                            break
-                        }
+                        let recents: [MPMediaItem] = delegateViewController.libraryViewController?.userLibrary.recents as! [MPMediaItem]
+                        
+                        addAppleMusicNonContributor(library: library, recents: recents, sender, comingFrom: .Search)
                     }
                     
-                    /*NEEDS TO BE UPDATED*/
-                    var recentSongsDownloaded = [MPMediaItem]()
-                    for item in (delegateViewController.libraryViewController?.userLibrary.recents)!{
-                        
-                        switch item{
-                            
-                        case .MediaItem(let song):
-                            recentSongsDownloaded.append(song)
-                            
-                        default:
-                            break
-                        }
-                    }
-                    
-                    addAppleMusicNonContributor(library: mediaItemsInLibrary, recents: recentSongsDownloaded, sender, comingFrom: .Search)
+    
                 } else{ //Searching
                     
                     addSearchingAppleMusicOptionsNonContributor(sender)
@@ -115,14 +93,10 @@ class SongOptionsController: UIAlertController {
             
             if let cell: SongCell = sender.view as? SongCell {
                 
-                //Add an add to library option if we are in Apple Music
-                switch cell.itemInCell{
-                    
-                case .MediaItem( _):
-                    addSearchingAppleMusicOptionsContributor(sender)
-                    
-                default: break
+                if let _: MPMediaItem = cell.itemInCell as? MPMediaItem{
+                    addSearchingAppleMusicOptionsNonContributor(sender)
                 }
+    
             }
         }
         
@@ -131,12 +105,7 @@ class SongOptionsController: UIAlertController {
     }
     
     
-    
-    
-    
-    
     /*MARK: The Methods that add the alerts*/
-    
     func addSearchingAppleMusicOptionsNonContributor(_ sender: UILongPressGestureRecognizer){
         
         //Check if the user is a guest

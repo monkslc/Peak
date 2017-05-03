@@ -66,7 +66,7 @@
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
 		90DC46511EB91EF9007AF581 /* BasicSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicSong.swift; sourceTree = "<group>"; };
-		90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MpMediumItemExtension.swift; sourceTree = "<group>"; };
+		90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MpMediumItemExtension.swift; path = ../MpMediumItemExtension.swift; sourceTree = "<group>"; };
 		90E2DFDF1E87509C00762B9D /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		90E2DFE11E87560700762B9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		90E2DFE51E87FF0900762B9D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -129,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				90E2DFE51E87FF0900762B9D /* Song.swift */,
-				90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */,
 				90DC46511EB91EF9007AF581 /* BasicSong.swift */,
 			);
 			name = Songs;
@@ -199,6 +198,7 @@
 		C47FC7C31EB69E9C00B1A352 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */,
 				C47FC7C11EB69E8F00B1A352 /* NotificationExtension.swift */,
 				C4D1175B1E7F2024000A854A /* PeakColorExt.swift */,
 			);
@@ -335,7 +335,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 58NU5LV6AX;
+						DevelopmentTeam = SDRSRURVZA;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -557,7 +557,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -574,7 +574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

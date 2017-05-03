@@ -97,40 +97,17 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if sender.state == .began {
 
-            /*NEEEDS TO BE UPDATED SO WE DON'T NEED TO DO THIS SHIT*/
-            var mediaItemsInLibrary = [MPMediaItem]()
-            for item in userLibrary.itemsInLibrary{
-                
-                switch item{
-                    
-                case .MediaItem(let song):
-                    mediaItemsInLibrary.append(song)
-                    
-                default:
-                    break
-                }
-            }
-            
-            var recentSongsDownloaded = [MPMediaItem]()
-            for item in userLibrary.recents{
-                
-                switch item{
-                case .MediaItem(let song):
-                    recentSongsDownloaded.append(song)
-                    
-                default:
-                    break
-                }
-            }
+            //Get our song collections
+            let mediaItemsInLibrary = userLibrary.itemsInLibrary
+            let recentSongsDownloaded = userLibrary.recents
             
             
             let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            alert.addLibraryAlerts(sender: sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded)
+            alert.addLibraryAlerts(sender: sender, library: mediaItemsInLibrary as! [MPMediaItem], recents: recentSongsDownloaded as! [MPMediaItem])
             alert.presentMe(sender, presenterViewController: self)
         }
         
     }
-    
     
     /*MARK: Bluetooth PopOverView Methods*/
     @IBAction func presentBluetoothPopover() {
@@ -178,7 +155,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
 
-    func displayRecentlyPlayed(_ recentItems: [LibraryItem]){
+    func displayRecentlyPlayed(_ recentItems: [BasicSong]){
         
         //First Remove All Subviews
         for sub in recentsView.subviews{
@@ -206,15 +183,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             //Set our data depending on the song type
             albumView.setUp(song)
-            switch song{
-                
-            case .MediaItem(let item):
-                songTitle.text = item.title
-                
-            case .GuestItem(let item):
-                songTitle.text = item.trackName
-                
-            }
+            songTitle.text = song.getTrackName()
             
             
             //Add the gesture recognizers to the album view
@@ -262,21 +231,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let mediaItemToAdd = userLibrary.itemsInLibrary[indexPath.row]
         
-        //Switch on which data we should add
-        switch mediaItemToAdd{
-            
-        case.MediaItem(let song):
-            
-            cell.albumArt.image = song.artwork?.image(at: CGSize())
-            cell.songTitle.text = song.title
-            cell.songArtist.text = song.artist
-            
-            
-        case .GuestItem(let song):
-            cell.albumArt.image = song.image
-            cell.songTitle.text = song.trackName
-            cell.songArtist.text = song.artistName
-        }
+        //Get the data for the media item
+        cell.albumArt.image = mediaItemToAdd.getImage()
+        cell.songTitle.text = mediaItemToAdd.getTrackName()
+        cell.songArtist.text = mediaItemToAdd.getArtistName()
         
         cell.itemInCell = mediaItemToAdd
         
@@ -295,7 +253,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*MARK: SearchBarPopOver Delegate Methods*/
     
-    func returnLibraryItems() -> [LibraryItem]{
+    func returnLibraryItems() -> [BasicSong]{
         
         return userLibrary.itemsInLibrary
     }
@@ -339,19 +297,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Make sure our index path is in range
         if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(libraryCount){
             
-            //library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
             scrollPresenter.positionOfLabel = yLoc + scrollBar.heightOfScrollBar / 2
-            
-            
-            switch userLibrary.itemsInLibrary[Int(indexToScrollTo)]{
-                
-            case .MediaItem(let song):
-                scrollPresenter.displayLabel.text = song.artist
-                
-            case .GuestItem(let song):
-                scrollPresenter.displayLabel.text = song.artistName
-            }
-            
+            scrollPresenter.displayLabel.text = userLibrary.itemsInLibrary[Int(indexToScrollTo)].getArtistName()
         }
         
         //Now update the label
@@ -402,8 +349,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*NEEDS TO BE UPDATED: CAN PROBABLY SWITCH FROM CHECKING BETWEEN APPLE MUSIC AND GUEST TO A SWITCH PROMPT*/
     func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
-        //First step is to get the song itme
-        var songItem = LibraryItem.MediaItem(MPMediaItem())
+        //First step is to get the song item
+        var songItem: BasicSong!
         
         if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView{
             
@@ -421,40 +368,25 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         default:
             
-            switch songItem{
-            case .MediaItem(let song):
-                peakMusicController.play([song])
+            if let song: MPMediaItem = songItem as? MPMediaItem{
                 
-            case .GuestItem(let song):
+                peakMusicController.play([song])
+            } else if let song: Song = songItem as? Song{
+                
                 tellUserToConnect(song)
             }
         }
     }
     
-    func promptUserToSendToGroupQueue(_ song: LibraryItem){
+    func promptUserToSendToGroupQueue(_ song: BasicSong){
         //Method to ask the user if they'd like to send a song to the group queue
         
-        var songTitle = ""
-        var songID = ""
-        
-        //Get the song title
-        switch song{
-            
-        case .MediaItem(let song):
-            songTitle = song.title!
-            songID = song.playbackStoreID
-            
-        case .GuestItem(let song):
-            songTitle = song.trackName
-            songID = song.id
-        }
-        
-        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(songTitle) to the group queue?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.getTrackName()) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
             
             self.showSignifier()
             
-            SendingBluetooth.sendSongIdToHost(id: "\(songID)", error: {
+            SendingBluetooth.sendSongIdToHost(id: "\(song.getId())", error: {
                 () -> Void in
                 
                 let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)

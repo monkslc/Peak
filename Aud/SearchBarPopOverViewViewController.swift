@@ -12,7 +12,7 @@ import CoreData
 
 protocol SearchBarPopOverViewViewControllerDelegate{
     
-    func returnLibraryItems() -> [LibraryItem]
+    func returnLibraryItems() -> [BasicSong]
     
 }
 
@@ -23,7 +23,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     @IBOutlet weak var searchedSongsTableView: UITableView!
     
-    private var topResults = [LibraryItem]() {
+    private var topResults = [BasicSong]() {
         
         didSet {
 
@@ -95,15 +95,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         cell.itemInCell = topResults[indexPath.row]
         
         //Check if we need to add it to the library
-        var id = ""
-        switch topResults[indexPath.row]{
-            
-        case .MediaItem(let song):
-            id = song.playbackStoreID
-            
-        case .GuestItem(let song):
-            id = song.id
-        }
+        let id = topResults[indexPath.row].getId()
         
         if !checkIfAlreadyInLibrary(id){
             
@@ -268,19 +260,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
-                switch cell.itemInCell{
+                MPMediaLibrary().addItem(withProductID: cell.itemInCell.getId(), completionHandler: {(ent, err) in
                     
-                case .GuestItem(let song):
-                    MPMediaLibrary().addItem(withProductID: song.id, completionHandler: {(ent, err) in
-                        
-                        /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
-                        /*******DO SOMETHING WITH THE ERROR******/
-                    })
-                    
-                default:
-                    break
-                }
-                
+                    /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
+                    /*******DO SOMETHING WITH THE ERROR******/
+                })
             }
             
     
@@ -289,30 +273,22 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
-                switch cell.itemInCell{
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                
+                let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
+                newSong.setValue(cell.itemInCell.getId(), forKey: "storedID")
+                newSong.setValue(Date(), forKey: "downloaded")
+                
+                
+                
+                //now try to save it
+                do{
+                    try context.save()
+                }catch{
                     
-                case .GuestItem(let song):
-                    
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    let context = appDelegate.persistentContainer.viewContext
-                    
-                    let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
-                    newSong.setValue(song.id, forKey: "storedID")
-                    newSong.setValue(Date(), forKey: "downloaded")
-                    
-                    
-                    
-                    //now try to save it
-                    do{
-                        try context.save()
-                    }catch{
-                        
-                        print("The fiddler he now steps to the road")
-                    }
-                    
-                default:
-                    break
-                    
+                    print("The fiddler he now steps to the road")
                 }
                 
             }
@@ -331,40 +307,24 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         //Check library or apple music
         
-        switch cell.itemInCell{
+        if let song: MPMediaItem = cell.itemInCell as? MPMediaItem{
             
-        case .MediaItem(let song):
             peakMusicController.play([song])
             
-        case .GuestItem(let song):
+        } else if let song: Song = cell.itemInCell as? Song {
             
             peakMusicController.currPlayQueue.removeAll()
             peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.id])
             peakMusicController.systemMusicPlayer.play()
         }
+
     }
     
     func contributorTap(_ cell: SongCell){
         //Handle the music for a contributor
         
-        var songId = String()
-        var songTitle = String()
-        
-        //Check if we are in apple music or library and get the song id + title
-        switch cell.itemInCell{
-            
-        case .MediaItem(let song):
-            songId = song.playbackStoreID
-            songTitle = song.title!
-            
-        case .GuestItem(let song):
-            songId = song.id
-            songTitle = song.trackName
-        }
-
-        
         //Alert the user
-        promptUserToSendToGroupQueue(songTitle: songTitle, songId: songId)
+        promptUserToSendToGroupQueue(songTitle: cell.itemInCell.getTrackName(), songId: cell.itemInCell.getId())
     }
     
     func promptUserToSendToGroupQueue(songTitle: String, songId: String){
@@ -414,62 +374,18 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         }
     }
 
+    
     private func searchLibrary(search: String) {
 
-        guard let packedLibrary = delegate?.returnLibraryItems() else { return }
+        guard let library = delegate?.returnLibraryItems() else { return }
 
-        var library = [Any]()
-        for item in packedLibrary{
+        DispatchQueue.global().async {
+            let results = LocalSearch.search(search, library: library)
             
-            switch item{
-                
-            case .MediaItem(let song):
-                library.append(song)
-                
-            case .GuestItem(let song):
-                library.append(song)
-            }
-        }
-        
-        
-        
-        switch peakMusicController.musicType {
-        case .AppleMusic:
-            //guard let library = delegate?.returnLibrary() else { return }
-            
-            let newLibrary = (library as! [MPMediaItem])
-            
-            DispatchQueue.global().async {
-                let results = LocalSearch.search(search, library: newLibrary)
-                
-                DispatchQueue.main.async {
-                    if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
-                        
-                        var temp = [LibraryItem]()
-                        for result in results{
-                            temp.append(LibraryItem.MediaItem(result))
-                        }
-                        
-                        self.topResults = temp
-                    }
-                }
-            }
-        case .Guest:
-            
-            let newlibrary = (library as! [Song])
-            
-            DispatchQueue.global().async {
-                let results = LocalSearch.search(search, library: newlibrary)
-                
-                DispatchQueue.main.async {
-                    if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
-                        //self.topResults = results
-                        var temp = [LibraryItem]()
-                        for result in results{
-                            temp.append(LibraryItem.GuestItem(result))
-                        }
-                        self.topResults = temp
-                    }
+            DispatchQueue.main.async {
+                if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
+                    
+                    self.topResults = results
                 }
             }
         }
@@ -483,14 +399,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 (songs) -> Void in
                 
                 DispatchQueue.main.async {
-                    if self.selectMusicFromSegment.selectedSegmentIndex == 1 {
-                        //self.topResults = songs as [AnyObject]
-                        var temp = [LibraryItem]()
-                        for song in songs{
-                            temp.append(LibraryItem.GuestItem(song))
-                        }
-                        self.topResults = temp
-                    }
+                    self.topResults = songs
+                   
                 }
             })
         }
@@ -502,13 +412,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             DispatchQueue.main.async {
                 if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
             
-                    var temp = [LibraryItem]()
-                    for song in songs{
-                        
-                        temp.append(LibraryItem.GuestItem(song))
-                    }
-                    self.topResults = temp
-                    
+                    self.topResults = songs
                     self.loadingIndicator.stopAnimating()
                 }
             }
@@ -520,13 +424,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                     
-                        var temp = [LibraryItem]()
-                        for song in songs{
-                            
-                            temp.append(LibraryItem.GuestItem(song))
-                        }
-                        self.topResults = temp
-                        
+                        self.topResults = songs
                         self.loadingIndicator.stopAnimating()
                     }
                 }
@@ -540,22 +438,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func checkIfAlreadyInLibrary(_ id: String) -> Bool{
         //Method to check if the song is already in the users library
         
-        
-        
         for item in (delegate?.returnLibraryItems())!{
             
-            switch item{
+            if item.getId() == id{
                 
-            case .MediaItem(let song):
-                if song.playbackStoreID == id{
-                    return true
-                }
-                
-            case .GuestItem(let song):
-                if song.id == id{
-                    
-                    return true
-                }
+                return true
             }
         }
         

@@ -12,7 +12,7 @@ import MediaPlayer
 class RecentsAlbumView: UIImageView {
 
     /*MARK: PROPERTIES*/
-    var itemWithImage = LibraryItem.MediaItem(MPMediaItem())
+    var itemWithImage: BasicSong!
     
     
     /*
@@ -26,7 +26,7 @@ class RecentsAlbumView: UIImageView {
     
     //Do some setup stuff
     /*MARK: METHODS*/
-    func setUp(_ song: LibraryItem){
+    func setUp(_ song: BasicSong){
         
         //set up the border
         layer.cornerRadius = 5
@@ -35,16 +35,7 @@ class RecentsAlbumView: UIImageView {
         layer.borderWidth = 1.0
         
         //Add the song info
-        switch song{
-            
-        case .MediaItem(let song):
-            image = song.artwork?.image(at: CGSize())
-            
-            
-        case .GuestItem(let song):
-            image = song.image
-        }
-        
+        image = song.getImage()
         itemWithImage = song
     }
 }

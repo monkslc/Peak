@@ -21,12 +21,8 @@ class SongCell: UITableViewCell {
     
     @IBOutlet weak var addToLibraryButton: UIButton!
     
-    
-    var itemInCell = LibraryItem.MediaItem(MPMediaItem())
-    
-    //var mediaItemInCell = MPMediaItem()
-   
-    //var songInCell: Song?
+    var itemInCell: BasicSong!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,18 +43,9 @@ class SongCell: UITableViewCell {
     
     func addItems(){
         
-        switch itemInCell{
-            
-        case .MediaItem(let song):
-            albumArt.image = song.artwork?.image(at: CGSize())
-            songTitle.text = song.title
-            songArtist.text = song.artist
-            
-        case .GuestItem(let song):
-            albumArt.image = song.image
-            songTitle.text = song.trackName
-            songArtist.text = song.artistName
-        }
+        albumArt.image = itemInCell.getImage()
+        songTitle.text = itemInCell.getTrackName()
+        songArtist.text = itemInCell.getArtistName()
     }
 
 }

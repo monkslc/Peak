@@ -95,7 +95,7 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
     
     
     /*MARK: SearchBarPopOver Delegate Methods*/
-    func returnLibraryItems() -> [LibraryItem]{
+    func returnLibraryItems() -> [BasicSong]{
         
         return (libraryViewController?.userLibrary.itemsInLibrary)!
     }

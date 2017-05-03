@@ -20,24 +20,12 @@ class Alerts {
         if let cell: SongCell = sender.view as? SongCell{
             //We have a cell
             
-            switch cell.itemInCell{
-                
-            case .MediaItem(let song):
-                method([song])
-                
-            default: break
-            }
-            
-            
+            method([cell.itemInCell as! MPMediaItem])
+        
+        
         } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
             
-            switch recent.itemWithImage{
-                
-            case .MediaItem(let song):
-                method([song])
-                
-            default: break
-            }
+            method([recent.itemWithImage as! MPMediaItem])
         }
         
     }
@@ -48,13 +36,7 @@ class Alerts {
         //check if we have a cell or a recents
         if let cell: SongCell = sender.view as? SongCell {
             
-            switch cell.itemInCell{
-                
-            case .MediaItem(let song):
-                method(song)
-                
-            default: break
-            }
+            method(cell.itemInCell as! MPMediaItem)
         
         }
     }
@@ -69,28 +51,23 @@ class Alerts {
                 
                 //check if we have are searching apple MUsic
                 
-                switch cell.itemInCell{
+                if let song: MPMediaItem = cell.itemInCell as? MPMediaItem{
                     
-                case .MediaItem(let song):
                     peakMusicController.play([song])
+                } else if let song: Song = cell.itemInCell as? Song{
                     
-                case .GuestItem(let song):
                     peakMusicController.currPlayQueue.removeAll()
-                    peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.id])
+                    peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.getId()])
                     peakMusicController.systemMusicPlayer.play()
                 }
-            
                 
             } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
                 //we have a recents album
                 
-                switch recent.itemWithImage{
-                    
-                case .MediaItem(let song):
+                if let song: MPMediaItem = recent.itemWithImage as? MPMediaItem{
                     peakMusicController.play([song])
-                    
-                default: break
                 }
+        
             }
         })
         
@@ -164,41 +141,28 @@ class Alerts {
             
             (peakMusicController.delegate as! LibraryViewController).showSignifier()
             
-            var songId = String()
-            
             //check if we have a song cell or a recents view and get the song id
             if let cell: SongCell = sender.view as? SongCell {
                 //we have a cell
                 
-                //Check if it is in our library or in Apple Music/Guest Library
-                switch cell.itemInCell{
+                //send the song id
+                SendingBluetooth.sendSongIdToHost(id: "\(cell.itemInCell.getId())", error: {
                     
-                case .MediaItem(let song):
-                    songId = song.playbackStoreID
-                    
-                case .GuestItem(let song):
-                    songId = song.id
-                }
-                
+                    //not sure what to do if we get an error here yet
+                })
                 
             } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView {
                 //we have recents
                 
-            
-                switch recent.itemWithImage{
+                //send the song id
+                SendingBluetooth.sendSongIdToHost(id: "\(recent.itemWithImage.getId())", error: {
                     
-                case .MediaItem(let song):
-                    songId = song.playbackStoreID
-                    
-                default: break
-                }
+                    //not sure what to do if we get an error here yet
+                })
+                
             }
             
-            //send the song id
-            SendingBluetooth.sendSongIdToHost(id: "\(songId)", error: {
-                
-                //not sure what to do if we get an error here yet
-            })
+            
             
             
             
@@ -215,22 +179,15 @@ class Alerts {
             
             if let cell: SongCell = sender.view as? SongCell{
                 
-                switch cell.itemInCell{
-                    
-                case .GuestItem(let song):
-                    songToDelete = song
-                    
-                default: break
-                }
                 
+                if let song: Song = cell.itemInCell as? Song{
+                    songToDelete = song
+                }
+                    
             } else if let album: RecentsAlbumView = sender.view as? RecentsAlbumView {
                 
-                switch album.itemWithImage{
-                    
-                case .GuestItem(let song):
+                if let song: Song = album.itemWithImage as? Song{
                     songToDelete = song
-                    
-                default: break
                 }
             }
             
@@ -284,16 +241,8 @@ class Alerts {
             
             if peakMusicController.musicType == .AppleMusic{
                 
-                var item: Song?
-                switch cell.itemInCell{
-                    
-                case .GuestItem(let song):
-                    item = song
-                    
-                default: break
-                }
                 
-                MPMediaLibrary().addItem(withProductID: (item!.id), completionHandler: {(ent, err) in
+                MPMediaLibrary().addItem(withProductID: (cell.itemInCell.getId()), completionHandler: {(ent, err) in
                     
                     /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
                     /*******DO SOMETHING WITH THE ERROR******/
@@ -302,41 +251,26 @@ class Alerts {
                 
             } else if peakMusicController.musicType == .Guest{
                 
-                var songInCell: Song?
-                
-                switch cell.itemInCell{
                     
-                case .GuestItem(let song):
-                    songInCell = song
+                //Add the song to core data here, and to the users current library
                     
-                default: break
-                }
-                
-                
-                
-                if let songToAdd = songInCell{
+                //check if the user has already downloaded it
                     
-                    //Add the song to core data here, and to the users current library
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
                     
-                    //check if the user has already downloaded it
-                    
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    let context = appDelegate.persistentContainer.viewContext
-                    
-                    let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
-                    newSong.setValue(songToAdd.id, forKey: "storedID")
-                    newSong.setValue(Date(), forKey: "downloaded")
+                let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
+                newSong.setValue(cell.itemInCell.getId(), forKey: "storedID")
+                newSong.setValue(Date(), forKey: "downloaded")
                     
                     
                     
-                    //now try to save it
-                    do{
-                        try context.save()
-                    }catch{
+                //now try to save it
+                do{
+                    try context.save()
+                }catch{
                         
-                        print("The fiddler he now steps to the road")
-                    }
-                    
+                    print("The fiddler he now steps to the road")
                 }
                 
             }
@@ -344,7 +278,6 @@ class Alerts {
             
             (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
             
-            //self.searchedSongsTableView.reloadData()
         })
     }
     
