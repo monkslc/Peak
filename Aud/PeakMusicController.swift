@@ -12,8 +12,6 @@ import MediaPlayer
 protocol PeakMusicControllerDelegate{
     
     func showSignifier()
-    func updateDisplay()
-    func playerTypeDidChange()
 }
 
 class PeakMusicController {
@@ -41,43 +39,20 @@ class PeakMusicController {
             //send the notification
             NotificationCenter.default.post(Notification(name: .playerTypeChanged))
             
-            
-            if playerType == .Host {
+            switch playerType{
                 
-                systemMusicPlayer.beginGeneratingPlaybackNotifications()
-                
-                MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
-                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
-                delegate?.updateDisplay()
-            }
-            else {
-                MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
-                
-            }
-            
-            if playerType == .Contributor {
-                MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
-                
+            case .Contributor:
                 systemMusicPlayer.endGeneratingPlaybackNotifications()
+                peakMusicController.systemMusicPlayer.stop()
+                peakMusicController.currPlayQueue = []
                 
-                DispatchQueue.main.async {
-                    (self.delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
-                }
-            }
-            else {
-                MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
-            }
-            
-            if playerType == .Individual{
                 
+            default:
                 systemMusicPlayer.beginGeneratingPlaybackNotifications()
                 
-                (delegate as! LibraryViewController).connectButton.setImage(#imageLiteral(resourceName: "IndieBigIcon"), for: .normal)
+                
             }
-            
-            //Update the views here
-            delegate?.playerTypeDidChange()
-            
+
         }
         
     }
@@ -120,15 +95,9 @@ class PeakMusicController {
         
         didSet{
             
-            //Here we want to update the visuals
-            DispatchQueue.main.async {
-            
-                self.delegate?.updateDisplay()
-            }
+            NotificationCenter.default.post(Notification(name: .groupQueueChanged))
         }
     }
-    
-    
     
     
     /*QUEUE METHODS*/
@@ -220,9 +189,6 @@ class PeakMusicController {
             
         }
         
-        //update the delegate
-        delegate?.showSignifier()
-        delegate?.updateDisplay()
     }
     
     func playAtEndOfQueue(_ songs: [MPMediaItem]) {
@@ -231,10 +197,6 @@ class PeakMusicController {
         if playerType != .Contributor {
             
             currPlayQueue.append(contentsOf: songs)
-            
-            //now update the delegate
-            delegate?.showSignifier()
-            delegate?.updateDisplay()
         }
         
     }
@@ -289,7 +251,6 @@ class PeakMusicController {
                 currPlayQueue = [peakMusicController.systemMusicPlayer.nowPlayingItem!]
             }
             
-            
             //Now set the suffle mode to off so we can control the queue
             peakMusicController.systemMusicPlayer.shuffleMode = .off
             
@@ -322,12 +283,14 @@ class PeakMusicController {
             //Give a play next option
             alert.addAction(UIAlertAction(title: "Play Songs Next", style: .default, handler: {(alert) in
             
+                self.delegate?.showSignifier()
                 self.playNext(songs)
             }))
             
             //Give a play last option
             alert.addAction(UIAlertAction(title: "Play Songs Last", style: .default, handler: {(alert) in
             
+                self.delegate?.showSignifier()
                 self.playAtEndOfQueue(songs)
             }))
             

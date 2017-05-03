@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -711,7 +711,7 @@
                                         <color key="tintColor" red="0.1176470588" green="0.86274509799999999" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-Tt-duP" customClass="SICSongInfoDisplay" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="128" width="359" height="266"/>
+                                        <rect key="frame" x="8" y="128" width="359" height="263"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
@@ -732,7 +732,7 @@
                                     <constraint firstAttribute="bottom" secondItem="AIM-ua-687" secondAttribute="bottom" id="Ens-cX-SKO"/>
                                     <constraint firstAttribute="trailing" secondItem="kmH-Tt-duP" secondAttribute="trailing" constant="8" id="IJl-Qk-o6h"/>
                                     <constraint firstItem="YVQ-6R-SIH" firstAttribute="top" secondItem="zt1-CP-WBW" secondAttribute="top" constant="5" id="K7k-oj-7Y7"/>
-                                    <constraint firstItem="AIM-ua-687" firstAttribute="top" secondItem="kmH-Tt-duP" secondAttribute="bottom" constant="5" id="KD7-P7-uvA"/>
+                                    <constraint firstItem="AIM-ua-687" firstAttribute="top" secondItem="kmH-Tt-duP" secondAttribute="bottom" constant="8" id="KD7-P7-uvA"/>
                                     <constraint firstItem="lLc-5V-zgQ" firstAttribute="width" secondItem="YVQ-6R-SIH" secondAttribute="height" id="MLd-Tj-MrV"/>
                                     <constraint firstItem="zq2-23-HMZ" firstAttribute="centerY" secondItem="hdL-cg-8xb" secondAttribute="centerY" id="QU7-Ff-Dn9"/>
                                     <constraint firstItem="qnw-Ag-fYn" firstAttribute="centerX" secondItem="hdL-cg-8xb" secondAttribute="centerX" id="VIK-5O-Sab"/>

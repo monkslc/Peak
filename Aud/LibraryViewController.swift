@@ -13,25 +13,29 @@ import AVKit
 import MultipeerConnectivity
 import CoreData
 
-class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,PeakMusicControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, ScrollBarDelegate, UserLibraryDelegate{
+protocol LibraryViewControllerDelegate{
     
+    func showSignifier()
+}
+
+class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, ScrollBarDelegate, UserLibraryDelegate{
     
-    
+
     /*MODEL for all library info*/
     let userLibrary = UserLibrary()
-    
     
     @IBOutlet weak var library: UITableView!
     
     @IBOutlet weak var recentsView: RecentlyAddedView!
     
-    //Bluetooth connectivity button in header
-    @IBOutlet weak var connectButton: UIButton!
-    
     //View that controls the scroll bar
     @IBOutlet weak var scrollBar: ScrollBar!
     @IBOutlet weak var scrollPresenter: ScrollPresenterView!
     
+    var delegate: LibraryViewControllerDelegate?
+    
+    
+    /*MARK: LIFECYCLE METHODS*/
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,14 +48,13 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.userLibrary.fetchLibrary()
         }
         
-        //Now set up the music controller
-        peakMusicController.delegate = self
-        peakMusicController.setUp()
-        
         //set up the scroll bar
         scrollBar.delegate = self
         scrollBar.setUp()
         scrollPresenter.setUp()
+        
+        //Set up the recents view
+        recentsView.setUp()
         
         //Add Listener
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
@@ -61,13 +64,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
         }
-        
-
-        // Bluetooth
-        NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
-        
-        
-        
+    
     }
     
     
@@ -77,15 +74,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if loadedViews == false {
             
-            recentsView.setUp()
+            //recentsView.setUp()
             loadedViews = true
         }
-        
-        
-        //Set the albumView
-        if peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork != nil {
-            
-        }
+
         
     }
     
@@ -108,32 +100,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
     }
-    
-    /*MARK: Bluetooth PopOverView Methods*/
-    @IBAction func presentBluetoothPopover() {
-        //Method to show the popover
-        performSegue(withIdentifier: "Popover Bluetooth Controller", sender: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //Need to implement this to handle the popover
-        
-        //Make sure we are doing the popover segue
-        if segue.identifier == "Popover Bluetooth Controller"{
-         
-            let popOverVC = segue.destination
-            
-            let controller = popOverVC.popoverPresentationController!
-            controller.delegate = self
-        } 
-    }
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        
-        return .none
-    }
-    
-    /*End of User interaction methods*/
+
     
     
     /*MARK: Notification Methods*/
@@ -250,42 +217,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    
-    /*MARK: SearchBarPopOver Delegate Methods*/
-    
-    func returnLibraryItems() -> [BasicSong]{
-        
-        return userLibrary.itemsInLibrary
-    }
-    
-    /*MARK: PEAK MUSIC CONTROLLER DELEGATE METHODS, USED TO UPDATE VIEWS*/
-    func showSignifier(){
-        
-        let sig = Signifier(frame: CGRect(x: view.bounds.midX - 50, y: view.bounds.midY - 50, width: 100, height: 100))
-        sig.animationSetUp()
-        view.addSubview(sig)
-        sig.animate()
-        
-    }
-    
-    func updateDisplay() {
-        
-        
-    }
-    
-    func playerTypeDidChange(){
-        
-        
-        //Rid everything from the currently playing system, only if the user has switched to contributed
-        if peakMusicController.playerType == .Contributor {
-            
-            peakMusicController.systemMusicPlayer.stop()
-            peakMusicController.currPlayQueue = []
-        }
-        
-    }
-    /*End of Peak Music Controller Delegate Methods*/
-    
     /*MARK: Scroll Bar Delegate Methods*/
     func scrolling(_ yLoc: CGFloat,_ state: UIGestureRecognizerState) {
         
@@ -346,29 +277,23 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*GESTURE TARGET METHODS*/
     
-    /*NEEDS TO BE UPDATED: CAN PROBABLY SWITCH FROM CHECKING BETWEEN APPLE MUSIC AND GUEST TO A SWITCH PROMPT*/
     func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
-        //First step is to get the song item
-        var songItem: BasicSong!
-        
-        if let holder: BasicSongHolder = gesture.view as? BasicSongHolder{
-            
-            songItem = holder.getBasicSong()
-        }
+        //Get the holder
+        let holder: BasicSongHolder = (gesture.view as? BasicSongHolder)!
         
         //Switch on it and perform the appropriate action
         switch peakMusicController.playerType{
             
         case .Contributor:
-            promptUserToSendToGroupQueue(songItem)
+            promptUserToSendToGroupQueue(holder.getBasicSong())
             
         default:
             
-            if let song: MPMediaItem = songItem as? MPMediaItem{
+            if let song: MPMediaItem = holder.getBasicSong() as? MPMediaItem{
                 
                 peakMusicController.play([song])
-            } else if let song: Song = songItem as? Song{
+            } else if let song: Song = holder.getBasicSong() as? Song{
                 
                 tellUserToConnect(song)
             }
@@ -378,10 +303,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func promptUserToSendToGroupQueue(_ song: BasicSong){
         //Method to ask the user if they'd like to send a song to the group queue
         
+        
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.getTrackName()) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
             
-            self.showSignifier()
+            self.delegate?.showSignifier()
             
             SendingBluetooth.sendSongIdToHost(id: "\(song.getId())", error: {
                 () -> Void in
@@ -405,147 +331,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         present(alert, animated: true, completion: nil)
     }
     
-    /*END OF GESTURE TARGET METHODS*/
     
-    /*MARK: SEARCH BAR DELEGATE METHODS*/
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        //When the textfield begins editing, we want to display our other view
-        
-        //Create the search view controller
-        let searchViewController = storyboard?.instantiateViewController(withIdentifier: "Search") as! SearchBarPopOverViewViewController
-        addChildViewController(searchViewController)
-        
-        //set the frame
-        //searchViewController.view.frame = library.frame
-        //set it minus it's height and then animate it into the correct position below
-        searchViewController.view.frame = CGRect(x: library.frame.minX, y: library.frame.minY - library.frame.height, width: library.frame.width, height: library.frame.height)
-        
-        view.insertSubview(searchViewController.view, at: 2) //Insert behind the currently playing view
-        searchViewController.didMove(toParentViewController: self)
-        
-        //Now animate the view into place
-        UIView.animate(withDuration: 0.35, animations: {(animate) in
-            
-            searchViewController.view.frame = self.library.frame
-        })
-        
-        //set up the delegates
-        searchViewController.delegate = self
-        searchBar.delegate = searchViewController
-        searchBar.showsCancelButton = true
-        
-        
-    }
-    
-    
-    
-    /*MARK: Bluetooth Methods*/
-    
-    func receivedGroupPlayQueue(_ songIds: [String]) {
-        
-        var tempSongHolder = [Song?].init(repeating: nil, count: songIds.count)
-        for i in 0..<songIds.count {
-            
-            ConnectingToInternet.getSong(id: songIds[i], completion: {(song) in
-                tempSongHolder[i] = song
-                
-                if let songs = tempSongHolder as? [Song] {
-                    
-                    DispatchQueue.main.async {
-                        peakMusicController.groupPlayQueue = songs
-                    }
-                }
-            })
-        }
-       
-    }
-    
-    
-    func receivedSong(_ songID: String) {
-        //Received a song from a contributor
-        
-        //add the song to the user's library, async
-        DispatchQueue.global().async {
-            
-            var song = MPMediaItem()
-            let library = MPMediaLibrary()
-    
-            library.addItem(withProductID: songID, completionHandler: {(ent, err) in
-                
-                //print(songID)
-
-                //add the entity to the queue
-                if ent.count > 0 {
-                    song = ent[0] as! MPMediaItem
-                
-                    DispatchQueue.main.async {
-                        peakMusicController.playAtEndOfQueue([song])
-                    }
-                }
-                else {
-                    print("\n\n\nHUGE ERROR\nSONG \(songID) DID NOT SEND\nI THINK TRACK NOT AVAILABLE THROUGH APPLE MUSIC\n\n")
-                }
-                
-            })
-        }
-        
-    }
-    
-    // MARK: Notification
-    func handleMPCNotification(notification: NSNotification) {
-    
-        
-        switch peakMusicController.playerType {
-        case .Host:
-            handleMPCDJRecievedSongIDWithNotification(notification: notification)
-        case .Contributor:
-            handleMPCClientReceivedSongIdsWithNotification(notification: notification)
-        default:
-            print("\n\nERROR: THIS SHOULD NEVER HAPPEN LibraryViewController -> handleMPCNotification\n\n")
-        }
-    }
-    
-    func handleMPCDJRecievedSongIDWithNotification(notification: NSNotification) {
-        let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
-        
-        let data = receivedDataDictionary["data"] as? NSData
-        
-        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
-        
-        if let id = dataDictionary["id"] {
-            
-            receivedSong(id)
-        }
-        else {
-            print("\n\nERROR: LibraryViewCOntroller.handleMPCDJRecievedSongIDWithNotification THIS SHOULD NEVER HAPPEN: \n\n")
-        }
-    }
-    
-    func handleMPCClientReceivedSongIdsWithNotification(notification: NSNotification) {
-        
-        let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
-        
-        let data = receivedDataDictionary["data"] as? NSData
-        
-        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
-        
-        
-        var songIDs: [String] = []
-        
-        var index = 0
-        while (true) {
-            
-            if let value = dataDictionary["\(index)"] {
-                songIDs.append(value)
-            }
-            else {
-                break
-            }
-            
-            index += 1
-        }
-        
-        receivedGroupPlayQueue(songIDs)
-    }
     
 }

@@ -55,8 +55,11 @@ class Alerts {
     
     static func playNextAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
         
+
+        
         return UIAlertAction(title: "Play Next", style: .default, handler: {(alert) in
         
+            peakMusicController.delegate?.showSignifier()
             performSongAction(sender, peakMusicController.playNext(_:))
         })
     }
@@ -64,8 +67,11 @@ class Alerts {
     
     static func playLastAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
         
+        
+
         return UIAlertAction(title: "Play Last", style: .default, handler: {(alert) in
         
+            peakMusicController.delegate?.showSignifier()
             performSongAction(sender, peakMusicController.playAtEndOfQueue(_:))
         })
     }
@@ -117,7 +123,7 @@ class Alerts {
         
         return UIAlertAction(title: "Add to Group Queue", style: .default, handler: {(alert) in
             
-            (peakMusicController.delegate as! LibraryViewController).showSignifier()
+            (peakMusicController.delegate as! BeastController).showSignifier()
             
             if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
                 
@@ -168,8 +174,8 @@ class Alerts {
                 
                 
                 
-                (peakMusicController.delegate as! LibraryViewController).showSignifier()
-                (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
+                (peakMusicController.delegate as! BeastController).showSignifier()
+                (peakMusicController.delegate as! BeastController).libraryViewController?.userLibrary.fetchLibrary()
                 
             }
         })
@@ -180,7 +186,7 @@ class Alerts {
         
         return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
             
-            (peakMusicController.delegate as! LibraryViewController).showSignifier()
+            (peakMusicController.delegate as! BeastController).showSignifier()
             
             
             let cell:SongCell = (sender.view as? SongCell)!

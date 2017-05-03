@@ -63,6 +63,9 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         
         advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: "appcoda-mpc")
         advertiser.delegate = self
+        
+        //Add a player type listener
+        NotificationCenter.default.addObserver(self, selector: #selector(playerTypeDidChange), name: .playerTypeChanged, object: nil)
     }
     
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
@@ -157,5 +160,26 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     
     func getDjName() -> String {
         return getDj().displayName
+    }
+    
+    
+    
+    /*MARK: Notification Listener Methods*/
+    func playerTypeDidChange(){
+        
+        switch peakMusicController.playerType{
+            
+        case .Host:
+            MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
+            MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
+            
+        case .Individual:
+            MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
+            MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
+            
+        case .Contributor:
+            MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
+            
+        }
     }
 }

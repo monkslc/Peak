@@ -13,7 +13,10 @@ extension Notification.Name{
     //Peak Music Controller related extensions
     static let musicTypeChanged = Notification.Name("MusicTypeChanged")
     static let playerTypeChanged = Notification.Name("PlayerTypeChanged")
+    static let groupQueueChanged = Notification.Name("GroupQueueChanged")
     
     //Song Time Update
     static let updateSongTime = Notification.Name("UpdateSongTime")
+    
+
 }

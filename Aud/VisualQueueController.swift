@@ -36,8 +36,8 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         
         
         //Get the cell we want to use
-        let LVC = peakMusicController.delegate as! LibraryViewController
-        let cell = LVC.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
+        let BVC = peakMusicController.delegate as! BeastController
+        let cell = BVC.libraryViewController?.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
     
         
         //update the cell depending on the type of player

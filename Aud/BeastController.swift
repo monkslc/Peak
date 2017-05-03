@@ -11,7 +11,7 @@ import MediaPlayer
 
 let peakMusicController = PeakMusicController()
 
-class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, BluetoohtHandlerDelegate {
 
     /*MARK: Properties*/
 
@@ -29,6 +29,7 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
     
     //Bluetooth Props
     @IBOutlet weak var connectButton: UIButton!
+    let bluetoothHandler = BluetoothHandler()
     
     /*MARK: VIEW CONTROLLER LIFECYCLE METHODS*/
     override func viewDidLoad() {
@@ -36,6 +37,16 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
         
        //Set up search bar
         searchForMediaBar.delegate = self
+        
+        //Set up the Peak Music Controller
+        peakMusicController.delegate = self
+        peakMusicController.setUp()
+        
+        //Set up bluetooth handler
+        bluetoothHandler.delegate = self
+        
+        //Add the listener for player type
+        NotificationCenter.default.addObserver(self, selector: #selector(playerTypeDidChange), name: .playerTypeChanged, object: nil)
     }
 
     
@@ -46,6 +57,7 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
         if let viewController: LibraryViewController = segue.destination as? LibraryViewController{
             
             libraryViewController = viewController
+            libraryViewController?.delegate = self
         } else if let _: SongInteractionController = segue.destination as? SongInteractionController{
             
             //In case we need to do anything with the song interaction controller
@@ -98,6 +110,32 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
     func returnLibraryItems() -> [BasicSong]{
         
         return (libraryViewController?.userLibrary.itemsInLibrary)!
+    }
+    
+    
+    /*MARK: Peak Music Controller Delegate Methods*/
+    func showSignifier() {
+        
+        let sig = Signifier(frame: CGRect(x: view.bounds.midX - 50, y: view.bounds.midY - 50, width: 100, height: 100))
+        sig.animationSetUp()
+        view.addSubview(sig)
+        sig.animate()
+    }
+    
+    /*MARK: Listener Methods*/
+    func playerTypeDidChange() {
+        
+        switch peakMusicController.playerType{
+            
+        case .Host:
+            connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
+            
+        case .Individual:
+            connectButton.setImage(#imageLiteral(resourceName: "IndieBigIcon"), for: .normal)
+            
+        case .Contributor:
+            connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
+        }
     }
     
     
