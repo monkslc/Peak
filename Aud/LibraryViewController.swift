@@ -25,9 +25,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var recentsView: RecentlyAddedView!
     
-    //Search Bar in header view
-    @IBOutlet weak var searchForMediaBar: UISearchBar!
-    
     //Bluetooth connectivity button in header
     @IBOutlet weak var connectButton: UIButton!
     
@@ -50,9 +47,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Now set up the music controller
         peakMusicController.delegate = self
         peakMusicController.setUp()
-        
-        //set up the search bar
-        searchForMediaBar.delegate = self
         
         //set up the scroll bar
         scrollBar.delegate = self
@@ -96,11 +90,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    
-    
-    
-    
-    
     /*MARK: User Interaction Methods*/
     
     @IBAction func displaySongOptions(_ sender: UILongPressGestureRecognizer) {
@@ -142,17 +131,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    @IBAction func showHidePlayingView(_ sender: UITapGestureRecognizer) {
-        //Method to hand tap on currently playing view
-        
-    }
-    
     
     /*MARK: Bluetooth PopOverView Methods*/
     @IBAction func presentBluetoothPopover() {
         //Method to show the popover
         performSegue(withIdentifier: "Popover Bluetooth Controller", sender: nil)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -165,22 +148,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let controller = popOverVC.popoverPresentationController!
             controller.delegate = self
-        
-            //segue.destinationViewController?.popoverPresentationController?.sourceRect = anchorView.frame
-        } else if segue.identifier == "Show Search Options" {
-            
-            //We are showing search options
-            //remark
-            let popOverVC = segue.destination as! SearchBarPopOverViewViewController
-            popOverVC.delegate = self
-            searchForMediaBar.delegate = popOverVC
-            
-            //Set the bounds for the popOverVc
-            popOverVC.preferredContentSize = CGSize(width: view.bounds.width, height: 300)
-            
-            let controller = popOverVC.popoverPresentationController!
-            controller.delegate = self
-        }
+        } 
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -312,6 +280,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.itemInCell = mediaItemToAdd
         
+        //Hide the bullshit
+        cell.addToLibraryButton.isHidden = true
+        cell.songDurationLabel.isHidden = true
+        
         //Add our gestures to the cell
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnSong(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(displaySongOptions(_:))))
@@ -430,127 +402,65 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*NEEDS TO BE UPDATED: CAN PROBABLY SWITCH FROM CHECKING BETWEEN APPLE MUSIC AND GUEST TO A SWITCH PROMPT*/
     func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
-        //check what type of music we are dealing with
-        if peakMusicController.musicType == .AppleMusic {
+        //First step is to get the song itme
+        var songItem = LibraryItem.MediaItem(MPMediaItem())
+        
+        if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView{
             
-            //first get the media item
-            var mediaItemOnTap = MPMediaItem()
+            songItem = albumArt.itemWithImage
+        } else if let cell: SongCell = gesture.view as? SongCell{
             
-            //check to see where the gesture is coming from and respond accordingly
-            if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView {
-                
-                switch albumArt.itemWithImage{
-                    
-                case .MediaItem(let song):
-                    mediaItemOnTap = song
-                    
-                default: break
-                }
-                
-            } else if let cell: SongCell = gesture.view as? SongCell {
-                
-                switch cell.itemInCell{
-                    
-                case .MediaItem(let song):
-                    mediaItemOnTap = song
-                    
-                default: break
-                }
-            }
-            
-            //Check to see what the playerType of the user is
-            if peakMusicController.playerType != .Contributor {
-                
-                peakMusicController.play([mediaItemOnTap])
-                
-            } else {
-                //the user is a contributor
-                
-                promptUserToSendToGroupQueue(mediaItemOnTap)
-                
-            }
-
-        } else if peakMusicController.musicType == .Guest {
-            
-            //get the item
-            var songTappedOn = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
-            
-            //Check to see if it is coming from recents or a the library
-            if let cell: SongCell = gesture.view as? SongCell{
-                
-                switch cell.itemInCell{
-                    
-                case .GuestItem(let song):
-                    songTappedOn = song
-                
-                default: break
-                }
-    
-            } else if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView{
-                
-                switch albumArt.itemWithImage{
-                case .GuestItem(let song):
-                    songTappedOn = song
-                    
-                default: break
-                }
-            }
-            
-            //check to see what type of player the user is
-            if peakMusicController.playerType != .Contributor{
-                
-                //User is a guest and not a contributor so alert them how to connect to someone
-                tellUserToConnect(songTappedOn)
-                
-            } else {
-                //the user is a contributor so ask them if they want to send the song
-                
-                promptUserToSendToGroupQueue(guestSong: songTappedOn)
-                
-            }
-            
+            songItem = cell.itemInCell
         }
         
+        //Switch on it and perform the appropriate action
+        switch peakMusicController.playerType{
+            
+        case .Contributor:
+            promptUserToSendToGroupQueue(songItem)
+            
+        default:
+            
+            switch songItem{
+            case .MediaItem(let song):
+                peakMusicController.play([song])
+                
+            case .GuestItem(let song):
+                tellUserToConnect(song)
+            }
+        }
     }
     
-    /*NEEDS TO BE UPDATED: CAN PROBABLY COMBINE THESE TWO METHODS INTO ONE LIBRARYITEM*/
-    func promptUserToSendToGroupQueue(_ song: MPMediaItem) {
-        //Method to ask the user if they'd like to add an item to the group queue
+    func promptUserToSendToGroupQueue(_ song: LibraryItem){
+        //Method to ask the user if they'd like to send a song to the group queue
         
-        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.title ?? "this song") to the group queue?", preferredStyle: .alert)
+        var songTitle = ""
+        var songID = ""
+        
+        //Get the song title
+        switch song{
+            
+        case .MediaItem(let song):
+            songTitle = song.title!
+            songID = song.playbackStoreID
+            
+        case .GuestItem(let song):
+            songTitle = song.trackName
+            songID = song.id
+        }
+        
+        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(songTitle) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
-        
+            
             self.showSignifier()
             
-            SendingBluetooth.sendSongIdToHost(id: "\(song.playbackStoreID)", error: {
+            SendingBluetooth.sendSongIdToHost(id: "\(songID)", error: {
                 () -> Void in
                 
                 let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
             }) // @cam added this. may want to change
-        }))
-        
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func promptUserToSendToGroupQueue(guestSong: Song){
-        //Ask the user if they'd like to send the song to a host
-        
-        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(guestSong.trackName) to the group queue?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
-            
-            self.showSignifier()
-            
-            SendingBluetooth.sendSongIdToHost(id: "\(guestSong.id)", error: {
-                () -> Void in
-                
-                let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-            })
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))

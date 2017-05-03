@@ -184,13 +184,74 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yD7-tM-kPX">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="embed" id="cLV-96-7YU"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ft-nF-02R">
-                                <rect key="frame" x="0.0" y="532" width="375" height="500.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JF2-Hp-oBo" customClass="HeaderView" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Song, Artist, or Album..." translatesAutoresizingMaskIntoConstraints="NO" id="Ay8-t3-JcI">
+                                        <rect key="frame" x="0.0" y="27" width="285" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="SqE-ds-tTe"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46B-Hf-thO">
+                                        <rect key="frame" x="315" y="27.5" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="aTk-zc-wtZ"/>
+                                            <constraint firstAttribute="height" constant="30" id="vJR-Om-ndX"/>
+                                        </constraints>
+                                        <state key="normal" image="IndieBigIcon"/>
+                                        <connections>
+                                            <segue destination="xZU-02-YAm" kind="popoverPresentation" identifier="Popover Bluetooth Controller" popoverAnchorView="eIt-sT-syG" id="anS-3N-zoh">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </button>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eIt-sT-syG">
+                                        <rect key="frame" x="339" y="57" width="6" height="0.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="6" id="UR6-kS-NgT"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="a5C-lY-Vie"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="2il-ZD-7jl"/>
+                                    <constraint firstItem="eIt-sT-syG" firstAttribute="bottom" secondItem="46B-Hf-thO" secondAttribute="bottom" id="7Ly-iN-4rE"/>
+                                    <constraint firstItem="46B-Hf-thO" firstAttribute="centerY" secondItem="Ay8-t3-JcI" secondAttribute="centerY" id="A2b-oT-SIw"/>
+                                    <constraint firstItem="eIt-sT-syG" firstAttribute="trailing" secondItem="46B-Hf-thO" secondAttribute="trailing" id="QuK-k6-1Io"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ay8-t3-JcI" secondAttribute="bottom" constant="3" id="c65-jh-mYW"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ay8-t3-JcI" secondAttribute="trailing" constant="90" id="j9T-OH-w4M"/>
+                                    <constraint firstItem="Ay8-t3-JcI" firstAttribute="leading" secondItem="JF2-Hp-oBo" secondAttribute="leading" id="qrH-Lt-eEu"/>
+                                    <constraint firstAttribute="trailing" secondItem="46B-Hf-thO" secondAttribute="trailing" constant="30" id="uGz-mE-GZq"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shOpacity">
+                                        <real key="value" value="0.84999999999999998"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shOffset">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ft-nF-02R" customClass="SicContainer" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="532" width="375" height="485.5"/>
                                 <connections>
                                     <segue destination="7zG-78-0Oe" kind="embed" id="mah-Zk-R4h"/>
                                 </connections>
@@ -199,22 +260,28 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" constant="-135" id="5Um-zH-w7f"/>
-                            <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="3:4" id="G0b-wm-byf"/>
-                            <constraint firstItem="yD7-tM-kPX" firstAttribute="centerY" secondItem="KxJ-9A-rmW" secondAttribute="centerY" id="Ps8-H7-z7q"/>
+                            <constraint firstAttribute="trailing" secondItem="JF2-Hp-oBo" secondAttribute="trailing" id="AKw-y0-4h9"/>
+                            <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="4:5" id="G0b-wm-byf"/>
                             <constraint firstAttribute="trailing" secondItem="7ft-nF-02R" secondAttribute="trailing" id="SIY-em-bRD"/>
-                            <constraint firstItem="yD7-tM-kPX" firstAttribute="height" secondItem="KxJ-9A-rmW" secondAttribute="height" id="WyK-jN-T3v"/>
+                            <constraint firstItem="Hbw-dp-iPZ" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" id="X0e-2F-fZP"/>
+                            <constraint firstItem="JF2-Hp-oBo" firstAttribute="top" secondItem="zzQ-HW-Q0M" secondAttribute="bottom" id="d8H-3F-FdL"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="centerX" secondItem="KxJ-9A-rmW" secondAttribute="centerX" id="g0t-AH-vTB"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="width" secondItem="KxJ-9A-rmW" secondAttribute="width" id="mgF-Wc-b2i"/>
+                            <constraint firstItem="JF2-Hp-oBo" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="moo-Zc-O4L"/>
+                            <constraint firstItem="yD7-tM-kPX" firstAttribute="top" secondItem="JF2-Hp-oBo" secondAttribute="bottom" id="sjt-0t-TBy"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="uuh-ge-v09"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="songInteractionContainer" destination="7ft-nF-02R" id="TOr-hv-oKo"/>
+                        <outlet property="connectButton" destination="46B-Hf-thO" id="NUw-h6-sUR"/>
+                        <outlet property="libraryContainerView" destination="yD7-tM-kPX" id="JJd-Ca-XLF"/>
+                        <outlet property="searchForMediaBar" destination="Ay8-t3-JcI" id="woJ-ye-zoj"/>
+                        <outlet property="songInteractionContainer" destination="7ft-nF-02R" id="v9O-3h-Zzk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kqn-0S-PHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-758" y="850"/>
+            <point key="canvasLocation" x="-759.20000000000005" y="849.62518740629696"/>
         </scene>
         <!--Search Bar Pop Over View View Controller-->
         <scene sceneID="8rc-4x-PGA">
@@ -285,11 +352,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="05J-pc-yQM">
-                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="3" id="5Pe-XS-hZ5">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="132"/>
@@ -402,130 +469,43 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3h-BM-8Rk" customClass="ScrollBar" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="365" y="70" width="10" height="587"/>
+                                <rect key="frame" x="365" y="10" width="10" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="10" id="Ogj-kV-xQN"/>
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CC-oP-P7H" customClass="ScrollPresenterView" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="150" y="70" width="200" height="587"/>
+                                <rect key="frame" x="150" y="10" width="200" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="8bX-yg-lVZ"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hn-Lo-zOk" customClass="HeaderView" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRU-Kx-gTx">
-                                        <rect key="frame" x="315" y="27" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="elC-r8-npF"/>
-                                            <constraint firstAttribute="height" constant="30" id="vSE-06-DJl"/>
-                                        </constraints>
-                                        <state key="normal" image="IndieBigIcon"/>
-                                        <connections>
-                                            <action selector="presentBluetoothPopover" destination="BYZ-38-t0r" eventType="touchUpInside" id="gox-bK-dCo"/>
-                                        </connections>
-                                    </button>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Song, Artist, or Album..." translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIB-1O-glD">
-                                        <rect key="frame" x="0.0" y="27" width="285" height="30"/>
-                                        <color key="backgroundColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Z1W-L1-uv8"/>
-                                        </constraints>
-                                        <color key="barTintColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                    </searchBar>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbU-4X-gif">
-                                        <rect key="frame" x="330" y="56" width="1" height="1"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="0V5-hu-rmr"/>
-                                            <constraint firstAttribute="width" constant="1" id="H01-js-YIL"/>
-                                        </constraints>
-                                    </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLL-D6-UDL">
-                                        <rect key="frame" x="10" y="57" width="211" height="3"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="211" id="UIQ-Rb-TtE"/>
-                                            <constraint firstAttribute="height" constant="3" id="b9P-gr-WWY"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="EIB-1O-glD" firstAttribute="leading" secondItem="6hn-Lo-zOk" secondAttribute="leading" id="74d-Zv-QFa"/>
-                                    <constraint firstItem="zbU-4X-gif" firstAttribute="centerX" secondItem="WRU-Kx-gTx" secondAttribute="centerX" id="8gS-6C-mSH"/>
-                                    <constraint firstItem="zbU-4X-gif" firstAttribute="bottom" secondItem="WRU-Kx-gTx" secondAttribute="bottom" id="FuI-NM-CUQ"/>
-                                    <constraint firstAttribute="bottom" secondItem="WRU-Kx-gTx" secondAttribute="bottom" constant="3" id="GHh-WV-4Uz"/>
-                                    <constraint firstItem="gLL-D6-UDL" firstAttribute="leading" secondItem="EIB-1O-glD" secondAttribute="leading" constant="10" id="QQK-sw-uxI"/>
-                                    <constraint firstAttribute="trailing" secondItem="WRU-Kx-gTx" secondAttribute="trailing" constant="30" id="Zog-RW-xpi"/>
-                                    <constraint firstAttribute="height" constant="60" id="gqc-oc-Cwa"/>
-                                    <constraint firstAttribute="bottom" secondItem="EIB-1O-glD" secondAttribute="bottom" constant="3" id="kfR-zb-fzf"/>
-                                    <constraint firstItem="WRU-Kx-gTx" firstAttribute="leading" secondItem="EIB-1O-glD" secondAttribute="trailing" constant="30" id="q8h-JW-xqD"/>
-                                    <constraint firstItem="gLL-D6-UDL" firstAttribute="top" secondItem="EIB-1O-glD" secondAttribute="bottom" id="tVt-Ck-ZeR"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shOpacity">
-                                        <real key="value" value="0.84999999999999998"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shOffset">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shColor">
-                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="t3h-BM-8Rk" secondAttribute="trailing" id="5Ye-4a-K9b"/>
+                            <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6jy-iB-aPk"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="4CC-oP-P7H" secondAttribute="trailing" constant="15" id="8HW-OH-slo"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="29:30" id="B4Z-lo-Gbf"/>
-                            <constraint firstItem="6hn-Lo-zOk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pot-3q-ikk"/>
-                            <constraint firstItem="6hn-Lo-zOk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="TmU-vj-MbG"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="height" secondItem="t3h-BM-8Rk" secondAttribute="height" id="VIf-kp-HvL"/>
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="centerY" secondItem="t3h-BM-8Rk" secondAttribute="centerY" id="alj-ou-KeL"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
-                            <constraint firstAttribute="trailing" secondItem="6hn-Lo-zOk" secondAttribute="trailing" id="luU-L8-zdQ"/>
-                            <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="6hn-Lo-zOk" secondAttribute="bottom" id="oAA-ER-Ach"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="centerY" secondItem="05J-pc-yQM" secondAttribute="centerY" id="vcC-SI-ELN"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="connectButton" destination="WRU-Kx-gTx" id="Fu1-gU-5PA"/>
                         <outlet property="library" destination="05J-pc-yQM" id="TO1-nn-R66"/>
                         <outlet property="recentsView" destination="bEX-s4-cqX" id="Z44-qM-IKr"/>
                         <outlet property="scrollBar" destination="t3h-BM-8Rk" id="rbO-AK-ECe"/>
                         <outlet property="scrollPresenter" destination="4CC-oP-P7H" id="K8E-tm-ahn"/>
-                        <outlet property="searchForMediaBar" destination="EIB-1O-glD" id="Z1w-m2-7D5"/>
-                        <segue destination="xZU-02-YAm" kind="popoverPresentation" identifier="Popover Bluetooth Controller" popoverAnchorView="zbU-4X-gif" id="xrx-rc-dLg">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
-                        </segue>
-                        <segue destination="C9k-4V-WA7" kind="popoverPresentation" identifier="Show Search Options" popoverAnchorView="gLL-D6-UDL" id="SwC-T0-bVD">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
-                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="bMT-eV-78R">
-                    <connections>
-                        <action selector="showHidePlayingView:" destination="BYZ-38-t0r" id="sTR-on-Voy"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="98.400000000000006" y="31.03448275862069"/>
         </scene>
@@ -652,14 +632,14 @@
                         <viewControllerLayoutGuide type="bottom" id="YBX-u8-evD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Pfx-yM-Eml">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="500.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="485.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zt1-CP-WBW" customClass="SICDisplay" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="375" height="450.5"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="435.5"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AIM-ua-687" customClass="MPVolumeView">
-                                        <rect key="frame" x="28" y="420.5" width="319" height="31"/>
+                                        <rect key="frame" x="28" y="405.5" width="319" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.11764705882352941" green="0.86274509803921573" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -667,7 +647,7 @@
                                         </constraints>
                                     </slider>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Low Volume Filled-50" translatesAutoresizingMaskIntoConstraints="NO" id="Z3A-Ue-6Xt">
-                                        <rect key="frame" x="12" y="423.5" width="15" height="15"/>
+                                        <rect key="frame" x="12" y="408.5" width="15" height="15"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -676,7 +656,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="High Volume Filled-50" translatesAutoresizingMaskIntoConstraints="NO" id="dEu-PR-hEX">
-                                        <rect key="frame" x="345" y="423.5" width="15" height="15"/>
+                                        <rect key="frame" x="345" y="408.5" width="15" height="15"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -733,7 +713,7 @@
                                         <color key="tintColor" red="0.1176470588" green="0.86274509799999999" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-Tt-duP" customClass="SICSongInfoDisplay" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="128" width="359" height="287.5"/>
+                                        <rect key="frame" x="8" y="128" width="359" height="272.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
@@ -870,6 +850,6 @@
         <image name="apple-music-app-icon" width="216" height="216"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OgC-gJ-cgY"/>
+        <segue reference="xSe-en-KNr"/>
     </inferredMetricsTieBreakers>
 </document>

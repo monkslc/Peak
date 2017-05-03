@@ -272,16 +272,12 @@ class Alerts {
         })
     }
     
-    /*NEEDS TO BE UPDATED: CAN SWITCH FROM CHECKING APPLE MUSIC AN DGUEST TO A SWITCH STATEMENT DIFFERENCE IS IN THE ADDING*/
     static func addToLibraryAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction{
         
         
         return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
             
-            
-            
             (peakMusicController.delegate as! LibraryViewController).showSignifier()
-            
             
             
             let cell:SongCell = (sender.view as? SongCell)!
