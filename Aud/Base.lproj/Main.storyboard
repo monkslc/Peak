@@ -189,12 +189,6 @@
                                     <segue destination="BYZ-38-t0r" kind="embed" id="cLV-96-7YU"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ft-nF-02R" customClass="SicContainer" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="532" width="375" height="485.5"/>
-                                <connections>
-                                    <segue destination="7zG-78-0Oe" kind="embed" id="mah-Zk-R4h"/>
-                                </connections>
-                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JF2-Hp-oBo" customClass="HeaderView" customModule="Aud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <subviews>
@@ -251,17 +245,26 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="shColor">
                                         <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ft-nF-02R" customClass="SicContainer" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="532" width="375" height="485.5"/>
+                                <connections>
+                                    <segue destination="7zG-78-0Oe" kind="embed" id="mah-Zk-R4h"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="JF2-Hp-oBo" firstAttribute="top" secondItem="zzQ-HW-Q0M" secondAttribute="bottom" id="4ZF-Sx-Rht"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" constant="-135" id="5Um-zH-w7f"/>
                             <constraint firstAttribute="trailing" secondItem="JF2-Hp-oBo" secondAttribute="trailing" id="AKw-y0-4h9"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="4:5" id="G0b-wm-byf"/>
                             <constraint firstAttribute="trailing" secondItem="7ft-nF-02R" secondAttribute="trailing" id="SIY-em-bRD"/>
                             <constraint firstItem="Hbw-dp-iPZ" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" id="X0e-2F-fZP"/>
+                            <constraint firstItem="JF2-Hp-oBo" firstAttribute="top" secondItem="zzQ-HW-Q0M" secondAttribute="bottom" id="d8H-3F-FdL"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="centerX" secondItem="KxJ-9A-rmW" secondAttribute="centerX" id="g0t-AH-vTB"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="width" secondItem="KxJ-9A-rmW" secondAttribute="width" id="mgF-Wc-b2i"/>
                             <constraint firstItem="JF2-Hp-oBo" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="moo-Zc-O4L"/>
