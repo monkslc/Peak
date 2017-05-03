@@ -191,9 +191,6 @@
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ft-nF-02R" customClass="SicContainer" customModule="Aud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="532" width="375" height="479"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="479" id="IrM-It-wMq"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="7zG-78-0Oe" kind="embed" id="mah-Zk-R4h"/>
                                 </connections>
@@ -259,10 +256,11 @@
                         <constraints>
                             <constraint firstItem="JF2-Hp-oBo" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="3YI-7g-A1e"/>
                             <constraint firstItem="Hbw-dp-iPZ" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" id="5nb-ny-kzL"/>
-                            <constraint firstAttribute="bottom" secondItem="7ft-nF-02R" secondAttribute="bottom" constant="-344" id="IYw-uE-axq"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="top" secondItem="JF2-Hp-oBo" secondAttribute="bottom" id="InM-J7-Xii"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="Jka-6X-bdl"/>
+                            <constraint firstItem="7ft-nF-02R" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" constant="-135" id="K0G-SD-FRX"/>
                             <constraint firstAttribute="trailing" secondItem="JF2-Hp-oBo" secondAttribute="trailing" id="Khk-Mf-anS"/>
+                            <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="4:5" id="Y53-gO-jj3"/>
                             <constraint firstItem="JF2-Hp-oBo" firstAttribute="top" secondItem="KxJ-9A-rmW" secondAttribute="top" id="aIL-iQ-fSD"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="atL-BJ-Ac2"/>
                             <constraint firstAttribute="trailing" secondItem="yD7-tM-kPX" secondAttribute="trailing" id="kvr-sp-Y6g"/>
