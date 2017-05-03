@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class RecentsAlbumView: UIImageView {
+class RecentsAlbumView: UIImageView, BasicSongHolder {
 
     /*MARK: PROPERTIES*/
     var itemWithImage: BasicSong!
@@ -37,5 +37,10 @@ class RecentsAlbumView: UIImageView {
         //Add the song info
         image = song.getImage()
         itemWithImage = song
+    }
+    
+    func getBasicSong() -> BasicSong {
+        
+        return itemWithImage
     }
 }

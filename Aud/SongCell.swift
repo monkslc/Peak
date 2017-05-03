@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class SongCell: UITableViewCell {
+class SongCell: UITableViewCell, BasicSongHolder {
 
     @IBOutlet weak var albumArt: UIImageView!
     
@@ -48,4 +48,9 @@ class SongCell: UITableViewCell {
         songArtist.text = itemInCell.getArtistName()
     }
 
+    /*MARK: BASIC SONG HOLDER METHODS*/
+    func getBasicSong() -> BasicSong {
+        
+        return itemInCell
+    }
 }

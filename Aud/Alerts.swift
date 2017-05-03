@@ -16,18 +16,10 @@ class Alerts {
     //Method to perform an action on an MPMediaItem
     private static func performSongAction(_ sender: UILongPressGestureRecognizer, _ method: ([MPMediaItem]) -> Void){
         
-        // check if we have a cell or a recents
-        if let cell: SongCell = sender.view as? SongCell{
-            //We have a cell
+        if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
             
-            method([cell.itemInCell as! MPMediaItem])
-        
-        
-        } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
-            
-            method([recent.itemWithImage as! MPMediaItem])
+            method([holder.getBasicSong() as! MPMediaItem])
         }
-        
     }
     
     private static func performCollectionAction(_ sender: UILongPressGestureRecognizer, _ method: (MPMediaItem) -> Void){
@@ -45,35 +37,21 @@ class Alerts {
         
         return UIAlertAction(title: "Play Now", style: .default, handler: {(alert) in
         
-            //check if we are getting a cell or a recents view
-            if let cell: SongCell = sender.view as? SongCell{
-                //we have a cell
+            if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
                 
-                //check if we have are searching apple MUsic
-                
-                if let song: MPMediaItem = cell.itemInCell as? MPMediaItem{
+                if let song: MPMediaItem = holder.getBasicSong() as? MPMediaItem{
                     
                     peakMusicController.play([song])
-                } else if let song: Song = cell.itemInCell as? Song{
+                } else if let song: Song = holder.getBasicSong() as? Song{
                     
                     peakMusicController.currPlayQueue.removeAll()
                     peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.getId()])
                     peakMusicController.systemMusicPlayer.play()
                 }
-                
-            } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView{
-                //we have a recents album
-                
-                if let song: MPMediaItem = recent.itemWithImage as? MPMediaItem{
-                    peakMusicController.play([song])
-                }
-        
             }
         })
         
     }
-    
-    
     
     static func playNextAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
         
@@ -141,31 +119,10 @@ class Alerts {
             
             (peakMusicController.delegate as! LibraryViewController).showSignifier()
             
-            //check if we have a song cell or a recents view and get the song id
-            if let cell: SongCell = sender.view as? SongCell {
-                //we have a cell
+            if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
                 
-                //send the song id
-                SendingBluetooth.sendSongIdToHost(id: "\(cell.itemInCell.getId())", error: {
-                    
-                    //not sure what to do if we get an error here yet
-                })
-                
-            } else if let recent: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                //we have recents
-                
-                //send the song id
-                SendingBluetooth.sendSongIdToHost(id: "\(recent.itemWithImage.getId())", error: {
-                    
-                    //not sure what to do if we get an error here yet
-                })
-                
+                SendingBluetooth.sendSongIdToHost(id: holder.getBasicSong().getId(), error:{})
             }
-            
-            
-            
-            
-            
         })
     }
     
@@ -175,57 +132,46 @@ class Alerts {
         //Create the alert here and return it
         return UIAlertAction(title: "Delete Song", style: .default, handler: {(alert) in
             
-            var songToDelete = Song(id: "", trackName: "", collectionName: "", artistName: "", trackTimeMillis: 0, image: nil, dateAdded: nil)
-            
-            if let cell: SongCell = sender.view as? SongCell{
+            if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
                 
+                let songToDelete = holder.getBasicSong()
                 
-                if let song: Song = cell.itemInCell as? Song{
-                    songToDelete = song
-                }
+                //now delete it
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                
+                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
+                request.returnsObjectsAsFaults = false
+                
+                do{
                     
-            } else if let album: RecentsAlbumView = sender.view as? RecentsAlbumView {
-                
-                if let song: Song = album.itemWithImage as? Song{
-                    songToDelete = song
-                }
-            }
-            
-            
-            //now delete it
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
-            request.returnsObjectsAsFaults = false
-            
-            do{
-                
-                let results = try context.fetch(request)
-                
-                for result in results{
+                    let results = try context.fetch(request)
                     
-                    let songInCD = result as! StoredSong
-                    
-                    //check if our songs match and if so delete
-                    if songInCD.storedID == songToDelete.id{
+                    for result in results{
                         
-                        context.delete(result as! NSManagedObject)
-                        break
+                        let songInCD = result as! StoredSong
+                        
+                        //check if our songs match and if so delete
+                        if songInCD.storedID == songToDelete.getId(){
+                            
+                            context.delete(result as! NSManagedObject)
+                            break
+                        }
                     }
+                    
+                    try context.save()
+                    
+                } catch {
+                    
+                    print("To dance beneath the diamond sky with one hand waving free")
                 }
                 
-                try context.save()
                 
-            } catch {
                 
-                print("To dance beneath the diamond sky with one hand waving free")
+                (peakMusicController.delegate as! LibraryViewController).showSignifier()
+                (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
+                
             }
-            
-            
-            
-            (peakMusicController.delegate as! LibraryViewController).showSignifier()
-            (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
         })
     }
     

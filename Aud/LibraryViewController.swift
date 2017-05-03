@@ -352,12 +352,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //First step is to get the song item
         var songItem: BasicSong!
         
-        if let albumArt: RecentsAlbumView = gesture.view as? RecentsAlbumView{
+        if let holder: BasicSongHolder = gesture.view as? BasicSongHolder{
             
-            songItem = albumArt.itemWithImage
-        } else if let cell: SongCell = gesture.view as? SongCell{
-            
-            songItem = cell.itemInCell
+            songItem = holder.getBasicSong()
         }
         
         //Switch on it and perform the appropriate action

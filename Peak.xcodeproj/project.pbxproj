@@ -22,6 +22,7 @@
 		90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */; };
 		90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */; };
 		C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */; };
+		C404D0D91EBA310900E7F0F5 /* BasicSongHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404D0D81EBA310900E7F0F5 /* BasicSongHolder.swift */; };
 		C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405151F1EB7DC0B00F1471F /* BeastController.swift */; };
 		C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40515211EB7E18E00F1471F /* UserLibrary.swift */; };
 		C40515281EB9045B00F1471F /* SicContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40515271EB9045B00F1471F /* SicContainer.swift */; };
@@ -75,6 +76,7 @@
 		90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingBluetooth.swift; sourceTree = "<group>"; };
 		90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckInternetConnection.swift; path = Aud/CheckInternetConnection.swift; sourceTree = "<group>"; };
 		C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICSongInfoDisplay.swift; sourceTree = "<group>"; };
+		C404D0D81EBA310900E7F0F5 /* BasicSongHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicSongHolder.swift; sourceTree = "<group>"; };
 		C405151F1EB7DC0B00F1471F /* BeastController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeastController.swift; sourceTree = "<group>"; };
 		C40515211EB7E18E00F1471F /* UserLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLibrary.swift; sourceTree = "<group>"; };
 		C40515271EB9045B00F1471F /* SicContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SicContainer.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				90E2DFE51E87FF0900762B9D /* Song.swift */,
 				90DC46511EB91EF9007AF581 /* BasicSong.swift */,
+				C404D0D81EBA310900E7F0F5 /* BasicSongHolder.swift */,
 			);
 			name = Songs;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */,
 				C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */,
 				C40515281EB9045B00F1471F /* SicContainer.swift in Sources */,
+				C404D0D91EBA310900E7F0F5 /* BasicSongHolder.swift in Sources */,
 				C4E896611E7458620096EC72 /* AppDelegate.swift in Sources */,
 				C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */,
 				C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */,
