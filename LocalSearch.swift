@@ -119,6 +119,7 @@ class LocalSearch {
         return total //(total * Double(songAndAuthourWords.count + 10)) / 10
     }
     
+    /*
     static func search(_ search: String, library: [MPMediaItem]) -> [MPMediaItem] {
         
         var songs: [MPMediaItem] = []
@@ -199,7 +200,8 @@ class LocalSearch {
         
         return top
     }
-    
+ */   
+ 
     static func search(_ search: String, library: [BasicSong]) -> [BasicSong] {
         var songs: [BasicSong] = []
         var points: [Int: Double] = [:]

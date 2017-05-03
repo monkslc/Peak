@@ -16,11 +16,13 @@ protocol UserLibraryDelegate{
     func libraryItemsUpdated()
 }
 
+/*
 enum LibraryItem{
     
     case MediaItem(MPMediaItem)
     case GuestItem(Song)
 }
+ */
 
 class UserLibrary{
     
@@ -38,7 +40,7 @@ class UserLibrary{
     /*MARK: PROPERTIES*/
     
     //Holds all of the items in the user's library
-    var itemsInLibrary = [LibraryItem](){
+    var itemsInLibrary = [BasicSong](){
         
         didSet{
             
@@ -47,16 +49,16 @@ class UserLibrary{
     }
     
     //Holds the most recently downloaded songs
-    var recents = [LibraryItem]()
+    var recents = [BasicSong]()
     
     
     /*MARK: Fetch FUNCITONS*/
     func fetchLibrary(){
         
-        if peakMusicController.musicType == .AppleMusic{
+        if peakMusicController.musicType == .AppleMusic {
             
             fetchAppleMusic()
-        } else if peakMusicController.musicType == .Guest{
+        } else if peakMusicController.musicType == .Guest {
             
             fetchGuestMusic()
         }

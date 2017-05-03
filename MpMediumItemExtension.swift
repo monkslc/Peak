@@ -11,11 +11,11 @@ import MediaPlayer
 
 extension MPMediaItem: BasicSong {
     
-    func getId() -> String { return "\(self.persistentID)" }
+    func getId() -> String { return "\(self.playbackStoreID)" }
     func getTrackName() -> String { return self.title! }
     func getCollectionName() -> String { return albumTitle! }
     func getArtistName() -> String { return albumArtist! }
-    func getTrackTimeMillis() -> Int { return Int(self.bookmarkTime) }
-    func getImage() -> UIImage? { return nil }
+    func getTrackTimeMillis() -> Int { return Int(self.playbackDuration) }
+    func getImage() -> UIImage? { return self.artwork?.image(at: CGSize())}
     func getDateAdded() -> Date? { return dateAdded }
 }
