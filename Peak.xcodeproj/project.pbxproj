@@ -12,6 +12,8 @@
 		904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */; };
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
 		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
+		90DC46521EB91EF9007AF581 /* BasicSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DC46511EB91EF9007AF581 /* BasicSong.swift */; };
+		90DC46541EB920A0007AF581 /* MpMediumItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */; };
 		90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDF1E87509C00762B9D /* MPCManager.swift */; };
 		90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE11E87560700762B9D /* StringExtension.swift */; };
 		90E2DFE61E87FF0900762B9D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFE51E87FF0900762B9D /* Song.swift */; };
@@ -63,6 +65,8 @@
 		904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingAppleMusicApi.swift; sourceTree = "<group>"; };
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
+		90DC46511EB91EF9007AF581 /* BasicSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicSong.swift; sourceTree = "<group>"; };
+		90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MpMediumItemExtension.swift; sourceTree = "<group>"; };
 		90E2DFDF1E87509C00762B9D /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 		90E2DFE11E87560700762B9D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		90E2DFE51E87FF0900762B9D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -121,6 +125,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90DC46501EB91EE3007AF581 /* Songs */ = {
+			isa = PBXGroup;
+			children = (
+				90E2DFE51E87FF0900762B9D /* Song.swift */,
+				90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */,
+				90DC46511EB91EF9007AF581 /* BasicSong.swift */,
+			);
+			name = Songs;
+			sourceTree = "<group>";
+		};
 		90E2DFDE1E874F6400762B9D /* Cam */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,7 +144,6 @@
 				90323D341EA8D2FE00489B50 /* GettingTopCharts.swift */,
 				90323D321EA8D10D00489B50 /* GettingLyrics.swift */,
 				90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */,
-				90E2DFE51E87FF0900762B9D /* Song.swift */,
 				90E2DFDF1E87509C00762B9D /* MPCManager.swift */,
 				90E2DFE11E87560700762B9D /* StringExtension.swift */,
 				904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */,
@@ -250,6 +263,7 @@
 		C4E896541E7458610096EC72 = {
 			isa = PBXGroup;
 			children = (
+				90DC46501EB91EE3007AF581 /* Songs */,
 				90E2DFDE1E874F6400762B9D /* Cam */,
 				C4E8965F1E7458620096EC72 /* Aud */,
 				C4E8965E1E7458620096EC72 /* Products */,
@@ -321,7 +335,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = SDRSRURVZA;
+						DevelopmentTeam = 58NU5LV6AX;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -408,6 +422,7 @@
 				C47FC7C21EB69E8F00B1A352 /* NotificationExtension.swift in Sources */,
 				90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */,
 				904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */,
+				90DC46541EB920A0007AF581 /* MpMediumItemExtension.swift in Sources */,
 				C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */,
 				90E2DFE61E87FF0900762B9D /* Song.swift in Sources */,
 				C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */,
@@ -415,6 +430,7 @@
 				90323D351EA8D2FE00489B50 /* GettingTopCharts.swift in Sources */,
 				90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */,
 				C47FC7C71EB6A8EA00B1A352 /* SongProgressLabel.swift in Sources */,
+				90DC46521EB91EF9007AF581 /* BasicSong.swift in Sources */,
 				C4FCDF931E90A83A0046C1F9 /* DisplayLabelView.swift in Sources */,
 				C4FCDF951E90AE9E0046C1F9 /* ScrollPresenterView.swift in Sources */,
 				90323D331EA8D10D00489B50 /* GettingLyrics.swift in Sources */,
@@ -541,7 +557,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SDRSRURVZA;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -558,7 +574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SDRSRURVZA;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
