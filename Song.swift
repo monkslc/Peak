@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Song {
+struct Song: BasicSong {
     var id: String
     var trackName: String
     var collectionName: String // same as album name
@@ -17,4 +17,13 @@ struct Song {
     var trackTimeMillis: Int
     var image: UIImage?
     var dateAdded: Date?
+    
+    func getId() -> String { return id }
+    func getTrackName() -> String { return trackName }
+    func getCollectionName() -> String { return collectionName }
+    func getArtistName() -> String { return artistName }
+    func getTrackTimeMillis() -> Int { return trackTimeMillis }
+    func getImage() -> UIImage? { return image }
+    func getDateAdded() -> Date? { return dateAdded }
+    
 }
