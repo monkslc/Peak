@@ -51,13 +51,13 @@ class SendingBluetooth {
         }
     }
 
-    static func getSongIds(songs: [MPMediaItem], completion: @escaping ([String: String]) -> Void) {
+    static func getSongIds(songs: [BasicSong], completion: @escaping ([String: String]) -> Void) {
     
         var songIds: [String: String] = [:]
         
         for (index, song) in songs.enumerated() {
             
-            ConnectingToInternet.getSongs(searchTerm: "\(song.artist!) \(song.title!)".replacingOccurrences(of: " ", with: "%20"), limit: 2, sendSongsAlltogether: true, completion: {
+            ConnectingToInternet.getSongs(searchTerm: "\(song.getArtistName()) \(song.getTrackName())".replacingOccurrences(of: " ", with: "%20"), limit: 2, sendSongsAlltogether: true, completion: {
                 (sentSongs) -> Void in
                 
                 songIds["\(index)"] = sentSongs[0].id
@@ -69,7 +69,7 @@ class SendingBluetooth {
         }
     }
 
-    static func sendSongIdsFromHost(songs: [MPMediaItem]) {
+    static func sendSongIdsFromHost(songs: [BasicSong]) {
         getSongIds(songs: songs, completion: {
             (songIds) -> Void in
             

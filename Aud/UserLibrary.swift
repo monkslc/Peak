@@ -53,10 +53,10 @@ class UserLibrary{
     /*MARK: Fetch FUNCITONS*/
     func fetchLibrary(){
         
-        if peakMusicController.musicType == .AppleMusic{
+        if peakMusicController.musicType == .AppleMusic {
             
             fetchAppleMusic()
-        } else if peakMusicController.musicType == .Guest{
+        } else if peakMusicController.musicType == .Guest {
             
             fetchGuestMusic()
         }
