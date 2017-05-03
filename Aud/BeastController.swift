@@ -11,94 +11,94 @@ import MediaPlayer
 
 let peakMusicController = PeakMusicController()
 
-class BeastController: UIViewController {
+class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate {
 
     /*MARK: Properties*/
 
-    var isPoppedUp = false
-    @IBOutlet weak var songInteractionContainer: UIView!
+    //SIC Props
+    @IBOutlet weak var songInteractionContainer: SicContainer!
+
     
+    //Search Props
+    @IBOutlet weak var searchForMediaBar: UISearchBar!
+    
+    //Library Props
+    @IBOutlet weak var libraryContainerView: UIView!
+    var libraryViewController: LibraryViewController?
+    
+    
+    //Bluetooth Props
+    @IBOutlet weak var connectButton: UIButton!
+    
+    
+    /*MARK: VIEW CONTROLLER LIFECYCLE METHODS*/
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        //Set up the song interaction container (SIC)
-        addSicGestures()
-
+       //Set up search bar
+        searchForMediaBar.delegate = self
     }
 
-
-    /*MARK: SIC CONTAINER VIEW METHODS*/
     
-    func addSicGestures(){
+    /*MARK: SEGUE STUFF*/
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        songInteractionContainer.isUserInteractionEnabled = true
-        songInteractionContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOnSic)))
-        
-        
-        /*SWIPE GESTURES*/
-        let swipeUP = UISwipeGestureRecognizer(target: self, action: #selector(swipeSIC(_:)))
-        swipeUP.direction = .up
-        
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(swipeSIC(_:)))
-        swipeDown.direction = .down
-        
-        songInteractionContainer.addGestureRecognizer(swipeDown)
-        songInteractionContainer.addGestureRecognizer(swipeUP)
-    }
-    
-    func swipeSIC(_ gesture: UISwipeGestureRecognizer){
-        
-        if gesture.direction == .up{
+        //Get the View Controllers
+        if let viewController: LibraryViewController = segue.destination as? LibraryViewController{
             
-            if !isPoppedUp {
-                
-                animateSic(up: true)
-            }
-        } else if gesture.direction == .down{
+            libraryViewController = viewController
+        } else if let _: SongInteractionController = segue.destination as? SongInteractionController{
             
-            if isPoppedUp {
-                
-                animateSic(up: false)
-            }
+            //In case we need to do anything with the song interaction controller
         }
+        
+        //Check if we are presenting the bluetooth popover
+        if segue.identifier == "Popover Bluetooth Controller"{
+            
+            let popOverVC = segue.destination
+            
+            let controller = popOverVC.popoverPresentationController!
+            controller.delegate = self
+        }
+        
     }
     
-    func tappedOnSic(){
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         
-        if isPoppedUp{
-            
-            animateSic(up: false)
-            
-        } else {
-            
-            animateSic(up: true)
-        }
+        return .none
     }
     
-    func animateSic(up: Bool){
+    /*MARK: SEARCH BAR Delegate METHODS*/
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        //When the user starts editing we want to display the search bar
         
-        if up{
+        //Create the search View Controller
+        let searchViewController = storyboard?.instantiateViewController(withIdentifier: "Search") as! SearchBarPopOverViewViewController
+        addChildViewController(searchViewController)
+        
+        //Set the frame for the view controller in a position so it can be animated
+        searchViewController.view.frame = CGRect(x: libraryContainerView.frame.minX, y: libraryContainerView.frame.minY - libraryContainerView.frame.height, width: libraryContainerView.frame.width, height: libraryContainerView.frame.height)
+        
+        view.insertSubview(searchViewController.view, at: 2) //Insert behind the currently playing view
+        searchViewController.didMove(toParentViewController: self)
+        
+        //Now animate the view into place
+        UIView.animate(withDuration: 0.35){(animate) in
             
-            //Animate it up
-            UIView.animate(withDuration: 0.5, animations: {
-                
-                self.songInteractionContainer.transform = CGAffineTransform(translationX: 0, y: (self.songInteractionContainer.frame.height - 135) * -1)
-            }, completion: {(finished) in
-                
-                self.isPoppedUp = true
-            })
-        } else {
-            
-            //Animate it down
-            UIView.animate(withDuration: 0.5, animations: {
-                
-                self.songInteractionContainer.transform = CGAffineTransform(translationX: 0, y: 0)
-            }, completion: {(finished) in
-                
-                self.isPoppedUp = false
-            })
+            searchViewController.view.frame = self.libraryContainerView.frame
         }
+        
+        //set up the delegates
+        searchViewController.delegate = self
+        searchBar.delegate = searchViewController
+        searchBar.showsCancelButton = true
+    }
+    
+    
+    /*MARK: SearchBarPopOver Delegate Methods*/
+    func returnLibraryItems() -> [LibraryItem]{
+        
+        return (libraryViewController?.userLibrary.itemsInLibrary)!
     }
     
     
