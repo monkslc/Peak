@@ -51,13 +51,13 @@ class SicSongProgress: UISlider {
     func songTimeChanged(){
         //Get's called from the notification
         
-        value = Float(peakMusicController.systemMusicPlayer.currentPlaybackTime)
+        value = Float(peakMusicController.systemMusicPlayer.getCurrentPlaybackTime())
     }
     
     func songChanged(){
         //Get's called when the song changes on the system music player
         
-        maximumValue = Float((peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration) ?? 0.0)
+        maximumValue = Float((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
     }
     
     
@@ -65,6 +65,6 @@ class SicSongProgress: UISlider {
     func changeSongTime(){
         //Get's called when the user changes the song time, update the time of the current song playing in peak music controller
         
-        peakMusicController.systemMusicPlayer.currentPlaybackTime = TimeInterval(value)
+        peakMusicController.systemMusicPlayer.setCurrentPlayTime(Double(value))
     }
 }

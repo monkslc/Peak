@@ -32,8 +32,7 @@ class SICForwardButton: UIButton {
     func skipSong(){
         //Called when the button gets pressed
         
-        print("Skipping Song")
-        peakMusicController.systemMusicPlayer.skipToNextItem()
+        peakMusicController.systemMusicPlayer.skipSong()
     }
     
 }

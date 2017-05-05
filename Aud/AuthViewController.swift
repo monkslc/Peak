@@ -8,6 +8,11 @@
 import UIKit
 import StoreKit
 import CloudKit
+import MediaPlayer
+
+//Spotify Authentication tools
+let auth = SPTAuth.defaultInstance()
+var authViewController: SFSafariViewController?
 
 class AuthViewController: UIViewController {
 
@@ -112,6 +117,7 @@ class AuthViewController: UIViewController {
                     DispatchQueue.global().async {
                         DispatchQueue.main.async {
                             
+                            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
                             self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
                         }
                     }

@@ -17,8 +17,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var shortcutItem: UIApplicationShortcutItem?
     
+    
+    /*MARK: SPOTIFY APPLICATION DELEGATE METHODS*/
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        print("We got a callback!")
+        
+        //check if the url is what we expect
+        
+        if (auth?.canHandle(url))!{
+            
+            authViewController?.dismiss(animated: true, completion: nil)
+            authViewController = nil
+            
+            auth?.handleAuthCallback(withTriggeredAuthURL: url){ error, session in
+                
+                if session != nil{
+                    
+                    DispatchQueue.global().async {
+                        
+                        //player?.login(withAccessToken: auth?.session.accessToken)
+                        /***********NEED TO FIGURE THIS OUT RIGHT HERE******/
+                    }
+                    
+                    
+                    
+                }
+                
+            }
+            
+        }
+
+        return true
+    }
+    
+    
+    /*MARK: NOT SPOTIFY STUFF*/
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         
         if CheckInternetConnection.isConnectedToWifi() {
             GettingTopCharts.defaultGettingTopCharts.searchTopCharts()
@@ -63,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        peakMusicController.systemMusicPlayer.pause()
+        peakMusicController.systemMusicPlayer.stopPlaying()
         self.saveContext()
     }
 

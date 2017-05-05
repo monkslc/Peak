@@ -24,7 +24,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         //change the return based on the type of player
         if peakMusicController.playerType != .Contributor {
             
-            return peakMusicController.currPlayQueue.count - 1 - peakMusicController.systemMusicPlayer.indexOfNowPlayingItem
+            return peakMusicController.currPlayQueue.count - 1 - peakMusicController.systemMusicPlayer.getNowPlayingItemLoc()
         } else {
             
             return peakMusicController.groupPlayQueue.count - 1 //subtract 2 to take into account the song currently playing
@@ -43,10 +43,10 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         //update the cell depending on the type of player
         if peakMusicController.playerType != .Contributor{
             
-            let mediaItemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.indexOfNowPlayingItem + 1 + indexPath.row]
+            let mediaItemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.getNowPlayingItemLoc() + 1 + indexPath.row]
             
             //Check if we can get the image
-            if let albumImage = mediaItemToAdd.artwork?.image(at: CGSize()){
+            if let albumImage = mediaItemToAdd.getImage(){
                 
                 cell.albumArt.image = albumImage
             } else {
@@ -55,7 +55,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
                 cell.albumArt.image = #imageLiteral(resourceName: "ProperPeakyIcon")
                 
                 //the fetch
-                ConnectingToInternet.getSong(id: mediaItemToAdd.playbackStoreID, completion: {(song) in
+                ConnectingToInternet.getSong(id: mediaItemToAdd.getId(), completion: {(song) in
                 
                     if song.image != nil{
                         
@@ -66,16 +66,16 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
                 
             }
             //cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "defaultAlbum") //Don't totally do away with this until confirming the visual queue picks up the right album
-            cell.songTitle.text =  mediaItemToAdd.title
-            cell.songArtist.text = mediaItemToAdd.artist
+            cell.songTitle.text =  mediaItemToAdd.getTrackName()
+            cell.songArtist.text = mediaItemToAdd.getArtistName()
             
             //get the time until the song plays
-            var timeUntil: Double = (peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration)!
+            var timeUntil: Double = Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis())!)
             for index in 0..<peakMusicController.currPlayQueue.count {
                 
                 //check if we should add the duration, by checking the current index
                 if index < indexPath.row {
-                    timeUntil += Double(peakMusicController.currPlayQueue[index].playbackDuration)
+                    timeUntil += Double(peakMusicController.currPlayQueue[index].getTrackTimeMillis())
                 } else {
                     break
                 }

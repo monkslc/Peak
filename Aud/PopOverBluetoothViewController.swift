@@ -195,7 +195,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             
                 for song in peakMusicController.currPlayQueue {
                 
-                    ids.append("\(song.playbackStoreID)")
+                    ids.append("\(song.getId())")
                 }
             
                 SendingBluetooth.sendSongIdsWithPeerId(ids: ids, peerID: peerID)

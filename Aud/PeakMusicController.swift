@@ -42,14 +42,13 @@ class PeakMusicController {
             switch playerType{
                 
             case .Contributor:
-                systemMusicPlayer.endGeneratingPlaybackNotifications()
-                peakMusicController.systemMusicPlayer.stop()
+                systemMusicPlayer?.stopGeneratingNotifications()
+                systemMusicPlayer?.stopPlaying()
                 peakMusicController.currPlayQueue = []
                 
                 
             default:
-                systemMusicPlayer.beginGeneratingPlaybackNotifications()
-                
+                systemMusicPlayer?.generateNotifications()
                 
             }
 
@@ -73,14 +72,14 @@ class PeakMusicController {
         }
     }
     
-    let systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+    var systemMusicPlayer: SystemMusicPlayer!   //MPMusicPlayerController.systemMusicPlayer()
     
-    var currPlayQueue = [MPMediaItem](){
+    var currPlayQueue = [BasicSong](){
         
         didSet{ //When we set the queue, we want to update the musicPlayer
             
-            systemMusicPlayer.setQueue(with: MPMediaItemCollection(items: currPlayQueue))
-            systemMusicPlayer.prepareToPlay()
+            systemMusicPlayer?.setPlayerQueue(songs: currPlayQueue)
+            systemMusicPlayer?.preparePlayerToPlay()
             
             if playerType == .Host{
                 SendingBluetooth.sendFullQue()
@@ -101,7 +100,7 @@ class PeakMusicController {
     
     
     /*QUEUE METHODS*/
-    func play(_ songs: [MPMediaItem]){
+    func play(_ songs: [BasicSong]){
         
         //Check if there are currently items in the users queue, to warn them that they will no longer be there
         if currPlayQueue.count > 1 {
@@ -110,15 +109,15 @@ class PeakMusicController {
         } else {
             
             currPlayQueue = songs
-            systemMusicPlayer.play() //Need to play here in case the music player is paused
+            systemMusicPlayer?.startPlaying() //Need to play here in case the music player is paused
         }
     }
     
-    func play(artist: [MPMediaItem]){
+    func play(artist: [BasicSong]){
         //Fetch the artists songs async and use play() to play the results
         
-        let artistToPlay = artist[0].artist
-        var mediaItemsToPlay = [MPMediaItem]()
+        let artistToPlay = artist[0].getArtistName()
+        var mediaItemsToPlay = [BasicSong]()
         
         //fetch the songs from the artist and add the to the queue
         DispatchQueue.global().async {
@@ -143,12 +142,11 @@ class PeakMusicController {
         }
     }
     
-    func play(album: [MPMediaItem]){
+    func play(album: [BasicSong]){
         //Fetch the album songs async and use play() to play the results
         
-        
-        let albumTitleToPlay = album[0].albumTitle
-        var mediaItemsToPlay = [MPMediaItem]()
+        let albumTitleToPlay = album[0].getCollectionName()
+        var mediaItemsToPlay = [BasicSong]()
         
         //fetch the songs from the album and add them to the queue
         DispatchQueue.global().async {
@@ -173,25 +171,25 @@ class PeakMusicController {
         
     }
     
-    func playNext(_ songs: [MPMediaItem]){
+    func playNext(_ songs: [BasicSong]){
         
         //insert a song or songs at one after the index of the currently playing view
         //Append if the the systemMusicPlayer is at the end of the queue, or the queue is equal to 0
-        if systemMusicPlayer.indexOfNowPlayingItem == currPlayQueue.count - 1 || currPlayQueue.count == 0 || currPlayQueue.count == 1 {
+        if systemMusicPlayer.getNowPlayingItemLoc() == currPlayQueue.count - 1 || currPlayQueue.count == 0 || currPlayQueue.count == 1 {
             
             currPlayQueue.append(contentsOf: songs)
         } else {
             
             for song in songs{
                 
-                currPlayQueue.insert(song, at: systemMusicPlayer.indexOfNowPlayingItem + 1)
+                currPlayQueue.insert(song, at: systemMusicPlayer.getNowPlayingItemLoc() + 1)
             }
             
         }
         
     }
     
-    func playAtEndOfQueue(_ songs: [MPMediaItem]) {
+    func playAtEndOfQueue(_ songs: [BasicSong]) {
         
         //Just to be sure the player isn't a contributor
         if playerType != .Contributor {
@@ -201,11 +199,11 @@ class PeakMusicController {
         
     }
     
-    func shuffleQueue(shuffle songs: [MPMediaItem]) -> [MPMediaItem]{
+    func shuffleQueue(shuffle songs: [BasicSong]) -> [BasicSong]{
         
         var songsToShuffle = songs
         
-        var placeHolderQueue = [MPMediaItem]()
+        var placeHolderQueue = [BasicSong]()
         for _ in 0..<songs.count {
             
             //Get a random song from songs
@@ -232,7 +230,7 @@ class PeakMusicController {
         //We do this to make the play queue easy to update
         if peakMusicController.currPlayQueue.count > 1{
             
-            if systemMusicPlayer.nowPlayingItem == currPlayQueue[1] {
+            if (systemMusicPlayer.getNowPlayingItem()?.isEqual(to: currPlayQueue[1]))! {
                 
                 currPlayQueue.remove(at: 0)
             }
@@ -246,26 +244,26 @@ class PeakMusicController {
         if musicType == .AppleMusic{
             
             //Set the initally playing song and queue
-            if peakMusicController.systemMusicPlayer.nowPlayingItem != nil {
+            if peakMusicController.systemMusicPlayer.getNowPlayingItem() != nil {
                 
-                currPlayQueue = [peakMusicController.systemMusicPlayer.nowPlayingItem!]
+                currPlayQueue = [peakMusicController.systemMusicPlayer.getNowPlayingItem()!]
             }
             
             //Now set the suffle mode to off so we can control the queue
-            peakMusicController.systemMusicPlayer.shuffleMode = .off
+            peakMusicController.systemMusicPlayer.setShuffleState(state: .off)
             
             //Now set the notifications
             
-            peakMusicController.systemMusicPlayer.beginGeneratingPlaybackNotifications()
+            peakMusicController.systemMusicPlayer.generateNotifications()
         } else if peakMusicController.musicType == .Guest{
             
             currPlayQueue = []
-            systemMusicPlayer.nowPlayingItem = nil
+            systemMusicPlayer.setNowPlayingItemToNil()
         }
         
     }
     
-    func warnUserOfRemovingQueueItems(_ songs: [MPMediaItem]){
+    func warnUserOfRemovingQueueItems(_ songs: [BasicSong]){
         
         //Check if the user is adding an artist or just one song
         if songs.count > 1 {
@@ -277,7 +275,7 @@ class PeakMusicController {
             alert.addAction(UIAlertAction(title: "Play Songs Now", style: .default, handler: {(alert) in
             
                 self.currPlayQueue = songs
-                self.systemMusicPlayer.play()
+                self.systemMusicPlayer.startPlaying()
             }))
             
             //Give a play next option
@@ -309,7 +307,7 @@ class PeakMusicController {
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
                 
                 self.currPlayQueue = songs
-                self.systemMusicPlayer.play()
+                self.systemMusicPlayer.startPlaying()
             }))
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             

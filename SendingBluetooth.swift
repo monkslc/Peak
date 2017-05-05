@@ -127,7 +127,7 @@ class SendingBluetooth {
         var ids: [String] = []
         
         for song in peakMusicController.currPlayQueue {
-            ids.append("\(song.playbackStoreID)")
+            ids.append("\(song.getId())")
         }
         
         SendingBluetooth.sendSongIds(ids: ids)

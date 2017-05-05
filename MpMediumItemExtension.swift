@@ -18,4 +18,13 @@ extension MPMediaItem: BasicSong {
     func getTrackTimeMillis() -> Int { return Int(self.playbackDuration) }
     func getImage() -> UIImage? { return artwork?.image(at: CGSize()) }
     func getDateAdded() -> Date? { return dateAdded }
+    
+    func isEqual(to song: BasicSong) -> Bool {
+        
+        if playbackStoreID == song.getId(){
+            return true
+        }
+        
+        return false
+    }
 }

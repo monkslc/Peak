@@ -46,12 +46,12 @@ class SongProgressLabel: UILabel {
         //See what label we are updating so we know which one to set
         if progressType == .Beg{
             
-            let currentTime = peakMusicController.systemMusicPlayer.currentPlaybackTime
+            let currentTime = peakMusicController.systemMusicPlayer.getCurrentPlaybackTime()
             text = formatTime(currentTime)
         }else {
             
-            let duration = peakMusicController.systemMusicPlayer.nowPlayingItem?.playbackDuration ?? 0.0
-            text = formatTime(duration)
+            let duration = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis() ?? Int(0.0)
+            text = formatTime(TimeInterval(duration))
         }
     }
     

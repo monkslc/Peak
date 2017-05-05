@@ -107,7 +107,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func enteringForeground(_ notification: NSNotification){
         
-        peakMusicController.systemMusicPlayer.shuffleMode = .off
+        peakMusicController.systemMusicPlayer.setShuffleState(state: ShuffleState.off)
     }
     /*END OF NOTIFICATION METHODS*/
     

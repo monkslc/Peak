@@ -14,21 +14,21 @@ import CoreData
 class Alerts {
     
     //Method to perform an action on an MPMediaItem
-    private static func performSongAction(_ sender: UILongPressGestureRecognizer, _ method: ([MPMediaItem]) -> Void){
+    private static func performSongAction(_ sender: UILongPressGestureRecognizer, _ method: ([BasicSong]) -> Void){
         
         if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
             
-            method([holder.getBasicSong() as! MPMediaItem])
+            method([holder.getBasicSong()])
         }
     }
     
-    private static func performCollectionAction(_ sender: UILongPressGestureRecognizer, _ method: (MPMediaItem) -> Void){
+    private static func performCollectionAction(_ sender: UILongPressGestureRecognizer, _ method: (BasicSong) -> Void){
         //Difference is in the type of method being called
         
         //check if we have a cell or a recents
         if let cell: SongCell = sender.view as? SongCell {
             
-            method(cell.itemInCell as! MPMediaItem)
+            method(cell.itemInCell)
         
         }
     }
@@ -45,8 +45,8 @@ class Alerts {
                 } else if let song: Song = holder.getBasicSong() as? Song{
                     
                     peakMusicController.currPlayQueue.removeAll()
-                    peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.getId()])
-                    peakMusicController.systemMusicPlayer.play()
+                    peakMusicController.systemMusicPlayer.setQueueIds([song.getId()])
+                    peakMusicController.systemMusicPlayer.startPlaying()
                 }
             }
         })

@@ -26,4 +26,13 @@ struct Song: BasicSong {
     func getImage() -> UIImage? { return image }
     func getDateAdded() -> Date? { return dateAdded }
     
+    func isEqual(to song: BasicSong) -> Bool {
+        
+        if id == song.getId(){
+            return true
+        }
+        
+        return false
+    }
+    
 }

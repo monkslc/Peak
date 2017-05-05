@@ -45,6 +45,13 @@
 		C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */; };
 		C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */; };
 		C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */; };
+		C4BA76B61EBD116900947C1C /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76B51EBD116900947C1C /* SpotifyAudioPlayback.framework */; };
+		C4BA76B81EBD117300947C1C /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76B71EBD117300947C1C /* SpotifyAuthentication.framework */; };
+		C4BA76BA1EBD117C00947C1C /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76B91EBD117C00947C1C /* SpotifyMetadata.framework */; };
+		C4BA76BC1EBD126900947C1C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76BB1EBD126900947C1C /* AVFoundation.framework */; };
+		C4BA76BE1EBD127D00947C1C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76BD1EBD127D00947C1C /* SystemConfiguration.framework */; };
+		C4BA76C41EBD1A8000947C1C /* SystemMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA76C31EBD1A8000947C1C /* SystemMusicPlayer.swift */; };
+		C4BA76C71EBD1D8F00947C1C /* AppleMusicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA76C61EBD1D8F00947C1C /* AppleMusicExtension.swift */; };
 		C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1175B1E7F2024000A854A /* PeakColorExt.swift */; };
 		C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1175D1E7F6C69000A854A /* RoundedButton.swift */; };
 		C4D117611E803A74000A854A /* PeakMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D117601E803A74000A854A /* PeakMusicController.swift */; };
@@ -100,6 +107,14 @@
 		C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedView.swift; sourceTree = "<group>"; };
 		C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentsAlbumView.swift; path = ../RecentsAlbumView.swift; sourceTree = "<group>"; };
 		C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		C4BA76B51EBD116900947C1C /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
+		C4BA76B71EBD117300947C1C /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
+		C4BA76B91EBD117C00947C1C /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
+		C4BA76BB1EBD126900947C1C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C4BA76BD1EBD127D00947C1C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C4BA76BF1EBD131B00947C1C /* Aud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Aud-Bridging-Header.h"; sourceTree = "<group>"; };
+		C4BA76C31EBD1A8000947C1C /* SystemMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemMusicPlayer.swift; sourceTree = "<group>"; };
+		C4BA76C61EBD1D8F00947C1C /* AppleMusicExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicExtension.swift; sourceTree = "<group>"; };
 		C4D1175B1E7F2024000A854A /* PeakColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeakColorExt.swift; path = ../PeakColorExt.swift; sourceTree = "<group>"; };
 		C4D1175D1E7F6C69000A854A /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4D117601E803A74000A854A /* PeakMusicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeakMusicController.swift; sourceTree = "<group>"; };
@@ -123,6 +138,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BA76BE1EBD127D00947C1C /* SystemConfiguration.framework in Frameworks */,
+				C4BA76BC1EBD126900947C1C /* AVFoundation.framework in Frameworks */,
+				C4BA76B61EBD116900947C1C /* SpotifyAudioPlayback.framework in Frameworks */,
+				C4BA76BA1EBD117C00947C1C /* SpotifyMetadata.framework in Frameworks */,
+				C4BA76B81EBD117300947C1C /* SpotifyAuthentication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +233,8 @@
 		C48B4F0E1E9B1FF1002D2DB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4BA76BD1EBD127D00947C1C /* SystemConfiguration.framework */,
+				C4BA76BB1EBD126900947C1C /* AVFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -226,6 +248,15 @@
 				C4D1177D1E819FB9000A854A /* Main View Controller Methods */,
 			);
 			name = MusicPlayer;
+			sourceTree = "<group>";
+		};
+		C4BA76C51EBD1A8900947C1C /* System Player */ = {
+			isa = PBXGroup;
+			children = (
+				C4BA76C31EBD1A8000947C1C /* SystemMusicPlayer.swift */,
+				C4BA76C61EBD1D8F00947C1C /* AppleMusicExtension.swift */,
+			);
+			name = "System Player";
 			sourceTree = "<group>";
 		};
 		C4D1175F1E7F6C6F000A854A /* Authentication */ = {
@@ -269,6 +300,11 @@
 		C4E896541E7458610096EC72 = {
 			isa = PBXGroup;
 			children = (
+				C4BA76BF1EBD131B00947C1C /* Aud-Bridging-Header.h */,
+				C4BA76B91EBD117C00947C1C /* SpotifyMetadata.framework */,
+				C4BA76B71EBD117300947C1C /* SpotifyAuthentication.framework */,
+				C4BA76B51EBD116900947C1C /* SpotifyAudioPlayback.framework */,
+				C4BA76C51EBD1A8900947C1C /* System Player */,
 				90DC46501EB91EE3007AF581 /* Songs */,
 				90E2DFDE1E874F6400762B9D /* Cam */,
 				C4E8965F1E7458620096EC72 /* Aud */,
@@ -342,6 +378,7 @@
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = SDRSRURVZA;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -398,6 +435,7 @@
 				C47FC7C51EB6A3B500B1A352 /* SicSongProgress.swift in Sources */,
 				90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */,
 				C47FC7BE1EB695E700B1A352 /* PlaybackStateButton.swift in Sources */,
+				C4BA76C71EBD1D8F00947C1C /* AppleMusicExtension.swift in Sources */,
 				C4D117611E803A74000A854A /* PeakMusicController.swift in Sources */,
 				C4E896631E7458620096EC72 /* LibraryViewController.swift in Sources */,
 				C4D117671E805DF8000A854A /* Signifier.swift in Sources */,
@@ -414,6 +452,7 @@
 				C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */,
 				90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */,
 				C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */,
+				C4BA76C41EBD1A8000947C1C /* SystemMusicPlayer.swift in Sources */,
 				C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */,
 				C40515281EB9045B00F1471F /* SicContainer.swift in Sources */,
 				C404D0D91EBA310900E7F0F5 /* BasicSongHolder.swift in Sources */,
@@ -510,6 +549,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Objc",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -553,6 +596,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Objc",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -564,15 +611,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = SDRSRURVZA;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cm.peak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Aud-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -581,15 +639,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = SDRSRURVZA;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Aud/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cm.peak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Aud-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

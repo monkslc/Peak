@@ -16,4 +16,5 @@ protocol BasicSong {
     func getTrackTimeMillis() -> Int
     func getImage() -> UIImage?
     func getDateAdded() -> Date?
+    func isEqual(to song: BasicSong) -> Bool
 }

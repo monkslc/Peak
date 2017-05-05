@@ -30,6 +30,6 @@ class SICBackButton: UIButton {
     func restartSong(){
         //Get's called when the button gets pressed
         
-        peakMusicController.systemMusicPlayer.skipToBeginning()
+        peakMusicController.systemMusicPlayer.restartSong()
     }
 }

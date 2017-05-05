@@ -107,7 +107,7 @@ class SongOptionsController: UIAlertController {
     
     /*MARK: The Methods that add the alerts*/
     func addSearchingAppleMusicOptionsNonContributor(_ sender: UILongPressGestureRecognizer){
-        
+    
         //Check if the user is a guest
         if peakMusicController.musicType != .Guest{
             

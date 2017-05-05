@@ -39,7 +39,7 @@ class SICAlbumArt: UIImageView {
     func updateAlbumImage(){
         //Update the album image when the song changes
         
-        image = peakMusicController.systemMusicPlayer.nowPlayingItem?.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+        image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
     }
     
 

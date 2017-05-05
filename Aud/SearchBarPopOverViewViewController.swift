@@ -314,8 +314,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         } else if let song: Song = cell.itemInCell as? Song {
             
             peakMusicController.currPlayQueue.removeAll()
-            peakMusicController.systemMusicPlayer.setQueueWithStoreIDs([song.id])
-            peakMusicController.systemMusicPlayer.play()
+            peakMusicController.systemMusicPlayer.setQueueIds([song.id])
+            peakMusicController.systemMusicPlayer.startPlaying()
         }
 
     }
