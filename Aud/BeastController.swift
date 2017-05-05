@@ -26,6 +26,7 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
     @IBOutlet weak var libraryContainerView: UIView!
     var libraryViewController: LibraryViewController?
     
+    @IBOutlet weak var scrollPresenter: ScrollPresenterView!
     
     //Bluetooth Props
     @IBOutlet weak var connectButton: UIButton!
@@ -47,6 +48,9 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
         
         //Add the listener for player type
         NotificationCenter.default.addObserver(self, selector: #selector(playerTypeDidChange), name: .playerTypeChanged, object: nil)
+        
+        //Set up the scroll presenter
+        scrollPresenter.setUp()
     }
 
     
@@ -58,6 +62,8 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
             
             libraryViewController = viewController
             libraryViewController?.delegate = self
+    
+        
         } else if let _: SongInteractionController = segue.destination as? SongInteractionController{
             
             //In case we need to do anything with the song interaction controller
@@ -90,7 +96,7 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
         //Set the frame for the view controller in a position so it can be animated
         searchViewController.view.frame = CGRect(x: libraryContainerView.frame.minX, y: libraryContainerView.frame.minY - libraryContainerView.frame.height, width: libraryContainerView.frame.width, height: libraryContainerView.frame.height)
         
-        view.insertSubview(searchViewController.view, at: 2) //Insert behind the currently playing view
+        view.insertSubview(searchViewController.view, at: 1) //Insert behind the currently playing view
         searchViewController.didMove(toParentViewController: self)
         
         //Now animate the view into place

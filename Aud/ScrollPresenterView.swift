@@ -29,6 +29,8 @@ class ScrollPresenterView: UIView {
 
     func setUp(){
         
+        self.isUserInteractionEnabled = false
+        
         //Set up the display label view
         displayLabelView = DisplayLabelView(frame: CGRect(x: 0.0, y: 0.0, width: frame.width, height: labelHeight))
         displayLabelView.backgroundColor = UIColor.clear

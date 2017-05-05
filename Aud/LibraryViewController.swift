@@ -30,7 +30,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //View that controls the scroll bar
     @IBOutlet weak var scrollBar: ScrollBar!
-    @IBOutlet weak var scrollPresenter: ScrollPresenterView!
+    //@IBOutlet weak var scrollPresenter: ScrollPresenterView!
     
     var delegate: LibraryViewControllerDelegate?
     
@@ -51,7 +51,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //set up the scroll bar
         scrollBar.delegate = self
         scrollBar.setUp()
-        scrollPresenter.setUp()
+        //scrollPresenter.setUp()
         
         //Set up the recents view
         recentsView.setUp()
@@ -64,7 +64,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
         }
-    
+        
     }
     
     
@@ -228,15 +228,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Make sure our index path is in range
         if indexToScrollTo >= 0 && indexToScrollTo < CGFloat(libraryCount){
             
-            scrollPresenter.positionOfLabel = yLoc + scrollBar.heightOfScrollBar / 2
-            scrollPresenter.displayLabel.text = userLibrary.itemsInLibrary[Int(indexToScrollTo)].getArtistName()
+            (delegate as! BeastController).scrollPresenter.positionOfLabel = yLoc + scrollBar.heightOfScrollBar / 2
+            (delegate as! BeastController).scrollPresenter.displayLabel.text = userLibrary.itemsInLibrary[Int(indexToScrollTo)].getArtistName()
         }
         
         //Now update the label
         
         if state == .began{
             
-            scrollPresenter.displayLabelView.isHidden = false
+            (delegate as! BeastController).scrollPresenter.displayLabelView.isHidden = false
         } else if state == .ended{
             
             //Get the cell index we want to scroll to
@@ -248,7 +248,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
             library.scrollToRow(at: IndexPath(row: Int(indexToScrollTo), section: 0), at: .top, animated: false)
-            scrollPresenter.displayLabelView.isHidden = true
+            (delegate as! BeastController).scrollPresenter.displayLabelView.isHidden = true
         }
         
     }

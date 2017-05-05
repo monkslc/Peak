@@ -251,15 +251,25 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39n-Jc-Q48" customClass="ScrollPresenterView" customModule="Aud" customModuleProvider="target">
+                                <rect key="frame" x="150" y="68" width="200" height="599"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="AnF-AQ-12V"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="39n-Jc-Q48" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="top" id="1UY-eZ-FJF"/>
                             <constraint firstItem="JF2-Hp-oBo" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="3YI-7g-A1e"/>
                             <constraint firstItem="Hbw-dp-iPZ" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" id="5nb-ny-kzL"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="top" secondItem="JF2-Hp-oBo" secondAttribute="bottom" id="InM-J7-Xii"/>
                             <constraint firstItem="yD7-tM-kPX" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="Jka-6X-bdl"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="top" secondItem="yD7-tM-kPX" secondAttribute="bottom" constant="-135" id="K0G-SD-FRX"/>
                             <constraint firstAttribute="trailing" secondItem="JF2-Hp-oBo" secondAttribute="trailing" id="Khk-Mf-anS"/>
+                            <constraint firstItem="39n-Jc-Q48" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" id="TOr-8E-8It"/>
+                            <constraint firstAttribute="trailing" secondItem="39n-Jc-Q48" secondAttribute="trailing" constant="25" id="XRt-P5-dOA"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="4:5" id="Y53-gO-jj3"/>
                             <constraint firstItem="JF2-Hp-oBo" firstAttribute="top" secondItem="KxJ-9A-rmW" secondAttribute="top" id="aIL-iQ-fSD"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="atL-BJ-Ac2"/>
@@ -271,6 +281,7 @@
                     <connections>
                         <outlet property="connectButton" destination="46B-Hf-thO" id="NUw-h6-sUR"/>
                         <outlet property="libraryContainerView" destination="yD7-tM-kPX" id="JJd-Ca-XLF"/>
+                        <outlet property="scrollPresenter" destination="39n-Jc-Q48" id="dS4-gp-OZX"/>
                         <outlet property="searchForMediaBar" destination="Ay8-t3-JcI" id="woJ-ye-zoj"/>
                         <outlet property="songInteractionContainer" destination="7ft-nF-02R" id="v9O-3h-Zzk"/>
                     </connections>
@@ -498,7 +509,6 @@
                         <outlet property="library" destination="05J-pc-yQM" id="TO1-nn-R66"/>
                         <outlet property="recentsView" destination="bEX-s4-cqX" id="Z44-qM-IKr"/>
                         <outlet property="scrollBar" destination="t3h-BM-8Rk" id="rbO-AK-ECe"/>
-                        <outlet property="scrollPresenter" destination="4CC-oP-P7H" id="K8E-tm-ahn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
