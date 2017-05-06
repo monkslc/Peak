@@ -145,11 +145,8 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func getCurrentPlaybackTime() -> Double {
         
-        if self.metadata.currentTrack != nil{
-            
-            return (self.metadata.currentTrack?.duration)!
-        }
-        
+       
+       /*NEED TO FIND A WAY TO STORE THE VALUE FOR THE TIME*/
         return 0.0
     }
     
@@ -196,5 +193,9 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         playerStateChanged()
     }
     
+    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
+        
+        /*THIS IS WHERE WE CAN GET THE POSITION OF THE AUDIO PLAYER BUT WE HAVE TO FIGURE OUT A WAY TO STORE THE VALUE*/
+    }
 
 }
