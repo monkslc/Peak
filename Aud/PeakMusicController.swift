@@ -48,6 +48,7 @@ class PeakMusicController {
                 
                 
             default:
+                print("Gonna try to generate Notifications here")
                 systemMusicPlayer?.generateNotifications()
                 
             }
@@ -102,8 +103,6 @@ class PeakMusicController {
     
     /*QUEUE METHODS*/
     func play(_ songs: [BasicSong]){
-        
-        print("Ok we are in the play method")
         
         //Check if there are currently items in the users queue, to warn them that they will no longer be there
         if currPlayQueue.count > 1 {
@@ -256,12 +255,15 @@ class PeakMusicController {
             peakMusicController.systemMusicPlayer.setShuffleState(state: .off)
             
             //Now set the notifications
-            
             peakMusicController.systemMusicPlayer.generateNotifications()
+            
         } else if peakMusicController.musicType == .Guest{
             
             currPlayQueue = []
             systemMusicPlayer.setNowPlayingItemToNil()
+        } else if peakMusicController.musicType == .Spotify{
+            
+            systemMusicPlayer.generateNotifications()
         }
         
     }

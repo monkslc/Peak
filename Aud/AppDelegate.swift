@@ -21,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     /*MARK: SPOTIFY APPLICATION DELEGATE METHODS*/
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        print("We got a callback!")
-        
         //check if the url is what we expect
         
         if (auth?.canHandle(url))!{
@@ -54,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     /*MARK: SPOTIFY AUDIO STREAMING DELEGATE METHODS*/
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
         
-        print("Our login was successful")
         NotificationCenter.default.post(Notification(name: .spotifyLoginSuccessful))
     }
     

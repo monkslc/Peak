@@ -76,31 +76,33 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func setPlayerQueue(songs: [BasicSong]) {
         
-        print("We are setting the player queue")
+        print("Setting the player queue")
+        
         if songs.count > 0{
-            
-            print("Song.count is in fact > 0")
-            
+
+            //Set the first song in the queue to playing
             self.playSpotifyURI((songs[0] as! SPTTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0){
                 
                 if $0 != nil{
-                    print("There was an error with our inital play \($0)")
+                    print("There was an error with our inital play \($0!)")
                 }
             }
             
-            
+            //Queue the second song
             if songs.count > 1{
                 
-                self.queueSpotifyURI((songs[1] as! SPTTrack).playableUri.absoluteString){
+                //Set a delay, otherwise it won't queue
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) ) {
                     
-                    if $0 != nil{
-                        print("We had an error setting the spotify queue: \($0!)")
+                    self.queueSpotifyURI((songs[1] as! SPTTrack).playableUri.absoluteString){
+                        
+                        if $0 != nil{
+                            print("We had an error setting the spotify queue: \($0!)")
+                        }
                     }
                 }
             }
-            
         }
-        
     }
     
     func restartSong() {
@@ -169,7 +171,8 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     /*MARK: LISTENER METHODS*/
     func playerStateChanged() {
         
-        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+        print("The Player state changed")
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerStateChanged))
     }
     
     func libraryChanged() {
@@ -179,12 +182,18 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func playerNowPlayingItemChanged() {
         
+        print("The Now Playing Item Changed")
+        
+        //Update the play queue when the song changes
+        self.setPlayerQueue(songs: peakMusicController.currPlayQueue)
+        
         NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
     }
     
     /*MARK: Playback Delegate methods*/
     public func audioStreamingDidSkip(toNextTrack audioStreaming: SPTAudioStreamingController!) {
         
+        //print("Audio Streaming Did Skip")
         playerNowPlayingItemChanged()
     }
     
@@ -193,9 +202,17 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         playerStateChanged()
     }
     
-    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
+    /*public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
         
+        print("Audio Streaming Did change Position")
         /*THIS IS WHERE WE CAN GET THE POSITION OF THE AUDIO PLAYER BUT WE HAVE TO FIGURE OUT A WAY TO STORE THE VALUE*/
+    }*/
+    
+    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+        
+        
     }
+    
+    
 
 }

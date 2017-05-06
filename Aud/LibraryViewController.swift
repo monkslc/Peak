@@ -95,7 +95,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
             let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            alert.addLibraryAlerts(sender: sender, library: mediaItemsInLibrary as! [MPMediaItem], recents: recentSongsDownloaded as! [MPMediaItem])
+            alert.addLibraryAlerts(sender: sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded)
             alert.presentMe(sender, presenterViewController: self)
         }
         
@@ -279,7 +279,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
-        print("We are getting a tap on the song")
         //Get the holder
         let holder: BasicSongHolder = (gesture.view as? BasicSongHolder)!
         
@@ -296,7 +295,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 tellUserToConnect(song)
             } else {
                 
-                print("It's an else")
                 peakMusicController.play([holder.getBasicSong()])
             }
             

@@ -26,7 +26,7 @@ class SongOptionsController: UIAlertController {
     }
     
     /*MARK: Methods that determine what alerts to add*/
-    func addLibraryAlerts(sender: UILongPressGestureRecognizer, library: [MPMediaItem], recents: [MPMediaItem]){
+    func addLibraryAlerts(sender: UILongPressGestureRecognizer, library: [BasicSong], recents: [BasicSong]){
         
         //Check the user's Music Type
         if peakMusicController.musicType == .AppleMusic{
@@ -34,7 +34,7 @@ class SongOptionsController: UIAlertController {
             //Change what appears based on the user's type
             if peakMusicController.playerType != .Contributor {
                 
-                addAppleMusicNonContributor(library: library, recents: recents, sender, comingFrom: .Library)
+                addAppleMusicNonContributor(library: library as! [MPMediaItem], recents: recents as! [MPMediaItem], sender, comingFrom: .Library)
                 
             } else { //User is a contributor so display those methods
                 
@@ -53,6 +53,9 @@ class SongOptionsController: UIAlertController {
             
             addGuest(sender)
             
+        }else if peakMusicController.musicType == .Spotify{
+            
+            addSpotify(sender)
         }
         
         
@@ -152,6 +155,15 @@ class SongOptionsController: UIAlertController {
     }
     
     
+    /*SPOTIFY ALERTS*/
+    func addSpotify(_ sender: UILongPressGestureRecognizer){
+        
+        addAction(Alerts.playNowAlert(sender))
+        addAction(Alerts.playNextAlert(sender))
+        addAction(Alerts.playLastAlert(sender))
+        //addAction(Alerts.playAlbumAlert(sender))
+        //addAction(Alerts.playArtistAlert(sender))
+    }
     
     /*MARK: */
     func presentMe(_ sender: UILongPressGestureRecognizer, presenterViewController: UIViewController){

@@ -231,8 +231,6 @@ class UserLibrary{
     
     func fetchSpotifyMusic(){
     
-        
-        print("Fetching spotify music")
         SPTYourMusic.savedTracksForUser(withAccessToken: auth?.session.accessToken){ err, callback in
             
             //Check if we got an error
@@ -248,7 +246,6 @@ class UserLibrary{
                 
                 for song in foo.items{
                     
-                    print("Adding a song to the library")
                     self.itemsInLibrary.append(song as! BasicSong)
                     self.recents.append(song as! BasicSong)
                     //self.library.append(song as! SPTTrack)
@@ -257,7 +254,6 @@ class UserLibrary{
             }
         }
         
-        print("We finished getting the user's library")
     }
     
     

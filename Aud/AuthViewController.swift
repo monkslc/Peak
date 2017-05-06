@@ -248,14 +248,11 @@ class AuthViewController: UIViewController {
     func startAuthenticationFlow(){
         
         if let session = auth?.session{
-            print("We could let session = auth.session")
             
             (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
             
             
         } else{
-            
-            print("It wasn't valid")
             
             //Get the URL
             let authURL = auth?.spotifyWebAuthenticationURL()
@@ -269,7 +266,6 @@ class AuthViewController: UIViewController {
     //Login with spotify was successful so we can segue
     func spottyLoginWasSuccess(){
         
-        print("Calls for a celebration, we got Spotify to login")
         self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
     }
     
@@ -333,17 +329,14 @@ class AuthViewController: UIViewController {
         
         if segue.identifier == "Segue to Apple Music" {
             
-            print("Segueing with Apple Music")
             peakMusicController.musicType = .AppleMusic
             
         } else if segue.identifier == "Segue as Guest" {
         
-            print("Segueing as a guest")
             peakMusicController.musicType = .Guest
             
         } else if segue.identifier == "Segue To Spotify"{
         
-            print("Segueing and should be setting the music type")
             peakMusicController.musicType = .Spotify
         }
         

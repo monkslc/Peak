@@ -39,15 +39,16 @@ class Alerts {
         
             if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
                 
-                if let song: MPMediaItem = holder.getBasicSong() as? MPMediaItem{
-                    
-                    peakMusicController.play([song])
-                } else if let song: Song = holder.getBasicSong() as? Song{
+                if let song: Song = holder.getBasicSong() as? Song{
                     
                     peakMusicController.currPlayQueue.removeAll()
                     peakMusicController.systemMusicPlayer.setQueueIds([song.getId()])
                     peakMusicController.systemMusicPlayer.startPlaying()
+                } else {
+                    
+                    peakMusicController.play([holder.getBasicSong()])
                 }
+                
             }
         })
         
@@ -94,7 +95,7 @@ class Alerts {
     }
     
     
-    static func shuffleAlert(_ sender: UILongPressGestureRecognizer, library: [MPMediaItem], recents: [MPMediaItem]) -> UIAlertAction{
+    static func shuffleAlert(_ sender: UILongPressGestureRecognizer, library: [BasicSong], recents: [BasicSong]) -> UIAlertAction{
         
         //check whether we want to shuffle library or recents
         if let _: SongCell = sender.view as? SongCell{

@@ -70,7 +70,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             cell.songArtist.text = mediaItemToAdd.getArtistName()
             
             //get the time until the song plays
-            var timeUntil: Double = Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis())!)
+            var timeUntil: Double = Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
             for index in 0..<peakMusicController.currPlayQueue.count {
                 
                 //check if we should add the duration, by checking the current index
