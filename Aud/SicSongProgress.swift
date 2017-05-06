@@ -20,7 +20,7 @@ class SicSongProgress: UISlider {
         
         //Add the listeners
         NotificationCenter.default.addObserver(self, selector: #selector(songTimeChanged), name: .updateSongTime, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(songChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: peakMusicController.systemMusicPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(songChanged), name: .systemMusicPlayerNowPlayingChanged, object: nil)
         
         //Add target
         addTarget(self, action: #selector(changeSongTime), for: .valueChanged)

@@ -19,7 +19,7 @@ class PeakMusicController {
     
     init(){
         
-        NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: systemMusicPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil)
     }
     
     var delegate: PeakMusicControllerDelegate?

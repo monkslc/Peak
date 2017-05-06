@@ -38,7 +38,7 @@ class ConnectingToInternet {
         
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(search)&country=US&media=music&limit=\(limit)", completion: {
             (json) -> Void in
-            
+    
             if let json = json as? [String:Any] {
                 
                 if let songsJSON = json["results"] as? [[String: Any]] {
@@ -113,7 +113,7 @@ class ConnectingToInternet {
     }
     
     static func getImage(url urlAsString: String, completion: @escaping (UIImage?) -> Void, errorCompletion: @escaping () -> Void = {}) {
-        
+    
         let url = URL(string: urlAsString)!
         
         let session = URLSession(configuration: .default)

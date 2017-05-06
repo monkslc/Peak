@@ -29,6 +29,7 @@ class Signifier: UIImageView {
     func animate(){
         //Create the animation for the signifier
         
+
         UIView.animate(withDuration: 0.5, animations: {
             
             self.alpha = 1.0

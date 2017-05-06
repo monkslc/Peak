@@ -38,6 +38,12 @@ protocol SystemMusicPlayer{
     func setCurrentPlayTime(_ time: Double)
     func setQueueIds(_ idArray: [String])
     
+    
+    /*NOTIFICATION METHODS*/
+    func playerStateChanged()
+    func libraryChanged()
+    func playerNowPlayingItemChanged()
+    
     /*NOTIFICATIONS*/
     //generate playback NOTIFICATIONS
     //stop generating playback notifications

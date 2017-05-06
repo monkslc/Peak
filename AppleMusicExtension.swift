@@ -83,6 +83,11 @@ extension MPMusicPlayerController: SystemMusicPlayer {
     func generateNotifications() {
         
         beginGeneratingPlaybackNotifications()
+        
+        //Add the listeners for the class
+        NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged), name: .MPMediaLibraryDidChange, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerNowPlayingItemChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: self)
     }
     
     func stopGeneratingNotifications() {
@@ -110,4 +115,22 @@ extension MPMusicPlayerController: SystemMusicPlayer {
         
         setQueueWithStoreIDs(idArray)
     }
+    
+    /*MARK: LISTENER METHODS*/
+    func libraryChanged(){
+        
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+    }
+    
+    func playerStateChanged() {
+        
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerStateChanged))
+    }
+    
+    func playerNowPlayingItemChanged() {
+        
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
+    }
+    
+    
 }

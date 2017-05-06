@@ -26,7 +26,7 @@ class SICSongInfoDisplay: UIView {
         super.init(coder: aDecoder)
         
         //Add listeners
-        NotificationCenter.default.addObserver(self, selector: #selector(updateInfo), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: peakMusicController.systemMusicPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateInfo), name: .systemMusicPlayerNowPlayingChanged, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateInfo), name: .groupQueueChanged, object: nil)
     }

@@ -28,7 +28,7 @@ class UserLibrary{
     init(){
         
         //Add the listener for a library change
-        NotificationCenter.default.addObserver(self, selector: #selector(iCloudLibraryChanged), name: .MPMediaLibraryDidChange, object: MPMediaLibrary.default())
+        NotificationCenter.default.addObserver(self, selector: #selector(iCloudLibraryChanged), name: .systemMusicPlayerLibraryChanged, object: nil)
     }
     
     /*MARK: Delegate*/

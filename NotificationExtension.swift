@@ -18,5 +18,10 @@ extension Notification.Name{
     //Song Time Update
     static let updateSongTime = Notification.Name("UpdateSongTime")
     
+    //System Music PLayer extension
+    static let systemMusicPlayerStateChanged = Notification.Name("StateChanged")
+    static let systemMusicPlayerLibraryChanged = Notification.Name("LibraryChanged")
+    static let systemMusicPlayerNowPlayingChanged = Notification.Name("NowPlayingItemChanged")
+    
 
 }

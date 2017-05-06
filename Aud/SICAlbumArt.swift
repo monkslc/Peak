@@ -23,7 +23,7 @@ class SICAlbumArt: UIImageView {
         layer.borderWidth = 1.0
             
         //Add the listeners
-        NotificationCenter.default.addObserver(self, selector: #selector(updateAlbumImage), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: peakMusicController.systemMusicPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAlbumImage), name: .systemMusicPlayerNowPlayingChanged, object: nil)
     }
     
     /*

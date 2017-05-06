@@ -25,7 +25,7 @@ class PlaybackStateButton: UIButton {
         }
         
         //Add the listeners
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: peakMusicController.systemMusicPlayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackStateChanged), name: .systemMusicPlayerStateChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(musicOrPlayerTypeChanged), name: .musicTypeChanged, object: nil)
         
         
