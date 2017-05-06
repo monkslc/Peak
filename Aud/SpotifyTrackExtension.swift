@@ -27,7 +27,12 @@ extension SPTTrack: BasicSong{
     
     func getArtistName() -> String{
         
-        return (artists[0] as! SPTArtist).name
+        if artists.count > 1{
+            
+            return (artists[0] as! SPTArtist).name
+        }
+        
+        return "Don't see an artist"
     }
     
     func getTrackTimeMillis() -> Int{

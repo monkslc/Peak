@@ -11,7 +11,7 @@ import CoreData
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate {
 
     var window: UIWindow?
     
@@ -36,8 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     DispatchQueue.global().async {
                         
-                        //player?.login(withAccessToken: auth?.session.accessToken)
-                        /***********NEED TO FIGURE THIS OUT RIGHT HERE******/
+                        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
+                        
                     }
                     
                     
@@ -51,6 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    /*MARK: SPOTIFY AUDIO STREAMING DELEGATE METHODS*/
+    func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
+        
+        print("Our login was successful")
+        NotificationCenter.default.post(Notification(name: .spotifyLoginSuccessful))
+    }
     
     /*MARK: NOT SPOTIFY STUFF*/
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

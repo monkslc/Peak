@@ -279,6 +279,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
+        print("We are getting a tap on the song")
         //Get the holder
         let holder: BasicSongHolder = (gesture.view as? BasicSongHolder)!
         
@@ -290,13 +291,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         default:
             
-            if let song: MPMediaItem = holder.getBasicSong() as? MPMediaItem{
-                
-                peakMusicController.play([song])
-            } else if let song: Song = holder.getBasicSong() as? Song{
+            if let song: Song = holder.getBasicSong() as? Song{
                 
                 tellUserToConnect(song)
+            } else {
+                
+                print("It's an else")
+                peakMusicController.play([holder.getBasicSong()])
             }
+            
         }
     }
     

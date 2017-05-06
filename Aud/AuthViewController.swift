@@ -189,6 +189,92 @@ class AuthViewController: UIViewController {
         self.performSegue(withIdentifier: "Segue as Guest", sender: nil)
     }
     
+    
+    
+    
+    /*MARK: SPOTIFY SIGN IN METHOD*/
+    
+    //get the app delegate for spotify
+    //Get the app delegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    @IBAction func loginWithSpotify() {
+        
+        
+        
+        //start up the player so we can get the authentication access
+        peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
+        
+        //Create the delegate for this
+        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
+        
+        
+        //Add the listener for the callback
+        NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
+        
+        
+        
+        
+        
+        
+        //Check if we can login
+        auth?.clientID = "7b3c389c57ee44ce8f3562013df963ec"
+        auth?.redirectURL = URL(string: "peak-music-spotty-login://callback")
+        
+        auth?.sessionUserDefaultsKey = "current session"
+        
+        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope]
+        
+        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
+        
+        do{
+            
+            try (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).start(withClientId: auth?.clientID)
+        } catch{
+            
+            print("\n\nHad a fucking error\n\n")
+        }
+        
+        DispatchQueue.global().async {
+            
+            DispatchQueue.main.async {
+                
+                self.startAuthenticationFlow()
+            }
+        }
+    }
+    
+    //AUthentication flow method
+    func startAuthenticationFlow(){
+        
+        if let session = auth?.session{
+            print("We could let session = auth.session")
+            
+            (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
+            
+            
+        } else{
+            
+            print("It wasn't valid")
+            
+            //Get the URL
+            let authURL = auth?.spotifyWebAuthenticationURL()
+            
+            authViewController = SFSafariViewController(url: authURL!)
+            appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
+        }
+    }
+    
+    
+    //Login with spotify was successful so we can segue
+    func spottyLoginWasSuccess(){
+        
+        print("Calls for a celebration, we got Spotify to login")
+        self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
+    }
+    
+    
+    
     //Let the user know how to give us access to apple music
     func instructUserToAllowUsToAppleMusic() {
         
@@ -243,13 +329,24 @@ class AuthViewController: UIViewController {
     //Check how we are segueing so we can se tthe music player to the appropriate type
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        
+        
         if segue.identifier == "Segue to Apple Music" {
             
+            print("Segueing with Apple Music")
             peakMusicController.musicType = .AppleMusic
             
         } else if segue.identifier == "Segue as Guest" {
         
+            print("Segueing as a guest")
             peakMusicController.musicType = .Guest
+            
+        } else if segue.identifier == "Segue To Spotify"{
+        
+            print("Segueing and should be setting the music type")
+            peakMusicController.musicType = .Spotify
         }
+        
+        
     }
 }

@@ -61,6 +61,7 @@ class PeakMusicController {
         
         case AppleMusic
         case Guest
+        case Spotify
     }
     
     var musicType = MusicType.Guest {
@@ -101,6 +102,8 @@ class PeakMusicController {
     
     /*QUEUE METHODS*/
     func play(_ songs: [BasicSong]){
+        
+        print("Ok we are in the play method")
         
         //Check if there are currently items in the users queue, to warn them that they will no longer be there
         if currPlayQueue.count > 1 {

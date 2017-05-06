@@ -53,12 +53,18 @@ class UserLibrary{
     /*MARK: Fetch FUNCITONS*/
     func fetchLibrary(){
         
+        print("Fetching Library with player type = \(peakMusicController.musicType)")
+        
         if peakMusicController.musicType == .AppleMusic {
             
             fetchAppleMusic()
         } else if peakMusicController.musicType == .Guest {
             
             fetchGuestMusic()
+        } else if peakMusicController.musicType == .Spotify{
+            
+            print("The music type = spotify")
+            fetchSpotifyMusic()
         }
     }
     
@@ -223,6 +229,36 @@ class UserLibrary{
         }
     }
     
+    func fetchSpotifyMusic(){
+    
+        
+        print("Fetching spotify music")
+        SPTYourMusic.savedTracksForUser(withAccessToken: auth?.session.accessToken){ err, callback in
+            
+            //Check if we got an error
+            if err != nil{
+                
+                print(err!)
+                return
+            }
+            
+            //No error so let's fetch the songs
+            if let foo: SPTListPage = callback as? SPTListPage{
+                
+                
+                for song in foo.items{
+                    
+                    print("Adding a song to the library")
+                    self.itemsInLibrary.append(song as! BasicSong)
+                    self.recents.append(song as! BasicSong)
+                    //self.library.append(song as! SPTTrack)
+                }
+                
+            }
+        }
+        
+        print("We finished getting the user's library")
+    }
     
     
     /*MARK: Notification Methods*/

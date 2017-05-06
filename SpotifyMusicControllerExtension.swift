@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension SPTAudioStreamingController: SystemMusicPlayer{
+extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlaybackDelegate{
     
     func getNowPlayingItemLoc() -> Int {
         
@@ -22,12 +22,25 @@ extension SPTAudioStreamingController: SystemMusicPlayer{
     
     func getPlayerState() -> MusicPlayerState {
         
-        if playbackState.isPlaying{
+        if playbackState != nil{
             
-            return MusicPlayerState.playing
-        }else{
-            return MusicPlayerState.paused
+            if playbackState.isPlaying{
+                
+                return MusicPlayerState.playing
+            }else{
+                return MusicPlayerState.paused
+            }
+        } else {
+            
+            setIsPlaying(true){
+                
+                if $0 != nil{
+                    print($0!)
+                }
+            }
         }
+        
+        return MusicPlayerState.playing
     }
     
     func setShuffleState(state: ShuffleState) {
@@ -63,12 +76,31 @@ extension SPTAudioStreamingController: SystemMusicPlayer{
     
     func setPlayerQueue(songs: [BasicSong]) {
         
-        self.queueSpotifyURI((songs[0] as! SPTTrack).playableUri.absoluteString){
+        print("We are setting the player queue")
+        if songs.count > 0{
             
-            if $0 != nil{
-                print("We had an error setting the spotify queue: \($0!)")
+            print("Song.count is in fact > 0")
+            
+            self.playSpotifyURI((songs[0] as! SPTTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0){
+                
+                if $0 != nil{
+                    print("There was an error with our inital play \($0)")
+                }
             }
+            
+            
+            if songs.count > 1{
+                
+                self.queueSpotifyURI((songs[1] as! SPTTrack).playableUri.absoluteString){
+                    
+                    if $0 != nil{
+                        print("We had an error setting the spotify queue: \($0!)")
+                    }
+                }
+            }
+            
         }
+        
     }
     
     func restartSong() {
@@ -98,7 +130,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer{
     
     func generateNotifications() {
         
-        //Not sure what to do here yet
+        self.playbackDelegate = self
     }
     
     func stopGeneratingNotifications() {
@@ -113,7 +145,12 @@ extension SPTAudioStreamingController: SystemMusicPlayer{
     
     func getCurrentPlaybackTime() -> Double {
         
-        return (self.metadata.currentTrack?.duration)!
+        if self.metadata.currentTrack != nil{
+            
+            return (self.metadata.currentTrack?.duration)!
+        }
+        
+        return 0.0
     }
     
     func setCurrentPlayTime(_ time: Double) {
@@ -135,7 +172,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer{
     /*MARK: LISTENER METHODS*/
     func playerStateChanged() {
         
-        
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
     }
     
     func libraryChanged() {
@@ -145,6 +182,19 @@ extension SPTAudioStreamingController: SystemMusicPlayer{
     
     func playerNowPlayingItemChanged() {
         
-        
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
     }
+    
+    /*MARK: Playback Delegate methods*/
+    public func audioStreamingDidSkip(toNextTrack audioStreaming: SPTAudioStreamingController!) {
+        
+        playerNowPlayingItemChanged()
+    }
+    
+    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
+        
+        playerStateChanged()
+    }
+    
+
 }

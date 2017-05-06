@@ -23,5 +23,8 @@ extension Notification.Name{
     static let systemMusicPlayerLibraryChanged = Notification.Name("LibraryChanged")
     static let systemMusicPlayerNowPlayingChanged = Notification.Name("NowPlayingItemChanged")
     
+    //Spotify Notification extension
+    static let spotifyLoginSuccessful = Notification.Name("SpottyLoggedIn")
+    
 
 }
