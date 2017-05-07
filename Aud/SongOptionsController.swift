@@ -161,8 +161,8 @@ class SongOptionsController: UIAlertController {
         addAction(Alerts.playNowAlert(sender))
         addAction(Alerts.playNextAlert(sender))
         addAction(Alerts.playLastAlert(sender))
-        //addAction(Alerts.playAlbumAlert(sender))
-        //addAction(Alerts.playArtistAlert(sender))
+        addAction(Alerts.playAlbumAlert(sender))
+        addAction(Alerts.playArtistAlert(sender))
     }
     
     /*MARK: */

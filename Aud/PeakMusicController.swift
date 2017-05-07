@@ -119,58 +119,156 @@ class PeakMusicController {
     func play(artist: [BasicSong]){
         //Fetch the artists songs async and use play() to play the results
         
-        let artistToPlay = artist[0].getArtistName()
-        var mediaItemsToPlay = [BasicSong]()
-        
-        //fetch the songs from the artist and add the to the queue
-        DispatchQueue.global().async {
+        //check if we are playing an apple music or spotify artist
+        if let song: MPMediaItem = artist[0] as? MPMediaItem{
             
-            let artistCollection = MPMediaQuery.artists().collections
-            for theArtist in artistCollection! {
+            let artistToPlay = song.getArtistName()
+            var mediaItemsToPlay = [BasicSong]()
+            
+            //fetch the songs from the artist and add the to the queue
+            DispatchQueue.global().async {
                 
-                if theArtist.representativeItem?.artist == artistToPlay {
+                let artistCollection = MPMediaQuery.artists().collections
+                for theArtist in artistCollection! {
                     
-                    mediaItemsToPlay = theArtist.items
-                    break
+                    if theArtist.representativeItem?.artist == artistToPlay {
+                        
+                        mediaItemsToPlay = theArtist.items
+                        break
+                    }
+                }
+                
+                //shuffle the media items to play
+                mediaItemsToPlay = self.shuffleQueue(shuffle: mediaItemsToPlay)
+                
+                DispatchQueue.main.async {
+                    
+                    self.play(mediaItemsToPlay)
                 }
             }
+        } else if let artistSong: SPTTrack = artist[0] as? SPTTrack{
             
-            //shuffle the media items to play
-            mediaItemsToPlay = self.shuffleQueue(shuffle: mediaItemsToPlay)
-            
-            DispatchQueue.main.async {
+            //Get the user's spotify library
+            SPTYourMusic.savedTracksForUser(withAccessToken: auth?.session.accessToken){ err, callback in
                 
-                self.play(mediaItemsToPlay)
+                //check if we got an error
+                if err != nil{
+                    print(err!)
+                    return
+                }
+                
+                //holder variable for items in the album
+                var artistItems = [SPTTrack]()
+                
+                //No error so let's fetch the songs
+                if let songPage: SPTListPage = callback as? SPTListPage{
+                    
+                    for song in songPage.items{
+                        
+                        
+                        if let songCheck: SPTTrack = song as? SPTTrack{
+                            
+                            //check if the song is in the correct artist
+                            if songCheck.getArtistName() == artistSong.getArtistName(){
+                                
+                               
+                                artistItems.append(songCheck)
+                            }
+                        }
+                    }
+                }
+                
+                //Let's shuffle the items and then play them
+                artistItems = self.shuffleQueue(shuffle: artistItems) as! [SPTTrack]
+                
+                //Now let's play the artist
+                self.play(artistItems)
+                
             }
+            
+        } else{
+            
+            print("\n\nWARNING WE DID NOT GET APPLE MUSIC OR SPOTIFY\n\n")
         }
+        
     }
     
     func play(album: [BasicSong]){
         //Fetch the album songs async and use play() to play the results
         
-        let albumTitleToPlay = album[0].getCollectionName()
-        var mediaItemsToPlay = [BasicSong]()
         
-        //fetch the songs from the album and add them to the queue
-        DispatchQueue.global().async {
+        //Check if we are playing Apple Music or Spotify 
+        if let song: MPMediaItem = album[0] as? MPMediaItem{
+            //APPLE MUSIC
             
-            let albumCollection = MPMediaQuery.albums().collections
-            for theAlbum in albumCollection! {
+            let albumTitleToPlay = song.getCollectionName()
+            var mediaItemsToPlay = [BasicSong]()
+            
+            //fetch the songs from the album and add them to the queue
+            DispatchQueue.global().async {
                 
-                if theAlbum.representativeItem?.albumTitle == albumTitleToPlay {
-                    mediaItemsToPlay = theAlbum.items
-                    break
+                let albumCollection = MPMediaQuery.albums().collections
+                for theAlbum in albumCollection! {
+                    
+                    if theAlbum.representativeItem?.albumTitle == albumTitleToPlay {
+                        mediaItemsToPlay = theAlbum.items
+                        break
+                    }
+                }
+                
+                //shuffle the mediaItems to player
+                mediaItemsToPlay = self.shuffleQueue(shuffle: mediaItemsToPlay)
+                
+                DispatchQueue.main.async {
+                    
+                    self.play(mediaItemsToPlay)
                 }
             }
+        } else if let albumSong: SPTTrack = album[0] as? SPTTrack{
             
-            //shuffle the mediaItems to player
-            mediaItemsToPlay = self.shuffleQueue(shuffle: mediaItemsToPlay)
-            
-            DispatchQueue.main.async {
+            //Get the user's spotify library
+            SPTYourMusic.savedTracksForUser(withAccessToken: auth?.session.accessToken){ err, callback in
                 
-                self.play(mediaItemsToPlay)
+                //check if we got an error
+                if err != nil{
+                    print(err!)
+                    return
+                }
+                
+                //holder variable for items in the album
+                var albumItems = [SPTTrack]()
+                
+                //No error so let's fetch the songs
+                if let songPage: SPTListPage = callback as? SPTListPage{
+                    
+                    for song in songPage.items{
+                        
+                        
+                        if let songCheck: SPTTrack = song as? SPTTrack{
+                            
+                            //check if the song is in the correct albums
+                            if songCheck.getCollectionName() == albumSong.album.name{
+                                
+                                //it does equal so add it to the album
+                                albumItems.append(songCheck)
+                            }
+                        }
+                    }
+                }
+                
+                //Let's shuffle the items and then play them
+                albumItems = self.shuffleQueue(shuffle: albumItems) as! [SPTTrack]
+                
+                //Now let's play the album
+                self.play(albumItems)
+                
             }
+            
+        } else{
+            
+            print("\n\nWARNING NEITHER APPLE MUSIC NOR SPOTIFY\n\n")
         }
+        
         
     }
     

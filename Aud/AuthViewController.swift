@@ -247,7 +247,7 @@ class AuthViewController: UIViewController {
     //AUthentication flow method
     func startAuthenticationFlow(){
         
-        if let session = auth?.session{
+        if auth?.session != nil{
             
             (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
             

@@ -27,9 +27,9 @@ extension SPTTrack: BasicSong{
     
     func getArtistName() -> String{
         
-        if artists.count > 1{
+        if artists.count > 0{
             
-            return (artists[0] as! SPTArtist).name
+            return (artists[0] as! SPTPartialArtist).name
         }
         
         return "Don't see an artist"
