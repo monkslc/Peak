@@ -19,6 +19,7 @@ class PeakMusicController {
     
     init(){
         
+        print("We are initalizing it")
         NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil)
     }
     
@@ -228,6 +229,7 @@ class PeakMusicController {
     /*Notification Methods*/
     @objc func songChanged(_ notification: NSNotification){
         
+        print("Ok our song changed")
         /*Pop Songs From the Beginning of the queue after they are done playing*/
         //We do this to make the play queue easy to update
         if peakMusicController.currPlayQueue.count > 1{

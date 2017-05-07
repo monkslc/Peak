@@ -10,7 +10,23 @@ import Foundation
 
 extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlaybackDelegate{
     
+    
     func getNowPlayingItemLoc() -> Int {
+        
+        //Get the current track
+        if let track = getNowPlayingItem(){
+            
+            //Loop through the queue and see where it is
+            var counter = 0
+            for song in peakMusicController.currPlayQueue{
+                
+                if song.isEqual(to: track){
+                    
+                    return counter
+                }
+                counter += 1
+            }
+        }
         
         return 0
     }
@@ -89,7 +105,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
             }
             
             //Queue the second song
-            if songs.count > 1{
+            /*if songs.count > 1{
                 
                 //Set a delay, otherwise it won't queue
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1) ) {
@@ -101,7 +117,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
                         }
                     }
                 }
-            }
+            }*/
         }
     }
     
@@ -147,8 +163,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func getCurrentPlaybackTime() -> Double {
         
-       
-       /*NEED TO FIND A WAY TO STORE THE VALUE FOR THE TIME*/
         return 0.0
     }
     
@@ -171,7 +185,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     /*MARK: LISTENER METHODS*/
     func playerStateChanged() {
         
-        print("The Player state changed")
         NotificationCenter.default.post(Notification(name: .systemMusicPlayerStateChanged))
     }
     
@@ -181,8 +194,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     }
     
     func playerNowPlayingItemChanged() {
-        
-        print("The Now Playing Item Changed")
         
         //Update the play queue when the song changes
         self.setPlayerQueue(songs: peakMusicController.currPlayQueue)
@@ -194,7 +205,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     public func audioStreamingDidSkip(toNextTrack audioStreaming: SPTAudioStreamingController!) {
         
         //print("Audio Streaming Did Skip")
-        playerNowPlayingItemChanged()
+        //playerNowPlayingItemChanged()
     }
     
     public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
@@ -202,13 +213,45 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         playerStateChanged()
     }
     
-    /*public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
+   /* public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
         
-        print("Audio Streaming Did change Position")
-        /*THIS IS WHERE WE CAN GET THE POSITION OF THE AUDIO PLAYER BUT WE HAVE TO FIGURE OUT A WAY TO STORE THE VALUE*/
+        /*WE GET THE POSITION HERE, NOW WE NEED TO FIND A WAY TO SET IT*/
     }*/
     
     public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+        
+        //Check if the previous song equals the 0th item in the current play queue, if it does our song changed
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+            
+            //Check if the song that is playing changed
+            if (metadata.currentTrack?.isEqual(to: peakMusicController.currPlayQueue[0]))! == false{
+                
+                self.playerNowPlayingItemChanged()
+            }
+            
+        
+            //Lets get the next song to play
+            if peakMusicController.currPlayQueue.count > self.getNowPlayingItemLoc() + 1{
+                
+                let track = peakMusicController.currPlayQueue[self.getNowPlayingItemLoc() + 1]
+                
+                if metadata.nextTrack == nil || metadata.nextTrack!.isEqual(to: track) == false{
+                    
+                    print("Ok we are gonna want to queue \(track.getTrackName()) right about now")
+                    //We know we need to queue now
+                    self.queueSpotifyURI((track as! SPTTrack).playableUri.absoluteString){
+                            
+                        if $0 != nil{
+                            print("Error Qeueing next track in audioStreaming \($0!)")
+                        }
+                    }
+                        
+                    print("\nOk should be all queued up now\n")
+                }
+            }
+            
+        }
+        
         
         
     }
