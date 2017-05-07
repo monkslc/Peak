@@ -32,7 +32,7 @@ extension SPTTrack: BasicSong{
             return (artists[0] as! SPTPartialArtist).name
         }
         
-        return "Don't see an artist"
+        return "Artist could not be found"
     }
     
     func getTrackTimeMillis() -> Int{
