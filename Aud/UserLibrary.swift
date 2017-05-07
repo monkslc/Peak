@@ -53,7 +53,6 @@ class UserLibrary{
     /*MARK: Fetch FUNCITONS*/
     func fetchLibrary(){
         
-        print("Fetching Library with player type = \(peakMusicController.musicType)")
         
         if peakMusicController.musicType == .AppleMusic {
             
@@ -63,7 +62,6 @@ class UserLibrary{
             fetchGuestMusic()
         } else if peakMusicController.musicType == .Spotify{
             
-            print("The music type = spotify")
             fetchSpotifyMusic()
         }
     }

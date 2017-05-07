@@ -229,12 +229,11 @@ class PeakMusicController {
     /*Notification Methods*/
     @objc func songChanged(_ notification: NSNotification){
         
-        print("Ok our song changed")
         /*Pop Songs From the Beginning of the queue after they are done playing*/
         //We do this to make the play queue easy to update
         if peakMusicController.currPlayQueue.count > 1{
             
-            if (systemMusicPlayer.getNowPlayingItem()?.isEqual(to: currPlayQueue[1]))! {
+            if (systemMusicPlayer.getNowPlayingItem()?.isEqual(to: currPlayQueue[1])) == true{
                 
                 currPlayQueue.remove(at: 0)
             }
