@@ -8,7 +8,10 @@
 
 import Foundation
 
+var spotifyPlayerTrackTime: TimeInterval?
+
 extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlaybackDelegate{
+    
     
     
     func getNowPlayingItemLoc() -> Int {
@@ -150,7 +153,13 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func getCurrentPlaybackTime() -> Double {
         
-        return 0.0
+        if spotifyPlayerTrackTime != nil{
+            
+            return spotifyPlayerTrackTime!
+        } else{
+            
+            return 0.0
+        }
     }
     
     func setCurrentPlayTime(_ time: Double) {
@@ -200,10 +209,10 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         playerStateChanged()
     }
     
-   /* public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
+   public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
         
-        /*WE GET THE POSITION HERE, NOW WE NEED TO FIND A WAY TO SET/STORE IT*/
-    }*/
+        spotifyPlayerTrackTime = position
+    }
     
     public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
         

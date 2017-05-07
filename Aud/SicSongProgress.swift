@@ -25,6 +25,9 @@ class SicSongProgress: UISlider {
         //Add target
         addTarget(self, action: #selector(changeSongTime), for: .valueChanged)
         
+        //turn off constant notifications
+        self.isContinuous = false
+        
         minimumValue = 0
         maximumValue = 100
         value = 0
