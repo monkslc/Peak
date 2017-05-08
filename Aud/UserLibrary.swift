@@ -16,12 +16,6 @@ protocol UserLibraryDelegate{
     func libraryItemsUpdated()
 }
 
-/*enum LibraryItem{
-    
-    case MediaItem(MPMediaItem)
-    case GuestItem(Song)
-}*/
-
 class UserLibrary{
     
     /*MARK: INITIALIZERS*/
@@ -253,12 +247,11 @@ class UserLibrary{
             //Check if they are the same and sort them by album
             if artistTwo == artistOne{
                 
-                print("Our artist are equal")
                 let albumOne = songOne.getCollectionName()
                 let albumTwo = songTwo.getCollectionName()
                 
                 if albumTwo > albumOne{
-                    print("Second album is better than album one")
+        
                     return true
                 }
                 

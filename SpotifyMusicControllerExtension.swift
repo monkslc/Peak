@@ -8,11 +8,30 @@
 
 import Foundation
 
-var spotifyPlayerTrackTime: TimeInterval?
-
 extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlaybackDelegate{
     
+    /*PRIVATE STRUCT TO STORE PROPERTIES*/
+    private struct customProperties{
+        
+        static var trackTime: TimeInterval?
+    }
     
+    
+    /*PROPERTIES*/
+    var currentTrackTime: TimeInterval?{
+        
+        get{
+           
+            return objc_getAssociatedObject(self, &customProperties.trackTime) as? TimeInterval ?? 0.0
+        }
+        set{
+            
+            if let unwrappedValue = newValue{
+                
+                objc_setAssociatedObject(self, &customProperties.trackTime, unwrappedValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
+    }
     
     func getNowPlayingItemLoc() -> Int {
         
@@ -111,6 +130,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         audioStreaming(self, didChange: metadata)
     }
     
+    
     func restartSong() {
         
         self.seek(to: 0){
@@ -153,9 +173,9 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func getCurrentPlaybackTime() -> Double {
         
-        if spotifyPlayerTrackTime != nil{
+        if currentTrackTime != nil{
             
-            return spotifyPlayerTrackTime!
+            return currentTrackTime!
         } else{
             
             return 0.0
@@ -211,7 +231,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
         
-        spotifyPlayerTrackTime = position
+        currentTrackTime = position
     }
     
     public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {

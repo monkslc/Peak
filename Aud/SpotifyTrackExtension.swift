@@ -10,6 +10,30 @@ import Foundation
 
 extension SPTTrack: BasicSong{
     
+    /*PRIVATE STRUCT TO STORE PROPERTIES*/
+    private struct customProperties{
+        
+        static var cover: UIImage?
+    }
+    
+    
+    /*PROPERTIES*/
+    var albumCover: UIImage?{
+        
+        get{
+            
+            return objc_getAssociatedObject(self, &customProperties.cover) as? UIImage ?? nil
+        }
+        set{
+            
+            if let unwrappedValue = newValue{
+                
+                objc_setAssociatedObject(self, &customProperties.cover, unwrappedValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
+    }
+    
+    
     func getId() -> String{
         
         return identifier
@@ -42,16 +66,27 @@ extension SPTTrack: BasicSong{
     
     func getImage() -> UIImage?{
         
-        var albumImage = UIImage()
+        if albumCover != nil{
         
-        do{
-            try albumImage = UIImage(data: Data(contentsOf: album.largestCover.imageURL))!
-        } catch{
+            return albumCover
+        } else{
             
-            print("Error getting the ablum image")
+            //We've got to fetch it here
+            var albumImage = UIImage()
+            
+            do{
+                try albumImage = UIImage(data: Data(contentsOf: album.largestCover.imageURL))!
+            } catch{
+                
+                print("Error getting the album image")
+            }
+            
+            albumCover = albumImage
+            return albumImage
+            
         }
         
-        return albumImage
+        
     }
     
     func getDateAdded() -> Date?{
