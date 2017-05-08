@@ -21,9 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     /*MARK: SPOTIFY APPLICATION DELEGATE METHODS*/
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
+        //Get a token refresh service
+        
         //check if the url is what we expect
         
         if (auth?.canHandle(url))!{
+            
+            print("Auth can handle our url")
             
             authViewController?.dismiss(animated: true, completion: nil)
             authViewController = nil
@@ -39,11 +43,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
                     }
                     
                     
-                    
+                    //print("OUr token refresh URL is: \(auth?.tokenRefreshURL)")
+                    //print("Our token type was: \(session?.tokenType)")
+                    //print("Our access token was: \(session?.accessToken)")
+                    //print("Our refresh token URL was: \(session?.encryptedRefreshToken)")
                 }
                 
             }
             
+        } else{
+            print("Auth can't handle our url")
         }
 
         return true
@@ -52,7 +61,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     /*MARK: SPOTIFY AUDIO STREAMING DELEGATE METHODS*/
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
         
+        print("OUR SPOTIFY LOGIN WAS SUCCESSFUL")
         NotificationCenter.default.post(Notification(name: .spotifyLoginSuccessful))
+    }
+    
+    func audioStreamingDidLogout(_ audioStreaming: SPTAudioStreamingController!) {
+        
+        print("\n\n\nOK HERE WE ARE.\nSpotify Audio Streaming Logged Out\n\n\n")
+    }
+    
+    func audioStreamingDidDisconnect(_ audioStreaming: SPTAudioStreamingController!) {
+        
+        print("\n\n\nOK HERE WE ARE.\nSpotify Audio Streaming Did Disconnect\n\n\n")
+    }
+    
+    func audioStreamingDidReconnect(_ audioStreaming: SPTAudioStreamingController!) {
+        
+        print("\n\n\nOK HERE WE ARE.\nSpotify Audio Streaming Did Reconnect\n\n\n")
+    }
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
+        
+        /********THIS IS WHERE WE NEED TO REFRESH THE TOKEN*****/
+        
+        print("\nOK HERE WE ARE.\nSpotify Audio Streaming Did Receive an ERROR\n")
+        print(error)
+        
+        //
+        
+        //Ok let's try reconnecting and see if that works
+        //print("OUr encrypted refresh token is \(auth?.session.encryptedRefreshToken)")
+        auth?.renewSession(auth?.session){ err, session in
+            
+            
+            
+            print("Ok so we should be renewing the session")
+            if err != nil{
+                
+                print("Error renewing session: \(err!)")
+                return
+            }
+            
+            //NO error so keep going
+            print("There was no error in renewing the token")
+            
+            
+        }
+    }
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveMessage message: String!) {
+        
+        print("\n\n\nOK HERE WE ARE.\nSpotify Audio Streaming Did Receive a Message\n\n\n")
+    }
+    
+    func audioStreamingDidEncounterTemporaryConnectionError(_ audioStreaming: SPTAudioStreamingController!) {
+        
+        print("\n\n\nOK HERE WE ARE.\nSpotify Audio Streaming DId Encounter Temp Error\n\n\n")
     }
     
     /*MARK: NOT SPOTIFY STUFF*/

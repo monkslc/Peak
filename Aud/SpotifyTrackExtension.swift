@@ -42,7 +42,16 @@ extension SPTTrack: BasicSong{
     
     func getImage() -> UIImage?{
         
-        return album.covers[0] as? UIImage
+        var albumImage = UIImage()
+        
+        do{
+            try albumImage = UIImage(data: Data(contentsOf: album.largestCover.imageURL))!
+        } catch{
+            
+            print("Error getting the ablum image")
+        }
+        
+        return albumImage
     }
     
     func getDateAdded() -> Date?{
