@@ -55,7 +55,11 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func getNowPlayingItem() -> BasicSong? {
         
-        return metadata.currentTrack
+        if metadata != nil{
+            return metadata.currentTrack
+        } else {
+            return nil
+        }
     }
     
     func getPlayerState() -> MusicPlayerState {
