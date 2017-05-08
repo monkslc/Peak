@@ -229,6 +229,31 @@ class UserLibrary{
     
     func fetchSpotifyMusic(){
     
+        //Create a sort method
+        func sortArtist(songOne: SPTTrack, songTwo: SPTTrack) -> Bool{
+            
+            
+            var artistOne = songOne.getArtistName()
+            var artistTwo = songTwo.getArtistName()
+            
+            if artistOne.hasPrefix("The"){
+                
+                artistOne = artistOne.subString(startIndex: 4)
+            }
+            
+            if artistTwo.hasPrefix("The"){
+                
+                artistTwo = artistTwo.subString(startIndex: 4)
+            }
+            
+            if artistTwo > artistOne {
+                
+                return true
+            }
+            
+            return false
+        }
+        
         SPTYourMusic.savedTracksForUser(withAccessToken: auth?.session.accessToken){ err, callback in
             
             //Check if we got an error
@@ -265,7 +290,24 @@ class UserLibrary{
                 } else {
                     
                     libraryQueue.sync {
-                        self.recents = tempStorageForLibItems
+                        
+                        //get the 20 most recent items
+                        var userRecentItems = [SPTTrack]()
+                        for songIndex in 0..<20{
+                            
+                            if tempStorageForLibItems.count > songIndex{
+                                
+                                userRecentItems.append(tempStorageForLibItems[songIndex])
+                            }
+                            
+                        }
+                        
+                        self.recents = userRecentItems
+                        
+                        //Sort the items before we send them
+                        tempStorageForLibItems.sort(by: sortArtist)
+                        
+                        //Now upload our library
                         self.itemsInLibrary = tempStorageForLibItems
                     }
                     
@@ -274,30 +316,6 @@ class UserLibrary{
             
             getLibraryItems(passingPage: callback as! SPTListPage)
             
-           /* DispatchQueue.global().async {
-                getLibraryItems(passingPage: callback as! SPTListPage)
-                
-                DispatchQueue.main.async {
-                    
-                    self.itemsInLibrary = tempStorageForLibItems
-                    self.recents = tempStorageForLibItems
-                    print(self.itemsInLibrary)
-                }
-            }*/
-            
-            
-            //No error so let's fetch the songs
-            /*if let foo: SPTListPage = callback as? SPTListPage{
-                
-                
-                for song in foo.items{
-                    
-                    self.itemsInLibrary.append(song as! BasicSong)
-                    self.recents.append(song as! BasicSong)
-                    //self.library.append(song as! SPTTrack)
-                }
-                
-            }*/
         }
         
     }
