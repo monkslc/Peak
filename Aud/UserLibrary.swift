@@ -237,9 +237,48 @@ class UserLibrary{
                 print(err!)
                 return
             }
+            var tempStorageForLibItems = [SPTTrack]()
+            
+            func getLibraryItems(passingPage: SPTListPage){
+                
+                //Get the items from the page
+                for item in passingPage.items{
+                    
+                    tempStorageForLibItems.append(item as! SPTTrack)
+                }
+                
+                //See if we have another page to go through
+                if passingPage.hasNextPage{
+                    
+                    
+                    passingPage.requestNextPage(withAccessToken: auth?.session.accessToken){ err, callback in
+                        
+                        //recrusion
+                        getLibraryItems(passingPage: callback as! SPTListPage)
+                    }
+                } else {
+                    
+                    self.recents = tempStorageForLibItems
+                    self.itemsInLibrary = tempStorageForLibItems
+                }
+            }
+            
+            getLibraryItems(passingPage: callback as! SPTListPage)
+            
+           /* DispatchQueue.global().async {
+                getLibraryItems(passingPage: callback as! SPTListPage)
+                
+                DispatchQueue.main.async {
+                    
+                    self.itemsInLibrary = tempStorageForLibItems
+                    self.recents = tempStorageForLibItems
+                    print(self.itemsInLibrary)
+                }
+            }*/
+            
             
             //No error so let's fetch the songs
-            if let foo: SPTListPage = callback as? SPTListPage{
+            /*if let foo: SPTListPage = callback as? SPTListPage{
                 
                 
                 for song in foo.items{
@@ -249,7 +288,7 @@ class UserLibrary{
                     //self.library.append(song as! SPTTrack)
                 }
                 
-            }
+            }*/
         }
         
     }
