@@ -251,7 +251,7 @@ class AuthViewController: UIViewController {
             
             print("Our auth session did not equal nil")
             
-            print("OUr encrypted refresh token is \(auth?.session.encryptedRefreshToken)")
+            //print("OUr encrypted refresh token is \(auth?.session.encryptedRefreshToken)")
             
             (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
             
