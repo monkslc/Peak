@@ -253,21 +253,28 @@ class UserLibrary{
             //Check if they are the same and sort them by album
             if artistTwo == artistOne{
                 
+                print("Our artist are equal")
                 let albumOne = songOne.getCollectionName()
                 let albumTwo = songTwo.getCollectionName()
                 
                 if albumTwo > albumOne{
+                    print("Second album is better than album one")
                     return true
                 }
                 
-                //check if they have the same album and sor them by song
-                let songTitleOne = songOne.getTrackName()
-                let songTitleTwo = songTwo.getTrackName()
-                
-                if songTitleTwo > songTitleOne{
+                //iF they are the same album, sort them by song
+                if albumTwo == albumOne{
                     
-                    return true
+                    // sort them by song
+                    let songTitleOne = songOne.getTrackName()
+                    let songTitleTwo = songTwo.getTrackName()
+                    
+                    if songTitleTwo > songTitleOne{
+                        
+                        return true
+                    }
                 }
+                
             }
             
             return false
