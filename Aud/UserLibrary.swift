@@ -239,12 +239,18 @@ class UserLibrary{
             }
             var tempStorageForLibItems = [SPTTrack]()
             
+            //Create a queue to update the library
+            let libraryQueue = DispatchQueue(label: "library")
+            
             func getLibraryItems(passingPage: SPTListPage){
                 
                 //Get the items from the page
                 for item in passingPage.items{
                     
-                    tempStorageForLibItems.append(item as! SPTTrack)
+                    libraryQueue.sync {
+                        tempStorageForLibItems.append(item as! SPTTrack)
+                    }
+                    
                 }
                 
                 //See if we have another page to go through
@@ -258,8 +264,11 @@ class UserLibrary{
                     }
                 } else {
                     
-                    self.recents = tempStorageForLibItems
-                    self.itemsInLibrary = tempStorageForLibItems
+                    libraryQueue.sync {
+                        self.recents = tempStorageForLibItems
+                        self.itemsInLibrary = tempStorageForLibItems
+                    }
+                    
                 }
             }
             
