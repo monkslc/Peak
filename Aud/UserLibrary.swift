@@ -232,7 +232,6 @@ class UserLibrary{
         //Create a sort method
         func sortArtist(songOne: SPTTrack, songTwo: SPTTrack) -> Bool{
             
-            
             var artistOne = songOne.getArtistName()
             var artistTwo = songTwo.getArtistName()
             
@@ -249,6 +248,26 @@ class UserLibrary{
             if artistTwo > artistOne {
                 
                 return true
+            }
+            
+            //Check if they are the same and sort them by album
+            if artistTwo == artistOne{
+                
+                let albumOne = songOne.getCollectionName()
+                let albumTwo = songTwo.getCollectionName()
+                
+                if albumTwo > albumOne{
+                    return true
+                }
+                
+                //check if they have the same album and sor them by song
+                let songTitleOne = songOne.getTrackName()
+                let songTitleTwo = songTwo.getTrackName()
+                
+                if songTitleTwo > songTitleOne{
+                    
+                    return true
+                }
             }
             
             return false
