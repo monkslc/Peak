@@ -133,11 +133,36 @@ class UserLibrary{
                     artistTwo = item2.artistName.subString(startIndex: 3)
                 }
                 
-                if artistOne > artistTwo {
-                    return false
-                }else {
+                if artistTwo > artistOne{
+                    
                     return true
                 }
+                
+                //Check if the artists are equal so we can sort by album
+                if artistTwo == artistOne{
+                    
+                    let albumOne = item1.collectionName
+                    let albumTwo = item2.collectionName
+                    
+                    //See which one is greater
+                    if albumTwo > albumOne{
+                        
+                        return true
+                    }
+                    
+                    //check to see if the albums are the same so we can sort by song
+                    if albumTwo == albumOne{
+                        
+                        let songTitleOne = item1.getTrackName()
+                        let songTitleTwo = item2.getTrackName()
+                        
+                        if songTitleTwo > songTitleOne{
+                            return true
+                        }
+                    }
+                }
+                
+                return false
             }
             
             //Retreive the recently played items

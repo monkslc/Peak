@@ -17,7 +17,14 @@ class SongProgressLabel: UILabel {
         
         //Add the listeners
         NotificationCenter.default.addObserver(self, selector: #selector(updateLabelTime), name: .updateSongTime, object: nil)
-        //fatalError("init(coder:) has not been implemented")
+        NotificationCenter.default.addObserver(self, selector: #selector(playerTypeChanged), name: .playerTypeChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(musicTypeChanged), name: .musicTypeChanged, object: nil)
+    
+        //if we are a guest we want to hide this
+        if peakMusicController.musicType == .Guest{
+            
+            self.isHidden = true
+        }
     }
     
     
@@ -52,6 +59,27 @@ class SongProgressLabel: UILabel {
             
             let duration = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis() ?? Int(0.0)
             text = formatTime(TimeInterval(duration))
+        }
+    }
+    
+    /*MARK: NOTIFICATION METHODS*/
+    func playerTypeChanged(){
+        
+        if peakMusicController.playerType == .Contributor{
+            self.isHidden = true
+        } else{
+            
+            self.isHidden = false
+        }
+    }
+    
+    func musicTypeChanged(){
+        
+        if peakMusicController.musicType == .Guest{
+            
+            self.isHidden = true
+        } else{
+            self.isHidden = false
         }
     }
     

@@ -16,6 +16,16 @@ class SICForwardButton: UIButton {
         
         //Add the target
         addTarget(self, action: #selector(skipSong), for: .touchUpInside)
+        
+        //Add notification listener
+        NotificationCenter.default.addObserver(self, selector: #selector(playerTypeChanged), name: .playerTypeChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(musicTypeChanged), name: .musicTypeChanged, object: nil)
+        
+        //if we are a guest we want to hide this
+        if peakMusicController.musicType == .Guest{
+            
+            self.isHidden = true
+        }
     }
     
     /*
@@ -33,6 +43,27 @@ class SICForwardButton: UIButton {
         //Called when the button gets pressed
         
         peakMusicController.systemMusicPlayer.skipSong()
+    }
+    
+    /*MARK: NOTIFICATION METHODS*/
+    func playerTypeChanged(){
+        
+        if peakMusicController.playerType == .Contributor{
+            self.isHidden = true
+        } else{
+            
+            self.isHidden = false
+        }
+    }
+    
+    func musicTypeChanged(){
+        
+        if peakMusicController.musicType == .Guest{
+            
+            self.isHidden = true
+        } else{
+            self.isHidden = false
+        }
     }
     
 }

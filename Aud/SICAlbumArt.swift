@@ -24,6 +24,8 @@ class SICAlbumArt: UIImageView {
             
         //Add the listeners
         NotificationCenter.default.addObserver(self, selector: #selector(updateAlbumImage), name: .systemMusicPlayerNowPlayingChanged, object: nil)
+        
+        updateAlbumImage()
     }
     
     /*

@@ -21,6 +21,8 @@ class SicSongProgress: UISlider {
         //Add the listeners
         NotificationCenter.default.addObserver(self, selector: #selector(songTimeChanged), name: .updateSongTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(songChanged), name: .systemMusicPlayerNowPlayingChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerTypeChanged), name: .playerTypeChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(musicTypeChanged), name: .musicTypeChanged, object: nil)
         
         //Add target
         addTarget(self, action: #selector(changeSongTime), for: .valueChanged)
@@ -31,6 +33,12 @@ class SicSongProgress: UISlider {
         minimumValue = 0
         maximumValue = 100
         value = 0
+        
+        //if we are a guest we want to hide this
+        if peakMusicController.musicType == .Guest{
+            
+            self.isHidden = true
+        }
     }
     
     /*
@@ -61,6 +69,26 @@ class SicSongProgress: UISlider {
         //Get's called when the song changes on the system music player
         
         maximumValue = Float((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
+    }
+    
+    func playerTypeChanged(){
+        
+        if peakMusicController.playerType == .Contributor{
+            self.isHidden = true
+        } else{
+            
+            self.isHidden = false
+        }
+    }
+    
+    func musicTypeChanged(){
+        
+        if peakMusicController.musicType == .Guest{
+            
+            self.isHidden = true
+        } else{
+            self.isHidden = false
+        }
     }
     
     

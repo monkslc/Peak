@@ -31,6 +31,7 @@
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
 		C456253A1E8EF95E00311750 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45625391E8EF95E00311750 /* Alerts.swift */; };
+		C45838CE1EC0F00500ECEBE5 /* GuestMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45838CD1EC0F00500ECEBE5 /* GuestMusicController.swift */; };
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
 		C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */; };
 		C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */; };
@@ -95,6 +96,7 @@
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
 		C45625391E8EF95E00311750 /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		C45838CD1EC0F00500ECEBE5 /* GuestMusicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestMusicController.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInteractionController.swift; sourceTree = "<group>"; };
 		C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICAlbumArt.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			children = (
 				C4BA76C31EBD1A8000947C1C /* SystemMusicPlayer.swift */,
 				C4BA76C61EBD1D8F00947C1C /* AppleMusicExtension.swift */,
+				C45838CD1EC0F00500ECEBE5 /* GuestMusicController.swift */,
 				C4BA76CC1EBD3C8000947C1C /* SpotifyMusicControllerExtension.swift */,
 				90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */,
 				C4BA76C81EBD386D00947C1C /* SpotifyTrackExtension.swift */,
@@ -448,6 +451,7 @@
 				C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */,
 				90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */,
 				C47FC7CB1EB6AF2100B1A352 /* SICBackButton.swift in Sources */,
+				C45838CE1EC0F00500ECEBE5 /* GuestMusicController.swift in Sources */,
 				C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */,
 				90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */,
 				C47FC7C01EB6993F00B1A352 /* SICDisplay.swift in Sources */,

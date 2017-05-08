@@ -118,7 +118,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         
         if metadata.currentTrack?.isEqual(to: songs[0]) != true {
             
-            print("We are going to play: \(songs[0].getTrackName())")
             self.playSpotifyURI((songs[0] as! SPTTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0){
                 
                 if $0 != nil{

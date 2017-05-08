@@ -339,6 +339,7 @@ class AuthViewController: UIViewController {
             
         } else if segue.identifier == "Segue as Guest" {
         
+            peakMusicController.systemMusicPlayer = GuestMusicController()
             peakMusicController.musicType = .Guest
             
         } else if segue.identifier == "Segue To Spotify"{
