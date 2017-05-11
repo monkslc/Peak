@@ -82,7 +82,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
             }
         }
         
-        return MusicPlayerState.playing
+        return MusicPlayerState.paused
     }
     
     func setShuffleState(state: ShuffleState) {
@@ -122,6 +122,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         
         if songs.count > 0{
             
+        
             if metadata.currentTrack?.isEqual(to: songs[0]) != true {
                 
                 self.playSpotifyURI((songs[0] as! SPTTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0){
