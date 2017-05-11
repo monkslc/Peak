@@ -8,7 +8,10 @@
 
 import Foundation
 
-extension SPTTrack: BasicSong{
+extension SPTTrack: BasicSong {
+    var type: PeakMusicController.MusicType {
+        return .Spotify
+    }
     
     /*PRIVATE STRUCT TO STORE PROPERTIES*/
     private struct customProperties{
@@ -106,7 +109,11 @@ extension SPTTrack: BasicSong{
 }
 
 
-extension SPTPlaybackTrack: BasicSong{
+extension SPTPlaybackTrack: BasicSong {
+    var type: PeakMusicController.MusicType {
+        return .Spotify
+    }
+
     
     func getId() -> String{
         

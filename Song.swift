@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 
 struct Song: BasicSong {
+    
+    var type: PeakMusicController.MusicType {
+        return .Guest
+    }
+
     var id: String
     var trackName: String
     var collectionName: String // same as album name

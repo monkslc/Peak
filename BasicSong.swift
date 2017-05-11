@@ -9,6 +9,9 @@
 import UIKit
 
 protocol BasicSong {
+    
+    var type: PeakMusicController.MusicType { get }
+    
     func getId() -> String
     func getTrackName() -> String
     func getCollectionName() -> String // same as album name

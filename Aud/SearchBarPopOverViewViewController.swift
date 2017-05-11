@@ -324,18 +324,18 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Handle the music for a contributor
         
         //Alert the user
-        promptUserToSendToGroupQueue(songTitle: cell.itemInCell.getTrackName(), songId: cell.itemInCell.getId())
+        promptUserToSendToGroupQueue(song: cell.itemInCell)
     }
     
-    func promptUserToSendToGroupQueue(songTitle: String, songId: String){
+    func promptUserToSendToGroupQueue(song: BasicSong){
         //Makes sure the user wants to send the item to the group queue
         
-        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(songTitle) to the group queue?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.getTrackName()) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
             
             self.showSignifier()
             
-            SendingBluetooth.sendSongIdToHost(id: "\(songId)", error: {
+            SendingBluetooth.sendSongIdToHost(song: song, error: {
                 () -> Void in
                 
                 let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
@@ -348,7 +348,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         present(alert, animated: true, completion: nil)
     }
-    
     
     func showSignifier(){
         

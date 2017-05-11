@@ -10,6 +10,10 @@ import Foundation
 import MediaPlayer
 
 extension MPMediaItem: BasicSong {
+    var type: PeakMusicController.MusicType {
+        return .AppleMusic
+    }
+
     
     func getId() -> String { return "\(self.playbackStoreID)" }
     func getTrackName() -> String { return self.title! }
