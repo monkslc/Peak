@@ -48,22 +48,30 @@ class SICForwardButton: UIButton {
     /*MARK: NOTIFICATION METHODS*/
     func playerTypeChanged(){
         
-        if peakMusicController.playerType == .Contributor{
-            self.isHidden = true
-        } else{
+        DispatchQueue.main.async {
             
-            self.isHidden = false
+            if peakMusicController.playerType == .Contributor{
+                self.isHidden = true
+            } else{
+                
+                self.isHidden = false
+            }
         }
+        
     }
     
     func musicTypeChanged(){
         
-        if peakMusicController.musicType == .Guest{
+        DispatchQueue.main.async {
             
-            self.isHidden = true
-        } else{
-            self.isHidden = false
+            if peakMusicController.musicType == .Guest{
+                
+                self.isHidden = true
+            } else{
+                self.isHidden = false
+            }
         }
+        
     }
     
 }
