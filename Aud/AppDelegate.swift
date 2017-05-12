@@ -83,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         
         /********THIS IS WHERE WE NEED TO REFRESH THE TOKEN*****/
+        //We have to get a refresh token from the authorization code exchange
         
         print("\nOK HERE WE ARE.\nSpotify Audio Streaming Did Receive an ERROR\n")
         print(error)
