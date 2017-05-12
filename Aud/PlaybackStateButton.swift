@@ -65,10 +65,18 @@ class PlaybackStateButton: UIButton {
     func musicOrPlayerTypeChanged(){
         //Check if the play pause button should be hidden or visible
         
-        if peakMusicController.musicType == .Guest || peakMusicController.playerType == .Contributor{
+        DispatchQueue.main.async {
             
-            isHidden = true
+            if peakMusicController.musicType == .Guest || peakMusicController.playerType == .Contributor{
+                
+                
+                self.isHidden = true
+            } else{
+                
+                self.isHidden = false
+            }
         }
+        
     }
     
     /*Mark: Gesture Recognizer Methods*/
