@@ -62,6 +62,11 @@ class BluetoothHandler {
             if songType == .Spotify{
                 
                 //Add the spotify song to the playlist
+                addSpotifyFromSpotify(playableURI: songID)
+                
+            } else { //Apple Music or Geust
+                
+                addSpotifyFromAppleMusic(songID: songID)
             }
             
             
@@ -152,8 +157,13 @@ class BluetoothHandler {
                     let songArtist = song.getArtistName()
                     
                     //Use the song title and artist to get the Apple Music Song
+                    ConvertingSongType.getAppleMusicId(songTitle: songTitle, authourName: songArtist){
+                        
+                        //Call addAppleMusicFromAPpleMusic to add it to the play queue
+                        self.addAppleMusicFromAppleMusic(songID: $0)
+                    }
                     
-                    //Call addAppleMusicFromAPpleMusic to add it to the play queue
+                    
                 }
             }
             
