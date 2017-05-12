@@ -20,7 +20,7 @@ class SendingBluetooth {
         
         print("SENT TO \(MPCManager.defaultMPCManager.getDjName())")
         
-        let messageDictionary: [String: String] = ["id": song.getId(), "type": "\(song.type.rawValue)"]
+        let messageDictionary: [String: String] = ["song": song.getTrackName(), "artist": song.getArtistName()]
         
         if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
             
@@ -40,42 +40,17 @@ class SendingBluetooth {
     // from host
     
     static func sendFullQue() {
-        switch peakMusicController.musicType {
-        case .AppleMusic:
-            SendingBluetooth.sendSongIds(songs: peakMusicController.currPlayQueue)
-        case .Spotify:
-            break
-        default:
-            break
-        }
+        SendingBluetooth.sendSongIds(songs: peakMusicController.currPlayQueue)
     }
     
-    /*
-    static func sendSongIdsFromHost(songs: [BasicSong]) {
-        getSongIds(songs: songs, completion: {
-            (songIds) -> Void in
-            
-            for peers in MPCManager.defaultMPCManager.session.connectedPeers {
-                if !MPCManager.defaultMPCManager.sendData(dictionaryWithData: songIds, toPeer: peers as MCPeerID) {
-                    
-                    
-                }
-                else {
-                    print("\n\nERROR SENDING DATA COULD HAPPEN MultipeerConnectivity -> sendSongIdsFromHost\n\n")
-                }
-            }
-            
-        })
-    }
-    */
     
     static func sendSongsToPeer(songs: [BasicSong], peerID: MCPeerID) {
         
         var messageDictionary: [String: String] = [:]
         
         for (index, song) in songs.enumerated() {
-            messageDictionary["\(index)-id"] = song.getId()
-            messageDictionary["\(index)-type"] = "\(song.type.rawValue)"
+            messageDictionary["\(index)-song"] = song.getTrackName()
+            messageDictionary["\(index)-artist"] = song.getArtistName()
         }
         
         for peers in MPCManager.defaultMPCManager.session.connectedPeers {
@@ -101,8 +76,8 @@ class SendingBluetooth {
         var messageDictionary: [String: String] = [:]
         
         for (index, song) in songs.enumerated() {
-            messageDictionary["\(index)-id"] = song.getId()
-            messageDictionary["\(index)-type"] = "\(song.type.rawValue)"
+            messageDictionary["\(index)-song"] = song.getTrackName()
+            messageDictionary["\(index)-artist"] = song.getArtistName()
         }
         
         for peers in MPCManager.defaultMPCManager.session.connectedPeers {
@@ -116,6 +91,7 @@ class SendingBluetooth {
         }
     }
     
+    /*
     static private func getSongIds(songs: [BasicSong], completion: @escaping ([String: String]) -> Void) {
         
         var songIds: [String: String] = [:]
@@ -133,5 +109,5 @@ class SendingBluetooth {
             })
         }
     }
-
+ */
 }
