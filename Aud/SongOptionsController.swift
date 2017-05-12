@@ -55,7 +55,13 @@ class SongOptionsController: UIAlertController {
             
         }else if peakMusicController.musicType == .Spotify{
             
-            addSpotify(sender)
+            if peakMusicController.playerType == .Contributor{
+                
+                addContributor(sender)
+            }else{
+                
+                addSpotify(sender)
+            }
         }
         
         

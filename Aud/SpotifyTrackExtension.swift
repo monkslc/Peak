@@ -115,6 +115,31 @@ extension SPTPlaybackTrack: BasicSong {
     }
 
     
+    
+    /*PRIVATE STRUCT TO STORE PROPERTIES*/
+    private struct customProperties{
+        
+        static var cover: UIImage?
+    }
+    
+    
+    /*PROPERTIES*/
+    var albumCover: UIImage?{
+        
+        get{
+            
+            return objc_getAssociatedObject(self, &customProperties.cover) as? UIImage ?? nil
+        }
+        set{
+            
+            if let unwrappedValue = newValue{
+                
+                objc_setAssociatedObject(self, &customProperties.cover, unwrappedValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
+    }
+    
+    
     func getId() -> String{
         
         return "Spotify Playback Track"
@@ -142,8 +167,27 @@ extension SPTPlaybackTrack: BasicSong {
     
     func getImage() -> UIImage?{
         
-        /*THIS IS WHERE WE WANT TO FETCH THE IMAGE USING self.albumURL or something like that*/
-        return #imageLiteral(resourceName: "ProperPeakyAlbumView")
+         if albumCover != nil{
+         
+         return albumCover
+         } else{
+         
+         //We've got to fetch it here
+         var albumImage = UIImage()
+         
+         do{
+            
+            try albumImage = UIImage(data: Data(contentsOf: URL(string: albumCoverArtURL!)!))!
+         } catch{
+         
+         print("Error getting the album image")
+         }
+         
+         albumCover = albumImage
+         return albumImage
+         
+         }
+        
     }
     
     func getDateAdded() -> Date?{
