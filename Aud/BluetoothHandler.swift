@@ -31,20 +31,23 @@ class BluetoothHandler {
     /*MARK Bluetooth Methods*/
     func receivedGroupPlayQueue(_ songTitles: [String], songArtists: [String]) {
         
-        var tempSongHolder = [Song?].init(repeating: nil, count: songTitles.count)
-        for i in 0..<songTitles.count {
+        if peakMusicController.musicType == .Spotify {
             
-            
-            ConnectingToInternet.getSongs(searchTerm: "\(songTitles[i]) \(songArtists[i])", limit: 1, sendSongsAlltogether: false, completion: {
-                (songs) -> Void in
-                if songs.count == 0 {
-                    return
-                }
+        
+        }
+        
+        else {
+            var tempSongHolder = [Song?].init(repeating: nil, count: songTitles.count)
+            for i in 0..<songTitles.count {
                 
-                tempSongHolder[i] = songs[0]
                 
-                ConnectingToInternet.getSong(id: songIds[i], completion: {(song) in
-                    tempSongHolder[i] = song
+                ConnectingToInternet.getSongs(searchTerm: "\(songTitles[i]) \(songArtists[i])", limit: 1, sendSongsAlltogether: false, completion: {
+                    (songs) -> Void in
+                    if songs.count == 0 {
+                        return
+                    }
+                    
+                    tempSongHolder[i] = songs[0]
                     
                     if let songs = tempSongHolder as? [Song] {
                         
@@ -52,14 +55,13 @@ class BluetoothHandler {
                             peakMusicController.groupPlayQueue = songs
                         }
                     }
-                }
+                    
+                }, error: {
+                    
+                })
                 
-            }, error: {
-                
-            })
-            
+            }
         }
-        
         
     }
     /*CHECK FOR URI OR APPLE MUSIC ID AND TURN INTO SONG*/
@@ -171,6 +173,6 @@ class BluetoothHandler {
             index += 1
         }
         
-        receivedGroupPlayQueue(songNames, songArtist: artistNames)
+        receivedGroupPlayQueue(songNames, songArtists: artistNames)
     }
 }
