@@ -20,7 +20,7 @@ class SendingBluetooth {
         
         print("SENT TO \(MPCManager.defaultMPCManager.getDjName())")
         
-        let messageDictionary: [String: String] = ["id": song.getId(), "type": "\(song.type.hashValue)"]
+        let messageDictionary: [String: String] = ["id": song.getId(), "type": "\(song.type.rawValue)"]
         
         if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
             
@@ -75,7 +75,7 @@ class SendingBluetooth {
         
         for (index, song) in songs.enumerated() {
             messageDictionary["\(index)-id"] = song.getId()
-            messageDictionary["\(index)-type"] = "\(song.type)"
+            messageDictionary["\(index)-type"] = "\(song.type.rawValue)"
         }
         
         for peers in MPCManager.defaultMPCManager.session.connectedPeers {
@@ -102,7 +102,7 @@ class SendingBluetooth {
         
         for (index, song) in songs.enumerated() {
             messageDictionary["\(index)-id"] = song.getId()
-            messageDictionary["\(index)-type"] = "\(song.type.hashValue)"
+            messageDictionary["\(index)-type"] = "\(song.type.rawValue)"
         }
         
         for peers in MPCManager.defaultMPCManager.session.connectedPeers {
