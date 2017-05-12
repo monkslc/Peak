@@ -12,6 +12,7 @@
 		904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */; };
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
 		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
+		90CCBA391EC61DBC006CE9CC /* ConvertingSongType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */; };
 		90DC46521EB91EF9007AF581 /* BasicSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DC46511EB91EF9007AF581 /* BasicSong.swift */; };
 		90DC46541EB920A0007AF581 /* MpMediumItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */; };
 		90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFDF1E87509C00762B9D /* MPCManager.swift */; };
@@ -77,6 +78,7 @@
 		904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingAppleMusicApi.swift; sourceTree = "<group>"; };
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
+		90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertingSongType.swift; sourceTree = "<group>"; };
 		90DC46511EB91EF9007AF581 /* BasicSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicSong.swift; sourceTree = "<group>"; };
 		90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MpMediumItemExtension.swift; path = ../MpMediumItemExtension.swift; sourceTree = "<group>"; };
 		90E2DFDF1E87509C00762B9D /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */,
+				90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */,
 				904885E11E902D5900F090F1 /* LocalSearch.swift */,
 				90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */,
 				90323D341EA8D2FE00489B50 /* GettingTopCharts.swift */,
@@ -491,6 +494,7 @@
 				90DC46521EB91EF9007AF581 /* BasicSong.swift in Sources */,
 				C4FCDF931E90A83A0046C1F9 /* DisplayLabelView.swift in Sources */,
 				C4FCDF951E90AE9E0046C1F9 /* ScrollPresenterView.swift in Sources */,
+				90CCBA391EC61DBC006CE9CC /* ConvertingSongType.swift in Sources */,
 				C4BA76CD1EBD3C8000947C1C /* SpotifyMusicControllerExtension.swift in Sources */,
 				90323D331EA8D10D00489B50 /* GettingLyrics.swift in Sources */,
 			);
