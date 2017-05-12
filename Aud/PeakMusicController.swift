@@ -58,10 +58,10 @@ class PeakMusicController {
         
     }
     
-    enum MusicType {
+    enum MusicType: Int {
         //enum to determine how the user is going to listen to music
         
-        case AppleMusic
+        case AppleMusic = 0
         case Guest
         case Spotify
     }

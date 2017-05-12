@@ -128,7 +128,7 @@ class Alerts {
             
             if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
                 
-                SendingBluetooth.sendSongIdToHost(id: holder.getBasicSong().getId(), error:{})
+                SendingBluetooth.sendSongIdToHost(song: holder.getBasicSong(), error:{})
             }
         })
     }

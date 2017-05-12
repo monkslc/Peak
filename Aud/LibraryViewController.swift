@@ -310,7 +310,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             self.delegate?.showSignifier()
             
-            SendingBluetooth.sendSongIdToHost(id: "\(song.getId())", error: {
+            SendingBluetooth.sendSongIdToHost(song: song, error: {
                 () -> Void in
                 
                 let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)

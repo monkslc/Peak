@@ -16,20 +16,20 @@ protocol BluetoohtHandlerDelegate{
     func showSignifier()
 }
 
-class BluetoothHandler{
+class BluetoothHandler {
     
     /*MARK: PROPERTIES*/
     var delegate: BluetoohtHandlerDelegate?
     
     
     /*MARK: INITIALIZERS*/
-    init(){
+    init() {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleMPCNotification(notification:)), name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
     }
     
     /*MARK Bluetooth Methods*/
-    func receivedGroupPlayQueue(_ songIds: [String]) {
+    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType]) {
         
         var tempSongHolder = [Song?].init(repeating: nil, count: songIds.count)
         for i in 0..<songIds.count {
@@ -49,7 +49,7 @@ class BluetoothHandler{
     }
     
     
-    func receivedSong(_ songID: String) {
+    func receivedSong(_ songID: String, songType: PeakMusicController.MusicType) {
         //Received a song from a contributor
         
         delegate?.showSignifier()
@@ -100,9 +100,8 @@ class BluetoothHandler{
         
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
-        if let id = dataDictionary["id"] {
-            
-            receivedSong(id)
+        if let id = dataDictionary["id"], let type = Int(dataDictionary["type"]!) {
+            receivedSong(id, songType: PeakMusicController.MusicType(rawValue: type)!)
         }
         else {
             print("\n\nERROR: LibraryViewCOntroller.handleMPCDJRecievedSongIDWithNotification THIS SHOULD NEVER HAPPEN: \n\n")
@@ -119,12 +118,14 @@ class BluetoothHandler{
         
         
         var songIDs: [String] = []
+        var songTypes: [PeakMusicController.MusicType] = []
         
         var index = 0
-        while (true) {
+        while true {
             
-            if let value = dataDictionary["\(index)"] {
-                songIDs.append(value)
+            if let id = dataDictionary["\(index)-id"], let type = PeakMusicController.MusicType(rawValue: Int(dataDictionary["\(index)-type"]!)!) {
+                songIDs.append(id)
+                songTypes.append(type)
             }
             else {
                 break
@@ -133,6 +134,6 @@ class BluetoothHandler{
             index += 1
         }
         
-        receivedGroupPlayQueue(songIDs)
+        receivedGroupPlayQueue(songIDs, songTypes: songTypes)
     }
 }
