@@ -47,7 +47,7 @@ class BluetoothHandler {
         }
         
     }
-    
+    /*CHECK FOR URI OR APPLE MUSIC ID AND TURN INTO SONG*/
     
     func receivedSong(_ songID: String, songType: PeakMusicController.MusicType) {
         //Received a song from a contributor
@@ -55,6 +55,46 @@ class BluetoothHandler {
         delegate?.showSignifier()
         
         //add the song to the user's library, async
+        //Check for the user's system music player
+        if peakMusicController.musicType == .Spotify{
+            
+            //Check for what song type is received
+            if songType == .Spotify{
+                
+                //Add the spotify song to the playlist
+            }
+            
+            
+        } else if peakMusicController.musicType == .AppleMusic{
+            
+            //Check for what type of song was received
+            if songType == .Spotify{
+                
+                //Here we want to convert from spotify to Apple Music by searching by title and artist
+                
+            } else{ //Apple Music or Guest
+                
+                addAppleMusicFromAppleMusic(songID: songID)
+            }
+            
+        }
+        
+        switch songType{
+            
+        case .Spotify:
+            break
+            
+        default:
+            break
+            
+        }
+        
+        
+    }
+    
+    /*MARK: METHODS TO ADD A RECEIVED SONG TO THE PLAY QUEUE*/
+    func addAppleMusicFromAppleMusic(songID: String){
+        
         DispatchQueue.global().async {
             
             var song = MPMediaItem()
@@ -76,8 +116,62 @@ class BluetoothHandler {
                 
             })
         }
+    }
+    
+    func addSpotifyFromSpotify(playableURI: String){
+        
+        //Use the URI to fetch a spotify track
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: auth?.session.accessToken, market: "nil"){ err, callback in
+                
+            if let page: SPTListPage = callback as? SPTListPage{
+                    
+                if page.items.count > 0{
+                        
+                    let song = page.items[0] as! SPTTrack
+                    peakMusicController.playAtEndOfQueue([song])
+                }
+            }
+                
+        }
+        
         
     }
+    
+    func addAppleMusicFromSpotify(playableURI: String){
+        
+        //Take the uri and convert it into a spotify song
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: auth?.session.accessToken, market: "nil"){ err, callback in
+            
+            if let page: SPTListPage = callback as? SPTListPage{
+                
+                if page.items.count > 0{
+                    
+                    let song = page.items[0] as! SPTTrack
+                    
+                    let songTitle = song.getTrackName()
+                    let songArtist = song.getArtistName()
+                    
+                    //Use the song title and artist to get the Apple Music Song
+                    
+                    //Call addAppleMusicFromAPpleMusic to add it to the play queue
+                }
+            }
+            
+        }
+        
+        
+    }
+    
+    func addSpotifyFromAppleMusic(songID: String){
+        
+        //Use the songID to fetch a Apple Music Song
+        
+        //Use the song title and artist to get the spotify song
+        
+        //Add teh spotify song to the curr play queue
+    }
+    
+    /*RECEIVED */
     
     /*MARK Notification Methods*/
     @objc func handleMPCNotification(notification: NSNotification) {
