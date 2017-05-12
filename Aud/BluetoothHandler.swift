@@ -37,6 +37,7 @@ class BluetoothHandler {
         }
         
         else {
+            
             var tempSongHolder = [Song?].init(repeating: nil, count: songTitles.count)
             for i in 0..<songTitles.count {
                 
