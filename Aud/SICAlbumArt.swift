@@ -24,6 +24,7 @@ class SICAlbumArt: UIImageView {
             
         //Add the listeners
         NotificationCenter.default.addObserver(self, selector: #selector(updateAlbumImage), name: .systemMusicPlayerNowPlayingChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAlbumImage), name: .groupQueueChanged, object: nil)
         
         updateAlbumImage()
     }
@@ -41,7 +42,14 @@ class SICAlbumArt: UIImageView {
     func updateAlbumImage(){
         //Update the album image when the song changes
         
-        image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+        if peakMusicController.playerType != .Contributor{
+            
+            image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+        } else{
+            
+            image = peakMusicController.groupPlayQueue[0].getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+        }
+        
     }
     
 
