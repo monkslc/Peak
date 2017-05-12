@@ -10,24 +10,29 @@ import MediaPlayer
 
 class ConvertingSongType {
     
-    static func getAppleMusicId(songTitle: String, authourName: String, completion: @escaping (String) -> Void) {
+    static func getAppleMusicId(songTitle: String, authourName: String, completion: @escaping (Song) -> Void) {
         
-        let searchQuery = "\(songTitle) \(authourName)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!
-        
-        let searchingAppleMusic = SearchingAppleMusicApi()
-        searchingAppleMusic.addSearch(term: searchQuery, completion: {
+        ConnectingToInternet.getSongs(searchTerm: "\(songTitle) \(authourName)", limit: 1, sendSongsAlltogether: false, completion: {
             (songs) -> Void in
             
-            for song in songs {
+            if songs.count > 0 {
+                let song = songs[0]
+                
                 if song.getTrackName() == songTitle && song.getArtistName() == authourName {
-                    
-                    completion(song.getId())
-                    
-                    break
+                    completion(song)
+                }
+                else {
+                    completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
                 }
             }
+
             
+        }, error: {
+            () -> Void in
+            
+            completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
         })
+        
     }
     
     

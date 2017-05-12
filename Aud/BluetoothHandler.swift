@@ -41,13 +41,10 @@ class BluetoothHandler {
             for i in 0..<songTitles.count {
                 
                 
-                ConnectingToInternet.getSongs(searchTerm: "\(songTitles[i]) \(songArtists[i])", limit: 1, sendSongsAlltogether: false, completion: {
-                    (songs) -> Void in
-                    if songs.count == 0 {
-                        return
-                    }
+                ConvertingSongType.getAppleMusicId(songTitle: songTitles[i], authourName: songArtists[i], completion: {
+                    (song) -> Void in
                     
-                    tempSongHolder[i] = songs[0]
+                    tempSongHolder[i] = song
                     
                     if let songs = tempSongHolder as? [Song] {
                         
@@ -55,9 +52,6 @@ class BluetoothHandler {
                             peakMusicController.groupPlayQueue = songs
                         }
                     }
-                    
-                }, error: {
-                    
                 })
                 
             }
@@ -82,7 +76,7 @@ class BluetoothHandler {
             
             ConvertingSongType.getAppleMusicId(songTitle: songTitle, authourName: aristName){
                 
-                self.addAppleMusicToQueue(songID: $0)
+                self.addAppleMusicToQueue(songID: $0.getId())
             }
             
         }
