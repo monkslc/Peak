@@ -120,9 +120,11 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         
         /*ONLY PLAY IF THE SONG IS NOT EQUAL TO THE CURRENTLY PLAYING SONG*/
         
+    
         if songs.count > 0{
             
-        
+            print(songs[0].getId())
+            
             if metadata.currentTrack?.isEqual(to: songs[0]) != true {
                 
                 self.playSpotifyURI((songs[0] as! SPTTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0){

@@ -75,7 +75,7 @@ class BluetoothHandler {
             //Check for what type of song was received
             if songType == .Spotify{
                 
-                //Here we want to convert from spotify to Apple Music by searching by title and artist
+                addAppleMusicFromSpotify(playableURI: songID)
                 
             } else{ //Apple Music or Guest
                 
@@ -126,14 +126,18 @@ class BluetoothHandler {
     func addSpotifyFromSpotify(playableURI: String){
         
         //Use the URI to fetch a spotify track
-        SPTTrack.track(withURI: URL(string: playableURI), accessToken: auth?.session.accessToken, market: "nil"){ err, callback in
-                
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: auth?.session.accessToken, market: "from_token"){ err, callback in
+            
+            print("In track callback")
             if let page: SPTListPage = callback as? SPTListPage{
-                    
+                
+                print("We let page")
                 if page.items.count > 0{
-                        
+                    
+                    print("Count was greater")
                     let song = page.items[0] as! SPTTrack
                     peakMusicController.playAtEndOfQueue([song])
+                    print("Should have added")
                 }
             }
                 
@@ -144,13 +148,29 @@ class BluetoothHandler {
     
     func addAppleMusicFromSpotify(playableURI: String){
         
+        print("Should be adding apple music from spotify")
+        
+        if auth?.session == nil{
+            
+            print("Our session was nil")
+        }
+        
+        /*THIS IS WHERE IT'S NIL*/
+        if auth?.session.accessToken == nil{
+            
+            print("OUR ACCESS TOKEN WAS NIL")
+        }
+        
         //Take the uri and convert it into a spotify song
         SPTTrack.track(withURI: URL(string: playableURI), accessToken: auth?.session.accessToken, market: "nil"){ err, callback in
             
+            print("We are in the requeset about to try and let")
             if let page: SPTListPage = callback as? SPTListPage{
                 
+                print("The page was in fact an SPTListPage")
                 if page.items.count > 0{
                     
+                    print("Our items count was > 0")
                     let song = page.items[0] as! SPTTrack
                     
                     let songTitle = song.getTrackName()
