@@ -130,12 +130,9 @@ class BluetoothHandler {
         //Take the URI and convert it into a track
         SPTTrack.track(withURI: URL(string: playableURI), accessToken: auth?.session.accessToken, market: "nil"){ err, callback in
             
-            if let page: SPTListPage = callback as? SPTListPage{
+            if let song: SPTTrack = callback as? SPTTrack{
                 
-                if let song: SPTTrack = page.items[0] as? SPTTrack{
-                    
-                    peakMusicController.playAtEndOfQueue([song])
-                }
+                peakMusicController.playAtEndOfQueue([song])
             }
             
         }
