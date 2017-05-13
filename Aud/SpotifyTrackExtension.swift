@@ -39,7 +39,7 @@ extension SPTTrack: BasicSong {
     
     func getId() -> String{
         
-        return playableUri
+        return playableUri.absoluteString
     }
     
     func getTrackName() -> String{

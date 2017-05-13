@@ -177,6 +177,10 @@ class BluetoothHandler {
         var id = ""
         ConvertingSongType.getAppleMusicId(songTitle: title, authourName: artist){
             
+            
+            print("RECIEVED SONG \($0.getTrackName()) by \($0.getArtistName())")
+            print($0)
+            
             id = $0.getId()
         }
         
