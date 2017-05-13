@@ -160,20 +160,18 @@ class BluetoothHandler {
         var artist = ""
         
         //Get the track from the URI
-        SPTTrack.track(withURI: URL(string: playableURI), accessToken: "nil", market: "nil"){ err, callback in
+        
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: nil, market: nil){ err, callback in
             
             if err != nil{
                 print(err!)
                 return
             }
             
-            if let page: SPTListPage = callback as? SPTListPage{
+            if let callback: SPTTrack = callback as? SPTTrack{
                 
-                if let song: SPTTrack = page.items[0] as? SPTTrack{
-                    
-                    title = song.getTrackName()
-                    artist = song.getArtistName()
-                }
+                title = callback.getTrackName()
+                artist = callback.getArtistName()
             }
     
         }
