@@ -26,7 +26,7 @@ class SendingBluetooth {
         
         for (index, song) in songs.enumerated() {
             messageDictionary["\(index)-id"] = song.getId()
-            messageDictionary["\(index)-type"] = "\(song.type)"
+            messageDictionary["\(index)-type"] = "\(song.type.rawValue)"
         }
         
         for peers in MPCManager.defaultMPCManager.session.connectedPeers {

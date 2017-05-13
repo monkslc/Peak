@@ -314,7 +314,7 @@ class UserLibrary{
             func getLibraryItems(passingPage: SPTListPage){
                 
                 //Get the items from the page
-                for item in passingPage.items{
+                for item in passingPage.items {
                     
                     libraryQueue.sync {
                         tempStorageForLibItems.append(item as! SPTTrack)
