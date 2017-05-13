@@ -161,7 +161,7 @@ class BluetoothHandler {
         
         //Get the track from the URI
         
-        SPTTrack.track(withURI: URL(string: playableURI), accessToken: nil, market: nil) { err, callback in
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: nil, market: nil){ err, callback in
             
             if err != nil{
                 print(err!)
