@@ -29,7 +29,7 @@ class BluetoothHandler {
     }
     
     /*MARK Bluetooth Methods*/
-    func receivedGroupPlayQueue(_ songTitles: [String], songArtists: [String]) {
+    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType]) {
         
         if peakMusicController.musicType == .Spotify {
             
@@ -38,10 +38,10 @@ class BluetoothHandler {
         
         else {
             
-            var tempSongHolder = [Song?].init(repeating: nil, count: songTitles.count)
-            for i in 0..<songTitles.count {
+            var tempSongHolder = [Song?].init(repeating: nil, count: songIds.count)
+            for i in 0..<songIds.count {
                 
-                
+                /*
                 ConvertingSongType.getAppleMusicId(songTitle: songTitles[i], authourName: songArtists[i], completion: {
                     (song) -> Void in
                     
@@ -54,6 +54,7 @@ class BluetoothHandler {
                         }
                     }
                 })
+                */
                 
             }
         }
@@ -61,10 +62,8 @@ class BluetoothHandler {
     }
     /*CHECK FOR URI OR APPLE MUSIC ID AND TURN INTO SONG*/
     
-    func receivedSong(songTitle: String, aristName: String) {
+    func receivedSong(songId: String, songType: PeakMusicController.MusicType) {
         //Received a song from a contributor
-        
-        print("RECIEVED \(songTitle) \(aristName)")
         
         delegate?.showSignifier()
         
@@ -77,10 +76,13 @@ class BluetoothHandler {
             
         } else if peakMusicController.musicType == .AppleMusic{
             
+            
+            /*
             ConvertingSongType.getAppleMusicId(songTitle: songTitle, authourName: aristName){
                 
                 self.addAppleMusicToQueue(songID: $0.getId())
             }
+ */
             
         }
    
@@ -136,8 +138,8 @@ class BluetoothHandler {
         
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
-        if let song = dataDictionary["song"], let artist = dataDictionary["artist"] {
-            receivedSong(songTitle: song, aristName: artist)
+        if let id = dataDictionary["id"], let type = PeakMusicController.MusicType(rawValue: Int(dataDictionary["type"]!)!) {
+            receivedSong(songId: id, songType: type)
         }
         else {
             print("\n\nERROR: LibraryViewController.handleMPCDJRecievedSongIDWithNotification THIS SHOULD NEVER HAPPEN: \n\n")
@@ -153,15 +155,15 @@ class BluetoothHandler {
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
         
-        var songNames: [String] = []
-        var artistNames: [String] = []
+        var songIds: [String] = []
+        var songTypes: [PeakMusicController.MusicType] = []
         
         var index = 0
         while true {
             
-            if let song = dataDictionary["\(index)-song"], let artist = dataDictionary["\(index)-artist"] {
-                songNames.append(song)
-                artistNames.append(artist)
+            if let id = dataDictionary["\(index)-id"], let type = PeakMusicController.MusicType(rawValue: Int(dataDictionary["\(index)-type"]!)!) {
+                songIds.append(id)
+                songTypes.append(type)
             }
             else {
                 break
@@ -170,6 +172,6 @@ class BluetoothHandler {
             index += 1
         }
         
-        receivedGroupPlayQueue(songNames, songArtists: artistNames)
+        receivedGroupPlayQueue(songIds, songTypes: songTypes)
     }
 }
