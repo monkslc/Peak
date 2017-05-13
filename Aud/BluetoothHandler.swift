@@ -163,7 +163,7 @@ class BluetoothHandler {
         SPTTrack.track(withURI: URL(string: playableURI), accessToken: "nil", market: "nil"){ err, callback in
             
             if err != nil{
-                print(err)
+                print(err!)
                 return
             }
             
