@@ -170,15 +170,25 @@
 		90CCBA3B1EC6969F006CE9CC /* Internet */ = {
 			isa = PBXGroup;
 			children = (
-				90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */,
-				90323D321EA8D10D00489B50 /* GettingLyrics.swift */,
 				90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */,
+				904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */,
 				90323D341EA8D2FE00489B50 /* GettingTopCharts.swift */,
 				90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */,
-				904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */,
-				904885E11E902D5900F090F1 /* LocalSearch.swift */,
+				90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */,
+				90323D321EA8D10D00489B50 /* GettingLyrics.swift */,
 			);
 			name = Internet;
+			sourceTree = "<group>";
+		};
+		90CCBA3C1EC69736006CE9CC /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				904885E11E902D5900F090F1 /* LocalSearch.swift */,
+				C4D117771E80A9F2000A854A /* VisualQueueController.swift */,
+				C40515211EB7E18E00F1471F /* UserLibrary.swift */,
+				C45625391E8EF95E00311750 /* Alerts.swift */,
+			);
+			name = Other;
 			sourceTree = "<group>";
 		};
 		90E2DFDE1E874F6400762B9D /* Model */ = {
@@ -186,9 +196,7 @@
 			children = (
 				90CCBA3B1EC6969F006CE9CC /* Internet */,
 				90CCBA3A1EC69659006CE9CC /* Bluetooth */,
-				C4D117771E80A9F2000A854A /* VisualQueueController.swift */,
-				C40515211EB7E18E00F1471F /* UserLibrary.swift */,
-				C45625391E8EF95E00311750 /* Alerts.swift */,
+				90CCBA3C1EC69736006CE9CC /* Other */,
 			);
 			name = Model;
 			sourceTree = "<group>";
