@@ -165,7 +165,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     
     
     /*MARK: Notification Listener Methods*/
-    func playerTypeDidChange(){
+    func playerTypeDidChange() {
         
         switch peakMusicController.playerType{
             
