@@ -33,7 +33,7 @@ class BluetoothHandler {
         
         if peakMusicController.musicType == .Spotify {
             
-        
+            //fetch the song based on the title and artist
         }
         
         else {
@@ -59,7 +59,6 @@ class BluetoothHandler {
         }
         
     }
-    /*CHECK FOR URI OR APPLE MUSIC ID AND TURN INTO SONG*/
     
     func receivedSong(songTitle: String, aristName: String) {
         //Received a song from a contributor
