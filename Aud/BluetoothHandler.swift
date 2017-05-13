@@ -83,8 +83,8 @@ class BluetoothHandler {
             switch songType{
                 
             case .Spotify:
-                let id = convertSpotifyToAppleMusicID(playableURI: songId)
-                addAppleMusicToQueue(songID: id)
+                convertSpotifyToAppleMusicID(playableURI: songId)
+                
                 
             default: //Apple Music or Guest
                 addAppleMusicToQueue(songID: songId)
@@ -150,7 +150,7 @@ class BluetoothHandler {
         return ""
     }
     
-    func convertSpotifyToAppleMusicID(playableURI: String) -> String{
+    func convertSpotifyToAppleMusicID(playableURI: String){
         
         //Hold the title and artist names
         var title = ""
@@ -173,7 +173,7 @@ class BluetoothHandler {
     
         }
 
-        //RETURN THE APPLE MUSIC ID
+        //Get the apple music id and add it to the queue
         var id = ""
         ConvertingSongType.getAppleMusicId(songTitle: title, authourName: artist){
             
@@ -182,9 +182,8 @@ class BluetoothHandler {
             print($0)
             
             id = $0.getId()
+            self.addAppleMusicToQueue(songID: id)
         }
-        
-        return id
     }
     
     
