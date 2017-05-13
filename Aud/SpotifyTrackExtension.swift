@@ -39,7 +39,7 @@ extension SPTTrack: BasicSong {
     
     func getId() -> String{
         
-        return identifier
+        return playableUri
     }
     
     func getTrackName() -> String{
@@ -142,7 +142,7 @@ extension SPTPlaybackTrack: BasicSong {
     
     func getId() -> String{
         
-        return "Spotify Playback Track"
+        return playbackSourceUri
     }
     
     func getTrackName() -> String{
