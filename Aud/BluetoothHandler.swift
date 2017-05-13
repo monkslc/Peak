@@ -76,18 +76,36 @@ class BluetoothHandler {
         } else if peakMusicController.musicType == .AppleMusic{
             
             
-            /*
-            ConvertingSongType.getAppleMusicId(songTitle: songTitle, authourName: aristName){
+            //add the song to the user's library, async
+            DispatchQueue.global().async {
                 
-                self.addAppleMusicToQueue(songID: $0.getId())
+                var song = MPMediaItem()
+                let library = MPMediaLibrary()
+                
+                library.addItem(withProductID: songId, completionHandler: {(ent, err) in
+                    
+                    //add the entity to the queue
+                    if ent.count > 0 {
+                        song = ent[0] as! MPMediaItem
+                        
+                        DispatchQueue.main.async {
+                            peakMusicController.playAtEndOfQueue([song])
+                        }
+                    }
+                    else {
+                        print("\n\n\nHUGE ERROR\nSONG \(songId) DID NOT SEND\nI THINK TRACK NOT AVAILABLE THROUGH APPLE MUSIC\n\n")
+                    }
+                    
+                })
             }
- */
+
             
         }
    
         
         
     }
+    
     
     /*MARK: METHODS TO ADD A RECEIVED SONG TO THE PLAY QUEUE*/
     func addAppleMusicToQueue(songID: String){
