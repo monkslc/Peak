@@ -12,20 +12,27 @@ class ConvertingSongType {
     
     static func getAppleMusicId(songTitle: String, authourName: String, completion: @escaping (Song) -> Void) {
         
-        ConnectingToInternet.getSongs(searchTerm: "\(songTitle) \(authourName)", limit: 1, sendSongsAlltogether: false, completion: {
+        var alreadySent = false
+        
+        ConnectingToInternet.getSongs(searchTerm: "\(songTitle) \(authourName)", limit: 7, sendSongsAlltogether: false, completion: {
             (songs) -> Void in
             
-            if songs.count > 0 {
-                let song = songs[0]
-                
-                if song.getTrackName() == songTitle && song.getArtistName() == authourName {
-                    completion(song)
-                }
-                else {
-                    completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
+            if !alreadySent {
+                for song in songs {
+                    
+                    print("\(song.trackName) \(song.artistName)")
+                    
+                    if song.getTrackName() == songTitle && song.getArtistName() == authourName {
+                        completion(song)
+                        
+                        alreadySent = true
+                        
+                        return
+                    }
                 }
             }
 
+            completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
             
         }, error: {
             () -> Void in

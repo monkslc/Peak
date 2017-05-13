@@ -58,6 +58,7 @@ class ConnectingToInternet {
                             guard let id = songJSON["trackId"] as? Int, let name = songJSON["trackName"] as? String, let album = songJSON["collectionName"] as? String, let artist = songJSON["artistName"] as? String, let time = songJSON["trackTimeMillis"] as? Int, let streamable = songJSON["isStreamable"] as? Bool else {
                                 
                                 print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getSongs\n\n")
+                                
                                 error()
                                 return
                             }

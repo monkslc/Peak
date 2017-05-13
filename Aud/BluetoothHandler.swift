@@ -63,6 +63,8 @@ class BluetoothHandler {
     func receivedSong(songTitle: String, aristName: String) {
         //Received a song from a contributor
         
+        print("RECIEVED \(songTitle) \(aristName)")
+        
         delegate?.showSignifier()
         
         //add the song to the user's library, async
