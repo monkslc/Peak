@@ -71,8 +71,8 @@ class BluetoothHandler {
                 addSpotifyToQueue(playableURI: songId)
                 
             default: //Apple Music or Guest
-                let uri = convertAppleMusicIDToURI(songID: songId)
-                addSpotifyToQueue(playableURI: uri)
+                convertAppleMusicIDToURI(songID: songId)
+                
                 
             }
             
@@ -139,15 +139,45 @@ class BluetoothHandler {
         
     }
     
-    func convertAppleMusicIDToURI(songID: String) -> String{
+    func convertAppleMusicIDToURI(songID: String){
         
         //Take the songID and turn it into a song
+        ConnectingToInternet.getSong(id: songID){
+            
+            //Get the title and artist
+            let title = $0.getTrackName()
+            let artist = $0.getArtistName()
+            
+            //Use the title and artist to search Spotify
+            SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: nil){ err, callback in
+                
+                //Use the callback to get the song
+                if let page: SPTListPage = callback as? SPTListPage{
+                    
+                    for item in page.items{
+                        
+                        if let song: SPTTrack = item as? SPTTrack{
+                            
+                            if title == song.getTrackName() && artist == song.getArtistName(){
+                                
+                                //We have found the correct song so add it to the queue
+                                peakMusicController.playAtEndOfQueue([song])
+                                
+                                break
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
         
         //Use the song title and artist to get a Spotify Song
         
         //Add the Spotify Song to the Queue
         
-        return ""
+    
     }
     
     func convertSpotifyToAppleMusicID(playableURI: String){
