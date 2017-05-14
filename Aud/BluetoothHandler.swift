@@ -156,7 +156,9 @@ class BluetoothHandler {
                     
                     for item in page.items{
                         
-                        if let song: SPTTrack = item as? SPTTrack{
+                        print(item)
+                        
+                        if let song: SPTPartialTrack = item as? SPTPartialTrack {
                             
                             if title == song.getTrackName() && artist == song.getArtistName(){
                                 

@@ -127,9 +127,9 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
             
             if metadata.currentTrack?.isEqual(to: songs[0]) != true {
                 
-                self.playSpotifyURI((songs[0] as! SPTTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0){
+                self.playSpotifyURI((songs[0] as! SPTPartialTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0) {
                     
-                    if $0 != nil{
+                    if $0 != nil {
                         print("There was an error with our inital play \($0!)")
                     }
                 }
@@ -264,7 +264,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
                 if metadata.nextTrack == nil || metadata.nextTrack!.isEqual(to: track) == false{
                     
                     //We know we need to queue now
-                    self.queueSpotifyURI((track as! SPTTrack).playableUri.absoluteString){
+                    self.queueSpotifyURI((track as! SPTPartialTrack).playableUri.absoluteString){
                             
                         if $0 != nil{
                             print("Error Qeueing next track in audioStreaming \($0!)")
