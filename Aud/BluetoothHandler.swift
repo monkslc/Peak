@@ -151,10 +151,7 @@ class BluetoothHandler {
     }
     
     func convertSpotifyToAppleMusicID(playableURI: String){
-        
-        //Hold the title and artist names
-        var title = ""
-        var artist = ""
+
         
         //Get the track from the URI
         
@@ -167,23 +164,22 @@ class BluetoothHandler {
             
             if let callback: SPTTrack = callback as? SPTTrack{
                 
-                title = callback.getTrackName()
-                artist = callback.getArtistName()
+                let title = callback.getTrackName()
+                let artist = callback.getArtistName()
+                
+                ConvertingSongType.getAppleMusicId(songTitle: title, authourName: artist){
+                    
+                    
+                    print("RECIEVED SONG \($0.getTrackName()) by \($0.getArtistName())")
+                    print($0)
+                    
+                    let id = $0.getId()
+                    self.addAppleMusicToQueue(songID: id)
+                }
             }
     
         }
 
-        //Get the apple music id and add it to the queue
-        var id = ""
-        ConvertingSongType.getAppleMusicId(songTitle: title, authourName: artist){
-            
-            
-            print("RECIEVED SONG \($0.getTrackName()) by \($0.getArtistName())")
-            print($0)
-            
-            id = $0.getId()
-            self.addAppleMusicToQueue(songID: id)
-        }
     }
     
     
