@@ -30,9 +30,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //View that controls the scroll bar
     @IBOutlet weak var scrollBar: ScrollBar!
-    //@IBOutlet weak var scrollPresenter: ScrollPresenterView!
     
     var delegate: LibraryViewControllerDelegate?
+    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     
     
     /*MARK: LIFECYCLE METHODS*/
@@ -43,8 +45,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         userLibrary.delegate = self
         
         //Fetch the items in the library
+        
         DispatchQueue.global().async {
-            
+            self.loadingIndicator.startAnimating()
             self.userLibrary.fetchLibrary()
         }
         
@@ -116,6 +119,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func libraryItemsUpdated() {
         //Get's called when the variable in userLibrary changes
         //Update our displays
+        
+        loadingIndicator.stopAnimating()
         
         library.reloadData()
         displayRecentlyPlayed(userLibrary.recents)

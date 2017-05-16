@@ -32,6 +32,7 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
     @IBOutlet weak var connectButton: UIButton!
     let bluetoothHandler = BluetoothHandler()
     
+    
     /*MARK: VIEW CONTROLLER LIFECYCLE METHODS*/
     override func viewDidLoad() {
         super.viewDidLoad()
