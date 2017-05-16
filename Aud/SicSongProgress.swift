@@ -73,27 +73,31 @@ class SicSongProgress: UISlider {
     
     func playerTypeChanged(){
         
-        if peakMusicController.playerType == .Contributor{
+        DispatchQueue.main.async {
             
-            DispatchQueue.global().async {
+            if peakMusicController.playerType == .Contributor{
+                
                 self.isHidden = true
-            }
-            
-        } else{
-            
-            DispatchQueue.global().async {
+                
+            } else{
+                
                 self.isHidden = false
             }
         }
+        
     }
     
     func musicTypeChanged(){
         
-        if peakMusicController.musicType == .Guest{
+        DispatchQueue.main.async {
             
-            self.isHidden = true
-        } else{
-            self.isHidden = false
+            if peakMusicController.musicType == .Guest{
+                
+                self.isHidden = true
+            } else{
+                
+                self.isHidden = false
+            }
         }
     }
     

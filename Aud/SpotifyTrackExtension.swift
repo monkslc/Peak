@@ -141,7 +141,7 @@ extension SPTPlaybackTrack: BasicSong {
     
     func getId() -> String{
         
-        return playbackSourceUri
+        return uri
     }
     
     func getTrackName() -> String{

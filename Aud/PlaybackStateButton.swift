@@ -69,7 +69,6 @@ class PlaybackStateButton: UIButton {
             
             if peakMusicController.musicType == .Guest || peakMusicController.playerType == .Contributor{
                 
-                
                 self.isHidden = true
             } else{
                 

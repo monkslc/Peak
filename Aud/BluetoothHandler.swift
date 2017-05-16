@@ -31,30 +31,71 @@ class BluetoothHandler {
     /*MARK Bluetooth Methods*/
     func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType]) {
         
-        if peakMusicController.musicType == .Spotify {
-            
-            //fetch the song based on the title and artist
-        }
+        print("Receiving a group play queue")
         
-        else {
+        if songTypes.count > 0{
             
-            var tempSongHolder = [Song?].init(repeating: nil, count: songIds.count)
-            for i in 0..<songIds.count {
+            switch songTypes[0]{
                 
-                ConnectingToInternet.getSong(id: songIds[i], completion: {(song) in
-                    tempSongHolder[i] = song
-                    
-                    if let songs = tempSongHolder as? [Song] {
-                        
-                        DispatchQueue.main.async {
-                            peakMusicController.groupPlayQueue = songs
-                        }
-                    }
-                })
+            case .Spotify:
+                spotifyReceived(songIds)
+                
+            default: //Apple Music or Guest
+                appleMusicReceived(songIds)
             }
             
         }
         
+    }
+    
+    /*MARK METHODS TO CONVERT SONG ID'S RECEIVED TO THE GROUP PLAY QUEUE*/
+    private func spotifyReceived(_ songs: [String]){
+        
+        if songs.count > 0{
+            
+            var spotifyURIArray = [URL]()
+            
+            //Convert the ids to URIs
+            for song in songs{
+                
+                spotifyURIArray.append(URL(string: song)!)
+            }
+            
+            SPTTrack.tracks(withURIs: spotifyURIArray, accessToken: nil, market: nil){ err, callback in
+                
+                if err != nil{
+                    
+                    print("Error converting me tracks \(err!)")
+                }
+                
+                print("About to go into if let")
+                if let songsBack: [SPTTrack] = callback as? [SPTTrack]{
+                    
+                    print("OK we let it")
+                    peakMusicController.currPlayQueue = songsBack
+                }
+            }
+        }
+    
+        
+    }
+    
+    private func appleMusicReceived(_ songs: [String]){
+        
+        var tempSongHolder = [Song?].init(repeating: nil, count: songs.count)
+        for i in 0..<songs.count {
+            
+            ConnectingToInternet.getSong(id: songs[i], completion: {(song) in
+                tempSongHolder[i] = song
+                
+                if let songs = tempSongHolder as? [Song] {
+                    
+                    DispatchQueue.main.async {
+                        peakMusicController.groupPlayQueue = songs
+                    }
+                }
+            })
+        }
     }
     
     func receivedSong(songId: String, songType: PeakMusicController.MusicType) {

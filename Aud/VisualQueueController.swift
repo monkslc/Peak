@@ -87,24 +87,24 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             let songToAdd = peakMusicController.groupPlayQueue[indexPath.row + 1]
             
             //get the image
-            if songToAdd.image == nil{
+            if songToAdd.getImage() == nil{
                 
                 cell.albumArt.image = #imageLiteral(resourceName: "ProperPeakyIcon")
             } else {
                 
-                cell.albumArt.image = songToAdd.image
+                cell.albumArt.image = songToAdd.getImage()
             }
             
-            cell.songTitle.text = songToAdd.trackName
-            cell.songArtist.text = songToAdd.artistName
+            cell.songTitle.text = songToAdd.getTrackName()
+            cell.songArtist.text = songToAdd.getArtistName()
             
             //get the time until the song plays
-            var timeUntil: Double = Double(songToAdd.trackTimeMillis / 1000)
+            var timeUntil: Double = Double(songToAdd.getTrackTimeMillis() / 1000)
             for index in 0..<peakMusicController.groupPlayQueue.count {
                 
                 if index < indexPath.row {
                     
-                    timeUntil += Double(peakMusicController.groupPlayQueue[index].trackTimeMillis / 1000)
+                    timeUntil += Double(peakMusicController.groupPlayQueue[index].getTrackTimeMillis() / 1000)
                 }
             }
             
