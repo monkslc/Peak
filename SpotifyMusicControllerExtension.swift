@@ -225,10 +225,13 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func playerNowPlayingItemChanged() {
         
-        //Update the play queue when the song changes
-        //self.setPlayerQueue(songs: peakMusicController.currPlayQueue)
         
-        NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
+        if peakMusicController.playerType != .Contributor{
+            
+            print("The player type was not a contributor")
+            NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
+        }
+        
     }
     
     /*MARK: Playback Delegate methods*/

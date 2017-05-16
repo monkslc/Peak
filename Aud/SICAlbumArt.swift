@@ -47,7 +47,14 @@ class SICAlbumArt: UIImageView {
             image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
         } else{
             
-            image = peakMusicController.groupPlayQueue[0].getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+            if peakMusicController.groupPlayQueue.count > 0{
+                
+                image = peakMusicController.groupPlayQueue[0].getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+            } else{
+                
+                image = #imageLiteral(resourceName: "ProperPeakyAlbumView")
+            }
+            
         }
         
     }

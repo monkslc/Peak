@@ -99,9 +99,9 @@ class SICSongInfoDisplay: UIView {
             
             if peakMusicController.groupPlayQueue.count > 0 {
                 
-                artistLabel.text = peakMusicController.groupPlayQueue[0].artistName
-                albumLabel.text = peakMusicController.groupPlayQueue[0].collectionName
-                titleLabel.text = peakMusicController.groupPlayQueue[0].trackName
+                artistLabel.text = peakMusicController.groupPlayQueue[0].getArtistName()
+                albumLabel.text = peakMusicController.groupPlayQueue[0].getCollectionName()
+                titleLabel.text = peakMusicController.groupPlayQueue[0].getTrackName()
             }
             
         }else {

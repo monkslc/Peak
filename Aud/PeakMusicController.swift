@@ -93,7 +93,7 @@ class PeakMusicController {
 
     
     //play queue for a contributor
-    var groupPlayQueue = [Song](){
+    var groupPlayQueue = [BasicSong](){
         
         didSet{
             
