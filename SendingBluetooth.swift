@@ -17,6 +17,7 @@ class SendingBluetooth {
     // from host
     
     static func sendFullQue() {
+        print(peakMusicController.currPlayQueue)
         SendingBluetooth.sendSongIds(songs: peakMusicController.currPlayQueue)
     }
     
@@ -75,7 +76,10 @@ class SendingBluetooth {
         var messageDictionary: [String: String] = [:]
         
         for (index, song) in songs.enumerated() {
+            print(song)
+            
             messageDictionary["\(index)-id"] = song.getId()
+            print("SENDING URI: \(song.getId())")
             messageDictionary["\(index)-type"] = "\(song.type.rawValue)"
         }
         

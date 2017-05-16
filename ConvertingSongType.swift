@@ -25,6 +25,7 @@ class ConvertingSongType {
                     if song.getTrackName() == songTitle && song.getArtistName() == authourName {
                         completion(song)
                         
+                        print("BLAH 4592 SONG: \(song)")
                         alreadySent = true
                         
                         return
@@ -32,12 +33,15 @@ class ConvertingSongType {
                 }
             }
 
-            completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
+            //completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
             
         }, error: {
             () -> Void in
             
-            completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
+            if !alreadySent {
+                //completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
+                
+            }
         })
         
     }

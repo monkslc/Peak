@@ -36,13 +36,12 @@ class ConnectingToInternet {
         
         let search = searchTerm.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
         
-        print("Searching: \(search)")
+        //print("Searching: \(search)")
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(search)&country=US&media=music&limit=\(limit)", completion: {
             (json) -> Void in
     
             if let json = json as? [String:Any] {
                 
-                print(json)
                 if let songsJSON = json["results"] as? [[String: Any]] {
                     
                     var songs: [Song] = []
@@ -50,8 +49,6 @@ class ConnectingToInternet {
                     //let serialQueue = DispatchQueue(label: "myqueue")
                     
                     var badSongs = 0
-                    print("\n\n\n")
-                    print(songsJSON)
                     for songJSON in songsJSON {
                     
                         let imageURL = songJSON["artworkUrl100"]! as! String
@@ -163,6 +160,8 @@ class ConnectingToInternet {
             do{
                 
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
+                
+                //print(json)
                 completion(json)
             } catch {
                 

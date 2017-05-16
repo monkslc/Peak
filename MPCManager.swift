@@ -86,8 +86,8 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
-        print("\n\n\nMPCMANAGER ERROR:")
-        print(error.localizedDescription)
+        //print("\n\n\nMPCMANAGER ERROR:")
+        //print(error.localizedDescription)
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping ((Bool, MCSession?) -> Void)) {
@@ -98,8 +98,8 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
-        print("\n\n\nMPCMANAGER ERROR:")
-        print(error.localizedDescription)
+        //print("\n\n\nMPCMANAGER ERROR:")
+        //print(error.localizedDescription)
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {

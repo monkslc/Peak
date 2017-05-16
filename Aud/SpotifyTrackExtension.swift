@@ -44,7 +44,7 @@ extension SPTPartialTrack: BasicSong {
     
     func getTrackName() -> String{
         
-        return name
+        return name ?? "MEME LIKE BUTHOLE"
     }
     
     func getCollectionName() -> String{
@@ -54,7 +54,7 @@ extension SPTPartialTrack: BasicSong {
     
     func getArtistName() -> String{
         
-        if artists.count > 0{
+        if artists.count > 0 {
             
             return (artists[0] as! SPTPartialArtist).name
         }
@@ -141,7 +141,7 @@ extension SPTPlaybackTrack: BasicSong {
     
     func getId() -> String{
         
-        return playbackSourceUri
+        return uri
     }
     
     func getTrackName() -> String{
