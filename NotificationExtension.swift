@@ -14,6 +14,7 @@ extension Notification.Name{
     static let musicTypeChanged = Notification.Name("MusicTypeChanged")
     static let playerTypeChanged = Notification.Name("PlayerTypeChanged")
     static let groupQueueChanged = Notification.Name("GroupQueueChanged")
+    static let currPlayQueueChanged = Notification.Name("CurrPlayQueueChanged")
     
     //Song Time Update
     static let updateSongTime = Notification.Name("UpdateSongTime")

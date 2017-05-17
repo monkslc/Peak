@@ -68,11 +68,10 @@ class BluetoothHandler {
                     print("Error converting me tracks \(err!)")
                 }
                 
-                print("About to go into if let")
+                
                 if let songsBack: [SPTTrack] = callback as? [SPTTrack]{
                     
-                    print("OK we let it")
-                    peakMusicController.currPlayQueue = songsBack
+                    peakMusicController.groupPlayQueue = songsBack
                 }
             }
         }

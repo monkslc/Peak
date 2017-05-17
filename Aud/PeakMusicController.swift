@@ -81,6 +81,8 @@ class PeakMusicController {
         
         didSet{ //When we set the queue, we want to update the musicPlayer
             
+            NotificationCenter.default.post(Notification(name: .currPlayQueueChanged))
+            
             systemMusicPlayer?.setPlayerQueue(songs: currPlayQueue)
             systemMusicPlayer?.preparePlayerToPlay()
             
