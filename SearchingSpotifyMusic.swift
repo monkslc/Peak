@@ -18,10 +18,10 @@ import Foundation
 
 class SearchingSpotifyMusic {
     
-    static var defaultSearch = SearchingAppleMusicApi()
+    static var defaultSearch = SearchingSpotifyMusic()
     
     private var nextSearchTerm: String?
-    private var nextSearchCompletion: ([SPTTrack]) -> Void = { (_) -> Void in }
+    private var nextSearchCompletion: ([SPTPartialPlaylist]) -> Void = { (_) -> Void in }
     
     private var isSearching = false
     
@@ -32,7 +32,7 @@ class SearchingSpotifyMusic {
     private var lastSearchIndex = -1
     private var searchCount = 0
     
-    func addSearch(term: String, completion: @escaping ([SPTTrack]) -> Void) {
+    func addSearch(term: String, completion: @escaping ([SPTPartialPlaylist]) -> Void) {
         if isSearching {
             nextSearchTerm = term
             nextSearchCompletion = completion
@@ -51,7 +51,7 @@ class SearchingSpotifyMusic {
         }
     }
     
-    private func doSearch(term: String, completion: @escaping ([SPTTrack]) -> Void) {
+    private func doSearch(term: String, completion: @escaping ([SPTPartialPlaylist]) -> Void) {
         let currentSearchIndex = searchCount
         searchCount += 1
         

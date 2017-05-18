@@ -68,6 +68,14 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
         }
         
+        
+        ConnectingToInternet.getSpotifySongs(query: "Chance", completion: {
+            (songs) -> Void in
+            
+            print(songs)
+        }, error: {
+            print("ERRO GETTING SONGS")
+        })
     }
     
     

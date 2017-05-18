@@ -32,12 +32,12 @@ class ConnectingToInternet {
 
     }
     
-    static func getSpotifySongs(query: String, completion: @escaping ([SPTTrack]) -> Void, error: @escaping () -> Void) {
+    static func getSpotifySongs(query: String, completion: @escaping ([SPTPartialPlaylist]) -> Void, error: @escaping () -> Void) {
         
         let searchType = [SPTSearchQueryType.queryTypeAlbum, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypePlaylist]
         
         
-        var songsBySearchType: [[SPTTrack]?] = [[SPTTrack]?].init(repeating: nil, count: searchType.count)
+        var songsBySearchType: [[SPTPartialPlaylist]?] = [[SPTPartialPlaylist]?].init(repeating: nil, count: searchType.count)
         
         for (index, sType) in searchType.enumerated() {
             
@@ -52,11 +52,12 @@ class ConnectingToInternet {
                 }
                 
                 if let page = callback as? SPTListPage {
-                    if let newTracks = page.items as? [SPTTrack] {
+                    print(page.items)
+                    if let newTracks = page.items as? [SPTPartialPlaylist] {
                         songsBySearchType[index] = newTracks
                         
-                        if let allSongsInArray = songsBySearchType as? [[SPTTrack]] {
-                            var allSongs: [SPTTrack] = []
+                        if let allSongsInArray = songsBySearchType as? [[SPTPartialPlaylist]] {
+                            var allSongs: [SPTPartialPlaylist] = []
                             for songs in allSongsInArray {
                                 allSongs.append(contentsOf: songs)
                             }
