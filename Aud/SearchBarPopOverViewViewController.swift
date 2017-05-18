@@ -441,12 +441,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         /*HERE: MAKE SPOTIFY SEARCH WORK*/
         
-        if search.length > 0{
+        if search.length > 0 {
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                self.topResults = songs
-                
+                print(songs)
+                self.topResults = songs as! [BasicSong]
             }
         }
     }
