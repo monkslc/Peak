@@ -21,6 +21,7 @@
 		90E2DFEC1E8806F500762B9D /* ConnectingToInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */; };
 		90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */; };
 		90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */; };
+		90E3AEAD1ECD1CF800F54013 /* SearchingSptotifyMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E3AEAC1ECD1CF800F54013 /* SearchingSptotifyMusic.swift */; };
 		90F817221EA8EF9E0073D0B9 /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */; };
 		C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */; };
 		C404D0D91EBA310900E7F0F5 /* BasicSongHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C404D0D81EBA310900E7F0F5 /* BasicSongHolder.swift */; };
@@ -87,6 +88,7 @@
 		90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingToInternet.swift; sourceTree = "<group>"; };
 		90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverBluetoothViewController.swift; sourceTree = "<group>"; };
 		90E2DFF01E8ADF9100762B9D /* SendingBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendingBluetooth.swift; sourceTree = "<group>"; };
+		90E3AEAC1ECD1CF800F54013 /* SearchingSptotifyMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingSptotifyMusic.swift; sourceTree = "<group>"; };
 		90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckInternetConnection.swift; path = Aud/CheckInternetConnection.swift; sourceTree = "<group>"; };
 		C401D7F61EB6B4E5006CCBDE /* SICSongInfoDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICSongInfoDisplay.swift; sourceTree = "<group>"; };
 		C404D0D81EBA310900E7F0F5 /* BasicSongHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicSongHolder.swift; path = ../BasicSongHolder.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				90E2DFEB1E8806F500762B9D /* ConnectingToInternet.swift */,
 				904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */,
+				90E3AEAC1ECD1CF800F54013 /* SearchingSptotifyMusic.swift */,
 				90323D341EA8D2FE00489B50 /* GettingTopCharts.swift */,
 				90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */,
 				90F817211EA8EF9E0073D0B9 /* CheckInternetConnection.swift */,
@@ -469,6 +472,7 @@
 				90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */,
 				C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */,
 				90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */,
+				90E3AEAD1ECD1CF800F54013 /* SearchingSptotifyMusic.swift in Sources */,
 				C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */,
 				C4BA76C41EBD1A8000947C1C /* SystemMusicPlayer.swift in Sources */,
 				C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */,

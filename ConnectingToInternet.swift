@@ -32,6 +32,44 @@ class ConnectingToInternet {
 
     }
     
+    static func getSpotifySongs(query: String, completion: @escaping ([SPTTrack]) -> Void, error: @escaping () -> Void) {
+        
+        let searchType = [SPTSearchQueryType.queryTypeAlbum, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypePlaylist]
+        
+        
+        var songsBySearchType: [[SPTTrack]?] = [[SPTTrack]?].init(repeating: nil, count: searchType.count)
+        
+        for (index, sType) in searchType.enumerated() {
+            
+            let index = index
+            
+            SPTSearch.perform(withQuery: query, queryType: sType, accessToken: nil) {
+                err, callback in
+                
+                if let err = err {
+                    print(err)
+                    error()
+                }
+                
+                if let page = callback as? SPTListPage {
+                    if let newTracks = page.items as? [SPTTrack] {
+                        songsBySearchType[index] = newTracks
+                        
+                        if let allSongsInArray = songsBySearchType as? [[SPTTrack]] {
+                            var allSongs: [SPTTrack] = []
+                            for songs in allSongsInArray {
+                                allSongs.append(contentsOf: songs)
+                            }
+                            
+                            completion(allSongs)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
     static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void, error: @escaping () -> Void = {}) {
         
         let search = searchTerm.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
