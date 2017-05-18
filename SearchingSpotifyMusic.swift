@@ -16,7 +16,7 @@
 
 import Foundation
 
-class SearchingSptotifyMusic {
+class SearchingSpotifyMusic {
     
     static var defaultSearch = SearchingAppleMusicApi()
     
