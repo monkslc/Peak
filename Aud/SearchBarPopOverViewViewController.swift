@@ -40,6 +40,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //add a listener so we know when segment changed
         selectMusicFromSegment.addTarget(self, action: #selector(searchRequestChanged), for: .valueChanged)
         selectMusicFromSegment.tintColor = UIColor.peakColor
@@ -147,7 +148,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         searchBar.text = ""
         
         
-        
         UIView.animate(withDuration: 0.35, animations: {(animate) in
             
             self.view.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY - self.view.self.frame.height, width: self.view.frame.width, height: self.view.frame.height)
@@ -250,6 +250,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func addToLibrary(_ button: UIButton){
         
+        
         button.isHidden = true
         
         showSignifier()
@@ -296,12 +297,33 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             //Now Reload the Data in both talbes so the user can see it
             (delegate as! BeastController).libraryViewController?.userLibrary.fetchLibrary()
             searchedSongsTableView.reloadData()
+            
+        } else if peakMusicController.musicType == .Spotify{
+            
+            /*HERE WE NEED TO ADD TO SPOTIFY LIBRARY*/
+            if let cell: SongCell = button.superview?.superview as? SongCell{
+                
+                let track = cell.itemInCell as! SPTTrack
+                
+                SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
+                    
+                    if err != nil{
+                        
+                        print("We had an error bitches, \(err!)")
+                        return
+                    }
+                    
+                    print("We added a track, here's the callback: \(callback!)")
+                    
+                }
+            }
+            
+            
         }
     }
     
     
     /*TAP METHODS*/
-    
     func notContributorTap(_ cell: SongCell){
         //Handle the music for the non contributor
         
@@ -367,7 +389,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             searchLibrary(search: search)
         }
         else if selectMusicFromSegment.selectedSegmentIndex == 1 {
-            searchAppleMusic(search: search)
+            
+            //Check what store we should be searching
+            switch peakMusicController.musicType{
+                
+            case .Spotify:
+                searchSpotifyMusic(search: search)
+                
+            default:
+                searchAppleMusic(search: search)
+            }
+            
         } else {
             searchTopCharts()
         }
@@ -402,6 +434,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                    
                 }
             })
+        }
+    }
+    
+    private func searchSpotifyMusic(search: String){
+        
+        /*HERE: MAKE SPOTIFY SEARCH WORK*/
+        
+        if search.length > 0{
+            
+            
         }
     }
     

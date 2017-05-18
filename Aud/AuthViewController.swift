@@ -223,7 +223,7 @@ class AuthViewController: UIViewController {
         
         auth?.sessionUserDefaultsKey = "current session"
         
-        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthUserReadTopScope, SPTAuthUserReadPrivateScope]
+        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthUserReadTopScope, SPTAuthUserReadPrivateScope, SPTAuthUserLibraryModifyScope]
         
         (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
         

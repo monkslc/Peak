@@ -325,7 +325,7 @@
                                 </constraints>
                                 <segments>
                                     <segment title="Library"/>
-                                    <segment title="Apple Music"/>
+                                    <segment title="Browse"/>
                                     <segment title="Top Charts"/>
                                 </segments>
                             </segmentedControl>
