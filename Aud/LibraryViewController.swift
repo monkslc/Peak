@@ -62,11 +62,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Add Listener
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
     
+        /*CAN DELETE HERE*/
 
-        if peakMusicController.musicType != .Guest && peakMusicController.playerType != .Contributor {
+        /*if peakMusicController.musicType != .Guest && peakMusicController.playerType != .Contributor {
             
             MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
-        }
+        }*/
         
     }
     

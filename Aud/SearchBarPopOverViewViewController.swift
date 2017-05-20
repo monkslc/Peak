@@ -221,8 +221,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func handleTap(_ gesture: UITapGestureRecognizer){
         //Gets called when a user taps on a song in the search
         
-        print("We got the tap")
-        
         //resign the keyboard
         let BC = delegate as! BeastController
         BC.searchForMediaBar.resignFirstResponder()
@@ -237,7 +235,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Check player type
         if peakMusicController.playerType != .Contributor && peakMusicController.musicType != .Guest{
             
-            print("We had a not contributor tap")
             notContributorTap(cell)
             
         } else if peakMusicController.playerType == .Contributor{
