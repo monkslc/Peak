@@ -221,6 +221,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func handleTap(_ gesture: UITapGestureRecognizer){
         //Gets called when a user taps on a song in the search
         
+        print("We got the tap")
+        
         //resign the keyboard
         let BC = delegate as! BeastController
         BC.searchForMediaBar.resignFirstResponder()
@@ -235,6 +237,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Check player type
         if peakMusicController.playerType != .Contributor && peakMusicController.musicType != .Guest{
             
+            print("We had a not contributor tap")
             notContributorTap(cell)
             
         } else if peakMusicController.playerType == .Contributor{
@@ -327,19 +330,21 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func notContributorTap(_ cell: SongCell){
         //Handle the music for the non contributor
         
-        //Check library or apple music
+        //Check if we have a song
         
-        if let song: MPMediaItem = cell.itemInCell as? MPMediaItem{
+        if let song: Song = cell.itemInCell as? Song{
             
-            peakMusicController.play([song])
-            
-        } else if let song: Song = cell.itemInCell as? Song {
-            
+            //we have a song which we need to play by id
             peakMusicController.currPlayQueue.removeAll()
             peakMusicController.systemMusicPlayer.setQueueIds([song.id])
             peakMusicController.systemMusicPlayer.startPlaying()
+            
+        } else{
+            
+            //We don't have a song so just play shit here
+            peakMusicController.play([cell.itemInCell])
         }
-
+    
     }
     
     func contributorTap(_ cell: SongCell){
@@ -446,7 +451,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                print(songs)
+                //print(songs) //HERE
+                
+                /*HERE: THIS IS WHERE WE NEED TO TURN THE SONGS INTO THE LIBRARY*/
+                //Turn the songs into SPT Tracks
+                /*for playlist in songs{
+                    
+                    print(playlist.trackCount)
+                    print(playlist.tracksForPlayback())
+                    print("\n\n")
+                }*/
                 self.topResults = songs as! [BasicSong]
             }
         }
