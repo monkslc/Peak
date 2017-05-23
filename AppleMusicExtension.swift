@@ -88,6 +88,7 @@ extension MPMusicPlayerController: SystemMusicPlayer {
         NotificationCenter.default.addObserver(self, selector: #selector(libraryChanged), name: .MPMediaLibraryDidChange, object: self)
         NotificationCenter.default.addObserver(self, selector: #selector(playerStateChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: self)
         NotificationCenter.default.addObserver(self, selector: #selector(playerNowPlayingItemChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: self)
+        MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
     }
     
     func stopGeneratingNotifications() {

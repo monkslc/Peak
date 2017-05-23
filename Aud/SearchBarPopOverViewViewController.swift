@@ -210,8 +210,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         if gesture.state == .began {
             
+            //Create the alert
             let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            alert.addSearchAlerts(gesture, delegateViewController: (delegate as! BeastController))
+            
+            //Get the song
+            let song = (gesture.view as! BasicSongHolder).getBasicSong()
+            
+            //Add the alerts
+            alert.addAlerts(song: song, inLibrary: checkIfAlreadyInLibrary(song.getId()), library: nil, recents: nil)
+            
+            //Present
             alert.presentMe(gesture, presenterViewController: self)
         }
         
@@ -327,19 +335,21 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func notContributorTap(_ cell: SongCell){
         //Handle the music for the non contributor
         
-        //Check library or apple music
+        //Check if we have a song
         
-        if let song: MPMediaItem = cell.itemInCell as? MPMediaItem{
+        if let song: Song = cell.itemInCell as? Song{
             
-            peakMusicController.play([song])
-            
-        } else if let song: Song = cell.itemInCell as? Song {
-            
+            //we have a song which we need to play by id
             peakMusicController.currPlayQueue.removeAll()
             peakMusicController.systemMusicPlayer.setQueueIds([song.id])
             peakMusicController.systemMusicPlayer.startPlaying()
+            
+        } else{
+            
+            //We don't have a song so just play shit here
+            peakMusicController.play([cell.itemInCell])
         }
-
+    
     }
     
     func contributorTap(_ cell: SongCell){
@@ -443,9 +453,19 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         if search.length > 0 {
             
+            
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                print(songs)
+                //print(songs) //HERE
+                
+                /*HERE: THIS IS WHERE WE NEED TO TURN THE SONGS INTO THE LIBRARY*/
+                //Turn the songs into SPT Tracks
+                for playlist in songs{
+                    
+                    print(playlist.trackCount)
+                    print(playlist.tracksForPlayback())
+                    print("\n\n")
+                }
                 self.topResults = songs as! [BasicSong]
             }
         }

@@ -13,225 +13,183 @@ import CoreData
 
 class Alerts {
     
-    //Method to perform an action on an MPMediaItem
-    private static func performSongAction(_ sender: UILongPressGestureRecognizer, _ method: ([BasicSong]) -> Void){
+    static func playNowAlert(_ song: BasicSong) -> UIAlertAction{
         
-        if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
+        return UIAlertAction(title: "Play Now", style: .default){ alert in
             
-            method([holder.getBasicSong()])
-        }
-    }
-    
-    private static func performCollectionAction(_ sender: UILongPressGestureRecognizer, _ method: (BasicSong) -> Void){
-        //Difference is in the type of method being called
-        
-        //check if we have a cell or a recents
-        if let cell: SongCell = sender.view as? SongCell {
-            
-            method(cell.itemInCell)
-        
-        }
-    }
-    
-    static func playNowAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction{
-        
-        return UIAlertAction(title: "Play Now", style: .default, handler: {(alert) in
-        
-            if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
+            if let mySong: Song = song as? Song{
                 
-                if let song: Song = holder.getBasicSong() as? Song{
-                    
-                    peakMusicController.currPlayQueue.removeAll()
-                    peakMusicController.systemMusicPlayer.setQueueIds([song.getId()])
-                    peakMusicController.systemMusicPlayer.startPlaying()
-                } else {
-                    
-                    peakMusicController.play([holder.getBasicSong()])
-                }
+                peakMusicController.currPlayQueue.removeAll()
+                peakMusicController.systemMusicPlayer.setQueueIds([mySong.getId()])
+                peakMusicController.systemMusicPlayer.startPlaying()
                 
+            } else{
+                
+                peakMusicController.play([song])
             }
-        })
-        
+        }
     }
     
-    static func playNextAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
+    
+    static func playNextAlert(_ song: BasicSong) -> UIAlertAction{
         
+        return UIAlertAction(title: "Play Next", style: .default){ alert in
 
-        
-        return UIAlertAction(title: "Play Next", style: .default, handler: {(alert) in
-        
             peakMusicController.delegate?.showSignifier()
-            performSongAction(sender, peakMusicController.playNext(_:))
-        })
+            peakMusicController.playNext([song])
+        }
+    }
+    
+    static func playLastAlert(_ song: BasicSong) -> UIAlertAction{
+        
+        return UIAlertAction(title: "Play Last", style: .default){ alert in
+            
+            peakMusicController.delegate?.showSignifier()
+            peakMusicController.playAtEndOfQueue([song])
+        }
     }
     
     
-    static func playLastAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
+    static func playAlbumAlert(_ song: BasicSong) -> UIAlertAction{
         
+        return UIAlertAction(title: "Play Album", style: .default){ alert in
+            
+            peakMusicController.play(album: [song])
+        }
+    }
+    
+    
+    static func playArtistAlert(_ song: BasicSong) -> UIAlertAction{
         
+        return UIAlertAction(title: "Play Artist", style: .default){ alert in
 
-        return UIAlertAction(title: "Play Last", style: .default, handler: {(alert) in
-        
-            peakMusicController.delegate?.showSignifier()
-            performSongAction(sender, peakMusicController.playAtEndOfQueue(_:))
-        })
+            peakMusicController.play(artist: [song])
+        }
     }
     
     
-    static func playAlbumAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
-        
-        return UIAlertAction(title: "Play Album", style: .default, handler: {(alert) in
-            
-            performSongAction(sender, peakMusicController.play(album:))
-        })
-    }
     
-    static func playArtistAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
+    static func shuffleAlert(_ songs: [BasicSong], isLibrary: Bool) -> UIAlertAction{
         
-        return UIAlertAction(title: "Play Artist", style: .default, handler: {(alert) in
-        
-            performSongAction(sender, peakMusicController.play(artist:))
-        })
-    }
-    
-    
-    static func shuffleAlert(_ sender: UILongPressGestureRecognizer, library: [BasicSong], recents: [BasicSong]) -> UIAlertAction{
-        
-        //check whether we want to shuffle library or recents
-        if let _: SongCell = sender.view as? SongCell{
-            //shuffle library
+        if isLibrary{
             
-            return UIAlertAction(title: "Shuffle Library", style: .default, handler: {(alert) in
+            return UIAlertAction(title: "Shuffle Library", style: .default){ alert in
+                
+                peakMusicController.play(songs)
+            }
+        } else{
             
-                peakMusicController.play(peakMusicController.shuffleQueue(shuffle: library))
-            })
-            
-        }else if let _: RecentsAlbumView = sender.view as? RecentsAlbumView{
-            //shuffle recents
-            
-            return UIAlertAction(title: "Shuffle Recents", style: .default, handler: {(alert) in
-            
-                peakMusicController.play(peakMusicController.shuffleQueue(shuffle: recents))
-            })
-            
+            return UIAlertAction(title: "Shuffle Recents", style: .default){ alert in
+                
+                peakMusicController.play(songs)
+            }
             
         }
         
-        return UIAlertAction()
     }
     
-    static func sendToGroupQueueAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction {
+    
+    
+    static func sendToGroupQueueAlert(_ song: BasicSong) -> UIAlertAction{
         
-        return UIAlertAction(title: "Add to Group Queue", style: .default, handler: {(alert) in
+        return UIAlertAction(title: "Add to Group Queue", style: .default){ alert in
             
             (peakMusicController.delegate as! BeastController).showSignifier()
             
-            if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
+            SendingBluetooth.sendSongIdToHost(song: song){
                 
-                SendingBluetooth.sendSongIdToHost(song: holder.getBasicSong(), error:{})
+                print("\n\nWe got an error, I think\n\n")
             }
-        })
+        }
     }
     
     
-    static func createDeleteAction(_ sender: UILongPressGestureRecognizer) -> UIAlertAction{
+    static func createDeleteAction(_ song: BasicSong) -> UIAlertAction{
         
-        //Create the alert here and return it
-        return UIAlertAction(title: "Delete Song", style: .default, handler: {(alert) in
+        return UIAlertAction(title: "Delete Song", style: .default){ alert in
             
-            if let holder: BasicSongHolder = sender.view as? BasicSongHolder{
+            //now delete it
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
+            request.returnsObjectsAsFaults = false
+            
+            do{
                 
-                let songToDelete = holder.getBasicSong()
+                let results = try context.fetch(request)
                 
-                //now delete it
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let context = appDelegate.persistentContainer.viewContext
-                
-                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
-                request.returnsObjectsAsFaults = false
-                
-                do{
+                for result in results{
                     
-                    let results = try context.fetch(request)
+                    let songInCD = result as! StoredSong
                     
-                    for result in results{
+                    //check if our songs match and if so delete
+                    if songInCD.storedID == song.getId(){
                         
-                        let songInCD = result as! StoredSong
-                        
-                        //check if our songs match and if so delete
-                        if songInCD.storedID == songToDelete.getId(){
-                            
-                            context.delete(result as! NSManagedObject)
-                            break
-                        }
+                        context.delete(result as! NSManagedObject)
+                        break
                     }
-                    
-                    try context.save()
-                    
-                } catch {
-                    
-                    print("To dance beneath the diamond sky with one hand waving free")
                 }
                 
+                try context.save()
                 
+            } catch {
                 
-                (peakMusicController.delegate as! BeastController).showSignifier()
-                (peakMusicController.delegate as! BeastController).libraryViewController?.userLibrary.fetchLibrary()
-                
+                print("To dance beneath the diamond sky with one hand waving free")
             }
-        })
-    }
-    
-    static func addToLibraryAlert(_ sender: UILongPressGestureRecognizer) -> UIAlertAction{
-        
-        
-        return UIAlertAction(title: "Add to Library", style: .default, handler: {(alert) in
+            
+            
             
             (peakMusicController.delegate as! BeastController).showSignifier()
+            (peakMusicController.delegate as! BeastController).libraryViewController?.userLibrary.fetchLibrary()
+        }
+    }
+    
+    
+    static func addToLibraryAlerts(_ song: BasicSong) -> UIAlertAction{
+        
+        return UIAlertAction(title: "Add to Library", style: .default){ alert in
             
-            
-            let cell:SongCell = (sender.view as? SongCell)!
+            (peakMusicController.delegate as! BeastController).showSignifier()
             
             if peakMusicController.musicType == .AppleMusic{
                 
-                
-                MPMediaLibrary().addItem(withProductID: (cell.itemInCell.getId()), completionHandler: {(ent, err) in
+                MPMediaLibrary().addItem(withProductID: song.getId()){ ent, err in
+
+                    if err != nil{
+                        
+                        print("We had an error adding items to the library: \(err!)")
+                    }
                     
-                    /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
-                    /*******DO SOMETHING WITH THE ERROR******/
-                })
-                
-                
+                }
             } else if peakMusicController.musicType == .Guest{
                 
-                    
-                //Add the song to core data here, and to the users current library
-                    
-                //check if the user has already downloaded it
-                    
+                
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let context = appDelegate.persistentContainer.viewContext
-                    
+                
                 let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
-                newSong.setValue(cell.itemInCell.getId(), forKey: "storedID")
+                newSong.setValue(song.getId(), forKey: "storedID")
                 newSong.setValue(Date(), forKey: "downloaded")
-                    
-                    
-                    
+                
+                
+                
                 //now try to save it
                 do{
                     try context.save()
                 }catch{
-                        
+                    
                     print("The fiddler he now steps to the road")
                 }
+            } else if peakMusicController.musicType == .Spotify{
                 
+                /*UPDATE: WE NEED TO ADD THE ADD TO SPOTIFY CODE*/
             }
             
             
-            (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
             
-        })
+            (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
+        }
     }
     
 }
