@@ -97,9 +97,21 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             let mediaItemsInLibrary = userLibrary.itemsInLibrary
             let recentSongsDownloaded = userLibrary.recents
             
-            
+            //Create the alert
             let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            alert.addLibraryAlerts(sender: sender, library: mediaItemsInLibrary, recents: recentSongsDownloaded)
+            
+            //Add the alert options
+            if let cell: SongCell = sender.view as? SongCell{
+                
+                alert.addAlerts(song: cell.getBasicSong(), inLibrary: true, library: mediaItemsInLibrary, recents: nil)
+                
+            } else if let albumView: RecentsAlbumView = sender.view as? RecentsAlbumView{
+                
+                alert.addAlerts(song: albumView.getBasicSong(), inLibrary: true, library: nil, recents: recentSongsDownloaded)
+            }
+            
+        
+            //Now Present the alert
             alert.presentMe(sender, presenterViewController: self)
         }
         

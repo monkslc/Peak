@@ -210,8 +210,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         if gesture.state == .began {
             
+            //Create the alert
             let alert = SongOptionsController(title: "Song Options", message: nil, preferredStyle: .actionSheet)
-            alert.addSearchAlerts(gesture, delegateViewController: (delegate as! BeastController))
+            
+            //Get the song
+            let song = (gesture.view as! BasicSongHolder).getBasicSong()
+            
+            //Add the alerts
+            alert.addAlerts(song: song, inLibrary: checkIfAlreadyInLibrary(song.getId()), library: nil, recents: nil)
+            
+            //Present
             alert.presentMe(gesture, presenterViewController: self)
         }
         

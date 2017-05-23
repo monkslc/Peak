@@ -215,8 +215,6 @@ class AuthViewController: UIViewController {
         
         
         
-        
-        
         //Check if we can login
         auth?.clientID = "7b3c389c57ee44ce8f3562013df963ec"
         auth?.redirectURL = URL(string: "peak-music-spotty-login://callback")
