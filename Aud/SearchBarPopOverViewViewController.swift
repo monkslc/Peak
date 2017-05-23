@@ -320,9 +320,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                         print("We had an error bitches, \(err!)")
                         return
                     }
+                
                     
-                    print("We added a track, here's the callback: \(callback!)")
-                    
+                    //Update Library Here
+                    NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                 }
             }
             
