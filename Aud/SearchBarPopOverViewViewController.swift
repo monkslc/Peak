@@ -462,8 +462,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 //Turn the songs into SPT Tracks
                 for playlist in songs{
                     
-                    print(playlist.trackCount)
-                    print(playlist.tracksForPlayback())
+                    //print(playlist.trackCount)
+                    //print(playlist.tracksForPlayback())
                     print("\n\n")
                 }
                 self.topResults = songs as! [BasicSong]
