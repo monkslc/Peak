@@ -311,7 +311,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             /*HERE WE NEED TO ADD TO SPOTIFY LIBRARY*/
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
-                let track = cell.itemInCell as! SPTTrack
+                let track = cell.itemInCell as! SPTPartialTrack
                 
                 SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
                     
@@ -456,17 +456,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                //print(songs) //HERE
-                
-                /*HERE: THIS IS WHERE WE NEED TO TURN THE SONGS INTO THE LIBRARY*/
-                //Turn the songs into SPT Tracks
-                for playlist in songs{
-                    
-                    print(playlist.trackCount)
-                    print(playlist.tracksForPlayback())
-                    print("\n\n")
-                }
-                self.topResults = songs as! [BasicSong]
+                self.topResults = songs
             }
         }
     }
