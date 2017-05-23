@@ -460,12 +460,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 /*HERE: THIS IS WHERE WE NEED TO TURN THE SONGS INTO THE LIBRARY*/
                 //Turn the songs into SPT Tracks
-                /*for playlist in songs{
+                for playlist in songs{
                     
                     print(playlist.trackCount)
                     print(playlist.tracksForPlayback())
                     print("\n\n")
-                }*/
+                }
                 self.topResults = songs as! [BasicSong]
             }
         }

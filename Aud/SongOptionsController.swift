@@ -160,6 +160,9 @@ What do we need to check?:
     }
     
     
+    //We only want to be able to delete if it is in our library
+    //We don't want to be able to shuffle if we are a guest
+    
     /*MARK: METHOD TO DETERMINE WHAT ALERTS NEED TO BE ADDED*/
     func addAlerts(song: BasicSong, inLibrary: Bool, library: [BasicSong]?, recents: [BasicSong]?){
         
@@ -171,7 +174,7 @@ What do we need to check?:
             
             if let theSong: Song = song as? Song{
                 
-                if peakMusicController.musicType == .Guest{
+                if peakMusicController.musicType == .Guest && inLibrary == true{
                     
                     addGuestAlerts(theSong)
                     
@@ -188,10 +191,10 @@ What do we need to check?:
         
         
         
-        if library != nil{
+        if library != nil && peakMusicController.musicType != .Guest{
             
             addShuffleAlerts(shuffle: library!, isLibrary: true)
-        } else if recents != nil{
+        } else if recents != nil && peakMusicController.musicType != .Guest{
             
             addShuffleAlerts(shuffle: recents!, isLibrary: false)
         }
