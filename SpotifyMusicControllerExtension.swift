@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import AVKit
+import AVFoundation
 
 extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlaybackDelegate{
     
@@ -165,6 +167,15 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     }
     
     func generateNotifications() {
+        
+        do{
+            
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch{
+            
+            print("Why the fuck did I get this error?")
+        }
         
         self.playbackDelegate = self
     }

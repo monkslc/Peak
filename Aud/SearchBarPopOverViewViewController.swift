@@ -311,7 +311,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             /*HERE WE NEED TO ADD TO SPOTIFY LIBRARY*/
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
-                let track = cell.itemInCell as! SPTTrack
+                let track = cell.itemInCell as! SPTPartialTrack
                 
                 SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
                     
