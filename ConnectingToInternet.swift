@@ -32,12 +32,12 @@ class ConnectingToInternet {
 
     }
     
-    static func getSpotifySongs(query: String, completion: @escaping ([SPTPartialPlaylist]) -> Void, error: @escaping () -> Void) {
+    static func getSpotifySongs(query: String, completion: @escaping ([SPTPartialTrack]) -> Void, error: @escaping () -> Void) {
         
         let searchType = [SPTSearchQueryType.queryTypeAlbum, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypePlaylist]
         
         
-        var songsBySearchType: [[SPTPartialPlaylist]?] = [[SPTPartialPlaylist]?].init(repeating: nil, count: searchType.count)
+        var songsBySearchType = [[SPTPartialTrack]?].init(repeating: nil, count: searchType.count)
         
         for (index, sType) in searchType.enumerated() {
             
@@ -53,17 +53,23 @@ class ConnectingToInternet {
                 
                 if let page = callback as? SPTListPage {
                     print(page.items)
-                    if let newTracks = page.items as? [SPTPartialPlaylist] {
-                        songsBySearchType[index] = newTracks
-                        
-                        if let allSongsInArray = songsBySearchType as? [[SPTPartialPlaylist]] {
-                            var allSongs: [SPTPartialPlaylist] = []
-                            for songs in allSongsInArray {
-                                allSongs.append(contentsOf: songs)
-                            }
-                            
-                            completion(allSongs)
+                    
+                    var songs: [SPTPartialTrack] = []
+                    for item in page.items {
+                        if let song = item as? SPTPartialTrack {
+                            songs.append(song)
                         }
+                    }
+                    songsBySearchType[index] = songs
+                    
+                    if let allSongsMultiArray = songsBySearchType as? [[SPTPartialTrack]] {
+                        var allSongs: [SPTPartialTrack] = []
+                        
+                        for groupOfSongs in allSongsMultiArray {
+                            allSongs.append(contentsOf: groupOfSongs)
+                        }
+                        
+                        completion(allSongs)
                     }
                 }
             }
