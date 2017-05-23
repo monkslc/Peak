@@ -21,7 +21,7 @@ class SearchingSpotifyMusic {
     static var defaultSearch = SearchingSpotifyMusic()
     
     private var nextSearchTerm: String?
-    private var nextSearchCompletion: ([SPTPartialPlaylist]) -> Void = { (_) -> Void in }
+    private var nextSearchCompletion: ([SPTPartialTrack]) -> Void = { (_) -> Void in }
     
     private var isSearching = false
     
@@ -32,7 +32,7 @@ class SearchingSpotifyMusic {
     private var lastSearchIndex = -1
     private var searchCount = 0
     
-    func addSearch(term: String, completion: @escaping ([SPTPartialPlaylist]) -> Void) {
+    func addSearch(term: String, completion: @escaping ([SPTPartialTrack]) -> Void) {
         if isSearching {
             nextSearchTerm = term
             nextSearchCompletion = completion
@@ -51,7 +51,7 @@ class SearchingSpotifyMusic {
         }
     }
     
-    private func doSearch(term: String, completion: @escaping ([SPTPartialPlaylist]) -> Void) {
+    private func doSearch(term: String, completion: @escaping ([SPTPartialTrack]) -> Void) {
         let currentSearchIndex = searchCount
         searchCount += 1
         
