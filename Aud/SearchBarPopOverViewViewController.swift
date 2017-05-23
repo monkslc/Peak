@@ -457,7 +457,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                self.topResults = songs
+                //print(songs) //HERE
+                
+                /*HERE: THIS IS WHERE WE NEED TO TURN THE SONGS INTO THE LIBRARY*/
+                //Turn the songs into SPT Tracks
+                for playlist in songs{
+                    
+                    //print(playlist.trackCount)
+                    //print(playlist.tracksForPlayback())
+                    print("\n\n")
+                }
+                self.topResults = songs as! [BasicSong]
             }
         }
     }

@@ -49,12 +49,20 @@ class ConnectingToInternet {
                 if let err = err {
                     print(err)
                     error()
+                    return
                 }
                 
                 if let page = callback as? SPTListPage {
                     print(page.items)
                     
                     var songs: [SPTPartialTrack] = []
+                    
+                    if page.items == nil {
+                        print("Page items is nil")
+                        completion([])
+                        return
+                    }
+                    
                     for item in page.items {
                         if let song = item as? SPTPartialTrack {
                             songs.append(song)

@@ -31,8 +31,6 @@ class BluetoothHandler {
     /*MARK Bluetooth Methods*/
     func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType]) {
         
-        print("Receiving a group play queue")
-        
         if songTypes.count > 0{
             
             switch songTypes[0]{
@@ -167,19 +165,12 @@ class BluetoothHandler {
     
     func addSpotifyToQueue(playableURI: String){
         
-        print("\n\n\n")
-        print(playableURI)
-        print("\n\n\n")
         
         //Take the URI and convert it into a track
         SPTTrack.track(withURI: URL(string: playableURI), accessToken: nil, market: nil){ err, callback in
             
             if let song: SPTTrack = callback as? SPTTrack{
                 
-                print("\n\n\n")
-                print(song.playableUri)
-                print(song)
-                print("\n\n\n")
                 peakMusicController.playAtEndOfQueue([song])
             }
             
@@ -246,10 +237,6 @@ class BluetoothHandler {
                 let artist = callback.getArtistName()
                 
                 ConvertingSongType.getAppleMusicId(songTitle: title, authourName: artist){
-                    
-                    
-                    print("RECIEVED SONG \($0.getTrackName()) by \($0.getArtistName())")
-                    print($0)
                     
                     let id = $0.getId()
                     self.addAppleMusicToQueue(songID: id)
