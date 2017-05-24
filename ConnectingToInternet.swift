@@ -47,6 +47,8 @@ class ConnectingToInternet {
                 SPTSearch.perform(withQuery: query, queryType: sType, accessToken: nil) {
                     err, callback in
                     
+                    DispatchQueue.global().async {
+                    print("IS ON MAIN THREAD \(Thread.isMainThread)")
                     
                     if let err = err {
                         print(err)
@@ -81,6 +83,7 @@ class ConnectingToInternet {
                             completion(allSongs)
                         }
                     }
+                }
                 }
             }
         }
