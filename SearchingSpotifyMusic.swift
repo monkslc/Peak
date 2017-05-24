@@ -87,7 +87,20 @@ class SearchingSpotifyMusic {
             
             if currentSearchIndex > self.lastSearchIndex {
                 self.lastSearchIndex = currentSearchIndex
-                completion(songs)
+                
+                var maxSongsSent = 7
+                if self.nextSearchTerm != nil {
+                    maxSongsSent = 3
+                }
+                
+                var returnSomeSongs : [SPTPartialTrack] = []
+                var i = 0
+                while i < maxSongsSent && i < songs.count {
+                    returnSomeSongs.append(songs[i])
+                    i += 1
+                }
+                completion(returnSomeSongs)
+                
                 
                 self.searches += 1
             }

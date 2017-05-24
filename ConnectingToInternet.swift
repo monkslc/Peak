@@ -48,42 +48,41 @@ class ConnectingToInternet {
                     err, callback in
                     
                     DispatchQueue.global().async {
-                    print("IS ON MAIN THREAD \(Thread.isMainThread)")
-                    
-                    if let err = err {
-                        print(err)
-                        error()
-                        return
-                    }
-                    
-                    if let page = callback as? SPTListPage {
                         
-                        var songs: [SPTPartialTrack] = []
-                        
-                        if page.items == nil {
-                            print("Page items is nil")
-                            completion([])
+                        if let err = err {
+                            print(err)
+                            error()
                             return
                         }
                         
-                        for item in page.items {
-                            if let song = item as? SPTPartialTrack {
-                                songs.append(song)
-                            }
-                        }
-                        songsBySearchType[index] = songs
-                        
-                        if let allSongsMultiArray = songsBySearchType as? [[SPTPartialTrack]] {
-                            var allSongs: [SPTPartialTrack] = []
+                        if let page = callback as? SPTListPage {
                             
-                            for groupOfSongs in allSongsMultiArray {
-                                allSongs.append(contentsOf: groupOfSongs)
+                            var songs: [SPTPartialTrack] = []
+                            
+                            if page.items == nil {
+                                print("Page items is nil")
+                                completion([])
+                                return
                             }
                             
-                            completion(allSongs)
+                            for item in page.items {
+                                if let song = item as? SPTPartialTrack {
+                                    songs.append(song)
+                                }
+                            }
+                            songsBySearchType[index] = songs
+                            
+                            if let allSongsMultiArray = songsBySearchType as? [[SPTPartialTrack]] {
+                                var allSongs: [SPTPartialTrack] = []
+                                
+                                for groupOfSongs in allSongsMultiArray {
+                                    allSongs.append(contentsOf: groupOfSongs)
+                                }
+                                
+                                completion(allSongs)
+                            }
                         }
                     }
-                }
                 }
             }
         }

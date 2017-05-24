@@ -457,7 +457,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                self.topResults = songs
+                //DispatchQueue.main.sync {
+                    print("UPDATED SONGS")
+                    self.topResults = songs
+                //}
             }
         }
     }
