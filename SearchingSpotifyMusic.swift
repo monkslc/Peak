@@ -33,21 +33,26 @@ class SearchingSpotifyMusic {
     private var searchCount = 0
     
     func addSearch(term: String, completion: @escaping ([SPTPartialTrack]) -> Void) {
-        if isSearching {
-            nextSearchTerm = term
-            nextSearchCompletion = completion
-            if lastSearch + 5000 > NSDate().timeIntervalSince1970 {
-                nextSearchTerm = nil
-                doSearch(term: term, completion: completion)
+        
+        DispatchQueue.global().async {
+            
+            if self.isSearching {
+                self.nextSearchTerm = term
+                self.nextSearchCompletion = completion
+                if self.lastSearch + 5000 > NSDate().timeIntervalSince1970 {
+                    self.nextSearchTerm = nil
+                    self.doSearch(term: term, completion: completion)
+                }
+                else {
+                    self.nextSearchTerm = term
+                    self.nextSearchCompletion = completion
+                }
             }
             else {
-                nextSearchTerm = term
-                nextSearchCompletion = completion
+                self.isSearching = true
+                self.doSearch(term: term, completion: completion)
             }
-        }
-        else {
-            isSearching = true
-            doSearch(term: term, completion: completion)
+
         }
     }
     

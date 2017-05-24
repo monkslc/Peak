@@ -17,7 +17,7 @@ class SendingBluetooth {
     // from host
     
     static func sendFullQue() {
-        print(peakMusicController.currPlayQueue)
+        //print(peakMusicController.currPlayQueue)
         SendingBluetooth.sendSongIds(songs: peakMusicController.currPlayQueue)
     }
     
