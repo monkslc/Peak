@@ -53,7 +53,7 @@ class ConnectingToInternet {
                 }
                 
                 if let page = callback as? SPTListPage {
-                    print(page.items)
+                    //print(page.items)
                     
                     var songs: [SPTPartialTrack] = []
                     
