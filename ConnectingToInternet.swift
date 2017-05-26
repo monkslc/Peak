@@ -44,10 +44,8 @@ class ConnectingToInternet {
                 
                 let index = index
                 
-                if let page = callback as? SPTListPage {
-                    //print(page.items)
-                    
-                    var songs: [SPTPartialTrack] = []
+                SPTSearch.perform(withQuery: query, queryType: sType, accessToken: nil) {
+                    err, callback in
                     
                     DispatchQueue.global().async {
                         

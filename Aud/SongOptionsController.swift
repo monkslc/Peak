@@ -231,7 +231,13 @@ What do we need to check?:
     private func addPlaybackAlerts(_ song: BasicSong){
         
         addAction(Alerts.playNowAlert(song))
-        addAction(Alerts.playNextAlert(song))
+        
+        //Check if we should add Play Next
+        if peakMusicController.musicType != .Spotify{
+            
+            addAction(Alerts.playNextAlert(song))
+        }
+        
         addAction(Alerts.playLastAlert(song))
         addAction(Alerts.playAlbumAlert(song))
         addAction(Alerts.playArtistAlert(song))
@@ -247,158 +253,6 @@ What do we need to check?:
         addAction(Alerts.addToLibraryAlerts(song))
     }
     
-    
-    
-    /*MARK: Methods that determine what alerts to add*/
-    /*func addLibraryAlerts(sender: UILongPressGestureRecognizer, library: [BasicSong], recents: [BasicSong]){
-        
-        //Check the user's Music Type
-        if peakMusicController.musicType == .AppleMusic{
-            
-            //Change what appears based on the user's type
-            if peakMusicController.playerType != .Contributor {
-                
-                addAppleMusicNonContributor(library: library as! [MPMediaItem], recents: recents as! [MPMediaItem], sender, comingFrom: .Library)
-                
-            } else { //User is a contributor so display those methods
-                
-                addContributor(sender)
-            }
-            
-            
-        } else if peakMusicController.musicType == .Guest{
-            //If here we are a guest so display the guest options
-            
-            if peakMusicController.playerType == .Contributor{
-                
-                addContributor(sender)
-            }
-            
-            
-            addGuest(sender)
-            
-        }else if peakMusicController.musicType == .Spotify{
-            
-            if peakMusicController.playerType == .Contributor{
-                
-                addContributor(sender)
-            }else{
-                
-                addSpotify(sender)
-            }
-        }
-        
-        
-        //Add a cancel action
-        addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-    }
-
-    
-    /*NEEDS TO BE UPDATED: Why is Delegate View Controller a param?*/
-    func addSearchAlerts(_ sender: UILongPressGestureRecognizer,delegateViewController: BeastController){
-        
-        if peakMusicController.playerType != .Contributor {
-            
-            //Get the cell
-            if let _: SongCell = sender.view as? SongCell{
-                
-            
-                //We need to fetch the library and we need to fetch the recents
-                
-                //We want to check if the user is a contributor or not and give the song options accordingly
-                
-                //This is wrong here, we want to see if we are receiving as Song
-                if peakMusicController.musicType == .AppleMusic{
-                    
-                    if let library: [MPMediaItem] = delegateViewController.libraryViewController?.userLibrary.itemsInLibrary as? [MPMediaItem]{
-                        
-                        let recents: [MPMediaItem] = delegateViewController.libraryViewController?.userLibrary.recents as! [MPMediaItem]
-                        
-                        addAppleMusicNonContributor(library: library, recents: recents, sender, comingFrom: .Search)
-                    }
-                    
-    
-                } else{ //Searching
-                    
-                    addSearchingAppleMusicOptionsNonContributor(sender)
-                }
-            }
-            
-        } else { //User is a contributor so display those methods
-            
-            //User is a contributor so add those actions
-            addContributor(sender)
-            
-            if let cell: SongCell = sender.view as? SongCell {
-                
-                if let _: MPMediaItem = cell.itemInCell as? MPMediaItem{
-                    addSearchingAppleMusicOptionsNonContributor(sender)
-                }
-    
-            }
-        }
-        
-        //Add a cancel action
-        addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-    }
-    
-    
-    /*MARK: The Methods that add the alerts*/
-    func addSearchingAppleMusicOptionsNonContributor(_ sender: UILongPressGestureRecognizer){
-    
-        //Check if the user is a guest
-        if peakMusicController.musicType != .Guest{
-            
-            addAction(Alerts.playNowAlert(sender))
-        }
-        
-        addAction(Alerts.addToLibraryAlert(sender))
-        
-    }
-    
-    func addSearchingAppleMusicOptionsContributor(_ sender: UILongPressGestureRecognizer){
-        
-        addAction(Alerts.addToLibraryAlert(sender))
-    }
-    
-    func addAppleMusicNonContributor(library: [MPMediaItem], recents: [MPMediaItem],_ sender: UILongPressGestureRecognizer, comingFrom musicType: SenderType){
-        
-        //Library Alerts
-        addAction(Alerts.playNowAlert(sender))
-        addAction(Alerts.playNextAlert(sender))
-        addAction(Alerts.playLastAlert(sender))
-        addAction(Alerts.playAlbumAlert(sender))
-        addAction(Alerts.playArtistAlert(sender))
-        
-        //if we are not coming from search add
-        if musicType != .Search{
-            
-            addAction(Alerts.shuffleAlert(sender, library: library, recents: recents))
-        }
-   
-    }
-    
-    func addContributor(_ sender: UILongPressGestureRecognizer){
-        
-        
-        addAction(Alerts.sendToGroupQueueAlert(sender))
-    }
-    
-    func addGuest(_ sender: UILongPressGestureRecognizer){
-        
-        addAction(Alerts.createDeleteAction(sender))
-    }
-    
-    
-    /*SPOTIFY ALERTS*/
-    func addSpotify(_ sender: UILongPressGestureRecognizer){
-        
-        addAction(Alerts.playNowAlert(sender))
-        addAction(Alerts.playNextAlert(sender))
-        addAction(Alerts.playLastAlert(sender))
-        addAction(Alerts.playAlbumAlert(sender))
-        addAction(Alerts.playArtistAlert(sender))
-    }*/
     
     /*MARK: */
     func presentMe(_ sender: UILongPressGestureRecognizer, presenterViewController: UIViewController){

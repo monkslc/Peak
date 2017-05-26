@@ -135,8 +135,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
                 }
             }
             
-            //audioStreaming(self, didChange: metadata)
-            print("Updating Spotify Queue From the Set Player Queue")
             updateSpotifyQueue()
         }
         
@@ -253,50 +251,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         currentTrackTime = position
     }
     
-    /*
-    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-        
-        //print("Our next track is: \(metadata.nextTrack!)")
-        
-        //Check if the previous song equals the 0th item in the current play queue, if it does our song changed
-        
-        /*
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
-            
-            //Check if the song that is playing changed
-            if metadata.currentTrack?.isEqual(to: peakMusicController.currPlayQueue[0]) != true{
-                
-                self.playerNowPlayingItemChanged()
-            }
-                
-            //Lets get the next song to play
-            if peakMusicController.currPlayQueue.count > self.getNowPlayingItemLoc() + 1{
-                
-                
-                let track = peakMusicController.currPlayQueue[self.getNowPlayingItemLoc() + 1]
-                
-                
-                if self.metadata.nextTrack == nil || self.metadata.nextTrack!.isEqual(to: track) == false{
-                    //We know we need to queue now
-        
-                    
-                    self.queueSpotifyURI((track as! SPTPartialTrack).playableUri.absoluteString){
-                        
-                        print("Successful Queue of \(track)")
-                        if $0 != nil{
-                            print("Error Qeueing next track in audioStreaming \($0!)")
-                        }
-                        
-                    }
-                        
-                }
-            }
-        }*/
-        
-        
-        
-    }*/
-    
     public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceive event: SpPlaybackEvent) {
         
         switch event{
@@ -304,7 +258,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         case SPPlaybackNotifyTrackChanged:
             updateSpotifyQueue()
             playerNowPlayingItemChanged()
-            print("Updating Spotify Queue from the event")
+            print("OUR GD TRAK CHAINGED")
             
         default:
             break
@@ -312,10 +266,12 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
 
     }
     
+    public func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) {
+        
+        print("Our Audio Streaming Did Pop Queue")
+    }
     
     private func updateSpotifyQueue(){
-        
-        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
             
@@ -336,11 +292,14 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
                             print("Error Qeueing next track in audioStreaming \($0!)")
                         }
                         
+                        
                     }
                     
                 }
             }
         }
+        
+        
         
     }
 
