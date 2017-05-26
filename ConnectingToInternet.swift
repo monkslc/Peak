@@ -34,50 +34,56 @@ class ConnectingToInternet {
     
     static func getSpotifySongs(query: String, completion: @escaping ([SPTPartialTrack]) -> Void, error: @escaping () -> Void) {
         
-        let searchType = [SPTSearchQueryType.queryTypeAlbum, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypePlaylist]
-        
-        
-        var songsBySearchType = [[SPTPartialTrack]?].init(repeating: nil, count: searchType.count)
-        
-        for (index, sType) in searchType.enumerated() {
+        DispatchQueue.global().async {
+            let searchType = [SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypeArtist] //[SPTSearchQueryType.queryTypeAlbum, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypePlaylist]
             
-            let index = index
             
-            SPTSearch.perform(withQuery: query, queryType: sType, accessToken: nil) {
-                err, callback in
+            var songsBySearchType = [[SPTPartialTrack]?].init(repeating: nil, count: searchType.count)
+            
+            for (index, sType) in searchType.enumerated() {
                 
-                if let err = err {
-                    print(err)
-                    error()
-                    return
-                }
+                let index = index
                 
                 if let page = callback as? SPTListPage {
                     //print(page.items)
                     
                     var songs: [SPTPartialTrack] = []
                     
-                    if page.items == nil {
-                        print("Page items is nil")
-                        completion([])
-                        return
-                    }
-                    
-                    for item in page.items {
-                        if let song = item as? SPTPartialTrack {
-                            songs.append(song)
-                        }
-                    }
-                    songsBySearchType[index] = songs
-                    
-                    if let allSongsMultiArray = songsBySearchType as? [[SPTPartialTrack]] {
-                        var allSongs: [SPTPartialTrack] = []
+                    DispatchQueue.global().async {
                         
-                        for groupOfSongs in allSongsMultiArray {
-                            allSongs.append(contentsOf: groupOfSongs)
+                        if let err = err {
+                            print(err)
+                            error()
+                            return
                         }
                         
-                        completion(allSongs)
+                        if let page = callback as? SPTListPage {
+                            
+                            var songs: [SPTPartialTrack] = []
+                            
+                            if page.items == nil {
+                                print("Page items is nil")
+                                completion([])
+                                return
+                            }
+                            
+                            for item in page.items {
+                                if let song = item as? SPTPartialTrack {
+                                    songs.append(song)
+                                }
+                            }
+                            songsBySearchType[index] = songs
+                            
+                            if let allSongsMultiArray = songsBySearchType as? [[SPTPartialTrack]] {
+                                var allSongs: [SPTPartialTrack] = []
+                                
+                                for groupOfSongs in allSongsMultiArray {
+                                    allSongs.append(contentsOf: groupOfSongs)
+                                }
+                                
+                                completion(allSongs)
+                            }
+                        }
                     }
                 }
             }

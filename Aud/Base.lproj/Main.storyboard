@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -723,7 +723,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="YVQ-6R-SIH" secondAttribute="height" id="eNs-wN-CFT"/>
                                         </constraints>
-                                        <state key="normal" image="Forward Filled-100"/>
+                                        <state key="normal" image="Forward Filled-50"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLc-5V-zgQ" customClass="SICBackButton" customModule="Aud" customModuleProvider="target">
                                         <rect key="frame" x="47" y="5" width="45" height="45"/>
@@ -869,7 +869,7 @@
     <resources>
         <image name="Backward Filled-50" width="50" height="50"/>
         <image name="Download_1edcbb_100" width="96" height="96"/>
-        <image name="Forward Filled-100" width="100" height="100"/>
+        <image name="Forward Filled-50" width="50" height="50"/>
         <image name="High Volume Filled-50" width="50" height="50"/>
         <image name="IndieBigIcon" width="142" height="137"/>
         <image name="Low Volume Filled-50" width="50" height="50"/>

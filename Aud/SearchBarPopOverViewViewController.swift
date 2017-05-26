@@ -309,7 +309,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         } else if peakMusicController.musicType == .Spotify{
             
             /*HERE WE NEED TO ADD TO SPOTIFY LIBRARY*/
-            if let cell: SongCell = button.superview?.superview as? SongCell{
+            if let cell: SongCell = button.superview?.superview as? SongCell {
                 
                 let track = cell.itemInCell as! SPTPartialTrack
                 
@@ -457,7 +457,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                self.topResults = songs
+                //DispatchQueue.main.sync {
+                    print("UPDATED SONGS")
+                    self.topResults = songs
+                //}
             }
         }
     }

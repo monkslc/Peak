@@ -20,14 +20,12 @@ class ConvertingSongType {
             if !alreadySent {
                 for song in songs {
                     
-                    print("\(song.trackName) \(song.artistName)")
+                    //print("\(song.trackName) \(song.artistName)")
                     
                     if song.getTrackName() == songTitle && song.getArtistName() == authourName {
                         completion(song)
                         
-                        print("BLAH 4592 SONG: \(song)")
                         alreadySent = true
-                        
                         return
                     }
                 }
