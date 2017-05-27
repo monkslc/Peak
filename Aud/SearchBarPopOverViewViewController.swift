@@ -339,6 +339,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                         
                         self.searchedSongsTableView.reloadData()
                     }
+            
                     NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                 }
             }
