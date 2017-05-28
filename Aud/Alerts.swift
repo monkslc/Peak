@@ -75,13 +75,14 @@ class Alerts {
             
             return UIAlertAction(title: "Shuffle Library", style: .default){ alert in
                 
-                peakMusicController.play(songs)
+                
+                peakMusicController.play(peakMusicController.shuffleQueue(shuffle: songs))
             }
         } else{
             
             return UIAlertAction(title: "Shuffle Recents", style: .default){ alert in
                 
-                peakMusicController.play(songs)
+                peakMusicController.play(peakMusicController.shuffleQueue(shuffle: songs))
             }
             
         }
