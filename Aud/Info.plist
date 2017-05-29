@@ -48,14 +48,6 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>Apple_Music_Icon_blk</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Spotify</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>spotifyId</string>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
 			<string>CommIconBig</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Guest</string>
@@ -64,7 +56,15 @@
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>Apple_Music_Icon_blk</string>
+			<string>Spotify_Icon_RGB_Black</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Spotify</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>spotifyId</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>Apple_Music_Black</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Apple Music</string>
 			<key>UIApplicationShortcutItemType</key>
