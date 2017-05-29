@@ -141,8 +141,7 @@ extension SPTPlaybackTrack: BasicSong {
     
     
     func getId() -> String{
-        
-        print("Yup Yup Yup, this is the id we are getting")
+        print("WERE GETTING THE ID FROM DOWN HERE \(uri)")
         return uri
     }
     

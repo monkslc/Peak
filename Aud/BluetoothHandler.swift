@@ -38,7 +38,8 @@ class BluetoothHandler {
             switch songTypes[0]{
                 
             case .Spotify:
-                spotifyReceived(songIds)
+                spotifyReceived(songIds, token: token!)
+                
                 
             default: //Apple Music or Guest
                 appleMusicReceived(songIds)
@@ -49,7 +50,7 @@ class BluetoothHandler {
     }
     
     /*MARK METHODS TO CONVERT SONG ID'S RECEIVED TO THE GROUP PLAY QUEUE*/
-    private func spotifyReceived(_ songs: [String]){
+    private func spotifyReceived(_ songs: [String], token: String){
         
         print("SPOTIFY RECIEVED \(songs)")
         
@@ -64,6 +65,21 @@ class BluetoothHandler {
             }
             
             
+            SPTTrack.tracks(withURIs: spotifyURIArray, accessToken: token, market: nil){ err, callback in
+                
+                if err != nil{
+                    
+                    print("\n\nError converting me tracks: \(err!) \n\n")
+                }
+                
+                
+                if let songsBack: [SPTTrack] = callback as? [SPTTrack]{
+                    
+                    peakMusicController.groupPlayQueue = songsBack
+                }
+            }
+            
+            /*
             if peakMusicController.musicType == .Spotify{
                 
                 SPTTrack.tracks(withURIs: spotifyURIArray, accessToken: auth?.session.accessToken, market: nil){ err, callback in
@@ -96,7 +112,7 @@ class BluetoothHandler {
                     }
                 }
 
-            }
+            }*/
             
         }
     
@@ -316,7 +332,7 @@ class BluetoothHandler {
         let data = receivedDataDictionary["data"] as? NSData
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
-        var token = dataDictionary["token"]
+        let token = dataDictionary["token"]
         
         var songIds: [String] = []
         var songTypes: [PeakMusicController.MusicType] = []
