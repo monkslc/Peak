@@ -24,6 +24,7 @@ class RoundedButton: UIButton {
         layer.shadowOffset = CGSize(width: frame.width/56.2, height: frame.height/8.14)
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.55
+        clipsToBounds = true
     }
 
     
