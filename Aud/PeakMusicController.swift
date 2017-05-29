@@ -18,8 +18,7 @@ class PeakMusicController {
 
     
     init(){
-        
-        print("We are initalizing it")
+
         NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil)
     }
     
