@@ -276,7 +276,6 @@ class PeakMusicController {
     
     func playNext(_ songs: [BasicSong]){
         
-        //insert a song or songs at one after the index of the currently playing view
         //Append if the the systemMusicPlayer is at the end of the queue, or the queue is equal to 0
         if systemMusicPlayer.getNowPlayingItemLoc() == currPlayQueue.count - 1 || currPlayQueue.count == 0 || currPlayQueue.count == 1 {
             

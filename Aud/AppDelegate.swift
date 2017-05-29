@@ -21,13 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     /*MARK: SPOTIFY APPLICATION DELEGATE METHODS*/
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        //Get a token refresh service
         
         //check if the url is what we expect
-        
         if (auth?.canHandle(url))!{
             
-            print("Auth can handle our url")
             
             authViewController?.dismiss(animated: true, completion: nil)
             authViewController = nil
@@ -42,13 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
                         
                     }
                     
-                    
-                    //print("OUr token refresh URL is: \(auth?.tokenRefreshURL)")
-                    //print("Our token type was: \(session?.tokenType)")
-                    //print("Our access token was: \(session?.accessToken)")
-                    //print("Our refresh token URL was: \(session?.encryptedRefreshToken)")
+    
                 }
-                
+        
+
             }
             
         } else{
@@ -85,14 +79,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
         /********THIS IS WHERE WE NEED TO REFRESH THE TOKEN*****/
         //We have to get a refresh token from the authorization code exchange
         
-        print("\nOK HERE WE ARE.\nSpotify Audio Streaming Did Receive an ERROR\n")
-        print(error)
+        //Let's go to relogging in here
+        let authURL = auth?.spotifyWebAuthenticationURL()
         
-        //
+        authViewController = SFSafariViewController(url: authURL!)
+        window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
+        
+        print("We couldn't log in after clicking the button so we are here.")
+        //print(error)
+        
+        //Try Redirecting here to log in again
+        
+        //What is the request that we want to make, we want to get a new access token
+        
         
         //Ok let's try reconnecting and see if that works
         //print("OUr encrypted refresh token is \(auth?.session.encryptedRefreshToken)")
-        auth?.renewSession(auth?.session){ err, session in
+        /*auth?.renewSession(auth?.session){ err, session in
             
             
             
@@ -107,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             print("There was no error in renewing the token")
             
             
-        }
+        }*/
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveMessage message: String!) {

@@ -259,7 +259,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func addToLibrary(_ button: UIButton){
         
         
-        button.isHidden = true
+        
+        
+        //button.isHidden = true
         
         showSignifier()
         
@@ -271,6 +273,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 MPMediaLibrary().addItem(withProductID: cell.itemInCell.getId(), completionHandler: {(ent, err) in
                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                        
+                        self.searchedSongsTableView.reloadData()
+                    }
+                    NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                     /*******LET THE USER KNOW OF ANY ERRORS HERE*********/
                     /*******DO SOMETHING WITH THE ERROR******/
                 })
@@ -303,8 +310,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
             
             //Now Reload the Data in both talbes so the user can see it
-            (delegate as! BeastController).libraryViewController?.userLibrary.fetchLibrary()
-            searchedSongsTableView.reloadData()
+            
+            //Do me here
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+             
+                self.searchedSongsTableView.reloadData()
+            }
+            NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
             
         } else if peakMusicController.musicType == .Spotify{
             
@@ -323,6 +335,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                     
                     //Update Library Here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                        
+                        self.searchedSongsTableView.reloadData()
+                    }
+            
                     NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                 }
             }

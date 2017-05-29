@@ -40,77 +40,28 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         let cell = BVC.libraryViewController?.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
     
         
-        //update the cell depending on the type of player
-        if peakMusicController.playerType != .Contributor{
+        //Update the cell
+        let itemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.getNowPlayingItemLoc() + 1 + indexPath.row]
+        
+        cell.albumArt.image = itemToAdd.getImage() ?? #imageLiteral(resourceName: "ProperPeakyIcon")
+        cell.songTitle.text = itemToAdd.getTrackName()
+        cell.songArtist.text = itemToAdd.getArtistName()
+        
+
+        //get the time until the song plays
+        var timeUntil: Double = Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
+        for index in 0..<peakMusicController.currPlayQueue.count {
             
-            let mediaItemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.getNowPlayingItemLoc() + 1 + indexPath.row]
-            
-            //Check if we can get the image
-            if let albumImage = mediaItemToAdd.getImage(){
-                
-                cell.albumArt.image = albumImage
+            //check if we should add the duration, by checking the current index
+            if index < indexPath.row {
+                timeUntil += Double(peakMusicController.currPlayQueue[index + 1].getTrackTimeMillis())
             } else {
-                
-                //set a temporary default image then fetch the actual
-                cell.albumArt.image = #imageLiteral(resourceName: "ProperPeakyIcon")
-                
-                //the fetch
-                ConnectingToInternet.getSong(id: mediaItemToAdd.getId(), completion: {(song) in
-                
-                    if song.image != nil{
-                        
-                        cell.albumArt.image = song.image
-                    }
-                    
-                })
-                
+                break
             }
-            //cell.albumArt.image = mediaItemToAdd.artwork?.image(at: CGSize()) ?? #imageLiteral(resourceName: "defaultAlbum") //Don't totally do away with this until confirming the visual queue picks up the right album
-            cell.songTitle.text =  mediaItemToAdd.getTrackName()
-            cell.songArtist.text = mediaItemToAdd.getArtistName()
-            
-            //get the time until the song plays
-            var timeUntil: Double = Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
-            for index in 0..<peakMusicController.currPlayQueue.count {
-                
-                //check if we should add the duration, by checking the current index
-                if index < indexPath.row {
-                    timeUntil += Double(peakMusicController.currPlayQueue[index].getTrackTimeMillis())
-                } else {
-                    break
-                }
-            }
-            
-            cell.songDurationLabel.text = formatTimeInterval(timeUntil)
-        } else {
-            //we are a contributor so get the information from the group play queue
-            let songToAdd = peakMusicController.groupPlayQueue[indexPath.row + 1]
-            
-            //get the image
-            if songToAdd.getImage() == nil{
-                
-                cell.albumArt.image = #imageLiteral(resourceName: "ProperPeakyIcon")
-            } else {
-                
-                cell.albumArt.image = songToAdd.getImage()
-            }
-            
-            cell.songTitle.text = songToAdd.getTrackName()
-            cell.songArtist.text = songToAdd.getArtistName()
-            
-            //get the time until the song plays
-            var timeUntil: Double = Double(songToAdd.getTrackTimeMillis() / 1000)
-            for index in 0..<peakMusicController.groupPlayQueue.count {
-                
-                if index < indexPath.row {
-                    
-                    timeUntil += Double(peakMusicController.groupPlayQueue[index].getTrackTimeMillis() / 1000)
-                }
-            }
-            
-            cell.songDurationLabel.text = formatTimeInterval(timeUntil)
-            
         }
+        
+        cell.songDurationLabel.text = formatTimeInterval(timeUntil)
+        
         
         cell.backgroundColor = UIColor.clear
         

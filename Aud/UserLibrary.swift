@@ -106,9 +106,13 @@ class UserLibrary{
     
     private func fetchGuestMusic(){
         
+        print("Starting Fetch For Guest Music")
+        
         //Method for finishing the fetch
         func finishFetchForGuest(_ storedSongs: [Song]){
             
+            
+            print("Finishing The Fetch For Guest Music")
             //Temp Sort Method for Date
             func sort(_ item1: Song, _ item2: Song) -> Bool {
                 
@@ -188,6 +192,7 @@ class UserLibrary{
                 
                 DispatchQueue.main.async {
                     
+                    print("We are on the main queue, we should be updating the items in our library")
                     self.recents = tempRecent
                     self.itemsInLibrary = sortedGuestItems
                 }
@@ -239,6 +244,12 @@ class UserLibrary{
                 
                 
                 
+            }
+            
+            //Check if we have no results so we can make sure everything get's called a-okay
+            if results.count < 1{
+                
+                delegate?.libraryItemsUpdated()
             }
             
         } catch {

@@ -135,7 +135,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
                 }
             }
             
-            audioStreaming(self, didChange: metadata)
+            updateSpotifyQueue()
         }
         
     }
@@ -152,6 +152,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     }
     
     func skipSong() {
+        
         
         self.skipNext(){
             
@@ -233,18 +234,12 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         
         if peakMusicController.playerType != .Contributor{
             
-            print("The player type was not a contributor")
             NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
         }
         
     }
     
     /*MARK: Playback Delegate methods*/
-    public func audioStreamingDidSkip(toNextTrack audioStreaming: SPTAudioStreamingController!) {
-        
-        //print("Audio Streaming Did Skip")
-        //playerNowPlayingItemChanged()
-    }
     
     public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
         
@@ -256,33 +251,50 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         currentTrackTime = position
     }
     
-    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+    public func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceive event: SpPlaybackEvent) {
         
+        switch event{
+            
+        case SPPlaybackNotifyTrackChanged:
+            updateSpotifyQueue()
+            playerNowPlayingItemChanged()
+            print("OUR GD TRAK CHAINGED")
+            
+        default:
+            break
+        }
+
+    }
+    
+    public func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) {
         
-        //Check if the previous song equals the 0th item in the current play queue, if it does our song changed
+        print("Our Audio Streaming Did Pop Queue")
+    }
+    
+    private func updateSpotifyQueue(){
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
             
-            //Check if the song that is playing changed
-            if metadata.currentTrack?.isEqual(to: peakMusicController.currPlayQueue[0]) != true{
-                
-                self.playerNowPlayingItemChanged()
-            }
-                
             //Lets get the next song to play
             if peakMusicController.currPlayQueue.count > self.getNowPlayingItemLoc() + 1{
-                    
+                
                 let track = peakMusicController.currPlayQueue[self.getNowPlayingItemLoc() + 1]
-                    
-                if metadata.nextTrack == nil || metadata.nextTrack!.isEqual(to: track) == false{
-                    
+                
+                
+                if self.metadata.nextTrack == nil || self.metadata.nextTrack!.isEqual(to: track) == false{
                     //We know we need to queue now
+                    
+                    
                     self.queueSpotifyURI((track as! SPTPartialTrack).playableUri.absoluteString){
-                            
+                        
+                        print("Successful Queue of \(track)")
                         if $0 != nil{
                             print("Error Qeueing next track in audioStreaming \($0!)")
                         }
-                    }
                         
+                        
+                    }
+                    
                 }
             }
         }
@@ -290,7 +302,5 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         
         
     }
-    
-    
 
 }
