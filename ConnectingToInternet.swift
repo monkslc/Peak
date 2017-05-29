@@ -93,7 +93,7 @@ class ConnectingToInternet {
         
         let search = searchTerm.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
         
-        //print("Searching: \(search)")
+        print("Searching: \(search)")
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(search)&country=US&media=music&limit=\(limit)", completion: {
             (json) -> Void in
     
@@ -103,46 +103,49 @@ class ConnectingToInternet {
                     
                     var songs: [Song] = []
         
-                    //let serialQueue = DispatchQueue(label: "myqueue")
-                    
-                    var badSongs = 0
-                    for songJSON in songsJSON {
-                    
-                        let imageURL = songJSON["artworkUrl100"]! as! String
-                        
-                        ConnectingToInternet.getImage(url: imageURL, completion: {
-                            (image) -> Void in
+                    if songsJSON.count == 0 {
+                        error()
+                    }
+                    else {
+                        var badSongs = 0
+                        for songJSON in songsJSON {
                             
-                            guard let id = songJSON["trackId"] as? Int, let name = songJSON["trackName"] as? String, let album = songJSON["collectionName"] as? String, let artist = songJSON["artistName"] as? String, let time = songJSON["trackTimeMillis"] as? Int, let streamable = songJSON["isStreamable"] as? Bool else {
-                                
-                                print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getSongs\n\n")
-                                
-                                error()
-                                return
-                            }
+                            let imageURL = songJSON["artworkUrl100"]! as! String
                             
-                            //print("SONG: \(name) STREAMABLE: \(streamable)")
-                            
-                            if streamable {
-                            
-                                //serialQueue.sync {
-                                    songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
-                                //}
+                            ConnectingToInternet.getImage(url: imageURL, completion: {
+                                (image) -> Void in
                                 
-                                
-                                if songs.count == (songsJSON.count - badSongs) || !sendSongsAlltogether {
-                                    completion(songs)
-                                }
-                            }
-                            else {
-                                if limit == 1 {
+                                guard let id = songJSON["trackId"] as? Int, let name = songJSON["trackName"] as? String, let album = songJSON["collectionName"] as? String, let artist = songJSON["artistName"] as? String, let time = songJSON["trackTimeMillis"] as? Int, let streamable = songJSON["isStreamable"] as? Bool else {
+                                    
+                                    print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getSongs\n\n")
+                                    
                                     error()
+                                    return
+                                }
+                                
+                                //print("SONG: \(name) STREAMABLE: \(streamable)")
+                                
+                                if streamable {
+                                    
+                                    //serialQueue.sync {
+                                    songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
+                                    //}
+                                    
+                                    
+                                    if songs.count == (songsJSON.count - badSongs) || !sendSongsAlltogether {
+                                        completion(songs)
+                                    }
                                 }
                                 else {
-                                    badSongs += 1
+                                    if limit == 1 {
+                                        error()
+                                    }
+                                    else {
+                                        badSongs += 1
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
                 } else { error() }
             } else { error() }
