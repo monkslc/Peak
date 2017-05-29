@@ -29,7 +29,9 @@ class BluetoothHandler {
     }
     
     /*MARK Bluetooth Methods*/
-    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType]) {
+    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType], token: String) {
+        
+        print("RECIEVED GROUP PLAY QUE \(songIds)  \(songTypes))")
         
         if songTypes.count > 0{
             
@@ -48,6 +50,8 @@ class BluetoothHandler {
     
     /*MARK METHODS TO CONVERT SONG ID'S RECEIVED TO THE GROUP PLAY QUEUE*/
     private func spotifyReceived(_ songs: [String]){
+        
+        print("SPOTIFY RECIEVED \(songs)")
         
         if songs.count > 0{
             
@@ -79,6 +83,8 @@ class BluetoothHandler {
     
     private func appleMusicReceived(_ songs: [String]){
         
+        print("APPLE MUSIC RECIEVED \(songs)")
+        
         var tempSongHolder = [Song?].init(repeating: nil, count: songs.count)
         for i in 0..<songs.count {
             
@@ -97,6 +103,8 @@ class BluetoothHandler {
     
     func receivedSong(songId: String, songType: PeakMusicController.MusicType) {
         //Received a song from a contributor
+        
+        print("RECIEVED SONG \(songId) TYPE: \(songType)")
         
         delegate?.showSignifier()
         
@@ -268,10 +276,10 @@ class BluetoothHandler {
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         
         let data = receivedDataDictionary["data"] as? NSData
-        
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
         if let id = dataDictionary["id"], let type = PeakMusicController.MusicType(rawValue: Int(dataDictionary["type"]!)!) {
+            
             receivedSong(songId: id, songType: type)
         }
         else {
@@ -284,9 +292,9 @@ class BluetoothHandler {
         let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
         
         let data = receivedDataDictionary["data"] as? NSData
-        
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
+        var token = dataDictionary["token"]
         
         var songIds: [String] = []
         var songTypes: [PeakMusicController.MusicType] = []
@@ -305,6 +313,6 @@ class BluetoothHandler {
             index += 1
         }
         
-        receivedGroupPlayQueue(songIds, songTypes: songTypes)
+        receivedGroupPlayQueue(songIds, songTypes: songTypes, token: token)
     }
 }
