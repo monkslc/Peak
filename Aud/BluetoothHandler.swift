@@ -29,7 +29,7 @@ class BluetoothHandler {
     }
     
     /*MARK Bluetooth Methods*/
-    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType], token: String) {
+    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType], token: String?) {
         
         print("RECIEVED GROUP PLAY QUE \(songIds)  \(songTypes))")
         

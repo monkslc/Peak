@@ -52,10 +52,10 @@ class SendingBluetooth {
         
         print("SENT TO \(MPCManager.defaultMPCManager.getDjName())")
         
-        let messageDictionary: [String: String] = ["id": song.getId(), "type": "\(song.type.rawValue)"]
+        var messageDictionary: [String: String] = ["id": song.getId(), "type": "\(song.type.rawValue)"]
         
         if peakMusicController.musicType == .Spotify {
-            messageDictionary["token"] =
+            messageDictionary["token"] = auth?.session.accessToken
         }
         
         if MPCManager.defaultMPCManager.session.connectedPeers.count > 0 {
@@ -82,7 +82,7 @@ class SendingBluetooth {
         var messageDictionary: [String: String] = [:]
         
         if peakMusicController.musicType == .Spotify {
-            messageDictionary["token"] =
+            messageDictionary["token"] = auth?.session.accessToken
         }
         
         for (index, song) in songs.enumerated() {
