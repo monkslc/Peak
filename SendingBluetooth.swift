@@ -27,6 +27,10 @@ class SendingBluetooth {
         
         var messageDictionary: [String: String] = [:]
         
+        if peakMusicController.musicType == .Spotify {
+            messageDictionary["token"] = auth?.session.accessToken
+        }
+        
         for (index, song) in songs.enumerated() {
             messageDictionary["\(index)-id"] = song.getId()
             messageDictionary["\(index)-type"] = "\(song.type.rawValue)"

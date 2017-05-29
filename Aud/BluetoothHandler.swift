@@ -33,7 +33,7 @@ class BluetoothHandler {
         
         print("RECIEVED GROUP PLAY QUE \(songIds)  \(songTypes))")
         
-        if songTypes.count > 0{
+        if songTypes.count > 0 {
             
             switch songTypes[0]{
                 
@@ -44,6 +44,9 @@ class BluetoothHandler {
                 appleMusicReceived(songIds)
             }
             
+        }
+        else {
+            print("HUGE ERROR! SONG TYPES RECIEVED NOT GREATER THAN 0 IN BluetoothHandler -> receivedGroupPlayQueue")
         }
         
     }
