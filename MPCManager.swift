@@ -123,6 +123,8 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         
         var wasAnError = false
         do {
+            print("SEND SONGS")
+            print(dictionary)
             try session.send(dataToSend, toPeers: peersArray as! [MCPeerID], with: .reliable)
         } catch {
             wasAnError = true
@@ -135,6 +137,8 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         let dictionary: [String: AnyObject] = ["data": data as AnyObject, "fromPeer": peerID]
+        print("RECIEVED DICTIONARY")
+        print(dictionary)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: dictionary)
     }
     
