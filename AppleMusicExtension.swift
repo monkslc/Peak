@@ -82,6 +82,8 @@ extension MPMusicPlayerController: SystemMusicPlayer {
     
     func generateNotifications() {
         
+        repeatMode = .none
+        
         beginGeneratingPlaybackNotifications()
         
         //Add the listeners for the class
