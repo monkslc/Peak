@@ -201,7 +201,6 @@ class AuthViewController: UIViewController {
     @IBAction func loginWithSpotify() {
         
         
-        
         //start up the player so we can get the authentication access
         peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
         
@@ -219,6 +218,7 @@ class AuthViewController: UIViewController {
         auth?.clientID = "7b3c389c57ee44ce8f3562013df963ec"
         auth?.redirectURL = URL(string: "peak-music-spotty-login://callback")
         
+        
         auth?.sessionUserDefaultsKey = "current session"
         
         auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthUserReadTopScope, SPTAuthUserReadPrivateScope, SPTAuthUserLibraryModifyScope]
@@ -227,6 +227,7 @@ class AuthViewController: UIViewController {
         
         do{
             
+            //Maybe Here
             try (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).start(withClientId: auth?.clientID)
         } catch{
             
@@ -247,6 +248,9 @@ class AuthViewController: UIViewController {
         
         if auth?.session != nil{
             
+            
+           // print("Our App url: is \(auth?.spotifyAppAuthenticationURL())")
+            // print("Our Web url: is \(auth?.spotifyWebAuthenticationURL())")
             print("Our auth session did not equal nil")
             
             //print("OUr encrypted refresh token is \(auth?.session.encryptedRefreshToken)")
@@ -259,6 +263,12 @@ class AuthViewController: UIViewController {
             print("Our auth session equaled nil")
             
             //Get the URL
+            
+            /*COME BACK TO THIS*/
+            
+            //Maybe Here
+            
+            
             let authURL = auth?.spotifyWebAuthenticationURL()
             
             authViewController = SFSafariViewController(url: authURL!)
@@ -299,6 +309,7 @@ class AuthViewController: UIViewController {
     private func getUserName() -> String {
         var name = UIDevice.current.name
         
+        //Do we really need iPhone here
         let possibleThingsToCutOff: [String] = [" iphone", "'", "’"]
         
         for p in possibleThingsToCutOff {
