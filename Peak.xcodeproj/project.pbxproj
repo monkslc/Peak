@@ -29,6 +29,9 @@
 		C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C405151F1EB7DC0B00F1471F /* BeastController.swift */; };
 		C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40515211EB7E18E00F1471F /* UserLibrary.swift */; };
 		C40515281EB9045B00F1471F /* SicContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40515271EB9045B00F1471F /* SicContainer.swift */; };
+		C40722421EDCE05D00E12A1B /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722411EDCE05D00E12A1B /* SpotifyAudioPlayback.framework */; };
+		C40722441EDCE06600E12A1B /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722431EDCE06600E12A1B /* SpotifyAuthentication.framework */; };
+		C40722461EDCE07100E12A1B /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
@@ -48,14 +51,11 @@
 		C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */; };
 		C4B9FF131E7B683B0058AB6A /* RecentsAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */; };
 		C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */; };
-		C4BA76B61EBD116900947C1C /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76B51EBD116900947C1C /* SpotifyAudioPlayback.framework */; };
-		C4BA76B81EBD117300947C1C /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76B71EBD117300947C1C /* SpotifyAuthentication.framework */; };
 		C4BA76BC1EBD126900947C1C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76BB1EBD126900947C1C /* AVFoundation.framework */; };
 		C4BA76BE1EBD127D00947C1C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76BD1EBD127D00947C1C /* SystemConfiguration.framework */; };
 		C4BA76C41EBD1A8000947C1C /* SystemMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA76C31EBD1A8000947C1C /* SystemMusicPlayer.swift */; };
 		C4BA76C71EBD1D8F00947C1C /* AppleMusicExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA76C61EBD1D8F00947C1C /* AppleMusicExtension.swift */; };
 		C4BA76C91EBD386D00947C1C /* SpotifyTrackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA76C81EBD386D00947C1C /* SpotifyTrackExtension.swift */; };
-		C4BA76CB1EBD39F700947C1C /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BA76CA1EBD39F700947C1C /* SpotifyMetadata.framework */; };
 		C4BA76CD1EBD3C8000947C1C /* SpotifyMusicControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BA76CC1EBD3C8000947C1C /* SpotifyMusicControllerExtension.swift */; };
 		C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1175B1E7F2024000A854A /* PeakColorExt.swift */; };
 		C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1175D1E7F6C69000A854A /* RoundedButton.swift */; };
@@ -96,6 +96,9 @@
 		C405151F1EB7DC0B00F1471F /* BeastController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeastController.swift; sourceTree = "<group>"; };
 		C40515211EB7E18E00F1471F /* UserLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserLibrary.swift; path = Aud/UserLibrary.swift; sourceTree = "<group>"; };
 		C40515271EB9045B00F1471F /* SicContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SicContainer.swift; sourceTree = "<group>"; };
+		C40722411EDCE05D00E12A1B /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
+		C40722431EDCE06600E12A1B /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
+		C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
@@ -115,15 +118,12 @@
 		C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedView.swift; sourceTree = "<group>"; };
 		C4B9FF121E7B683B0058AB6A /* RecentsAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentsAlbumView.swift; path = ../RecentsAlbumView.swift; sourceTree = "<group>"; };
 		C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
-		C4BA76B51EBD116900947C1C /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
-		C4BA76B71EBD117300947C1C /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		C4BA76BB1EBD126900947C1C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4BA76BD1EBD127D00947C1C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C4BA76BF1EBD131B00947C1C /* Aud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Aud-Bridging-Header.h"; sourceTree = "<group>"; };
 		C4BA76C31EBD1A8000947C1C /* SystemMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemMusicPlayer.swift; sourceTree = "<group>"; };
 		C4BA76C61EBD1D8F00947C1C /* AppleMusicExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMusicExtension.swift; sourceTree = "<group>"; };
 		C4BA76C81EBD386D00947C1C /* SpotifyTrackExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyTrackExtension.swift; sourceTree = "<group>"; };
-		C4BA76CA1EBD39F700947C1C /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
 		C4BA76CC1EBD3C8000947C1C /* SpotifyMusicControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyMusicControllerExtension.swift; sourceTree = "<group>"; };
 		C4D1175B1E7F2024000A854A /* PeakColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeakColorExt.swift; path = ../PeakColorExt.swift; sourceTree = "<group>"; };
 		C4D1175D1E7F6C69000A854A /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -148,11 +148,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4BA76CB1EBD39F700947C1C /* SpotifyMetadata.framework in Frameworks */,
+				C40722461EDCE07100E12A1B /* SpotifyMetadata.framework in Frameworks */,
 				C4BA76BE1EBD127D00947C1C /* SystemConfiguration.framework in Frameworks */,
+				C40722441EDCE06600E12A1B /* SpotifyAuthentication.framework in Frameworks */,
 				C4BA76BC1EBD126900947C1C /* AVFoundation.framework in Frameworks */,
-				C4BA76B61EBD116900947C1C /* SpotifyAudioPlayback.framework in Frameworks */,
-				C4BA76B81EBD117300947C1C /* SpotifyAuthentication.framework in Frameworks */,
+				C40722421EDCE05D00E12A1B /* SpotifyAudioPlayback.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,9 +308,9 @@
 		C48B4F0E1E9B1FF1002D2DB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C4BA76CA1EBD39F700947C1C /* SpotifyMetadata.framework */,
-				C4BA76B71EBD117300947C1C /* SpotifyAuthentication.framework */,
-				C4BA76B51EBD116900947C1C /* SpotifyAudioPlayback.framework */,
+				C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */,
+				C40722431EDCE06600E12A1B /* SpotifyAuthentication.framework */,
+				C40722411EDCE05D00E12A1B /* SpotifyAudioPlayback.framework */,
 				C4BA76BD1EBD127D00947C1C /* SystemConfiguration.framework */,
 				C4BA76BB1EBD126900947C1C /* AVFoundation.framework */,
 			);

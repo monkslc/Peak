@@ -39,6 +39,7 @@ extension SPTPartialTrack: BasicSong {
     
     func getId() -> String{
         
+        print("We are getting thou id from up above")
         return playableUri.absoluteString
     }
     
@@ -141,6 +142,7 @@ extension SPTPlaybackTrack: BasicSong {
     
     func getId() -> String{
         
+        print("Yup Yup Yup, this is the id we are getting")
         return uri
     }
     
