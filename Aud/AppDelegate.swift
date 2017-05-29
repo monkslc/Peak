@@ -76,21 +76,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         
-        /********THIS IS WHERE WE NEED TO REFRESH THE TOKEN*****/
-        //We have to get a refresh token from the authorization code exchange
-        
-        //Let's go to relogging in here
+        //Send the user to re log in
         let authURL = auth?.spotifyWebAuthenticationURL()
         
         authViewController = SFSafariViewController(url: authURL!)
         window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
         
-        print("We couldn't log in after clicking the button so we are here.")
-        //print(error)
-        
-        //Try Redirecting here to log in again
-        
-        //What is the request that we want to make, we want to get a new access token
         
         
         //Ok let's try reconnecting and see if that works

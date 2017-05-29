@@ -250,26 +250,10 @@ class AuthViewController: UIViewController {
         
         if auth?.session != nil{
             
-            
-           // print("Our App url: is \(auth?.spotifyAppAuthenticationURL())")
-            // print("Our Web url: is \(auth?.spotifyWebAuthenticationURL())")
-            print("Our auth session did not equal nil")
-            
-            //print("OUr encrypted refresh token is \(auth?.session.encryptedRefreshToken)")
-            
             (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
             
             
         } else{
-            
-            print("Our auth session equaled nil")
-            
-            //Get the URL
-            
-            /*COME BACK TO THIS*/
-            
-            //Maybe Here
-            
             
             let authURL = auth?.spotifyWebAuthenticationURL()
             
