@@ -49,8 +49,8 @@ class PeakMusicController {
                 
                 
             default:
-                print("Gonna try to generate Notifications here")
                 systemMusicPlayer?.generateNotifications()
+                groupPlayQueue = []
                 
             }
 

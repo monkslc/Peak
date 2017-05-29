@@ -169,6 +169,14 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func generateNotifications() {
         
+        self.setRepeat(.off){
+            
+            if $0 != nil{
+                
+                print("We had an error turning off our repeat mode: \($0!)")
+            }
+        }
+        
         do{
             
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)

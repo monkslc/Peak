@@ -41,20 +41,69 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     
         
         //Update the cell
-        let itemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.getNowPlayingItemLoc() + 1 + indexPath.row]
+        var itemToAdd: BasicSong?
         
-        cell.albumArt.image = itemToAdd.getImage() ?? #imageLiteral(resourceName: "ProperPeakyIcon")
-        cell.songTitle.text = itemToAdd.getTrackName()
-        cell.songArtist.text = itemToAdd.getArtistName()
+        if peakMusicController.playerType != .Contributor{
+            
+            itemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.getNowPlayingItemLoc() + 1 + indexPath.row]
+        } else{
+            
+            itemToAdd = peakMusicController.groupPlayQueue[indexPath.row + 1]
+        }
+    
+        
+        //Let's get the image
+        if let meImage = itemToAdd?.getImage(){
+            
+            cell.albumArt.image = meImage
+        } else{
+            
+            cell.albumArt.image = #imageLiteral(resourceName: "ProperPeakyIcon")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                
+                cell.albumArt.image = itemToAdd?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyIcon")
+                tableView.reloadData()
+            }
+        }
+        
+        cell.albumArt.image = itemToAdd?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyIcon")
+        cell.songTitle.text = itemToAdd?.getTrackName()
+        cell.songArtist.text = itemToAdd?.getArtistName()
         
 
         //get the time until the song plays
-        var timeUntil: Double = Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
-        for index in 0..<peakMusicController.currPlayQueue.count {
+        var timeUntil: Double = 0.0
+    
+        
+        
+        //Figure out which queue were looking to show and get the count and the first track wait time
+        var count = 0
+        if peakMusicController.playerType != .Contributor{
+            
+            count = peakMusicController.currPlayQueue.count
+            
+            timeUntil += Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
+        } else{
+            
+            count = peakMusicController.groupPlayQueue.count
+            timeUntil += Double(peakMusicController.groupPlayQueue[0].getTrackTimeMillis())
+        }
+        
+        print("Our count should be: \(count)")
+        for index in 0..<count {
             
             //check if we should add the duration, by checking the current index
             if index < indexPath.row {
-                timeUntil += Double(peakMusicController.currPlayQueue[index + 1].getTrackTimeMillis())
+                
+                if peakMusicController.playerType != .Contributor{
+                    
+                    timeUntil += Double(peakMusicController.currPlayQueue[index + 1].getTrackTimeMillis())
+                } else{
+                    
+                    timeUntil += Double(peakMusicController.groupPlayQueue[index + 1].getTrackTimeMillis())
+                }
+                
             } else {
                 break
             }

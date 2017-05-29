@@ -27,7 +27,7 @@ struct Song: BasicSong {
     func getTrackName() -> String { return trackName }
     func getCollectionName() -> String { return collectionName }
     func getArtistName() -> String { return artistName }
-    func getTrackTimeMillis() -> Int { return trackTimeMillis }
+    func getTrackTimeMillis() -> Int { return trackTimeMillis / 1000; }
     func getImage() -> UIImage? { return image }
     func getDateAdded() -> Date? { return dateAdded }
     
