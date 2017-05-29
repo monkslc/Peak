@@ -50,13 +50,21 @@
 			<key>UIApplicationShortcutItemIconFile</key>
 			<string>CommIconBig</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Connect To Dj</string>
+			<string>Guest</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>djId</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>Host-Icon</string>
+			<string>Spotify_Icon_RGB_Black</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Spotify</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>spotifyId</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>Apple_Music_Black</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Apple Music</string>
 			<key>UIApplicationShortcutItemType</key>

@@ -44,6 +44,8 @@ class AuthViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAppleMusicForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedAppleMusicForceTouchNotification"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAppleSpotifyForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedSpotifyMusicForceTouchNotification"), object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleDjForceTouchNotification(notification:)), name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleApplicationDidBecomeActive(notification:)), name: NSNotification.Name(rawValue: "applicationDidBecomeActive"), object: nil)
@@ -325,6 +327,10 @@ class AuthViewController: UIViewController {
     // Handle Notification For Force Touché
     func handleAppleMusicForceTouchNotification(notification: NSNotification) {
         checkAppleAuthentication()
+    }
+    
+    func handleAppleSpotifyForceTouchNotification(notification: NSNotification) {
+        loginWithSpotify()
     }
     
     func handleDjForceTouchNotification(notification: NSNotification) {

@@ -189,6 +189,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedAppleMusicForceTouchNotification"), object: nil)
         case "djId":
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedDjForceTouchNotification"), object: nil)
+        case "spotifyId":
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedSpotifyMusicForceTouchNotification"), object: nil)
         default:
             print("\n\nERROR: THIS SHOULD NEVER HAPPEN: App Delegate.handleShortcut: DONT KNOW SHORTCUT \(shortcutItem.type)\n\n")
             succeeded = false
