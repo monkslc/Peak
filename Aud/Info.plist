@@ -64,7 +64,7 @@
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>AppleMusicNoBackgroundMainlyBlack-1</string>
+			<string>AppleMusicSeeThrough</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Apple Music</string>
 			<key>UIApplicationShortcutItemType</key>

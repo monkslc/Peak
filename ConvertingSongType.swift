@@ -22,7 +22,23 @@ class ConvertingSongType {
                     
                     //print("\(song.trackName) \(song.artistName)")
                     
-                    if song.getTrackName() == songTitle && song.getArtistName() == authourName {
+                    var songNameNoParenthesis = song.getTrackName().lowercased()
+                    var artistNameNoParenthesis = song.getArtistName().lowercased()
+                    
+                    var originalSongName = songTitle.lowercased()
+                    var orginalArtistName = song.artistName.lowercased()
+                    
+                    
+                    for c in ["(", ")", "-", "[", "]", ",", "'", "\"", " "] {
+                        songNameNoParenthesis = songNameNoParenthesis.replacingOccurrences(of: c, with: "")
+                        artistNameNoParenthesis = artistNameNoParenthesis.replacingOccurrences(of: c, with: "")
+                        
+                        originalSongName = originalSongName.replacingOccurrences(of: c, with: "")
+                        orginalArtistName = orginalArtistName.replacingOccurrences(of: c, with: "")
+                    }
+                    
+                    if songNameNoParenthesis == originalSongName && artistNameNoParenthesis == orginalArtistName {
+                        
                         completion(song)
                         
                         alreadySent = true

@@ -44,7 +44,7 @@ class ConnectingToInternet {
                 
                 let index = index
                 
-                SPTSearch.perform(withQuery: query, queryType: sType, accessToken: nil) {
+                SPTSearch.perform(withQuery: query, queryType: sType, accessToken: auth?.session.accessToken) {
                     err, callback in
                     
                     DispatchQueue.global().async {
@@ -262,4 +262,5 @@ class ConnectingToInternet {
         }
         return str
     }
+    
 }

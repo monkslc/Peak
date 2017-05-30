@@ -170,7 +170,7 @@ class BluetoothHandler {
             switch songType{
                 
             case .Spotify:
-                convertSpotifyToAppleMusicID(playableURI: songId)
+                convertSpotifyToAppleMusicID(playableURI: songId, token: token!)
                 
                 
             default: //Apple Music or Guest
@@ -246,7 +246,7 @@ class BluetoothHandler {
             let artist = $0.getArtistName()
             
             //Use the title and artist to search Spotify
-            SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: nil){ err, callback in
+            SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                 
                 //Use the callback to get the song
                 if let page: SPTListPage = callback as? SPTListPage{
@@ -277,19 +277,19 @@ class BluetoothHandler {
     
     }
     
-    func convertSpotifyToAppleMusicID(playableURI: String){
+    func convertSpotifyToAppleMusicID(playableURI: String, token: String) {
 
         
         //Get the track from the URI
         
-        SPTTrack.track(withURI: URL(string: playableURI), accessToken: nil, market: nil){ err, callback in
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: token, market: nil){ err, callback in
             
             if err != nil{
                 print(err!)
                 return
             }
             
-            if let callback: SPTTrack = callback as? SPTTrack{
+            if let callback: SPTTrack = callback as? SPTTrack {
                 
                 let title = callback.getTrackName()
                 let artist = callback.getArtistName()
