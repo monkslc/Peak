@@ -142,7 +142,7 @@ class BluetoothHandler {
         }
     }
     
-    func receivedSong(songId: String, songType: PeakMusicController.MusicType) {
+    func receivedSong(songId: String, songType: PeakMusicController.MusicType, token: String?) {
         //Received a song from a contributor
         
         print("RECIEVED SONG \(songId) TYPE: \(songType)")
@@ -155,7 +155,7 @@ class BluetoothHandler {
             switch songType{
             
             case .Spotify:
-                addSpotifyToQueue(playableURI: songId)
+                addSpotifyToQueue(playableURI: songId, token: token!)
                 
             default: //Apple Music or Guest
                 convertAppleMusicIDToURI(songID: songId)
@@ -212,13 +212,22 @@ class BluetoothHandler {
         }
     }
     
-    func addSpotifyToQueue(playableURI: String){
+    func addSpotifyToQueue(playableURI: String, token: String) {
         
         
         //Take the URI and convert it into a track
-        SPTTrack.track(withURI: URL(string: playableURI), accessToken: nil, market: nil){ err, callback in
+        
+        print("URI: \(playableURI)")
+        print("TOKEN: \(token)")
+        
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: token, market: nil){ err, callback in
             
-            if let song: SPTTrack = callback as? SPTTrack{
+            if let error = err {
+                print(error)
+                return
+            }
+            
+            if let song: SPTPartialTrack = callback as? SPTPartialTrack {
                 
                 peakMusicController.playAtEndOfQueue([song])
             }
@@ -319,9 +328,14 @@ class BluetoothHandler {
         let data = receivedDataDictionary["data"] as? NSData
         let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
         
+        print("RECIEVED BELOW")
+        print(dataDictionary)
+        
         if let id = dataDictionary["id"], let type = PeakMusicController.MusicType(rawValue: Int(dataDictionary["type"]!)!) {
             
-            receivedSong(songId: id, songType: type)
+            let token = dataDictionary["token"]
+            
+            receivedSong(songId: id, songType: type, token: token)
         }
         else {
             print("\n\nERROR: LibraryViewController.handleMPCDJRecievedSongIDWithNotification THIS SHOULD NEVER HAPPEN: \n\n")
