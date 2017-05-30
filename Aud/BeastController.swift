@@ -135,13 +135,22 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
         switch peakMusicController.playerType{
             
         case .Host:
-            connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
+            DispatchQueue.main.async {
+                self.connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
+            }
+            
             
         case .Individual:
-            connectButton.setImage(#imageLiteral(resourceName: "IndieBigIcon"), for: .normal)
+            DispatchQueue.main.async {
+                self.connectButton.setImage(#imageLiteral(resourceName: "IndieBigIcon"), for: .normal)
+            }
+            
             
         case .Contributor:
-            connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
+            DispatchQueue.main.async {
+                self.connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
+            }
+            
         }
     }
     
