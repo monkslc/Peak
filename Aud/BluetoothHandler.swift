@@ -246,7 +246,7 @@ class BluetoothHandler {
             let artist = $0.getArtistName()
             
             //Use the title and artist to search Spotify
-            SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: nil){ err, callback in
+            SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                 
                 //Use the callback to get the song
                 if let page: SPTListPage = callback as? SPTListPage{
@@ -282,7 +282,7 @@ class BluetoothHandler {
         
         //Get the track from the URI
         
-        SPTTrack.track(withURI: URL(string: playableURI), accessToken: nil, market: nil){ err, callback in
+        SPTTrack.track(withURI: URL(string: playableURI), accessToken: auth?.session.accessToken, market: nil){ err, callback in
             
             if err != nil{
                 print(err!)

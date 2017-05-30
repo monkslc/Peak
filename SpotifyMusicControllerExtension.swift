@@ -266,7 +266,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         case SPPlaybackNotifyTrackChanged:
             updateSpotifyQueue()
             playerNowPlayingItemChanged()
-            print("OUR GD TRAK CHAINGED")
             
         default:
             break
