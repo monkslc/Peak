@@ -361,6 +361,9 @@ class UserLibrary{
                         
                         //Now upload our library
                         self.itemsInLibrary = tempStorageForLibItems
+                        
+                        //Now let's go through and fetch the images for each spotify song
+                        self.fetchSpottyImages()
                     }
                     
                 }
@@ -372,6 +375,15 @@ class UserLibrary{
         
     }
     
+    
+    //Method to fetch Spotify Images for songs in an attempt to reduce hangability in the library scrolling
+    private func fetchSpottyImages(){
+        
+        //Loop through each item in the library and get the image
+        for item in itemsInLibrary{
+            _ = item.getImage()
+        }
+    }
     
     /*MARK: Notification Methods*/
     @objc func iCloudLibraryChanged(){
