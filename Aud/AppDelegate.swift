@@ -55,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     /*MARK: SPOTIFY AUDIO STREAMING DELEGATE METHODS*/
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
         
-        print("OUR SPOTIFY LOGIN WAS SUCCESSFUL")
         NotificationCenter.default.post(Notification(name: .spotifyLoginSuccessful))
     }
     

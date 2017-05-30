@@ -109,7 +109,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         MPCManager.defaultMPCManager.resetSession()
         //MPCManager.defaultMPCManager.session.disconnect()
         peakMusicController.playerType = .Individual
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     
