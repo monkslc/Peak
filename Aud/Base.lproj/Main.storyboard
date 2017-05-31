@@ -866,10 +866,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomVolumeImage" destination="Z3A-Ue-6Xt" id="Sxj-9m-YU3"/>
                         <outlet property="durationLabel" destination="mRW-ie-Odc" id="zek-Jw-ovg"/>
                         <outlet property="songInfoDisplay" destination="kmH-Tt-duP" id="8t4-Dk-Ig9"/>
                         <outlet property="songInfoSegment" destination="qnw-Ag-fYn" id="fiG-WY-fry"/>
                         <outlet property="songProgressSlider" destination="hdL-cg-8xb" id="WN0-Hh-zVE"/>
+                        <outlet property="topVolumeImage" destination="dEu-PR-hEX" id="Jcw-gg-bGV"/>
                         <outlet property="volumeSlider" destination="AIM-ua-687" id="hkZ-3D-cl1"/>
                     </connections>
                 </viewController>
