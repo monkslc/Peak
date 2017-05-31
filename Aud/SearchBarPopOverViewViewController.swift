@@ -553,7 +553,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                                 
                                 if let theSong: SPTPartialTrack = item as? SPTPartialTrack {
                                     
-                                    if ConvertingSongType.isCloseEnough(songTitle1: theSong.getTrackName(), String: theSong.getArtistName(), songTitle2: title, authour2: artist){
+                                    if ConvertingSongType.isCloseEnough(songTitle1: theSong.getTrackName(), authour1: theSong.getArtistName(), songTitle2: title, authour2: artist){
                                         
                                         DispatchQueue.main.async {
                                             
