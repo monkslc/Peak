@@ -90,7 +90,6 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             timeUntil += Double(peakMusicController.groupPlayQueue[0].getTrackTimeMillis())
         }
         
-        print("Our count should be: \(count)")
         for index in 0..<count {
             
             //check if we should add the duration, by checking the current index

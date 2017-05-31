@@ -44,15 +44,26 @@ class SICAlbumArt: UIImageView {
         
         if peakMusicController.playerType != .Contributor{
             
-            image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+            DispatchQueue.main.async {
+                
+                self.image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+            }
+            
         } else{
             
             if peakMusicController.groupPlayQueue.count > 0{
                 
-                image = peakMusicController.groupPlayQueue[0].getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+                DispatchQueue.main.async {
+                    
+                    self.image = peakMusicController.groupPlayQueue[0].getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+                }
+                
             } else{
                 
-                image = #imageLiteral(resourceName: "ProperPeakyAlbumView")
+                DispatchQueue.main.async {
+                    self.image = #imageLiteral(resourceName: "ProperPeakyAlbumView")
+                }
+                
             }
             
         }

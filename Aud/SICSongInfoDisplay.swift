@@ -45,20 +45,30 @@ class SICSongInfoDisplay: UIView {
         //Get's called by notification when the song changes on system music player
         //Get's called when we change which segment we are displaying
         
-        //Remove all subviews first
-        for view in subviews{
-            view.removeFromSuperview()
-        }
+        
         
         //Check what we should be displaying
-        if displayingSegment == 0{
+        DispatchQueue.main.async {
             
-            displaySongInfo()
+            //Remove all subviews first
+            for view in self.subviews{
+                
+                view.removeFromSuperview()
+            }
             
-        }else if displayingSegment == 1{
-            
-            displayQueue()
+            //Update the display
+            if self.displayingSegment == 0{
+                
+                self.displaySongInfo()
+                
+                
+            }else if self.displayingSegment == 1{
+                
+                self.displayQueue()
+                
+            }
         }
+        
     }
     
     

@@ -31,8 +31,6 @@ class BluetoothHandler {
     /*MARK Bluetooth Methods*/
     func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType], token: String?) {
         
-        print("RECIEVED GROUP PLAY QUE \(songIds)  \(songTypes))")
-        
         if songTypes.count > 0 {
             
             switch songTypes[0]{
@@ -54,8 +52,6 @@ class BluetoothHandler {
     
     /*MARK METHODS TO CONVERT SONG ID'S RECEIVED TO THE GROUP PLAY QUEUE*/
     private func spotifyReceived(_ songs: [String], token: String){
-        
-        print("SPOTIFY RECIEVED \(songs)")
         
         if songs.count > 0{
             

@@ -26,8 +26,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     private var topResults = [BasicSong]() {
         
         didSet {
-
-            searchedSongsTableView.reloadData()
+            
+            self.searchedSongsTableView.reloadData()
+            
         }
     }
     
@@ -474,10 +475,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
-                //DispatchQueue.main.sync {
-                    print("UPDATED SONGS")
+                DispatchQueue.main.async {
+                    
                     self.topResults = songs
-                //}
+                }
+                
             }
         }
     }
