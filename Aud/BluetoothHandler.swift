@@ -208,6 +208,8 @@ class BluetoothHandler {
             let title = $0.getTrackName()
             let artist = $0.getArtistName()
             
+            print("APPLE MUSIC \(title) \(artist)")
+            
             //Use the title and artist to search Spotify
             SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                 
