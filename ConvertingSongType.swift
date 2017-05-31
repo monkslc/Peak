@@ -19,8 +19,9 @@ class ConvertingSongType {
             
             if !alreadySent {
                 for song in songs {
+
                     
-                    if ConvertingSongType.isCloseEnough(songTitle1: song.getTrackName(), String: song.getArtistName(), songTitle2: songTitle, authour2: song.artistName) {
+                    if ConvertingSongType.isCloseEnough(songTitle1: song.getTrackName(), authour1: song.getArtistName(), songTitle2: songTitle, authour2: song.artistName) {
                         
                         completion(song)
                         
@@ -43,7 +44,7 @@ class ConvertingSongType {
         
     }
     
-    static func isCloseEnough(songTitle1: String, String authour1: String, songTitle2: String, authour2: String) -> Bool {
+    static func isCloseEnough(songTitle1: String, authour1: String, songTitle2: String, authour2: String) -> Bool {
         
         var songNameNoParenthesis = songTitle1.lowercased()
         var artistNameNoParenthesis = authour1.lowercased()
