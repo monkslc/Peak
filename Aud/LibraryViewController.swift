@@ -322,7 +322,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func promptUserToSendToGroupQueue(_ song: BasicSong){
         //Method to ask the user if they'd like to send a song to the group queue
         
-        
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.getTrackName()) to the group queue?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
             

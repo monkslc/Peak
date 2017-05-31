@@ -490,8 +490,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             DispatchQueue.main.async {
                 if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
             
-                    self.topResults = songs
-                    self.loadingIndicator.stopAnimating()
+                    //Check if we are a Spotify Player so we can convert to Spotify Songs
+                    if peakMusicController.musicType == .Spotify{
+                        
+                        self.convertTopChartsToSpotify(songs: songs)
+                    } else{
+                        
+                        self.topResults = songs
+                        self.loadingIndicator.stopAnimating()
+                    }
+                    
                 }
             }
         }
@@ -502,8 +510,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 DispatchQueue.main.async {
                     if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                     
-                        self.topResults = songs
-                        self.loadingIndicator.stopAnimating()
+                        //Check if we are a Spotify Player so we can convert to Spotify Songs
+                        if peakMusicController.musicType == .Spotify{
+                            
+                            self.convertTopChartsToSpotify(songs: songs)
+                        }else{
+                            
+                            self.topResults = songs
+                            self.loadingIndicator.stopAnimating()
+                        }
+                        
+                        
                     }
                 }
             }
@@ -511,6 +528,60 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         }
     }
     
+    
+    
+    private func convertTopChartsToSpotify(songs: [BasicSong]){
+        
+        //Take the songID and turn it into a song
+        for song in songs{
+            
+            ConnectingToInternet.getSong(id: song.getId()){
+                
+                //Get the title and artist
+                let title = $0.getTrackName()
+                let artist = $0.getArtistName()
+                
+                //Use the title and artist to search Spotify
+                SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
+                    
+                    //Use the callback to get the song
+                    if let page: SPTListPage = callback as? SPTListPage{
+                        
+                        if page.items != nil{
+                            
+                            for item in page.items{
+                                
+                                if let theSong: SPTPartialTrack = item as? SPTPartialTrack {
+                                    
+                                    if ConvertingSongType.isCloseEnough(songTitle1: theSong.getTrackName(), authour1: theSong.getArtistName(), songTitle2: title, authour2: artist){
+                                        
+                                        DispatchQueue.main.async {
+                                            
+                                            if self.selectMusicFromSegment.selectedSegmentIndex == 2{
+                                                
+                                                self.topResults.append(theSong)
+                                                self.loadingIndicator.stopAnimating()
+                                            }
+                                            
+                                        }
+            
+                                        break
+                                    }
+                                    
+                                    
+                                }
+                            }
+                        }
+                        
+                        
+                        
+                    }
+                }
+                
+            }
+        }
+        
+    }
     
     /*MARK: EXTRA METHODS*/
     func checkIfAlreadyInLibrary(_ id: String) -> Bool{

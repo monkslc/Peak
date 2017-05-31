@@ -16,8 +16,6 @@ class SongInteractionController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        print("We have intialized")
-        
         NotificationCenter.default.addObserver(self, selector: #selector(playerOrMusicTypeChanged), name: .playerTypeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playerOrMusicTypeChanged), name: .musicTypeChanged, object: nil)
     }

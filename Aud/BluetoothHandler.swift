@@ -78,41 +78,6 @@ class BluetoothHandler {
                 }
             }
             
-            /*
-            if peakMusicController.musicType == .Spotify{
-                
-                SPTTrack.tracks(withURIs: spotifyURIArray, accessToken: auth?.session.accessToken, market: nil){ err, callback in
-                    
-                    if err != nil{
-                        
-                        print("\n\nError converting me tracks: \(err!) \n\n")
-                    }
-                    
-                    
-                    if let songsBack: [SPTTrack] = callback as? [SPTTrack]{
-                        
-                        peakMusicController.groupPlayQueue = songsBack
-                    }
-                }
-            } else{
-                
-                
-                SPTTrack.tracks(withURIs: spotifyURIArray, accessToken: nil, market: nil){ err, callback in
-                    
-                    if err != nil{
-                        
-                        print("\n\nError converting me tracks: \(err!) \n\n")
-                    }
-                    
-                    
-                    if let songsBack: [SPTTrack] = callback as? [SPTTrack]{
-                        
-                        peakMusicController.groupPlayQueue = songsBack
-                    }
-                }
-
-            }*/
-            
         }
     
         
