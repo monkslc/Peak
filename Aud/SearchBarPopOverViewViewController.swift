@@ -342,6 +342,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                     NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                 }
             }
+            
         }
     }
     
@@ -555,6 +556,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                                             
                                             if self.selectMusicFromSegment.selectedSegmentIndex == 2{
                                                 
+                                                _ = theSong.getImage()
                                                 self.topResults.append(theSong)
                                                 self.loadingIndicator.stopAnimating()
                                             }
