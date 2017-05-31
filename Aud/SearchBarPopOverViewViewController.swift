@@ -318,28 +318,32 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         else if peakMusicController.musicType == .Spotify{
             
             /*HERE WE NEED TO ADD TO SPOTIFY LIBRARY*/
-            if let cell: SongCell = button.superview?.superview as? SongCell {
-                
-                print(cell.itemInCell)
-                
-                let track = cell.itemInCell as? SPTPartialTrack
             
-                SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
+            DispatchQueue.global().async {
+                
+                if let cell: SongCell = button.superview?.superview as? SongCell {
                     
-                    if err != nil{
+                    if let track = cell.itemInCell as? SPTPartialTrack {
                         
-                        print("We had an error bitches, \(err!)")
-                        return
+                        SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
+                            
+                            if err != nil{
+                                
+                                print("We had an error bitches, \(err!)")
+                                return
+                            }
+                            
+                            
+                            //Update Library Here
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                                
+                                self.searchedSongsTableView.reloadData()
+                            }
+                            
+                            NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+                        }
                     }
                     
-                    
-                    //Update Library Here
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
-                        
-                        self.searchedSongsTableView.reloadData()
-                    }
-                    
-                    NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                 }
             }
             
