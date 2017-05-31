@@ -318,34 +318,35 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         else if peakMusicController.musicType == .Spotify{
             
             /*HERE WE NEED TO ADD TO SPOTIFY LIBRARY*/
-            if let cell: SongCell = button.superview?.superview as? SongCell {
-                
-                print(cell.itemInCell)
-                
-                if let track = cell.itemInCell as? SPTPartialTrack {
             
-                    SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
+            DispatchQueue.global().async {
+                
+                if let cell: SongCell = button.superview?.superview as? SongCell {
+                    
+                    if let track = cell.itemInCell as? SPTPartialTrack {
                         
-                        if err != nil{
+                        SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
                             
-                            print("We had an error bitches, \(err!)")
-                            return
-                        }
-                        
-                        
-                        //Update Library Here
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                            if err != nil{
+                                
+                                print("We had an error bitches, \(err!)")
+                                return
+                            }
                             
-                            self.searchedSongsTableView.reloadData()
+                            
+                            //Update Library Here
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                                
+                                self.searchedSongsTableView.reloadData()
+                            }
+                            
+                            NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                         }
-                        
-                        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                     }
-                }
-                else {
-                    //SPTSearch.per
+                    
                 }
             }
+            
         }
     }
     
