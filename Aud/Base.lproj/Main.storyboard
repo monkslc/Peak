@@ -229,10 +229,12 @@
                                         <rect key="frame" x="0.0" y="21" width="285" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
-                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIt-sT-syG">
-                                        <rect key="frame" x="339" y="57" width="6" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eIt-sT-syG">
+                                        <rect key="frame" x="334" y="58" width="6" height="0.0"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="6" id="mVa-1E-KyQ"/>
+                                        </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46B-Hf-thO">
                                         <rect key="frame" x="315" y="28" width="30" height="30"/>
@@ -252,12 +254,15 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Ay8-t3-JcI" secondAttribute="bottom" constant="3" id="1Ee-vy-im9"/>
                                     <constraint firstItem="Ay8-t3-JcI" firstAttribute="leading" secondItem="JF2-Hp-oBo" secondAttribute="leading" id="48C-QJ-vzC"/>
+                                    <constraint firstItem="eIt-sT-syG" firstAttribute="trailing" secondItem="46B-Hf-thO" secondAttribute="trailing" constant="-5" id="FRJ-m9-4dS"/>
                                     <constraint firstAttribute="trailing" secondItem="46B-Hf-thO" secondAttribute="trailing" constant="30" id="I3n-bs-6Gd"/>
                                     <constraint firstAttribute="height" constant="68" id="O8B-ah-4RX"/>
                                     <constraint firstAttribute="bottom" secondItem="Ay8-t3-JcI" secondAttribute="bottom" constant="3" id="SNi-Yt-TIJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Ay8-t3-JcI" secondAttribute="trailing" constant="90" id="TB0-IO-he5"/>
+                                    <constraint firstItem="eIt-sT-syG" firstAttribute="top" secondItem="46B-Hf-thO" secondAttribute="bottom" id="Xv5-o3-WDV"/>
                                     <constraint firstItem="Ay8-t3-JcI" firstAttribute="leading" secondItem="JF2-Hp-oBo" secondAttribute="leading" id="Zld-DC-w8U"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="eWa-VB-4Lt"/>
+                                    <constraint firstItem="eIt-sT-syG" firstAttribute="baseline" secondItem="46B-Hf-thO" secondAttribute="baseline" id="h0H-vj-Png"/>
                                     <constraint firstItem="46B-Hf-thO" firstAttribute="centerY" secondItem="Ay8-t3-JcI" secondAttribute="centerY" id="j4I-kc-S0G"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
