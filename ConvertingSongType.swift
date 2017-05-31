@@ -20,24 +20,7 @@ class ConvertingSongType {
             if !alreadySent {
                 for song in songs {
                     
-                    //print("\(song.trackName) \(song.artistName)")
-                    
-                    var songNameNoParenthesis = song.getTrackName().lowercased()
-                    var artistNameNoParenthesis = song.getArtistName().lowercased()
-                    
-                    var originalSongName = songTitle.lowercased()
-                    var orginalArtistName = song.artistName.lowercased()
-                    
-                    
-                    for c in ["(", ")", "-", "[", "]", ",", "'", "\"", " "] {
-                        songNameNoParenthesis = songNameNoParenthesis.replacingOccurrences(of: c, with: "")
-                        artistNameNoParenthesis = artistNameNoParenthesis.replacingOccurrences(of: c, with: "")
-                        
-                        originalSongName = originalSongName.replacingOccurrences(of: c, with: "")
-                        orginalArtistName = orginalArtistName.replacingOccurrences(of: c, with: "")
-                    }
-                    
-                    if songNameNoParenthesis == originalSongName && artistNameNoParenthesis == orginalArtistName {
+                    if ConvertingSongType.isCloseEnough(songTitle1: song.getTrackName(), String: song.getArtistName(), songTitle2: songTitle, authour2: song.artistName) {
                         
                         completion(song)
                         
@@ -60,5 +43,24 @@ class ConvertingSongType {
         
     }
     
-    
+    static func isCloseEnough(songTitle1: String, String authour1: String, songTitle2: String, authour2: String) -> Bool {
+        
+        var songNameNoParenthesis = songTitle1.lowercased()
+        var artistNameNoParenthesis = authour1.lowercased()
+        
+        var originalSongName = songTitle2.lowercased()
+        var orginalArtistName = authour2.lowercased()
+        
+        
+        for c in ["(", ")", "-", "[", "]", ",", "'", "\"", " "] {
+            songNameNoParenthesis = songNameNoParenthesis.replacingOccurrences(of: c, with: "")
+            artistNameNoParenthesis = artistNameNoParenthesis.replacingOccurrences(of: c, with: "")
+            
+            originalSongName = originalSongName.replacingOccurrences(of: c, with: "")
+            orginalArtistName = orginalArtistName.replacingOccurrences(of: c, with: "")
+        }
+
+        
+        return songNameNoParenthesis == originalSongName && artistNameNoParenthesis == orginalArtistName
+    }
 }

@@ -41,7 +41,7 @@ class SongCell: UITableViewCell, BasicSongHolder {
     }
     
     
-    func addItems(){
+    func addItems() {
         
         albumArt.image = itemInCell.getImage()
         songTitle.text = itemInCell.getTrackName()

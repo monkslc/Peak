@@ -259,16 +259,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func addToLibrary(_ button: UIButton){
         
-        
-        
-        
         //button.isHidden = true
         
         showSignifier()
         
         //Check what type of musci we are playing
         
-        if peakMusicController.musicType == .AppleMusic{
+        if peakMusicController.musicType == .AppleMusic {
             
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
@@ -283,10 +280,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                     /*******DO SOMETHING WITH THE ERROR******/
                 })
             }
-            
-    
-            
-        } else if peakMusicController.musicType == .Guest {
+        }
+        else if peakMusicController.musicType == .Guest {
             
             if let cell: SongCell = button.superview?.superview as? SongCell{
                 
@@ -319,33 +314,38 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
             NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
             
-        } else if peakMusicController.musicType == .Spotify{
+        }
+        else if peakMusicController.musicType == .Spotify{
             
             /*HERE WE NEED TO ADD TO SPOTIFY LIBRARY*/
             if let cell: SongCell = button.superview?.superview as? SongCell {
                 
-                let track = cell.itemInCell as! SPTPartialTrack
+                print(cell.itemInCell)
                 
-                SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
-                    
-                    if err != nil{
-                        
-                        print("We had an error bitches, \(err!)")
-                        return
-                    }
-                
-                    
-                    //Update Library Here
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
-                        
-                        self.searchedSongsTableView.reloadData()
-                    }
+                if let track = cell.itemInCell as? SPTPartialTrack {
             
-                    NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+                    SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
+                        
+                        if err != nil{
+                            
+                            print("We had an error bitches, \(err!)")
+                            return
+                        }
+                        
+                        
+                        //Update Library Here
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                            
+                            self.searchedSongsTableView.reloadData()
+                        }
+                        
+                        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+                    }
+                }
+                else {
+                    //SPTSearch.per
                 }
             }
-            
-            
         }
     }
     
