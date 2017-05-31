@@ -491,8 +491,15 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
             
                     //Check if we are a Spotify Player so we can convert to Spotify Songs
-                    self.topResults = songs
-                    self.loadingIndicator.stopAnimating()
+                    if peakMusicController.musicType == .Spotify{
+                        
+                        self.convertTopChartsToSpotify(songs: songs)
+                    } else{
+                        
+                        self.topResults = songs
+                        self.loadingIndicator.stopAnimating()
+                    }
+                    
                 }
             }
         }
@@ -506,7 +513,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                         //Check if we are a Spotify Player so we can convert to Spotify Songs
                         if peakMusicController.musicType == .Spotify{
                             
-                            //Come Back here
+                            self.convertTopChartsToSpotify(songs: songs)
                         }else{
                             
                             self.topResults = songs
@@ -525,10 +532,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func convertTopChartsToSpotify(songs: [BasicSong]){
         
-        //Variable to hold all the songs
-        var allSpotSongs = [BasicSong]()
-        
-        
         //Take the songID and turn it into a song
         for song in songs{
             
@@ -544,22 +547,34 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                     //Use the callback to get the song
                     if let page: SPTListPage = callback as? SPTListPage{
                         
-                        for item in page.items{
+                        if page.items != nil{
                             
-                            if let theSong: SPTPartialTrack = item as? SPTPartialTrack {
+                            for item in page.items{
                                 
-                                if title == theSong.getTrackName() && artist == theSong.getArtistName(){
+                                if let theSong: SPTPartialTrack = item as? SPTPartialTrack {
                                     
-                                    //We have found the correct song so add it to the array
-                                    allSpotSongs.append(theSong)
+                                    if ConvertingSongType.isCloseEnough(songTitle1: theSong.getTrackName(), String: theSong.getArtistName(), songTitle2: title, authour2: artist){
+                                        
+                                        DispatchQueue.main.async {
+                                            
+                                            if self.selectMusicFromSegment.selectedSegmentIndex == 2{
+                                                
+                                                self.topResults.append(theSong)
+                                                self.loadingIndicator.stopAnimating()
+                                            }
+                                            
+                                        }
+            
+                                        break
+                                    }
                                     
-                                    //Check if we have added all the songs
-                                    //Come back here
-                                    break
                                     
                                 }
                             }
                         }
+                        
+                        
+                        
                     }
                 }
                 
