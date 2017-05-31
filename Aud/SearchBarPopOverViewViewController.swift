@@ -322,28 +322,24 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 print(cell.itemInCell)
                 
-                if let track = cell.itemInCell as? SPTPartialTrack {
+                let track = cell.itemInCell as? SPTPartialTrack
             
-                    SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
+                SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
+                    
+                    if err != nil{
                         
-                        if err != nil{
-                            
-                            print("We had an error bitches, \(err!)")
-                            return
-                        }
-                        
-                        
-                        //Update Library Here
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
-                            
-                            self.searchedSongsTableView.reloadData()
-                        }
-                        
-                        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+                        print("We had an error bitches, \(err!)")
+                        return
                     }
-                }
-                else {
-                    //SPTSearch.per
+                    
+                    
+                    //Update Library Here
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                        
+                        self.searchedSongsTableView.reloadData()
+                    }
+                    
+                    NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
                 }
             }
         }
