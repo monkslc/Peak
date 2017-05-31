@@ -215,17 +215,18 @@ class BluetoothHandler {
                 if let page: SPTListPage = callback as? SPTListPage{
                     
                     for item in page.items{
+                   
                         
                         if let song: SPTPartialTrack = item as? SPTPartialTrack {
                             
-                            if title == song.getTrackName() && artist == song.getArtistName(){
+                            if ConvertingSongType.isCloseEnough(songTitle1: song.getTrackName(), authour1: song.getArtistName(), songTitle2: title, authour2: artist){
                                 
                                 //We have found the correct song so add it to the queue
                                 peakMusicController.playAtEndOfQueue([song])
                                 
                                 break
-                                
                             }
+                            
                         }
                     }
                 }
