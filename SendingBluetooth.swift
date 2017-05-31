@@ -8,9 +8,18 @@
 
 import MediaPlayer
 import MultipeerConnectivity
+import UIKit
 
 class SendingBluetooth {
     
+    
+    static func createAlertAcessTokenIsInvalid() {
+        let alert = UIAlertController(title: "Acess Token TImed Out", message: "You must reconnect to Spotify", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        if let vc = peakMusicController.delegate as? UIViewController {
+            vc.present(alert, animated: true, completion: nil)
+        }
+    }
     
     /* Public Functions */
     
@@ -28,6 +37,11 @@ class SendingBluetooth {
         var messageDictionary: [String: String] = [:]
         
         if peakMusicController.musicType == .Spotify {
+            if !auth!.session.isValid() {
+                SendingBluetooth.createAlertAcessTokenIsInvalid()
+                return
+            }
+            
             messageDictionary["token"] = auth?.session.accessToken
         }
         
@@ -59,6 +73,10 @@ class SendingBluetooth {
         var messageDictionary: [String: String] = ["id": song.getId(), "type": "\(song.type.rawValue)"]
         
         if peakMusicController.musicType == .Spotify {
+            if !auth!.session.isValid() {
+                SendingBluetooth.createAlertAcessTokenIsInvalid()
+                return
+            }
             messageDictionary["token"] = auth?.session.accessToken
         }
         
@@ -86,6 +104,10 @@ class SendingBluetooth {
         var messageDictionary: [String: String] = [:]
         
         if peakMusicController.musicType == .Spotify {
+            if !auth!.session.isValid() {
+                SendingBluetooth.createAlertAcessTokenIsInvalid()
+                return
+            }
             messageDictionary["token"] = auth?.session.accessToken
         }
         
