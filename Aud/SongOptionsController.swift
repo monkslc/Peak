@@ -40,7 +40,8 @@ class SongOptionsController: UIAlertController {
                     
                     addGuestAlerts(theSong)
                     
-                } else{
+                } else if peakMusicController.musicType != .Guest{
+                    
                     
                     addAppleMusicStoreAlerts(theSong)
                 }
