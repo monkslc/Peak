@@ -147,7 +147,9 @@ class BluetoothHandler {
         
         print("RECIEVED SONG \(songId) TYPE: \(songType)")
         
-        delegate?.showSignifier()
+        DispatchQueue.main.async {
+            self.delegate?.showSignifier()
+        }
         
         //Check for the user's system music player
         if peakMusicController.musicType == .Spotify{
