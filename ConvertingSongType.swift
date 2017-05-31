@@ -10,18 +10,18 @@ import MediaPlayer
 
 class ConvertingSongType {
     
-    static func getAppleMusicId(songTitle: String, authourName: String, completion: @escaping (Song) -> Void) {
+    static func getAppleMusicId(song searchSong: BasicSong, completion: @escaping (Song) -> Void) {
         
         var alreadySent = false
         
-        ConnectingToInternet.getSongs(searchTerm: "\(songTitle) \(authourName)", limit: 7, sendSongsAlltogether: false, completion: {
+        ConnectingToInternet.getSongs(searchTerm: "\(searchSong.getTrackName()) \(searchSong.getArtistName()) \(searchSong.getCollectionName())", limit: 7, sendSongsAlltogether: false, completion: {
             (songs) -> Void in
             
             if !alreadySent {
                 for song in songs {
 
                     
-                    if ConvertingSongType.isCloseEnough(songTitle1: song.getTrackName(), authour1: song.getArtistName(), songTitle2: songTitle, authour2: song.artistName) {
+                    if ConvertingSongType.isCloseEnough(song1: song, song2: searchSong) {
                         
                         completion(song)
                         
@@ -44,8 +44,13 @@ class ConvertingSongType {
         
     }
     
-    static func isCloseEnough(songTitle1: String, authour1: String, songTitle2: String, authour2: String) -> Bool {
+    static func isCloseEnough(song1: BasicSong, song2: BasicSong) -> Bool {
         
+        var points = LocalSearch.differanceBetweenTwoPhrases(searchTerm: "\(song1.getTrackName()) \(song1.getArtistName()) \(song1.getCollectionName())", songAndAuthour: "\(song1.getTrackName()) \(song1.getArtistName()) \(song1.getCollectionName())")
+        
+        return points < 10
+        
+        /*
         var songNameNoParenthesis = songTitle1.lowercased()
         var artistNameNoParenthesis = authour1.lowercased()
         
@@ -63,5 +68,6 @@ class ConvertingSongType {
 
         
         return songNameNoParenthesis == originalSongName && artistNameNoParenthesis == orginalArtistName
+ */
     }
 }

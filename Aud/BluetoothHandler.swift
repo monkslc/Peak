@@ -202,16 +202,13 @@ class BluetoothHandler {
     func convertAppleMusicIDToURI(songID: String){
         
         //Take the songID and turn it into a song
-        ConnectingToInternet.getSong(id: songID){
+        ConnectingToInternet.getSong(id: songID){ appleMusicSong in
             
             //Get the title and artist
-            let title = $0.getTrackName()
-            let artist = $0.getArtistName()
-            
-            print("APPLE MUSIC \(title) \(artist)")
+            //print("APPLE MUSIC \(title) \(artist)")
             
             //Use the title and artist to search Spotify
-            SPTSearch.perform(withQuery: title, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
+            SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                 
                 //Use the callback to get the song
                 if let page: SPTListPage = callback as? SPTListPage{
@@ -221,7 +218,7 @@ class BluetoothHandler {
                         
                         if let song: SPTPartialTrack = item as? SPTPartialTrack {
                             
-                            if ConvertingSongType.isCloseEnough(songTitle1: song.getTrackName(), authour1: song.getArtistName(), songTitle2: title, authour2: artist){
+                            if ConvertingSongType.isCloseEnough(song1: song, song2: appleMusicSong) { //gh(songTitle1: song.getTrackName(), authour1: song.getArtistName(), songTitle2: title, authour2: artist){
                                 
                                 //We have found the correct song so add it to the queue
                                 peakMusicController.playAtEndOfQueue([song])
@@ -257,10 +254,10 @@ class BluetoothHandler {
             
             if let callback: SPTTrack = callback as? SPTTrack {
                 
-                let title = callback.getTrackName()
-                let artist = callback.getArtistName()
+                //let title = callback.getTrackName()
+                //let artist = callback.getArtistName()
                 
-                ConvertingSongType.getAppleMusicId(songTitle: title, authourName: artist){
+                ConvertingSongType.getAppleMusicId(song: callback) { //Id(songTitle: title, authourName: artist){
                     
                     let id = $0.getId()
                     self.addAppleMusicToQueue(songID: id)

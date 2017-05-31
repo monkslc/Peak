@@ -95,7 +95,7 @@ class LocalSearch {
         return totalDif
     }
     
-    static private func differanceBetweenTwoPhrases(searchTerm: String, songAndAuthour: String) -> Double {
+    static func differanceBetweenTwoPhrases(searchTerm: String, songAndAuthour: String) -> Double {
         let searchTermWords = searchTerm.components(separatedBy: " ")
         let songAndAuthourWords = songAndAuthour.components(separatedBy: " ")
         
