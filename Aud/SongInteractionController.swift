@@ -20,6 +20,8 @@ class SongInteractionController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(playerOrMusicTypeChanged), name: .musicTypeChanged, object: nil)
     }
     
+    @IBOutlet weak var songProgressLabel: SongProgressLabel!
+    
     @IBOutlet weak var durationLabel: SongProgressLabel!
     
     @IBOutlet weak var songInfoSegment: UISegmentedControl!
@@ -38,6 +40,7 @@ class SongInteractionController: UIViewController {
         super.viewDidLoad()
         
         //Set the duration label enum
+        songProgressLabel.progressType = .Beg
         durationLabel.progressType = .End
         
         //Set up the value change for songInfoDisplay

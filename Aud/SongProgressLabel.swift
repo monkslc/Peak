@@ -49,7 +49,7 @@ class SongProgressLabel: UILabel {
     /*MARK: Listener Methods*/
     func updateLabelTime(){
         //Get's called from the notification that indicates we should update our song labels
-        
+
         //See what label we are updating so we know which one to set
         if progressType == .Beg{
             
@@ -90,7 +90,6 @@ class SongProgressLabel: UILabel {
         }
         
     }
-    
     
     /*MARK: MODEL METHODS*/
     private func formatTime(_ time: TimeInterval) -> String{

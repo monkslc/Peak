@@ -19,7 +19,7 @@ extension MPMediaItem: BasicSong {
     func getTrackName() -> String { return self.title! }
     func getCollectionName() -> String { return albumTitle! }
     func getArtistName() -> String { return artist ?? "No Artist" }
-    func getTrackTimeMillis() -> Int { return Int(self.playbackDuration) }
+    func getTrackTimeMillis() -> Int {return Int(self.playbackDuration); }
     func getImage() -> UIImage? { return artwork?.image(at: CGSize()) }
     func getDateAdded() -> Date? { return dateAdded }
     

@@ -875,6 +875,7 @@
                         <outlet property="durationLabel" destination="mRW-ie-Odc" id="zek-Jw-ovg"/>
                         <outlet property="songInfoDisplay" destination="kmH-Tt-duP" id="8t4-Dk-Ig9"/>
                         <outlet property="songInfoSegment" destination="qnw-Ag-fYn" id="fiG-WY-fry"/>
+                        <outlet property="songProgressLabel" destination="zq2-23-HMZ" id="imT-Qj-Dqt"/>
                         <outlet property="songProgressSlider" destination="hdL-cg-8xb" id="WN0-Hh-zVE"/>
                         <outlet property="topVolumeImage" destination="dEu-PR-hEX" id="Jcw-gg-bGV"/>
                         <outlet property="volumeSlider" destination="AIM-ua-687" id="hkZ-3D-cl1"/>
