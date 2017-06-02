@@ -40,7 +40,7 @@ class LocalSearch {
             case 2:
                 c1Pos.x += 1.5
             default:
-                print("")
+                break
             }
             
             switch c2Pos.y {
@@ -49,7 +49,7 @@ class LocalSearch {
             case 2:
                 c2Pos.x += 1.5
             default:
-                print("")
+                break
             }
             
             let difX = c1Pos.x - c2Pos.x

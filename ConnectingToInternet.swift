@@ -128,6 +128,7 @@ class ConnectingToInternet {
                                 if streamable {
                                     
                                     //serialQueue.sync {
+                                    //We are getting an error here
                                     songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
                                     //}
                                     
