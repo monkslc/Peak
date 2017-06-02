@@ -61,7 +61,11 @@ extension MPMediaItem: BasicSong {
                     self.albumCover = $0.getImage()
                     
                     //Now let's try going through this again to return the new albumCover
-                    NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
+                    DispatchQueue.main.async {
+                        
+                        NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
+                    }
+                    
                 }
             }
         }
