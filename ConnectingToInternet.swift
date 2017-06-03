@@ -35,7 +35,7 @@ class ConnectingToInternet {
     static func getSpotifySongs(query: String, completion: @escaping ([SPTPartialTrack]) -> Void, error: @escaping () -> Void) {
         
         DispatchQueue.global().async {
-            let searchType = [SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypeArtist] //[SPTSearchQueryType.queryTypeAlbum, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypePlaylist]
+            let searchType = [SPTSearchQueryType.queryTypeTrack] //, SPTSearchQueryType.queryTypeArtist] //[SPTSearchQueryType.queryTypeAlbum, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypePlaylist]
             
             
             var songsBySearchType = [[SPTPartialTrack]?].init(repeating: nil, count: searchType.count)
@@ -70,6 +70,91 @@ class ConnectingToInternet {
                                     songs.append(song)
                                 }
                             }
+                            songsBySearchType[index] = songs
+                            
+                            if let allSongsMultiArray = songsBySearchType as? [[SPTPartialTrack]] {
+                                var allSongs: [SPTPartialTrack] = []
+                                
+                                for groupOfSongs in allSongsMultiArray {
+                                    allSongs.append(contentsOf: groupOfSongs)
+                                }
+                                
+                                completion(allSongs)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    static func getSpotifySongs(song: BasicSong, token: String, completion: @escaping ([SPTPartialTrack]) -> Void, error: @escaping () -> Void) {
+        
+        SPTSearch.perform(withQuery: "\(song.getCollectionName())", queryType: SPTSearchQueryType.queryTypeTrack, accessToken: token) {
+            err, callback in
+         
+            if let page = callback as? SPTListPage {
+
+                if let songs = page.items as? [SPTPartialTrack] {
+                    completion(songs)
+                }
+            }
+        }
+        
+        // getSpotifySongs(queries: [song.getTrackName(), song.getArtistName(), song.getCollectionName()], searchType: [SPTSearchQueryType.queryTypeTrack, SPTSearchQueryType.queryTypeArtist, SPTSearchQueryType.queryTypeAlbum], token: token, completion: completion, error: error)
+    }
+    
+    static func getSpotifySongs(queries: [String], searchType: [SPTSearchQueryType], token: String, completion: @escaping ([SPTPartialTrack]) -> Void, error: @escaping () -> Void) {
+        
+        DispatchQueue.global().async {
+            
+            var songsBySearchType = [[SPTPartialTrack]?].init(repeating: nil, count: searchType.count)
+            
+            for (index, sType) in searchType.enumerated() {
+                
+                let index = index
+                
+                SPTSearch.perform(withQuery: queries[index], queryType: sType, accessToken: token) {
+                    err, callback in
+                    
+                    DispatchQueue.global().async {
+                        
+                        if let err = err {
+                            print(err)
+                            error()
+                            return
+                        }
+                        
+                        if let page = callback as? SPTListPage {
+                            
+                            var songs: [SPTPartialTrack] = []
+                            
+                            if page.items == nil {
+                                print("Page items is nil")
+                                completion([])
+                                return
+                            }
+                            
+                            for item in page.items {
+                                if let song = item as? SPTPartialTrack {
+                                    songs.append(song)
+                                }
+                                else {
+                                    print("\n\n\nDEBUG: ITEM")
+                                    print(item)
+                                }
+                            }
+                            
+                            
+                            // DEBUG:
+                            if index == 2 {
+                                print("ALBUM SONGS")
+                                for s in songs {
+                                    print("NAME: \(s.getTrackName()) ARTIST: \(s.getArtistName()) ALBUM: \(s.getCollectionName())")
+                                }
+                            }
+                            
                             songsBySearchType[index] = songs
                             
                             if let allSongsMultiArray = songsBySearchType as? [[SPTPartialTrack]] {

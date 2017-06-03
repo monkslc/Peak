@@ -40,7 +40,8 @@ class LocalSearch {
             case 2:
                 c1Pos.x += 1.5
             default:
-                print("")
+                break
+                //print("")
             }
             
             switch c2Pos.y {
@@ -49,7 +50,8 @@ class LocalSearch {
             case 2:
                 c2Pos.x += 1.5
             default:
-                print("")
+                 break
+                //print("")
             }
             
             let difX = c1Pos.x - c2Pos.x
@@ -122,6 +124,7 @@ class LocalSearch {
 
  
     static func search(_ search: String, library: [BasicSong]) -> [BasicSong] {
+        
         var songs: [BasicSong] = []
         var points: [Int: Double] = [:]
         

@@ -37,7 +37,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         
         //Get the cell we want to use
         let BVC = peakMusicController.delegate as! BeastController
-        let cell = BVC.libraryViewController?.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell
+        let cell = BVC.libraryViewController?.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell // ERROR WAS HERE
     
         
         //Update the cell

@@ -538,48 +538,37 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             ConnectingToInternet.getSong(id: song.getId()){ appleMusicSong in
                 
-                //Get the title and artist
-                //let title = $0.getTrackName()
-                //let artist = $0.getArtistName()
-                
-                //Use the title and artist to search Spotify
                 SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                     
                     //Use the callback to get the song
-                    if let page: SPTListPage = callback as? SPTListPage{
+                    if let page: SPTListPage = callback as? SPTListPage {
                         
-                        if page.items != nil{
-                            
-                            for item in page.items{
+                        if page.items != nil {
                                 
-                                if let theSong: SPTPartialTrack = item as? SPTPartialTrack {
+                            if let songs = page.items as? [SPTPartialTrack] {
+                                let (song, _) = GettingClosestSong.getClosestSong(searchSong: appleMusicSong, songs: songs)
+                                peakMusicController.playAtEndOfQueue([song])
+                                
+                                DispatchQueue.main.async {
                                     
-                                    if ConvertingSongType.isCloseEnough(song1: theSong, song2: appleMusicSong) { //gh(songTitle1: theSong.getTrackName(), authour1: theSong.getArtistName(), songTitle2: title, authour2: artist){
+                                    if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                                         
-                                        DispatchQueue.main.async {
-                                            
-                                            if self.selectMusicFromSegment.selectedSegmentIndex == 2{
-                                                
-                                                _ = theSong.getImage()
-                                                self.topResults.append(theSong)
-                                                self.loadingIndicator.stopAnimating()
-                                            }
-                                            
-                                        }
-            
-                                        break
+                                        _ = song.getImage()
+                                        self.topResults.append(song)
+                                        self.loadingIndicator.stopAnimating()
                                     }
                                     
-                                    
                                 }
+                                
                             }
+                            else {
+                                
+                                print("\n\n\nERROR: BluetoothHandler->convertAppleMusicIDToURI \n\n\n")
+                            }
+                        
                         }
-                        
-                        
-                        
                     }
                 }
-                
             }
         }
         

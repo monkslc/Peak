@@ -202,18 +202,91 @@ class BluetoothHandler {
     func convertAppleMusicIDToURI(songID: String){
         
         //Take the songID and turn it into a song
-        ConnectingToInternet.getSong(id: songID){ appleMusicSong in
+        ConnectingToInternet.getSong(id: songID) { appleMusicSong in
+            
+            SPTSearch.perform(withQuery: "\(appleMusicSong.collectionName) \(appleMusicSong.getTrackName()) \(appleMusicSong.artistName)", queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken) {
+                err, callback in
+                
+                if let page: SPTListPage = callback as? SPTListPage {
+                    if let songs = page.items as? [SPTPartialTrack] {
+                        let (song, points) = GettingClosestSong.getClosestSong(searchSong: appleMusicSong, songs: songs)
+                        
+                        if points > 2 {
+                            SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken) {
+                                err, callback in
+                                
+                                if let page: SPTListPage = callback as? SPTListPage {
+                                    if let songs = page.items as? [SPTPartialTrack] {
+                                        let (song, _) = GettingClosestSong.getClosestSong(searchSong: appleMusicSong, songs: songs)
+                                        
+                                        peakMusicController.playAtEndOfQueue([song])
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            peakMusicController.playAtEndOfQueue([song])
+                        }
+                    }
+                    else {
+                        SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken) {
+                            err, callback in
+                            
+                            if let page: SPTListPage = callback as? SPTListPage {
+                                if let songs = page.items as? [SPTPartialTrack] {
+                                    let (song, _) = GettingClosestSong.getClosestSong(searchSong: appleMusicSong, songs: songs)
+                                    
+                                    peakMusicController.playAtEndOfQueue([song])
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            /*
+            ConnectingToInternet.getSpotifySongs(song: appleMusicSong, token: auth!.session.accessToken, completion: {
+                songs in
+                
+                let song = ConvertingSongType.getClosestSong(searchSong: appleMusicSong, songs: songs)
+                peakMusicController.playAtEndOfQueue([song])
+                
+            }, error: {
+                
+            })
+ */
             
             //Get the title and artist
             //print("APPLE MUSIC \(title) \(artist)")
             
             //Use the title and artist to search Spotify
+            /*
             SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                 
                 //Use the callback to get the song
                 if let page: SPTListPage = callback as? SPTListPage{
                     
-                    for item in page.items{
+                    
+                    if let songs = page.items as? [SPTPartialTrack] {
+                        let song = ConvertingSongType.getClosestSong(searchSong: appleMusicSong, songs: songs)
+                        peakMusicController.playAtEndOfQueue([song])
+                    }
+                    else {
+                        print("\n\n\n")
+                        if page.items == nil {
+                            print("PAGE ITEMS WAS IL")
+                        }
+                        else {
+                            print(page.items.count)
+                            for item in page.items {
+                                print(item)
+                            }
+                        }
+                        print("ERROR: BluetoothHandler->convertAppleMusicIDToURI \n\n\n")
+                    }
+                    
+                    /*
+                    for item in page.items {
                    
                         
                         if let song: SPTPartialTrack = item as? SPTPartialTrack {
@@ -228,8 +301,10 @@ class BluetoothHandler {
                             
                         }
                     }
+                    */
                 }
             }
+ */
             
         }
         
