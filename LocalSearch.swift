@@ -50,8 +50,7 @@ class LocalSearch {
             case 2:
                 c2Pos.x += 1.5
             default:
-                 break
-                //print("")
+                break
             }
             
             let difX = c1Pos.x - c2Pos.x

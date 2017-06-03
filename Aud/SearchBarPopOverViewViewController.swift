@@ -536,7 +536,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Take the songID and turn it into a song
         for song in songs{
             
-            ConnectingToInternet.getSong(id: song.getId()){ appleMusicSong in
+            ConnectingToInternet.getSong(id: song.getId(), completion: { appleMusicSong in
                 
                 SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                     
@@ -569,7 +569,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                         }
                     }
                 }
-            }
+            })
         }
         
     }

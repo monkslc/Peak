@@ -238,14 +238,19 @@ class ConnectingToInternet {
         }, errorCompletion: error)
     }
     
-    static func getSong(id: String, completion: @escaping (Song) -> Void) {
+    static func getSong(id: String, completion: @escaping (Song) -> Void, error: @escaping () -> Void = {}) {
         
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/lookup?id=\(id)", completion: {
             (json) -> Void in
             
             if let json = json as? [String:Any] {
-    
+                
                 if let songJSON = json["results"] as? [[String: Any]] {
+                    
+                    if songJSON.count == 0 {
+                        error()
+                        return
+                    }
                     
                     let imageURL = songJSON[0]["artworkUrl100"]! as! String
                     
