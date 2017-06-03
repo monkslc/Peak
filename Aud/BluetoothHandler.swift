@@ -238,81 +238,42 @@ class BluetoothHandler {
                                     
                                     peakMusicController.playAtEndOfQueue([song])
                                 }
+                                else {
+                                    
+                                    var baseSongName = appleMusicSong.getTrackName().lowercased()
+                                    
+                                    for value in ["(", ",", "bonus", "remix", "single", "track"] {
+                                        let index = baseSongName.indexOf(target: value)
+                                        if index != -1 {
+                                            baseSongName = baseSongName.subString(toIndex: index).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                                        }
+                                    }
+                                    
+                                    SPTSearch.perform(withQuery: baseSongName, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken) {
+                                        err, callback in
+                                        
+                                        if let page: SPTListPage = callback as? SPTListPage {
+                                            if let songs = page.items as? [SPTPartialTrack] {
+                                                let (song, _) = GettingClosestSong.getClosestSong(searchSong: appleMusicSong, songs: songs)
+                                                
+                                                peakMusicController.playAtEndOfQueue([song])
+                                            }
+                                            else {
+                                                print("COULD NOT Convert song \(appleMusicSong)")
+                                                print("page.items == \(page.items)")
+                                                // TODO: NEEDS TO RETURN SPOTIFY DOESNT HAVE SONG
+                                                
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
             
-            /*
-            ConnectingToInternet.getSpotifySongs(song: appleMusicSong, token: auth!.session.accessToken, completion: {
-                songs in
-                
-                let song = ConvertingSongType.getClosestSong(searchSong: appleMusicSong, songs: songs)
-                peakMusicController.playAtEndOfQueue([song])
-                
-            }, error: {
-                
             })
- */
-            
-            //Get the title and artist
-            //print("APPLE MUSIC \(title) \(artist)")
-            
-            //Use the title and artist to search Spotify
-            /*
-            SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
-                
-                //Use the callback to get the song
-                if let page: SPTListPage = callback as? SPTListPage{
-                    
-                    
-                    if let songs = page.items as? [SPTPartialTrack] {
-                        let song = ConvertingSongType.getClosestSong(searchSong: appleMusicSong, songs: songs)
-                        peakMusicController.playAtEndOfQueue([song])
-                    }
-                    else {
-                        print("\n\n\n")
-                        if page.items == nil {
-                            print("PAGE ITEMS WAS IL")
-                        }
-                        else {
-                            print(page.items.count)
-                            for item in page.items {
-                                print(item)
-                            }
-                        }
-                        print("ERROR: BluetoothHandler->convertAppleMusicIDToURI \n\n\n")
-                    }
-                    
-                    /*
-                    for item in page.items {
-                   
-                        
-                        if let song: SPTPartialTrack = item as? SPTPartialTrack {
-                            
-                            if ConvertingSongType.isCloseEnough(song1: song, song2: appleMusicSong) { //gh(songTitle1: song.getTrackName(), authour1: song.getArtistName(), songTitle2: title, authour2: artist){
-                                
-                                //We have found the correct song so add it to the queue
-                                peakMusicController.playAtEndOfQueue([song])
-                                
-                                break
-                            }
-                            
-                        }
-                    }
-                    */
-                }
-            }
- */
-            
-        })
-        
-        //Use the song title and artist to get a Spotify Song
-        
-        //Add the Spotify Song to the Queue
-        
-    
     }
     
     func convertSpotifyToAppleMusicID(playableURI: String, token: String) {
