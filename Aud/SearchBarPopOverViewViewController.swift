@@ -536,40 +536,38 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //Take the songID and turn it into a song
         for song in songs{
             
-            ConnectingToInternet.getSong(id: song.getId()){ appleMusicSong in
+            
+            SPTSearch.perform(withQuery: song.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
                 
-                SPTSearch.perform(withQuery: appleMusicSong.getTrackName(), queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken){ err, callback in
+                //Use the callback to get the song
+                if let page: SPTListPage = callback as? SPTListPage {
                     
-                    //Use the callback to get the song
-                    if let page: SPTListPage = callback as? SPTListPage {
+                    if page.items != nil {
                         
-                        if page.items != nil {
+                        if let songs = page.items as? [SPTPartialTrack] {
+                            let (song, _) = GettingClosestSong.getClosestSong(searchSong: song, songs: songs)
+                            
+                            DispatchQueue.main.async {
                                 
-                            if let songs = page.items as? [SPTPartialTrack] {
-                                let (song, _) = GettingClosestSong.getClosestSong(searchSong: appleMusicSong, songs: songs)
-                                peakMusicController.playAtEndOfQueue([song])
-                                
-                                DispatchQueue.main.async {
+                                if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                                     
-                                    if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
-                                        
-                                        _ = song.getImage()
-                                        self.topResults.append(song)
-                                        self.loadingIndicator.stopAnimating()
-                                    }
-                                    
+                                    _ = song.getImage()
+                                    self.topResults.append(song)
+                                    self.loadingIndicator.stopAnimating()
                                 }
                                 
                             }
-                            else {
-                                
-                                print("\n\n\nERROR: BluetoothHandler->convertAppleMusicIDToURI \n\n\n")
-                            }
-                        
+                            
                         }
+                        else {
+                            
+                            print("\n\n\nERROR: BluetoothHandler->convertAppleMusicIDToURI \n\n\n")
+                        }
+                        
                     }
                 }
             }
+            
         }
         
     }
