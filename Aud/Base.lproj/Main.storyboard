@@ -217,7 +217,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ft-nF-02R" customClass="SicContainer" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="532" width="375" height="479"/>
+                                <rect key="frame" x="0.0" y="532" width="375" height="532.5"/>
                                 <connections>
                                     <segue destination="7zG-78-0Oe" kind="embed" id="mah-Zk-R4h"/>
                                 </connections>
@@ -302,7 +302,7 @@
                             <constraint firstAttribute="trailing" secondItem="JF2-Hp-oBo" secondAttribute="trailing" id="Khk-Mf-anS"/>
                             <constraint firstItem="39n-Jc-Q48" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" id="TOr-8E-8It"/>
                             <constraint firstAttribute="trailing" secondItem="39n-Jc-Q48" secondAttribute="trailing" constant="25" id="XRt-P5-dOA"/>
-                            <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="4:5" id="Y53-gO-jj3"/>
+                            <constraint firstItem="7ft-nF-02R" firstAttribute="height" secondItem="yD7-tM-kPX" secondAttribute="height" multiplier="8:9" id="Y53-gO-jj3"/>
                             <constraint firstItem="JF2-Hp-oBo" firstAttribute="top" secondItem="KxJ-9A-rmW" secondAttribute="top" id="aIL-iQ-fSD"/>
                             <constraint firstItem="7ft-nF-02R" firstAttribute="leading" secondItem="KxJ-9A-rmW" secondAttribute="leading" id="atL-BJ-Ac2"/>
                             <constraint firstAttribute="trailing" secondItem="yD7-tM-kPX" secondAttribute="trailing" id="kvr-sp-Y6g"/>
@@ -677,14 +677,14 @@
                         <viewControllerLayoutGuide type="bottom" id="YBX-u8-evD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Pfx-yM-Eml">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="479"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="532.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zt1-CP-WBW" customClass="SICDisplay" customModule="Aud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="375" height="429"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="482.5"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AIM-ua-687" customClass="MPVolumeView">
-                                        <rect key="frame" x="28" y="399" width="319" height="31"/>
+                                        <rect key="frame" x="28" y="452.5" width="319" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.11764705882352941" green="0.86274509803921573" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -692,7 +692,7 @@
                                         </constraints>
                                     </slider>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Low Volume Filled-50" translatesAutoresizingMaskIntoConstraints="NO" id="Z3A-Ue-6Xt">
-                                        <rect key="frame" x="12" y="402" width="15" height="15"/>
+                                        <rect key="frame" x="12" y="455.5" width="15" height="15"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -701,7 +701,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="High Volume Filled-50" translatesAutoresizingMaskIntoConstraints="NO" id="dEu-PR-hEX">
-                                        <rect key="frame" x="345" y="402" width="15" height="15"/>
+                                        <rect key="frame" x="345" y="455.5" width="15" height="15"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
@@ -746,10 +746,10 @@
                                         <rect key="frame" x="47" y="5" width="45" height="45"/>
                                         <state key="normal" image="Backward Filled-50"/>
                                     </button>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qnw-Ag-fYn">
-                                        <rect key="frame" x="30" y="90" width="315" height="31"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qnw-Ag-fYn">
+                                        <rect key="frame" x="30" y="90" width="315" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="56u-cb-SwX"/>
+                                            <constraint firstAttribute="height" constant="35" id="56u-cb-SwX"/>
                                         </constraints>
                                         <segments>
                                             <segment title="Info"/>
@@ -758,7 +758,7 @@
                                         <color key="tintColor" red="0.1176470588" green="0.86274509799999999" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-Tt-duP" customClass="SICSongInfoDisplay" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="128" width="359" height="263"/>
+                                        <rect key="frame" x="8" y="133" width="359" height="311.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>

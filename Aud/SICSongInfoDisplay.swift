@@ -46,7 +46,6 @@ class SICSongInfoDisplay: UIView {
         //Get's called when we change which segment we are displaying
         
         
-        
         //Check what we should be displaying
         DispatchQueue.main.async {
             
@@ -134,6 +133,5 @@ class SICSongInfoDisplay: UIView {
         queue.dataSource = visualQueueDel
         queue.cellLayoutMarginsFollowReadableWidth = false
         addSubview(queue)
-        
     }
 }
