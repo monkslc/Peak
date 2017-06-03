@@ -184,6 +184,8 @@ class ConnectingToInternet {
     
             if let json = json as? [String:Any] {
                 
+                let limit = json["resultCount"] as! Int
+                
                 if let songsJSON = json["results"] as? [[String: Any]] {
                     
                     var songs: [Song] = []
@@ -204,6 +206,7 @@ class ConnectingToInternet {
                                     
                                     print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getSongs\n\n")
                                     
+                                    badSongs += 1
                                     error()
                                     return
                                 }
@@ -223,11 +226,24 @@ class ConnectingToInternet {
                                     }
                                 }
                                 else {
-                                    if limit == 1 {
+                                    badSongs += 1
+                                    if songs.count == (songsJSON.count - badSongs) {
+                                        if songs.count == 0 {
+                                            error()
+                                        }
+                                        else {
+                                            completion(songs)
+                                        }
+                                    }
+                                }
+                            }, errorCompletion: {
+                                badSongs += 1
+                                if songs.count == (songsJSON.count - badSongs) {
+                                    if songs.count == 0 {
                                         error()
                                     }
                                     else {
-                                        badSongs += 1
+                                        completion(songs)
                                     }
                                 }
                             })
