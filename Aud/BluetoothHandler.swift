@@ -202,7 +202,7 @@ class BluetoothHandler {
     func convertAppleMusicIDToURI(songID: String){
         
         //Take the songID and turn it into a song
-        ConnectingToInternet.getSong(id: songID) { appleMusicSong in
+        ConnectingToInternet.getSong(id: songID, completion: { appleMusicSong in
             
             SPTSearch.perform(withQuery: "\(appleMusicSong.collectionName) \(appleMusicSong.getTrackName()) \(appleMusicSong.artistName)", queryType: SPTSearchQueryType.queryTypeTrack, accessToken: auth?.session.accessToken) {
                 err, callback in
@@ -306,7 +306,7 @@ class BluetoothHandler {
             }
  */
             
-        }
+        })
         
         //Use the song title and artist to get a Spotify Song
         

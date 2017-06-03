@@ -56,7 +56,7 @@ extension MPMediaItem: BasicSong {
             }else{
                 
                 //Let's try fetching it from the internet
-                ConnectingToInternet.getSong(id: getId()){
+                ConnectingToInternet.getSong(id: getId(), completion: {
                     
                     self.albumCover = $0.getImage()
                     
@@ -66,7 +66,7 @@ extension MPMediaItem: BasicSong {
                         NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
                     }
                     
-                }
+                })
             }
         }
         
