@@ -20,7 +20,8 @@ class ConvertingSongType {
             //let song = ConvertingSongType.getClosestSong(searchSong: searchSong, songs: songs)
             //completion(song as! Song)
             
-            let (song, _) = GettingClosestSong.getClosestSong(searchSong: searchSong, songs: songs)
+            let (song, points) = GettingClosestSong.getClosestSong(searchSong: searchSong, songs: songs)
+            print("CHOSEN POINTS: \(points)")
             completion(song as! Song)
             //completion(Song(id: "-1", trackName: songTitle, collectionName: "", artistName: authourName, trackTimeMillis: 0, image: nil, dateAdded: nil))
             
