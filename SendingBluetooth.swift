@@ -14,11 +14,26 @@ class SendingBluetooth {
     
     
     static func createAlertAcessTokenIsInvalid() {
-        let alert = UIAlertController(title: "Acess Token TImed Out", message: "You must reconnect to Spotify", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        if let vc = peakMusicController.delegate as? UIViewController {
-            vc.present(alert, animated: true, completion: nil)
-        }
+        
+        //First get the app delegate so we can present
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let alert = UIAlertController(title: "Spotify Connection Timed Out", message: "You must reconnect in order to share songs with other intellectual beings.", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Sign Back In", style: .default){ alert in
+            
+            //Present the log in
+            //Come back here
+            let authURL = auth?.spotifyWebAuthenticationURL()
+            
+            authViewController = SFSafariViewController(url: authURL!)
+            appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
+            
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        appDelegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        
     }
     
     /* Public Functions */

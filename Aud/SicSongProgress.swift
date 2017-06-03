@@ -40,18 +40,13 @@ class SicSongProgress: UISlider {
             self.isHidden = true
         }
     }
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+
 
     /*Mark: Timer Method*/
     func updateSongTime(){
         //Get's called from the timer, post the notification
+        
+        
         
         //Post a notification
         NotificationCenter.default.post(Notification(name: .updateSongTime))
@@ -67,6 +62,7 @@ class SicSongProgress: UISlider {
     
     func songChanged(){
         //Get's called when the song changes on the system music player
+        
         
         maximumValue = Float((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
     }
@@ -106,6 +102,8 @@ class SicSongProgress: UISlider {
     func changeSongTime(){
         //Get's called when the user changes the song time, update the time of the current song playing in peak music controller
         
+        print("The value we should be changing to is: \(value)")
+        print("Our current play queue size is: \(peakMusicController.currPlayQueue.count)")
         peakMusicController.systemMusicPlayer.setCurrentPlayTime(Double(value))
     }
 }

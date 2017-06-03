@@ -29,14 +29,6 @@ class SICAlbumArt: UIImageView {
         updateAlbumImage()
     }
     
-    /*
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func draw(_ rect: CGRect) {
-     // Drawing code
-     }
-     */
-    
     /*MARK: Notification Methods*/
     
     func updateAlbumImage(){
@@ -46,9 +38,10 @@ class SICAlbumArt: UIImageView {
             
             DispatchQueue.main.async {
                 
+                
                 self.image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
             }
-            
+
         } else{
             
             if peakMusicController.groupPlayQueue.count > 0{
@@ -70,6 +63,5 @@ class SICAlbumArt: UIImageView {
         
     }
     
-
     
 }
