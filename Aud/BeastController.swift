@@ -101,11 +101,27 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         
         let heightOfSearchBarFrame = self.view.frame.height - 50
         
-        searchViewController.view.frame = CGRect(x: self.view.frame.minX, y: 50, width: self.view.frame.width, height: heightOfSearchBarFrame)
+        
+        //Create a pre animation view
+        searchViewController.view.frame = CGRect(x: self.view.frame.minX, y: 50, width: self.view.frame.width, height: 0)
         
         //Insert the view
         view.insertSubview(searchViewController.view, at: 1) //Insert behind the SIC
         searchViewController.didMove(toParentViewController: self)
+
+
+        UIView.animate(withDuration: 0.5, animations: {
+        
+            searchViewController.view.frame = CGRect(x: self.view.frame.minX, y: 50, width: self.view.frame.width, height: heightOfSearchBarFrame)
+        }, completion: {(finished) in
+            
+            //add me blur
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = self.view.bounds
+            self.view.insertSubview(blurEffectView, belowSubview: searchViewController.view)
+        })
+        
         
         //Change the color of our mediaSearch Backdrop
         mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.90)
@@ -123,12 +139,9 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         cancelSearch.isHidden = false
         cancelSearch.addTarget(searchViewController, action: #selector(searchViewController.resignSearchField), for: .touchUpInside)
         
-        //add me blur
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
         
-        view.insertSubview(blurEffectView, belowSubview: searchViewController.view)
+        
+
   
     }
     
