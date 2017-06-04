@@ -56,7 +56,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     override func viewWillDisappear(_ animated: Bool) {
         //Called when the popover is about to go away
-
+        
+        
         if let BCDel: BeastController = delegate as? BeastController{
             
             BCDel.mediaSearchBar.resignFirstResponder()
@@ -68,19 +69,30 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             BCDel.cancelSearch.isHidden = true
             BCDel.mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.30)
             
-            //Remove the blur effect
-            for view in BCDel.view.subviews{
-                
-                if let blur: UIVisualEffectView = view as? UIVisualEffectView{
-                    
-                    blur.removeFromSuperview()
-                }
-            }
-            
         }
+    }
+
+    
+    /*MARK: Editing Views*/
+    func showViews(){
         
-
-
+        for view in view.subviews{
+            
+            if let _: UIActivityIndicatorView = view as? UIActivityIndicatorView{
+                
+            }else{
+                
+                view.isHidden = false
+            }
+        }
+    }
+    
+    func hideAllViews(){
+        
+        for view in view.subviews{
+            
+            view.removeFromSuperview()
+        }
     }
 
     
@@ -179,6 +191,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
     
     /*MARK: OTHER SEARCH RELATED METHODS*/
+    
+    var latestQuery = ""
+    
     func checkShouldSearch(_ searchQuery: String){
         
         //Check to see if the search request is still the same 0.5 seconds later
@@ -188,6 +203,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
 
                 //It is so let's search
                 self.searchSongs(search: searchQuery)
+                self.latestQuery = searchQuery
                 
             }
         }
@@ -198,8 +214,33 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     func resignSearchField(){
         
         //Now make self dissappear
-        self.view.removeFromSuperview()
-        self.removeFromParentViewController()
+        
+        //First Hide all the subviews
+        hideAllViews()
+        
+        
+        //Find the blur
+        var blurView = UIView()
+        for view in (delegate as! UIViewController).view.subviews{
+            
+            if let blur: UIVisualEffectView = view as? UIVisualEffectView{
+                
+                blurView = blur
+            }
+        }
+        
+        //Now animate it away
+        UIView.animate(withDuration: 0.5, animations:{
+        
+            self.view.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 0)
+            blurView.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 0)
+        }, completion: {(finsished) in
+        
+            blurView.removeFromSuperview()
+            self.view.removeFromSuperview()
+            self.removeFromParentViewController()
+        })
+        
     }
     
     
@@ -487,7 +528,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
                     
                     self.loadingIndicator.stopAnimating()
-                    self.topResults = results
+                    //Check to see if we still have the latest query
+                    if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
+                        
+                        self.topResults = results
+                    }
+                    
                     
                 }
             }
@@ -503,7 +549,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 DispatchQueue.main.async {
                     self.loadingIndicator.stopAnimating()
-                    self.topResults = songs
+                    if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
+                        
+                        self.topResults = songs
+                    }
                    
                 }
             })
@@ -521,7 +570,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 DispatchQueue.main.async {
                     self.loadingIndicator.stopAnimating()
-                    self.topResults = songs
+                    if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
+                        
+                        self.topResults = songs
+                    }
                 }
                 
             }

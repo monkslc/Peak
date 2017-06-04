@@ -110,16 +110,22 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         searchViewController.didMove(toParentViewController: self)
 
 
+        //Set up the blur for animation
+        //add me blur
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = mediaSearchBackdrop.frame
+        //blurEffectView.frame = self.view.bounds
+        self.view.insertSubview(blurEffectView, belowSubview: searchViewController.view)
+        
         UIView.animate(withDuration: 0.5, animations: {
         
             searchViewController.view.frame = CGRect(x: self.view.frame.minX, y: 50, width: self.view.frame.width, height: heightOfSearchBarFrame)
+            blurEffectView.frame = self.view.frame
         }, completion: {(finished) in
             
-            //add me blur
-            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.frame = self.view.bounds
-            self.view.insertSubview(blurEffectView, belowSubview: searchViewController.view)
+            
+            searchViewController.showViews()
         })
         
         
