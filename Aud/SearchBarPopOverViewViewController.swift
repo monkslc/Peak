@@ -69,19 +69,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             BCDel.cancelSearch.isHidden = true
             BCDel.mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.30)
             
-            //Remove the blur effect
-            /*for view in BCDel.view.subviews{
-                
-                if let blur: UIVisualEffectView = view as? UIVisualEffectView{
-                    
-                    blur.removeFromSuperview()
-                }
-            }*/
-            
         }
-        
-
-
     }
 
     
@@ -103,7 +91,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         for view in view.subviews{
             
-            view.isHidden = true
+            view.removeFromSuperview()
         }
     }
 
@@ -230,9 +218,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         //First Hide all the subviews
         hideAllViews()
         
-        //Get rid of the blue
-        //Find the blur
         
+        //Find the blur
         var blurView = UIView()
         for view in (delegate as! UIViewController).view.subviews{
             
