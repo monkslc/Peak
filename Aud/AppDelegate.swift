@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import FBSDKCoreKit
 
 @UIApplicationMain
 
@@ -49,7 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             print("Auth can't handle our url")
         }
 
-        return true
+        
+        //Facebook stuff
+        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        
+        //return true
     }
     
     /*MARK: SPOTIFY AUDIO STREAMING DELEGATE METHODS*/
@@ -130,6 +136,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             
             performShortcutDelegate = false
         }
+        
+        
+        //Facebook stuff
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return !performShortcutDelegate
     }

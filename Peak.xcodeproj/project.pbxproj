@@ -36,6 +36,9 @@
 		C40722461EDCE07100E12A1B /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */; };
 		C40722481EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */; };
 		C407226A1EE49EB100E12A1B /* GroupsViewwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40722691EE49EB100E12A1B /* GroupsViewwController.swift */; };
+		C407226D1EE49FCD00E12A1B /* FacebookLoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C407226C1EE49FCD00E12A1B /* FacebookLoginHandler.swift */; };
+		C407226F1EE4BB5600E12A1B /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C407226E1EE4BB5600E12A1B /* GroupCell.swift */; };
+		C40722711EE4BBF400E12A1B /* GroupiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40722701EE4BBF400E12A1B /* GroupiesView.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
 		C456252F1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */; };
@@ -108,6 +111,9 @@
 		C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
 		C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBUIKitMainThreadGuard.swift; sourceTree = "<group>"; };
 		C40722691EE49EB100E12A1B /* GroupsViewwController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsViewwController.swift; sourceTree = "<group>"; };
+		C407226C1EE49FCD00E12A1B /* FacebookLoginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginHandler.swift; sourceTree = "<group>"; };
+		C407226E1EE4BB5600E12A1B /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		C40722701EE4BBF400E12A1B /* GroupiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupiesView.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
 		C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarPopOverViewViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +235,9 @@
 			isa = PBXGroup;
 			children = (
 				C40722691EE49EB100E12A1B /* GroupsViewwController.swift */,
+				C407226E1EE4BB5600E12A1B /* GroupCell.swift */,
+				C40722701EE4BBF400E12A1B /* GroupiesView.swift */,
+				C407226C1EE49FCD00E12A1B /* FacebookLoginHandler.swift */,
 			);
 			name = Groupies;
 			sourceTree = "<group>";
@@ -544,8 +553,10 @@
 				C4E896631E7458620096EC72 /* LibraryViewController.swift in Sources */,
 				C4D117671E805DF8000A854A /* Signifier.swift in Sources */,
 				C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */,
+				C40722711EE4BBF400E12A1B /* GroupiesView.swift in Sources */,
 				90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */,
 				C47FC7CB1EB6AF2100B1A352 /* SICBackButton.swift in Sources */,
+				C407226F1EE4BB5600E12A1B /* GroupCell.swift in Sources */,
 				90A930A11EE0D448005FD447 /* GettingClosestSong.swift in Sources */,
 				C45838CE1EC0F00500ECEBE5 /* GuestMusicController.swift in Sources */,
 				C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */,
@@ -580,6 +591,7 @@
 				904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */,
 				90DC46541EB920A0007AF581 /* MpMediumItemExtension.swift in Sources */,
 				C404D0DB1EBA889900E7F0F5 /* BluetoothHandler.swift in Sources */,
+				C407226D1EE49FCD00E12A1B /* FacebookLoginHandler.swift in Sources */,
 				C401D7F71EB6B4E5006CCBDE /* SICSongInfoDisplay.swift in Sources */,
 				90E2DFE61E87FF0900762B9D /* Song.swift in Sources */,
 				C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */,

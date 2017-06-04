@@ -334,16 +334,92 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWd-Jd-nrW" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="148" y="318" width="74" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWd-Jd-nrW" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="87" y="631" width="200" height="28"/>
                                 <state key="normal" title="Button"/>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tml-Bv-Oj2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="zxC-63-kl1">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Groups" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huE-se-8hq">
+                                            <rect key="frame" x="30" y="27.5" width="315" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="YRg-EJ-Z1b"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="huE-se-8hq" firstAttribute="leading" secondItem="zxC-63-kl1" secondAttribute="leading" constant="30" id="7Ib-8e-zze"/>
+                                        <constraint firstAttribute="trailing" secondItem="huE-se-8hq" secondAttribute="trailing" constant="30" id="FNS-y9-TLC"/>
+                                        <constraint firstItem="huE-se-8hq" firstAttribute="centerY" secondItem="zxC-63-kl1" secondAttribute="centerY" id="tl6-9V-Ojr"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Group Cell" rowHeight="85" id="Jxn-id-Tep" customClass="GroupCell" customModule="Aud" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="123" width="375" height="85"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jxn-id-Tep" id="QOz-gb-vNi">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmc-Gt-00u">
+                                                    <rect key="frame" x="28" y="8" width="239" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="7Dh-bN-QjJ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnh-zs-KdB" customClass="GroupiesView" customModule="Aud" customModuleProvider="target">
+                                                    <rect key="frame" x="50" y="46" width="265" height="31"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="grB-3b-oJ3"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="hnh-zs-KdB" secondAttribute="bottom" constant="7.5" id="8Su-q6-uKL"/>
+                                                <constraint firstItem="Pmc-Gt-00u" firstAttribute="top" secondItem="QOz-gb-vNi" secondAttribute="topMargin" id="GpN-i0-WZP"/>
+                                                <constraint firstItem="hnh-zs-KdB" firstAttribute="top" secondItem="Pmc-Gt-00u" secondAttribute="bottom" constant="8" id="Hax-Ki-nwF"/>
+                                                <constraint firstItem="hnh-zs-KdB" firstAttribute="leading" secondItem="QOz-gb-vNi" secondAttribute="leading" constant="50" id="JEw-iR-rdF"/>
+                                                <constraint firstItem="Pmc-Gt-00u" firstAttribute="leading" secondItem="QOz-gb-vNi" secondAttribute="leadingMargin" constant="20" id="iPT-0Y-9Im"/>
+                                                <constraint firstAttribute="trailing" secondItem="hnh-zs-KdB" secondAttribute="trailing" constant="60" id="lRh-DR-ckA"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Pmc-Gt-00u" secondAttribute="trailing" constant="100" id="yn1-tc-O6F"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="groupName" destination="Pmc-Gt-00u" id="Jyy-OI-5Wx"/>
+                                            <outlet property="groupiesView" destination="hnh-zs-KdB" id="rgN-P0-Ssx"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tml-Bv-Oj2" firstAttribute="top" secondItem="IXm-IV-RzY" secondAttribute="top" id="3qg-tX-fHY"/>
+                            <constraint firstItem="vWd-Jd-nrW" firstAttribute="leading" secondItem="IXm-IV-RzY" secondAttribute="leadingMargin" constant="71" id="Bjo-aL-UEO"/>
+                            <constraint firstItem="vWd-Jd-nrW" firstAttribute="centerX" secondItem="IXm-IV-RzY" secondAttribute="centerX" id="JgR-iB-XSV"/>
+                            <constraint firstItem="vWd-Jd-nrW" firstAttribute="top" secondItem="Q6s-5e-KlF" secondAttribute="bottom" constant="611" id="Mct-J6-rcD"/>
+                            <constraint firstItem="Mem-9Z-v6y" firstAttribute="top" secondItem="vWd-Jd-nrW" secondAttribute="bottom" constant="8" symbolic="YES" id="QTa-mb-gxV"/>
+                            <constraint firstItem="vWd-Jd-nrW" firstAttribute="top" secondItem="tml-Bv-Oj2" secondAttribute="bottom" constant="8" id="Xja-Mr-Wj6"/>
+                            <constraint firstItem="tml-Bv-Oj2" firstAttribute="leading" secondItem="IXm-IV-RzY" secondAttribute="leading" id="Xk7-Iv-45a"/>
+                            <constraint firstAttribute="trailing" secondItem="tml-Bv-Oj2" secondAttribute="trailing" id="tqA-B0-wW4"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="facebookLoginButton" destination="vWd-Jd-nrW" id="2xR-Hv-cxa"/>
+                        <outlet property="groupsTable" destination="tml-Bv-Oj2" id="PqE-VS-xnk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IRq-q5-kAo" userLabel="First Responder" sceneMemberID="firstResponder"/>
