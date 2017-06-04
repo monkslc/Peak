@@ -16,4 +16,6 @@ extension UIColor{
     
     //The Color of the Artist Title
     static var artistColor: UIColor {return UIColor(red: 255/255, green: 60/255, blue: 60/255, alpha: 1.0)}
+    
+
 }

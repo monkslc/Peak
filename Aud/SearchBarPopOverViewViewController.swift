@@ -16,7 +16,7 @@ protocol SearchBarPopOverViewViewControllerDelegate{
     
 }
 
-class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     
     @IBOutlet weak var selectMusicFromSegment: UISegmentedControl!
@@ -56,16 +56,31 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     override func viewWillDisappear(_ animated: Bool) {
         //Called when the popover is about to go away
-        //Resign first responder status for the search bar
 
-        
         if let BCDel: BeastController = delegate as? BeastController{
             
-            BCDel.searchForMediaBar.resignFirstResponder()
+            BCDel.mediaSearchBar.resignFirstResponder()
+            BCDel.mediaSearchBar.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)
+            BCDel.cancelSearch.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)
+            
+            BCDel.mediaSearchBar.delegate = BCDel
+            BCDel.mediaSearchBar.text = "Search by Song, Artist, or Album..."
+            BCDel.cancelSearch.isHidden = true
+            BCDel.mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.30)
+            
+            //Remove the blur effect
+            for view in BCDel.view.subviews{
+                
+                if let blur: UIVisualEffectView = view as? UIVisualEffectView{
+                    
+                    blur.removeFromSuperview()
+                }
+            }
+            
         }
         
-        let BC = delegate as! BeastController
-        BC.searchForMediaBar.showsCancelButton = false
+
+
     }
 
     
@@ -86,7 +101,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         if indexPath.row >= topResults.count{
             
             let cell = UITableViewCell(frame: CGRect())
-            
+            cell.backgroundColor = UIColor.clear
             return cell
         }
         
@@ -108,6 +123,10 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         cell.addItems()
         
+        
+        //Since we are in search, change the text color to white
+        cell.songTitle.textColor = UIColor.white
+        
         //add the gestures
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         cell.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:))))
@@ -118,67 +137,85 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
     
     
-    /*MARK: SEARCH BAR DELEGATE METHODS*/
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    /*MARKL TEXT FIELD DELEGATE METHODS*/
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        loadingIndicator.stopAnimating() //In case we are coming from top charts
+        //Stop the loading indicator, in case we are coming from top charts
+        loadingIndicator.stopAnimating()
         
-        //If we are in Top Charts, change to Apple Music so the user can start searching
+        //If we are in the top charts, change to Browse so the user can start searching
         if selectMusicFromSegment.selectedSegmentIndex == 2{
             
             selectMusicFromSegment.selectedSegmentIndex = 1
         }
     }
     
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
         return true
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
-        
-        //The cancel button was clicked so segue back
-        
-        if let BCDel:BeastController = delegate as? BeastController{
-            
-            searchBar.delegate = BCDel
-        }
-        
-        searchBar.text = ""
-        
-        
-        UIView.animate(withDuration: 0.35, animations: {(animate) in
-            
-            self.view.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY - self.view.self.frame.height, width: self.view.frame.width, height: self.view.frame.height)
-        }, completion: {(bool) in
-        
-            self.view.removeFromSuperview()
-            self.removeFromParentViewController()
-        })
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+        //Resign the text field
+        textField.resignFirstResponder()
+        return true
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let search = searchBar.text else { return }
+    
+    func textFieldDidChange(_ textField: UITextField){
         
-        searchSongs(search: search)
+        //Clear the results from the table
+        topResults = []
+        
+        //Let the user know we're loading their fucking data
+        loadingIndicator.startAnimating()
+        
+        //Check to see if the user stopped typing for at least 0.5 seconds
+        checkShouldSearch(textField.text ?? "")
+        
+    }
+    
+    /*MARK: OTHER SEARCH RELATED METHODS*/
+    func checkShouldSearch(_ searchQuery: String){
+        
+        //Check to see if the search request is still the same 0.5 seconds later
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)){
+            
+            if (self.delegate as! BeastController).mediaSearchBar.text == searchQuery{
+
+                //It is so let's search
+                self.searchSongs(search: searchQuery)
+                
+            }
+        }
+
+    }
+    
+    
+    func resignSearchField(){
+        
+        //Now make self dissappear
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
     }
     
     
     func searchRequestChanged() {
         //Gets called when the segmented control changes
         
+        //Clear the table
+        self.topResults = []
         
         //need to stop the loading indicator in case the user started it and then switched before results were returned
         loadingIndicator.stopAnimating()
         
-        topResults = []
-        
         var searchText = String()
         if let BCDel: BeastController = delegate as? BeastController {
             
-            searchText = BCDel.searchForMediaBar.text!
+            searchText = BCDel.mediaSearchBar.text ?? ""
         }
         
         
@@ -186,7 +223,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         if selectMusicFromSegment.selectedSegmentIndex == 2{
             
             
-            (delegate as! BeastController).searchForMediaBar.resignFirstResponder()
+            (delegate as! BeastController).mediaSearchBar.resignFirstResponder()
             loadingIndicator.startAnimating()
         }
         
@@ -232,7 +269,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         
         //resign the keyboard
         let BC = delegate as! BeastController
-        BC.searchForMediaBar.resignFirstResponder()
+        BC.mediaSearchBar.resignFirstResponder()
+        
+        //Media Search Change
         
         //check to make sure we're not a guest
 
@@ -414,6 +453,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     /*MARK: SEARCH FUNCTIONALITY METHODS*/
     
     private func searchSongs(search: String) {
+        
         searchedSongsTableView.setContentOffset(CGPoint.zero, animated: true)
         if selectMusicFromSegment.selectedSegmentIndex == 0 {
             searchLibrary(search: search)
@@ -446,7 +486,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             DispatchQueue.main.async {
                 if self.selectMusicFromSegment.selectedSegmentIndex == 0 {
                     
+                    self.loadingIndicator.stopAnimating()
                     self.topResults = results
+                    
                 }
             }
         }
@@ -460,6 +502,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 (songs) -> Void in
                 
                 DispatchQueue.main.async {
+                    self.loadingIndicator.stopAnimating()
                     self.topResults = songs
                    
                 }
@@ -477,7 +520,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
                 DispatchQueue.main.async {
-                    
+                    self.loadingIndicator.stopAnimating()
                     self.topResults = songs
                 }
                 

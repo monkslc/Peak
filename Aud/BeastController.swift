@@ -11,7 +11,7 @@ import MediaPlayer
 
 let peakMusicController = PeakMusicController()
 
-class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, BluetoohtHandlerDelegate {
+class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, BluetoohtHandlerDelegate, UITextFieldDelegate {
 
     /*MARK: Properties*/
 
@@ -20,7 +20,9 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
 
     
     //Search Props
-    @IBOutlet weak var searchForMediaBar: UISearchBar!
+    @IBOutlet weak var mediaSearchBar: UITextField!
+    @IBOutlet weak var mediaSearchBackdrop: UIView!
+    @IBOutlet weak var cancelSearch: UIButton!
     
     //Library Props
     @IBOutlet weak var libraryContainerView: UIView!
@@ -38,8 +40,8 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
         super.viewDidLoad()
         
        //Set up search bar
-        searchForMediaBar.delegate = self
-        
+        mediaSearchBar.delegate = self
+    
         //Set up the Peak Music Controller
         peakMusicController.delegate = self
         peakMusicController.setUp()
@@ -86,31 +88,50 @@ class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverVi
         return .none
     }
     
-    /*MARK: SEARCH BAR Delegate METHODS*/
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        //When the user starts editing we want to display the search bar
+    
+    /*MARK: TEXT FIELD DELEGATE METHODS*/
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        //Create the search View Controller
+        //Create the search view controller
+        
         let searchViewController = storyboard?.instantiateViewController(withIdentifier: "Search") as! SearchBarPopOverViewViewController
         addChildViewController(searchViewController)
         
-        //Set the frame for the view controller in a position so it can be animated
-        searchViewController.view.frame = CGRect(x: libraryContainerView.frame.minX, y: libraryContainerView.frame.minY - libraryContainerView.frame.height, width: libraryContainerView.frame.width, height: libraryContainerView.frame.height)
+        //Set the frame for the view controller
         
-        view.insertSubview(searchViewController.view, at: 1) //Insert behind the currently playing view
+        let heightOfSearchBarFrame = self.view.frame.height - 50
+        
+        searchViewController.view.frame = CGRect(x: self.view.frame.minX, y: 50, width: self.view.frame.width, height: heightOfSearchBarFrame)
+        
+        //Insert the view
+        view.insertSubview(searchViewController.view, at: 1) //Insert behind the SIC
         searchViewController.didMove(toParentViewController: self)
         
-        //Now animate the view into place
-        UIView.animate(withDuration: 0.35){(animate) in
-            
-            searchViewController.view.frame = self.libraryContainerView.frame
-        }
+        //Change the color of our mediaSearch Backdrop
+        mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.90)
         
-        //set up the delegates
+        //Now set up our delegates
         searchViewController.delegate = self
-        searchBar.delegate = searchViewController
-        searchBar.showsCancelButton = true
+        textField.delegate = searchViewController
+        
+        //Add the textField Observer
+        mediaSearchBar.addTarget(searchViewController, action: #selector(searchViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        
+        mediaSearchBar.text = nil
+        
+        //Set up the cancel search bar
+        cancelSearch.isHidden = false
+        cancelSearch.addTarget(searchViewController, action: #selector(searchViewController.resignSearchField), for: .touchUpInside)
+        
+        //add me blur
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        
+        view.insertSubview(blurEffectView, belowSubview: searchViewController.view)
+  
     }
+    
     
     
     /*MARK: SearchBarPopOver Delegate Methods*/
