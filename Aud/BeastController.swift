@@ -14,7 +14,7 @@ let peakMusicController = PeakMusicController()
 class BeastController: UIViewController, UISearchBarDelegate, SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, BluetoohtHandlerDelegate {
 
     /*MARK: Properties*/
-
+    
     //SIC Props
     @IBOutlet weak var songInteractionContainer: SicContainer!
 
