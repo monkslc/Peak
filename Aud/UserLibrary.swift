@@ -22,7 +22,7 @@ class UserLibrary{
     init(){
         
         //Add the listener for a library change
-        NotificationCenter.default.addObserver(self, selector: #selector(iCloudLibraryChanged), name: .systemMusicPlayerLibraryChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(libraryItemsChanged), name: .systemMusicPlayerLibraryChanged, object: nil)
     }
     
     /*MARK: Delegate*/
@@ -386,9 +386,13 @@ class UserLibrary{
     }
     
     /*MARK: Notification Methods*/
-    @objc func iCloudLibraryChanged(){
+    @objc func libraryItemsChanged(){
         
-        fetchLibrary()
+        DispatchQueue.global().async {
+            
+            fetchLibrary()
+        }
+        
     }
     
 }

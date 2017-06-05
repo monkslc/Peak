@@ -67,7 +67,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             BCDel.mediaSearchBar.delegate = BCDel
             BCDel.mediaSearchBar.text = "Search by Song, Artist, or Album..."
             BCDel.cancelSearch.isHidden = true
-            BCDel.mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.30)
+            //BCDel.mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.30)
             
         }
     }
@@ -233,7 +233,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         UIView.animate(withDuration: 0.5, animations:{
         
             self.view.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 0)
-            blurView.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 0)
+            blurView.frame = CGRect(x: self.view.bounds.minX, y: self.view.bounds.minY, width: self.view.bounds.width, height: 0)
+            //blurView.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 0)
         }, completion: {(finsished) in
         
             blurView.removeFromSuperview()
