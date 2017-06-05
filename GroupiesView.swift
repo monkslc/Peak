@@ -31,15 +31,15 @@ class GroupiesView: UIView {
     
     func displayGroupies(){
         
-        print("Displaying Groupies")
-        
         var count = 0
         for groupie in groupies{
             
-            let groupieView = UIImageView(frame: CGRect(x: CGFloat(count) * CGFloat((frame.height + 15)), y: frame.minY, width: frame.height, height: frame.height))
+            let groupieView = UIImageView(frame: CGRect(x: CGFloat(count) * CGFloat((frame.height + 5)), y: 0, width: frame.height, height: frame.height))
+            
             
             groupieView.image = groupie
             
+            addSubview(groupieView)
             count += 1
         }
     }

@@ -65,7 +65,6 @@ class GroupsViewwController: UIViewController, UITableViewDataSource, UITableVie
             meImages.append(#imageLiteral(resourceName: "ProperPeakyIcon"))
         }
         
-        cell.groupiesView.backgroundColor = UIColor.cyan
         cell.groupiesView.groupies = meImages
         
         return cell

@@ -380,17 +380,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnh-zs-KdB" customClass="GroupiesView" customModule="Aud" customModuleProvider="target">
-                                                    <rect key="frame" x="50" y="46" width="265" height="31"/>
+                                                    <rect key="frame" x="50" y="43" width="265" height="36.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="31" id="grB-3b-oJ3"/>
-                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="hnh-zs-KdB" secondAttribute="bottom" constant="7.5" id="8Su-q6-uKL"/>
+                                                <constraint firstAttribute="bottom" secondItem="hnh-zs-KdB" secondAttribute="bottom" constant="5" id="8Su-q6-uKL"/>
                                                 <constraint firstItem="Pmc-Gt-00u" firstAttribute="top" secondItem="QOz-gb-vNi" secondAttribute="topMargin" id="GpN-i0-WZP"/>
-                                                <constraint firstItem="hnh-zs-KdB" firstAttribute="top" secondItem="Pmc-Gt-00u" secondAttribute="bottom" constant="8" id="Hax-Ki-nwF"/>
+                                                <constraint firstItem="hnh-zs-KdB" firstAttribute="top" secondItem="Pmc-Gt-00u" secondAttribute="bottom" constant="5" id="Hax-Ki-nwF"/>
                                                 <constraint firstItem="hnh-zs-KdB" firstAttribute="leading" secondItem="QOz-gb-vNi" secondAttribute="leading" constant="50" id="JEw-iR-rdF"/>
                                                 <constraint firstItem="Pmc-Gt-00u" firstAttribute="leading" secondItem="QOz-gb-vNi" secondAttribute="leadingMargin" constant="20" id="iPT-0Y-9Im"/>
                                                 <constraint firstAttribute="trailing" secondItem="hnh-zs-KdB" secondAttribute="trailing" constant="60" id="lRh-DR-ckA"/>
