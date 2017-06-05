@@ -45,10 +45,11 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         userLibrary.delegate = self
         
         //Fetch the items in the library
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
         
         DispatchQueue.global().async {
             self.loadingIndicator.startAnimating()
-            self.userLibrary.fetchLibrary()
+            //self.userLibrary.fetchLibrary()
         }
         
         //set up the scroll bar
