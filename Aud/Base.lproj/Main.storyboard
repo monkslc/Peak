@@ -341,7 +341,7 @@
                                 <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.058823529411764705" green="0.058823529411764705" blue="0.058823529411764705" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.058823529411764705" green="0.058823529411764705" blue="0.058823529411764705" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="qyV-Wc-mB8" firstAttribute="top" secondItem="K2v-46-Qbk" secondAttribute="bottom" constant="15" id="2ps-GR-dmX"/>
                             <constraint firstItem="Uae-7O-TS4" firstAttribute="top" secondItem="qyV-Wc-mB8" secondAttribute="bottom" id="5zB-IC-EGH"/>

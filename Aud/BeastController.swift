@@ -112,7 +112,7 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
 
         //Set up the blur for animation
         //add me blur
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = mediaSearchBackdrop.frame
         //blurEffectView.frame = self.view.bounds
@@ -130,7 +130,7 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         
         
         //Change the color of our mediaSearch Backdrop
-        mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.90)
+        //mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.90)
         
         //Now set up our delegates
         searchViewController.delegate = self
