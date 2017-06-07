@@ -11,7 +11,7 @@ import MediaPlayer
 
 let peakMusicController = PeakMusicController()
 
-class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, BluetoohtHandlerDelegate, UITextFieldDelegate {
+class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, UITextFieldDelegate {
 
     /*MARK: Properties*/
 
@@ -26,18 +26,23 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
     
     //Library Props
     @IBOutlet weak var libraryContainerView: UIView!
-    var libraryViewController: LibraryViewController?
+    
+    var pagesViewController: PagesViewController {
+        return childViewControllers[0] as! PagesViewController
+    }
+    var bluetoothViewController: PopOverBluetoothViewController {
+        return pagesViewController.bluetoothViewController
+    }
+    var libraryViewController: LibraryViewController {
+        return pagesViewController.libraryViewController
+    }
     
     @IBOutlet weak var scrollPresenter: ScrollPresenterView!
-    
-    //Bluetooth Props
-    @IBOutlet weak var connectButton: UIButton!
-    let bluetoothHandler = BluetoothHandler()
-    
     
     /*MARK: VIEW CONTROLLER LIFECYCLE METHODS*/
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
        //Set up search bar
         mediaSearchBar.delegate = self
@@ -46,11 +51,8 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         peakMusicController.delegate = self
         peakMusicController.setUp()
         
-        //Set up bluetooth handler
-        bluetoothHandler.delegate = self
-        
         //Add the listener for player type
-        NotificationCenter.default.addObserver(self, selector: #selector(playerTypeDidChange), name: .playerTypeChanged, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(playerTypeDidChange), name: .playerTypeChanged, object: nil)
         
         //Set up the scroll presenter
         scrollPresenter.setUp()
@@ -59,7 +61,7 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
     
     /*MARK: SEGUE STUFF*/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        /*
         //Get the View Controllers
         if let viewController: LibraryViewController = segue.destination as? LibraryViewController{
             
@@ -80,7 +82,7 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
             let controller = popOverVC.popoverPresentationController!
             controller.delegate = self
         }
-        
+        */
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -156,7 +158,7 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
     /*MARK: SearchBarPopOver Delegate Methods*/
     func returnLibraryItems() -> [BasicSong]{
         
-        return (libraryViewController?.userLibrary.itemsInLibrary)!
+        return libraryViewController.userLibrary.itemsInLibrary
     }
     
     
@@ -168,31 +170,5 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         view.addSubview(sig)
         sig.animate()
     }
-    
-    /*MARK: Listener Methods*/
-    func playerTypeDidChange() {
-        
-        switch peakMusicController.playerType{
-            
-        case .Host:
-            DispatchQueue.main.async {
-                self.connectButton.setImage(#imageLiteral(resourceName: "Host-Icon"), for: .normal)
-            }
-            
-            
-        case .Individual:
-            DispatchQueue.main.async {
-                self.connectButton.setImage(#imageLiteral(resourceName: "IndieBigIcon"), for: .normal)
-            }
-            
-            
-        case .Contributor:
-            DispatchQueue.main.async {
-                self.connectButton.setImage(#imageLiteral(resourceName: "CommIconBig"), for: .normal)
-            }
-            
-        }
-    }
-    
     
 }

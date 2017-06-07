@@ -13,6 +13,7 @@
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
 		905C06921EE4B694006DED81 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C06911EE4B694006DED81 /* PagesViewController.swift */; };
 		905C06941EE4C84E006DED81 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C06931EE4C84E006DED81 /* GradientView.swift */; };
+		9084A6DB1EE7821F00BFA63D /* MiddleFlippingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9084A6DA1EE7821F00BFA63D /* MiddleFlippingViewController.swift */; };
 		90A930A11EE0D448005FD447 /* GettingClosestSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A930A01EE0D448005FD447 /* GettingClosestSong.swift */; };
 		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
 		90CCBA391EC61DBC006CE9CC /* ConvertingSongType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */; };
@@ -84,6 +85,7 @@
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		905C06911EE4B694006DED81 /* PagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
 		905C06931EE4C84E006DED81 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		9084A6DA1EE7821F00BFA63D /* MiddleFlippingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleFlippingViewController.swift; sourceTree = "<group>"; };
 		90A930A01EE0D448005FD447 /* GettingClosestSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GettingClosestSong.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
 		90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertingSongType.swift; sourceTree = "<group>"; };
@@ -167,6 +169,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9084A6DC1EE8154500BFA63D /* Outer Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C405151F1EB7DC0B00F1471F /* BeastController.swift */,
+				905C06911EE4B694006DED81 /* PagesViewController.swift */,
+				9084A6DA1EE7821F00BFA63D /* MiddleFlippingViewController.swift */,
+			);
+			path = "Outer Controllers";
+			sourceTree = "<group>";
+		};
+		9084A6DD1EE8157100BFA63D /* Indivisual Pages */ = {
+			isa = PBXGroup;
+			children = (
+				90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */,
+				C4E896621E7458620096EC72 /* LibraryViewController.swift */,
+			);
+			path = "Indivisual Pages";
+			sourceTree = "<group>";
+		};
 		90CCBA3A1EC69659006CE9CC /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,14 +237,12 @@
 		C45838D61EC6939D00ECEBE5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				905C06911EE4B694006DED81 /* PagesViewController.swift */,
+				9084A6DC1EE8154500BFA63D /* Outer Controllers */,
+				9084A6DD1EE8157100BFA63D /* Indivisual Pages */,
 				C45220981EA2E65000E9A626 /* SongOptionsController.swift */,
 				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
 				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
-				90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */,
-				C4E896621E7458620096EC72 /* LibraryViewController.swift */,
 				C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */,
-				C405151F1EB7DC0B00F1471F /* BeastController.swift */,
 			);
 			name = Controllers;
 			path = Aud;
@@ -463,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */,
+				9084A6DB1EE7821F00BFA63D /* MiddleFlippingViewController.swift in Sources */,
 				C47FC7C91EB6AE7E00B1A352 /* SICForwardButton.swift in Sources */,
 				905C06941EE4C84E006DED81 /* GradientView.swift in Sources */,
 				C47FC7C51EB6A3B500B1A352 /* SicSongProgress.swift in Sources */,

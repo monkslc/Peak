@@ -142,7 +142,7 @@ class Alerts {
             
             
             (peakMusicController.delegate as! BeastController).showSignifier()
-            (peakMusicController.delegate as! BeastController).libraryViewController?.userLibrary.fetchLibrary()
+            (peakMusicController.delegate as! BeastController).libraryViewController.userLibrary.fetchLibrary()
         }
     }
     

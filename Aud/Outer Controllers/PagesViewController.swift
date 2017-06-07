@@ -43,12 +43,15 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     }
     var libraryHeight: CGFloat {
         
-        var rowHeight: CGFloat = 100
+        var rowHeight: CGFloat = 75
         if libraryViewController.library.visibleCells.count > 0 {
             rowHeight = libraryViewController.library.visibleCells[0].frame.height
         }
         
-        return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight))
+        print("ROW HEIGHT: \(rowHeight)")
+        print("COUNT: \(itemsCount)")
+        
+        return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight + 175))
     }
     
     var itemsCount = 0
@@ -102,7 +105,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         let bluetoothVc = storyboard?.instantiateViewController(withIdentifier: "bluetoothVcID") as! PopOverBluetoothViewController
         
         let middleVc = storyboard?.instantiateViewController(withIdentifier: "mainMiddleVcID") as! LibraryViewController
-        middleVc.delegate = parent as? LibraryViewControllerDelegate
+        middleVc.delegate = parent as? BeastController
         middleVc.libraryUpdatedDelegate = self
         
         for (index, vc) in [bluetoothVc, middleVc].enumerated() {
@@ -175,17 +178,12 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         
         itemsCount = count
         
-        var rowHeight: CGFloat = 100
-        if libraryViewController.library.visibleCells.count > 0 {
-            rowHeight = libraryViewController.library.visibleCells[0].frame.height
-        }
-        
+        // Remove Everything fro View
         for vc in childViewControllers {
             vc.didMove(toParentViewController: nil)
             vc.view.removeFromSuperview()
             vc.removeFromParentViewController()
         }
-        
         for view in verticalScrollViews {
             view.removeFromSuperview()
         }
@@ -193,6 +191,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             view.removeFromSuperview()
         }
         
+        // Add Everything BAck From VIew
         setUpScrollView()
         
         print("COUNT: \(count)")

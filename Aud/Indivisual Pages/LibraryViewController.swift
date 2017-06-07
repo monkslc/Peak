@@ -49,7 +49,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Fetch the items in the library
         NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
         
-        DispatchQueue.global().async {
+        DispatchQueue.main.async {
             self.loadingIndicator.startAnimating()
             //self.userLibrary.fetchLibrary()
         }

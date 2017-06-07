@@ -119,7 +119,10 @@ class AuthViewController: UIViewController {
                 
                 if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
                     
-                    self.loadingIndicator.stopAnimating()
+                    DispatchQueue.main.async {
+                        self.loadingIndicator.stopAnimating()
+                    }
+                    
                     DispatchQueue.global().async {
                         DispatchQueue.main.async {
                             
