@@ -352,7 +352,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
                 MPMediaLibrary().addItem(withProductID: cell.itemInCell.getId(), completionHandler: {(ent, err) in
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                    //Updated here:
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)){
                         
                         self.searchedSongsTableView.reloadData()
                     }
@@ -389,7 +390,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             //Now Reload the Data in both talbes so the user can see it
             
             //Do me here
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+            //Updated Here
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)){
              
                 self.searchedSongsTableView.reloadData()
             }
@@ -416,7 +418,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                             
                             
                             //Update Library Here
-                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                            //Updated here
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)){
                                 
                                 self.searchedSongsTableView.reloadData()
                             }
