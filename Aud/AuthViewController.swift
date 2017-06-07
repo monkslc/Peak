@@ -109,7 +109,11 @@ class AuthViewController: UIViewController {
                 
             } else if capability.contains(SKCloudServiceCapability.addToCloudMusicLibrary){
                 
-                self.loadingIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    
+                    self.loadingIndicator.stopAnimating()
+                }
+                
                 
                 //We're all set to go lets see if we can segue
                 
