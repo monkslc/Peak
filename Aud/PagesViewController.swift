@@ -8,7 +8,11 @@
 
 import UIKit
 
-class PagesViewController: UIViewController, UIScrollViewDelegate {
+protocol SongsLoaded {
+    func songsLoaded(count: Int)
+}
+
+class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
 
     var horizontalScrollView: UIScrollView!
     var verticalScrollViews: [UIScrollView] = []
@@ -44,16 +48,26 @@ class PagesViewController: UIViewController, UIScrollViewDelegate {
             rowHeight = libraryViewController.library.visibleCells[0].frame.height
         }
         
-        return max(self.view.frame.height, CGFloat(CGFloat(libraryViewController.userLibrary.itemsInLibrary.count + 1) * rowHeight + 150))
+        return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight))
     }
+    
+    var itemsCount = 0
+    
+    var alreadyLoaded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notification:)), name: Notification.Name.systemMusicPlayerLibraryChanged, object: nil)
+        
         // Do any additional setup after loading the view.
+        //setUpScrollView()
+        
+        //NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notiication:)), name: Notification.Name.systemMusicPlayerLibraryChanged, object: nil)
+        
+        
         setUpScrollView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notification:)), name: .systemUserPlayerLibraryChanged, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,6 +103,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate {
         
         let middleVc = storyboard?.instantiateViewController(withIdentifier: "mainMiddleVcID") as! LibraryViewController
         middleVc.delegate = parent as? LibraryViewControllerDelegate
+        middleVc.libraryUpdatedDelegate = self
         
         for (index, vc) in [bluetoothVc, middleVc].enumerated() {
             
@@ -141,12 +156,55 @@ class PagesViewController: UIViewController, UIScrollViewDelegate {
     }
     
     
-    // Notifications
+    // Notification
     
-    func libraryUpdated(notiication: NSNotification) {
+    func libraryUpdated(notification: NSNotification) {
         
-        let pageIndex = self.pageIndex
+        if verticalScrollViews.count > 1 {
+            verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: libraryHeight)
+        }
+    }
+
+    func songsLoaded(count: Int) {
         
-        verticalScrollViews[pageIndex].contentSize = CGSize(width: self.view.frame.width, height: pageSize(at: pageIndex))
+        if alreadyLoaded || count <= 2 {
+            return
+        }
+        
+        alreadyLoaded = true
+        
+        itemsCount = count
+        
+        var rowHeight: CGFloat = 100
+        if libraryViewController.library.visibleCells.count > 0 {
+            rowHeight = libraryViewController.library.visibleCells[0].frame.height
+        }
+        
+        for vc in childViewControllers {
+            vc.didMove(toParentViewController: nil)
+            vc.view.removeFromSuperview()
+            vc.removeFromParentViewController()
+        }
+        
+        for view in verticalScrollViews {
+            view.removeFromSuperview()
+        }
+        for view in self.view.subviews {
+            view.removeFromSuperview()
+        }
+        
+        setUpScrollView()
+        
+        print("COUNT: \(count)")
+        print("COUNT: \(libraryViewController.userLibrary.itemsInLibrary.count)")
+        /*
+        print(horizontalScrollView.contentSize)
+        print(verticalScrollViews[1].contentSize)
+        let foo = horizontalScrollView.contentSize
+        verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: CGFloat(count) * rowHeight + 100)
+        horizontalScrollView.contentSize = foo
+        print(horizontalScrollView.contentSize)
+        print(verticalScrollViews[1].contentSize)
+        */
     }
 }

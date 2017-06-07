@@ -390,7 +390,7 @@ class UserLibrary{
         
         DispatchQueue.global().async {
             
-            fetchLibrary()
+            self.fetchLibrary()
         }
         
     }

@@ -33,6 +33,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var delegate: LibraryViewControllerDelegate?
     
+    var libraryUpdatedDelegate: SongsLoaded!
+    
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     
@@ -191,6 +193,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //Return the number of rows we want
         
+        libraryUpdatedDelegate.songsLoaded(count: userLibrary.itemsInLibrary.count + 2)
         
         return userLibrary.itemsInLibrary.count + 2 //add two so the last rows don't get hidden
     }
