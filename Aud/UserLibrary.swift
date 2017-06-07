@@ -21,6 +21,7 @@ class UserLibrary{
     /*MARK: INITIALIZERS*/
     init(){
         
+        
         //Add the listener for a library change
         NotificationCenter.default.addObserver(self, selector: #selector(libraryItemsChanged), name: .systemMusicPlayerLibraryChanged, object: nil)
     }
@@ -390,7 +391,7 @@ class UserLibrary{
         
         DispatchQueue.global().async {
             
-            fetchLibrary()
+            self.fetchLibrary()
         }
         
     }
