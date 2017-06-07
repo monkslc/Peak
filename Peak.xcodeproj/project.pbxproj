@@ -73,6 +73,8 @@
 		C4E896661E7458620096EC72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4E896641E7458620096EC72 /* Main.storyboard */; };
 		C4E896681E7458620096EC72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4E896671E7458620096EC72 /* Assets.xcassets */; };
 		C4E8966B1E7458620096EC72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4E896691E7458620096EC72 /* LaunchScreen.storyboard */; };
+		C4F552A71EE781B500387A3E /* MusicTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F552A61EE781B500387A3E /* MusicTypeController.swift */; };
+		C4F552A91EE782C800387A3E /* MusicTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F552A81EE782C800387A3E /* MusicTypeCell.swift */; };
 		C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FCDF8E1E909D7B0046C1F9 /* ScrollBar.swift */; };
 		C4FCDF931E90A83A0046C1F9 /* DisplayLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FCDF921E90A83A0046C1F9 /* DisplayLabelView.swift */; };
 		C4FCDF951E90AE9E0046C1F9 /* ScrollPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FCDF941E90AE9E0046C1F9 /* ScrollPresenterView.swift */; };
@@ -148,6 +150,8 @@
 		C4E896671E7458620096EC72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4E8966A1E7458620096EC72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4E8966C1E7458620096EC72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4F552A61EE781B500387A3E /* MusicTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeController.swift; sourceTree = "<group>"; };
+		C4F552A81EE782C800387A3E /* MusicTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeCell.swift; sourceTree = "<group>"; };
 		C4FCDF8E1E909D7B0046C1F9 /* ScrollBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollBar.swift; path = ../ScrollBar.swift; sourceTree = "<group>"; };
 		C4FCDF921E90A83A0046C1F9 /* DisplayLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLabelView.swift; sourceTree = "<group>"; };
 		C4FCDF941E90AE9E0046C1F9 /* ScrollPresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollPresenterView.swift; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */,
+				C4F552A81EE782C800387A3E /* MusicTypeCell.swift */,
 				C48E45831E7479BF00BFFE4C /* SongCell.swift */,
 			);
 			name = Cells;
@@ -504,6 +509,7 @@
 				C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */,
 				C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */,
 				C456253A1E8EF95E00311750 /* Alerts.swift in Sources */,
+				C4F552A91EE782C800387A3E /* MusicTypeCell.swift in Sources */,
 				90E2DFEE1E88865600762B9D /* PopOverBluetoothViewController.swift in Sources */,
 				C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */,
 				90E2DFE01E87509C00762B9D /* MPCManager.swift in Sources */,
@@ -533,6 +539,7 @@
 				90E2DFE61E87FF0900762B9D /* Song.swift in Sources */,
 				C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */,
 				C4D117781E80A9F2000A854A /* VisualQueueController.swift in Sources */,
+				C4F552A71EE781B500387A3E /* MusicTypeController.swift in Sources */,
 				90323D351EA8D2FE00489B50 /* GettingTopCharts.swift in Sources */,
 				90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */,
 				C47FC7C71EB6A8EA00B1A352 /* SongProgressLabel.swift in Sources */,

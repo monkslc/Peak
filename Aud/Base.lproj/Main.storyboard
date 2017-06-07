@@ -329,6 +329,100 @@
             </objects>
             <point key="canvasLocation" x="-759.20000000000005" y="849.62518740629696"/>
         </scene>
+        <!--Music Type Controller-->
+        <scene sceneID="alJ-9Q-lu9">
+            <objects>
+                <viewController id="3DZ-m5-oPz" customClass="MusicTypeController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2GU-qt-S8I"/>
+                        <viewControllerLayoutGuide type="bottom" id="6U2-6f-2Bu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4F4-M0-3eU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tss-4s-f8h">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpS-5Q-aYZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="53"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Music Type" id="RSl-Md-bL6" customClass="MusicTypeCell" customModule="Aud" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="81" width="375" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RSl-Md-bL6" id="m3j-Qa-AgK">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hu4-o7-gFP">
+                                                    <rect key="frame" x="15" y="10" width="44.5" height="44.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Hu4-o7-gFP" secondAttribute="height" multiplier="1:1" id="WDR-xc-Vxk"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBT-zc-vFS">
+                                                    <rect key="frame" x="80" y="10" width="192.5" height="45"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checkmark-96" translatesAutoresizingMaskIntoConstraints="NO" id="jME-PT-1pS">
+                                                    <rect key="frame" x="292.5" y="10" width="44.5" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="jME-PT-1pS" secondAttribute="height" multiplier="1:1" id="8dZ-Qg-hOR"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jME-PT-1pS" firstAttribute="width" secondItem="Hu4-o7-gFP" secondAttribute="width" id="1VY-UK-KUG"/>
+                                                <constraint firstItem="jME-PT-1pS" firstAttribute="centerY" secondItem="Hu4-o7-gFP" secondAttribute="centerY" id="L1w-j0-zA2"/>
+                                                <constraint firstItem="SBT-zc-vFS" firstAttribute="centerY" secondItem="Hu4-o7-gFP" secondAttribute="centerY" id="Qqz-Kj-bfm"/>
+                                                <constraint firstItem="SBT-zc-vFS" firstAttribute="height" secondItem="Hu4-o7-gFP" secondAttribute="height" id="Rbh-WF-lba"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jME-PT-1pS" secondAttribute="trailing" constant="30" id="VZI-g6-8UX"/>
+                                                <constraint firstItem="Hu4-o7-gFP" firstAttribute="leading" secondItem="m3j-Qa-AgK" secondAttribute="leading" constant="15" id="hJr-bx-4bP"/>
+                                                <constraint firstItem="jME-PT-1pS" firstAttribute="leading" secondItem="SBT-zc-vFS" secondAttribute="trailing" constant="20" id="kwP-TY-PwF"/>
+                                                <constraint firstItem="Hu4-o7-gFP" firstAttribute="top" secondItem="m3j-Qa-AgK" secondAttribute="top" constant="10" id="oMw-Ed-fIi"/>
+                                                <constraint firstItem="SBT-zc-vFS" firstAttribute="leading" secondItem="Hu4-o7-gFP" secondAttribute="trailing" constant="20" id="pc0-5G-dGF"/>
+                                                <constraint firstAttribute="bottom" secondItem="Hu4-o7-gFP" secondAttribute="bottom" constant="10" id="rrx-pW-nHC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outlet property="checkMrk" destination="jME-PT-1pS" id="ntr-Ea-ZBy"/>
+                                            <outlet property="musicPlayerImage" destination="Hu4-o7-gFP" id="MT6-yG-F6V"/>
+                                            <outlet property="musicPlayerLabel" destination="SBT-zc-vFS" id="1VZ-3e-W6S"/>
+                                            <outletCollection property="gestureRecognizers" destination="4fn-9Z-9EP" appends="YES" id="k7R-sL-UcK"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6U2-6f-2Bu" firstAttribute="top" secondItem="Tss-4s-f8h" secondAttribute="bottom" id="7b4-qW-gSb"/>
+                            <constraint firstItem="Tss-4s-f8h" firstAttribute="leading" secondItem="4F4-M0-3eU" secondAttribute="leading" id="KGK-aW-bDq"/>
+                            <constraint firstAttribute="trailing" secondItem="Tss-4s-f8h" secondAttribute="trailing" id="Pw9-pp-PgG"/>
+                            <constraint firstItem="Tss-4s-f8h" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="XYy-cG-NzI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="musicTypeTable" destination="Tss-4s-f8h" id="RzF-7x-T3w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="85J-DJ-TY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4fn-9Z-9EP">
+                    <connections>
+                        <action selector="switchMusicType:" destination="3DZ-m5-oPz" id="7lQ-GV-pps"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-759.20000000000005" y="-690.40479760119945"/>
+        </scene>
         <!--Search Bar Pop Over View View Controller-->
         <scene sceneID="8rc-4x-PGA">
             <objects>
@@ -895,6 +989,7 @@
     </scenes>
     <resources>
         <image name="Backward Filled-50" width="50" height="50"/>
+        <image name="Checkmark-96" width="96" height="96"/>
         <image name="Download_1edcbb_100" width="96" height="96"/>
         <image name="Forward Filled-50" width="50" height="50"/>
         <image name="High Volume Filled-50" width="50" height="50"/>
