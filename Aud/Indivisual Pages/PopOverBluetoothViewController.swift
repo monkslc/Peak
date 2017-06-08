@@ -25,6 +25,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("PopOverBluetoothViewController VIEW DID LOAD ")
 
         // Do any additional setup after loading the view.
         
@@ -43,6 +44,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         }
             
         updateMPCManager()
+        print("PopOverBluetoothViewController VIEW DID LOAD END")
     }
     
     override func viewWillDisappear(_ animated: Bool) {

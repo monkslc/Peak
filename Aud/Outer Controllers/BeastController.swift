@@ -44,6 +44,7 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         super.viewDidLoad()
         
         
+        
        //Set up search bar
         mediaSearchBar.delegate = self
     

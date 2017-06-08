@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qyf-Ig-ovY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aba-Tn-DBx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -332,7 +332,7 @@
         <!--Music Type Controller-->
         <scene sceneID="alJ-9Q-lu9">
             <objects>
-                <viewController id="3DZ-m5-oPz" customClass="MusicTypeController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="musicTypePlayerID" id="3DZ-m5-oPz" customClass="MusicTypeController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2GU-qt-S8I"/>
                         <viewControllerLayoutGuide type="bottom" id="6U2-6f-2Bu"/>
@@ -626,10 +626,21 @@
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGh-2w-97z">
+                                <rect key="frame" x="337" y="24" width="30" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="...">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="flippedButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DfS-fm-acf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="SGh-2w-97z" secondAttribute="trailing" constant="8" id="3Gj-Dd-vce"/>
                             <constraint firstAttribute="trailing" secondItem="t3h-BM-8Rk" secondAttribute="trailing" id="5Ye-4a-K9b"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6jy-iB-aPk"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="4CC-oP-P7H" secondAttribute="trailing" constant="15" id="8HW-OH-slo"/>
@@ -639,6 +650,7 @@
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="centerY" secondItem="t3h-BM-8Rk" secondAttribute="centerY" id="alj-ou-KeL"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
+                            <constraint firstItem="SGh-2w-97z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="24" id="nMo-AK-rhM"/>
                             <constraint firstItem="hAG-ts-z5N" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nqx-zL-jvF"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="centerY" secondItem="05J-pc-yQM" secondAttribute="centerY" id="vcC-SI-ELN"/>

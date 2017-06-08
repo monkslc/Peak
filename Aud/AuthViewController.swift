@@ -173,7 +173,7 @@ class AuthViewController: UIViewController {
                 //We are yet to get access from the user
                 SKCloudServiceController.requestAuthorization({(authorization) in
                     
-                    switch authorization{
+                    switch authorization {
                         
                     case .authorized:
                         self.checkAppleAuthentication()

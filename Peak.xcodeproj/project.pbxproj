@@ -150,7 +150,7 @@
 		C4E896671E7458620096EC72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4E8966A1E7458620096EC72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4E8966C1E7458620096EC72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4F552A61EE781B500387A3E /* MusicTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeController.swift; sourceTree = "<group>"; };
+		C4F552A61EE781B500387A3E /* MusicTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MusicTypeController.swift; path = ../MusicTypeController.swift; sourceTree = "<group>"; };
 		C4F552A81EE782C800387A3E /* MusicTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeCell.swift; sourceTree = "<group>"; };
 		C4FCDF8E1E909D7B0046C1F9 /* ScrollBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollBar.swift; path = ../ScrollBar.swift; sourceTree = "<group>"; };
 		C4FCDF921E90A83A0046C1F9 /* DisplayLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLabelView.swift; sourceTree = "<group>"; };
@@ -173,6 +173,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900684F31EE8C3660033DD9C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		9084A6DC1EE8154500BFA63D /* Outer Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +251,7 @@
 				9084A6DC1EE8154500BFA63D /* Outer Controllers */,
 				9084A6DD1EE8157100BFA63D /* Indivisual Pages */,
 				C45220981EA2E65000E9A626 /* SongOptionsController.swift */,
+				C4F552A61EE781B500387A3E /* MusicTypeController.swift */,
 				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
 				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
 				C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */,
@@ -390,6 +398,7 @@
 				C4D1177C1E819F9A000A854A /* Supporting Files */,
 				C4E8965E1E7458620096EC72 /* Products */,
 				C48B4F0E1E9B1FF1002D2DB9 /* Frameworks */,
+				900684F31EE8C3660033DD9C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -614,7 +623,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -662,7 +671,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",

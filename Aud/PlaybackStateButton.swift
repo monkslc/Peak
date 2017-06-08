@@ -16,6 +16,9 @@ class PlaybackStateButton: UIButton {
         super.init(coder: aDecoder)
         
         //set the inital image
+        print(peakMusicController)
+        print(peakMusicController.systemMusicPlayer)
+        print(peakMusicController.systemMusicPlayer.getPlayerState())
         if peakMusicController.systemMusicPlayer.getPlayerState() == MusicPlayerState.playing {
             
             setImage(#imageLiteral(resourceName: "Pause Filled-50"), for: .normal)
