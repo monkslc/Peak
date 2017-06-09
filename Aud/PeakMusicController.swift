@@ -16,6 +16,7 @@ protocol PeakMusicControllerDelegate{
 class PeakMusicController {
     
     init(){
+        
         let defaults = UserDefaults.standard
         if let musicType = defaults.string(forKey: "Music Type") {
             switch musicType{
@@ -70,7 +71,7 @@ class PeakMusicController {
         
     }
     
-    enum MusicType: Int {
+    enum MusicType: Int{
         //enum to determine how the user is going to listen to music
         
         case AppleMusic = 0
