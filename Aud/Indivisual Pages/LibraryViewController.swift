@@ -358,7 +358,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func flippedButtonClicked(_ sender: UIButton) {
         if let parent = parent as? PagesViewController {
-            parent.flipMiddlePage()
+            parent.flipMiddlePageToBack()
         }
     }
     

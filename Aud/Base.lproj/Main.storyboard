@@ -341,7 +341,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tss-4s-f8h">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tss-4s-f8h">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpS-5Q-aYZ">
@@ -401,6 +401,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhP-yR-4y6">
+                                <rect key="frame" x="337" y="10" width="30" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="...">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="flipViewController:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="rWf-Vy-0vi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -408,6 +418,8 @@
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="leading" secondItem="4F4-M0-3eU" secondAttribute="leading" id="KGK-aW-bDq"/>
                             <constraint firstAttribute="trailing" secondItem="Tss-4s-f8h" secondAttribute="trailing" id="Pw9-pp-PgG"/>
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="XYy-cG-NzI"/>
+                            <constraint firstItem="QhP-yR-4y6" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" constant="10" id="eko-oj-CVk"/>
+                            <constraint firstAttribute="trailing" secondItem="QhP-yR-4y6" secondAttribute="trailing" constant="8" id="lfc-GQ-64s"/>
                         </constraints>
                     </view>
                     <connections>

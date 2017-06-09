@@ -150,7 +150,7 @@
 		C4E896671E7458620096EC72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4E8966A1E7458620096EC72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4E8966C1E7458620096EC72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4F552A61EE781B500387A3E /* MusicTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MusicTypeController.swift; path = ../MusicTypeController.swift; sourceTree = "<group>"; };
+		C4F552A61EE781B500387A3E /* MusicTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeController.swift; sourceTree = "<group>"; };
 		C4F552A81EE782C800387A3E /* MusicTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeCell.swift; sourceTree = "<group>"; };
 		C4FCDF8E1E909D7B0046C1F9 /* ScrollBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollBar.swift; path = ../ScrollBar.swift; sourceTree = "<group>"; };
 		C4FCDF921E90A83A0046C1F9 /* DisplayLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLabelView.swift; sourceTree = "<group>"; };
@@ -195,6 +195,7 @@
 			children = (
 				90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */,
 				C4E896621E7458620096EC72 /* LibraryViewController.swift */,
+				C4F552A61EE781B500387A3E /* MusicTypeController.swift */,
 			);
 			path = "Indivisual Pages";
 			sourceTree = "<group>";
@@ -251,7 +252,6 @@
 				9084A6DC1EE8154500BFA63D /* Outer Controllers */,
 				9084A6DD1EE8157100BFA63D /* Indivisual Pages */,
 				C45220981EA2E65000E9A626 /* SongOptionsController.swift */,
-				C4F552A61EE781B500387A3E /* MusicTypeController.swift */,
 				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
 				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
 				C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */,

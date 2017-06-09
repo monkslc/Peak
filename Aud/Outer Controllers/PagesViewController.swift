@@ -22,6 +22,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     static let halfOfSpaceBetween: CGFloat = 16
     
+    static let topBarHeight: CGFloat = 58
+    
     var pageIndex: Int {
         set {
             horizontalScrollView.setContentOffset(CGPoint(x: CGFloat(newValue) * horizontalScrollView.frame.width, y: 0), animated: true)
@@ -64,8 +66,6 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     var itemsCount = 0
     
     var alreadyLoaded = false
-    
-    var isFlipped = false
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -298,8 +298,6 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         
         self.view.backgroundColor = UIColor.green
         
-        let topBarHeight: CGFloat = 58
-        
         horizontalScrollView = UIScrollView(frame: CGRect(x: -PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width + PagesViewController.halfOfSpaceBetween * 2, height: self.view.frame.height))
         horizontalScrollView.isPagingEnabled = true
         horizontalScrollView.delegate = self
@@ -318,21 +316,22 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             self.addChildViewController(vc)
             newVerticalScrollView.addSubview(vc.view)
             horizontalScrollView.addSubview(newVerticalScrollView)
-            verticalScrollViews.append(horizontalScrollView)
+            verticalScrollViews.append(newVerticalScrollView)
             vc.didMove(toParentViewController: self)
             
             vc.view.layer.cornerRadius = 25
             
             newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: pageSize(at: index))
-            vc.view.frame = CGRect(x: 0, y: topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: pageSize(at: index))
+            vc.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: pageSize(at: index))
         }
         
-        /*
         let musicTypeVC = storyboard?.instantiateViewController(withIdentifier: "musicTypePlayerID") as! MusicTypeController
         addChildViewController(musicTypeVC)
-        verticalScrollViews[1].addSubview(musicTypeVC.view)
+        //verticalScrollViews[1].addSubview(musicTypeVC.view)
         musicTypeVC.didMove(toParentViewController: self)
-        */
+        musicTypeVC.view.layer.cornerRadius = 25
+        musicTypeVC.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: bluetoothHeight)
+        //musicTypeVC.view.removeFromSuperview()
         
         horizontalScrollView.contentSize = CGSize(width: horizontalScrollView.frame.width * 2, height: horizontalScrollView.frame.height)
         horizontalScrollView.contentOffset = CGPoint(x: horizontalScrollView.frame.width, y: 0)
@@ -368,31 +367,27 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         setUpScrollView()
     }
     
-    func flipMiddlePage() {
+    func flipMiddlePageToBack() {
         
-        if isFlipped {
-            UIView.transition(with: self.view, duration: 0.5, options: .transitionFlipFromRight, animations: { () -> Void in
-                
-                self.verticalScrollViews[1].addSubview(self.musicTypeController.view)
-                
-                self.libraryViewController.view.removeFromSuperview()
-                
-            }, completion: { (Bool) -> Void in
-                
-                self.isFlipped = false
-            })
-        }
-        else {
-            UIView.transition(with: self.view, duration: 0.5, options: .transitionFlipFromRight, animations: { () -> Void in
-                
-                self.verticalScrollViews[1].addSubview(self.libraryViewController.view)
-                
-                self.musicTypeController.view.removeFromSuperview()
-                
-            }, completion: { (Bool) -> Void in
-                
-                self.isFlipped = true
-            })
-        }
+        UIView.transition(with: verticalScrollViews[1], duration: 0.5, options: .transitionFlipFromRight, animations: { () -> Void in
+            
+            self.verticalScrollViews[1].addSubview(self.musicTypeController.view)
+            self.libraryViewController.view.removeFromSuperview()
+            
+        }, completion: { (Bool) -> Void in
+            
+        })
+    }
+
+    func flipMiddlePageToFront() {
+        
+        UIView.transition(with: verticalScrollViews[1], duration: 0.5, options: .transitionFlipFromRight, animations: { () -> Void in
+            
+            self.verticalScrollViews[1].addSubview(self.libraryViewController.view)
+            self.musicTypeController.view.removeFromSuperview()
+            
+        }, completion: { (Bool) -> Void in
+            
+        })
     }
 }
