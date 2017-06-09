@@ -86,7 +86,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             musicTypeTable.reloadData()
         } else{
             
-            /*CAM THE ERROR IS HERE BECAUSE THE sender.view?.superview is not the cell. Figure out how to turn that into the cell and we will be good*/
+            /*CAM THE ERROR IS HERE BECAUSE THE sender.view?.superview is not the cell in the above if let statment. Figure out how to turn that into the cell and we will be good*/
             print("\n\n\nCAM THE ERROR WAS HERE \n")
         }
     }
