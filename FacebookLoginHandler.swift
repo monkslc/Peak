@@ -32,6 +32,7 @@ class FacebookLoginHandler: NSObject, FBSDKLoginButtonDelegate{
     /*MARK: FETCHING USER INFO Methods*/
     private func fetchProfile(){
         
+        
         print("Fetching me Profile")
         let params = ["fields": "email, id, friends"]
         

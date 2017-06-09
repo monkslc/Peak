@@ -8,7 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
-import FBSDKCoreKit
+//import FBSDKCoreKit
 
 class GroupsViewwController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
