@@ -13,7 +13,6 @@
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
 		905C06921EE4B694006DED81 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C06911EE4B694006DED81 /* PagesViewController.swift */; };
 		905C06941EE4C84E006DED81 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C06931EE4C84E006DED81 /* GradientView.swift */; };
-		9084A6DB1EE7821F00BFA63D /* MiddleFlippingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9084A6DA1EE7821F00BFA63D /* MiddleFlippingViewController.swift */; };
 		90A930A11EE0D448005FD447 /* GettingClosestSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A930A01EE0D448005FD447 /* GettingClosestSong.swift */; };
 		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
 		90CCBA391EC61DBC006CE9CC /* ConvertingSongType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */; };
@@ -87,7 +86,6 @@
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		905C06911EE4B694006DED81 /* PagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
 		905C06931EE4C84E006DED81 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		9084A6DA1EE7821F00BFA63D /* MiddleFlippingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleFlippingViewController.swift; sourceTree = "<group>"; };
 		90A930A01EE0D448005FD447 /* GettingClosestSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GettingClosestSong.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
 		90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertingSongType.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 			children = (
 				C405151F1EB7DC0B00F1471F /* BeastController.swift */,
 				905C06911EE4B694006DED81 /* PagesViewController.swift */,
-				9084A6DA1EE7821F00BFA63D /* MiddleFlippingViewController.swift */,
 			);
 			path = "Outer Controllers";
 			sourceTree = "<group>";
@@ -496,7 +493,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C40515201EB7DC0B00F1471F /* BeastController.swift in Sources */,
-				9084A6DB1EE7821F00BFA63D /* MiddleFlippingViewController.swift in Sources */,
 				C47FC7C91EB6AE7E00B1A352 /* SICForwardButton.swift in Sources */,
 				905C06941EE4C84E006DED81 /* GradientView.swift in Sources */,
 				C47FC7C51EB6A3B500B1A352 /* SicSongProgress.swift in Sources */,
