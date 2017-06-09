@@ -63,18 +63,23 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.checkMrk.isHidden = false
         }
         
-        
+        //Add the gesture recognizer
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchMusicType(_:))))
         
         return cell
     }
     
     
 /*MARK: GESTURE RECOGNIZERS*/
-    @IBAction func switchMusicType(_ sender: UITapGestureRecognizer) {
+    func switchMusicType(_ sender: UITapGestureRecognizer){
+        
+        print("Just View: \(sender.view)")
+        print("Superview: \(sender.view?.superview)")
         
         //Get the cell that was tapped on
-        if let cell: MusicTypeCell = sender.view?.superview as? MusicTypeCell{
+        if let cell: MusicTypeCell = sender.view as? MusicTypeCell{
             
+            print("Made it in the cell")
             //Set our new user defaults
             let defaults = UserDefaults.standard
             defaults.set(cell.musicPlayerLabel.text, forKey: "Music Type")
@@ -90,4 +95,5 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             print("\n\n\nCAM THE ERROR WAS HERE \n")
         }
     }
+    
 }
