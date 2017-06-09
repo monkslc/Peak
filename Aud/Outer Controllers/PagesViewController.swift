@@ -329,6 +329,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         addChildViewController(musicTypeVC)
         //verticalScrollViews[1].addSubview(musicTypeVC.view)
         musicTypeVC.didMove(toParentViewController: self)
+        musicTypeVC.view.layer.masksToBounds = true
         musicTypeVC.view.layer.cornerRadius = 25
         musicTypeVC.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: bluetoothHeight)
         //musicTypeVC.view.removeFromSuperview()
