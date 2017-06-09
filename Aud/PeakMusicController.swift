@@ -10,15 +10,28 @@ import UIKit
 import MediaPlayer
 
 protocol PeakMusicControllerDelegate{
-    
     func showSignifier()
 }
 
 class PeakMusicController {
-
     
     init(){
-
+        let defaults = UserDefaults.standard
+        if let musicType = defaults.string(forKey: "Music Type") {
+            switch musicType{
+            case "Apple Music":
+                self.musicType = .AppleMusic
+            case "Spotify":
+                self.musicType = .Spotify
+            default:
+                self.musicType = .Guest
+            }
+        }
+        else {
+            //This means the player has not yet set their preferred type so start them off as a guest
+            self.musicType = .Guest
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil)
     }
     

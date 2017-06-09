@@ -119,7 +119,10 @@ class AuthViewController: UIViewController {
                 
                 if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
                     
-                    self.loadingIndicator.stopAnimating()
+                    DispatchQueue.main.async {
+                        self.loadingIndicator.stopAnimating()
+                    }
+                    
                     DispatchQueue.global().async {
                         DispatchQueue.main.async {
                             
@@ -170,7 +173,7 @@ class AuthViewController: UIViewController {
                 //We are yet to get access from the user
                 SKCloudServiceController.requestAuthorization({(authorization) in
                     
-                    switch authorization{
+                    switch authorization {
                         
                     case .authorized:
                         self.checkAppleAuthentication()

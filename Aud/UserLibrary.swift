@@ -200,59 +200,60 @@ class UserLibrary{
         
         
         //Fetch Songs From Core Data
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
-        request.returnsObjectsAsFaults = false
-        
-        var storedSongs = [Song]()
-        
-        do{
+        DispatchQueue.main.async {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
             
-            let results = try context.fetch(request)
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredSong")
+            request.returnsObjectsAsFaults = false
             
-            let serialQueue = DispatchQueue(label: "myqueue")
-            var counter = 0
-            //loop through all the song Entities
-            for result in results {
+            var storedSongs = [Song]()
+            
+            do{
                 
-                let song = result as! StoredSong
+                let results = try context.fetch(request)
                 
-                //Create Song Entities and add them to the accumulator variable
-                ConnectingToInternet.getSong(id: song.value(forKey: "storedID") as! String, completion: {(retSong) in
+                let serialQueue = DispatchQueue(label: "myqueue")
+                var counter = 0
+                //loop through all the song Entities
+                for result in results {
                     
-                    var songToAppend = retSong
-                    songToAppend.dateAdded = song.downloaded! as Date
+                    let song = result as! StoredSong
+                    
+                    //Create Song Entities and add them to the accumulator variable
+                    ConnectingToInternet.getSong(id: song.value(forKey: "storedID") as! String, completion: {(retSong) in
+                        
+                        var songToAppend = retSong
+                        songToAppend.dateAdded = song.downloaded! as Date
+                        
+                        
+                        
+                        serialQueue.sync {
+                            storedSongs.append(songToAppend)
+                        }
+                        
+                        
+                        counter += 1
+                        if counter == results.count{
+                            finishFetchForGuest(storedSongs)
+                        }
+                    })
                     
                     
                     
-                    serialQueue.sync {
-                        storedSongs.append(songToAppend)
-                    }
                     
-                    
-                    counter += 1
-                    if counter == results.count{
-                        finishFetchForGuest(storedSongs)
-                    }
-                })
+                }
                 
+                //Check if we have no results so we can make sure everything get's called a-okay
+                if results.count < 1{
+                    
+                    self.delegate?.libraryItemsUpdated()
+                }
                 
+            } catch {
                 
-                
+                print("These Visions of Johanna, are now all that remain")
             }
-            
-            //Check if we have no results so we can make sure everything get's called a-okay
-            if results.count < 1{
-                
-                delegate?.libraryItemsUpdated()
-            }
-            
-        } catch {
-            
-            print("These Visions of Johanna, are now all that remain")
         }
     }
     

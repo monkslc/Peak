@@ -33,6 +33,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var delegate: LibraryViewControllerDelegate?
     
+    var libraryUpdatedDelegate: SongsLoaded!
+    
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     
@@ -40,33 +42,15 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*MARK: LIFECYCLE METHODS*/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Let's figure out our player type and set it to be that
-        let defaults = UserDefaults.standard
-        
-        if let musicType = defaults.string(forKey: "Music Type"){
-            
-            switch musicType{
-                
-            case "Apple Music":
-                peakMusicController.musicType = .AppleMusic
-                
-            case "Spotify":
-                peakMusicController.musicType = .Spotify
-                
-            default:
-                peakMusicController.musicType = .Guest
-            }
-        } else{
-            
-            //This means the player has not yet set their preferred type so start them off as a guest
-            peakMusicController.musicType = .Guest
-        }
+        print("LibraryViewController viewDidLoad START")
         
         //Set the delegate for the user library
         userLibrary.delegate = self
         
-        DispatchQueue.global().async {
+        //Fetch the items in the library
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+        
+        DispatchQueue.main.async {
             self.loadingIndicator.startAnimating()
             //self.userLibrary.fetchLibrary()
         }
@@ -89,6 +73,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
             MPMediaLibrary.default().beginGeneratingLibraryChangeNotifications()
         }*/
         
+        print("LibraryViewController viewDidLoad END")
     }
     
     
@@ -210,6 +195,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //Return the number of rows we want
         
+        libraryUpdatedDelegate.songsLoaded(count: userLibrary.itemsInLibrary.count + 2)
         
         return userLibrary.itemsInLibrary.count + 2 //add two so the last rows don't get hidden
     }
@@ -370,5 +356,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
+    @IBAction func flippedButtonClicked(_ sender: UIButton) {
+        if let parent = parent as? PagesViewController {
+            parent.flipMiddlePageToBack()
+        }
+    }
     
 }

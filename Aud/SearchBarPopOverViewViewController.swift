@@ -118,7 +118,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         }
         
         let BC = (delegate as! BeastController)
-        let cell = BC.libraryViewController?.library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
+        let cell = BC.libraryViewController.library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
         
         //Add the item to the cell
         cell.itemInCell = topResults[indexPath.row]
