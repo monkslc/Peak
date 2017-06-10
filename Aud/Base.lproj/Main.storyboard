@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aba-Tn-DBx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VHR-Et-qy0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,6 +12,52 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Startup View Controller-->
+        <scene sceneID="mtK-B1-9R9">
+            <objects>
+                <viewController id="VHR-Et-qy0" customClass="StartupViewController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CS8-eZ-iMA"/>
+                        <viewControllerLayoutGuide type="bottom" id="FyE-jQ-ScE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bCP-BN-zv6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Peak Logo" translatesAutoresizingMaskIntoConstraints="NO" id="dUB-8n-Y2d">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FMK-GH-Wcd">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Cameron" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kkl-bd-2ZM">
+                                <rect key="frame" x="16" y="28" width="343" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kkl-bd-2ZM" firstAttribute="trailing" secondItem="bCP-BN-zv6" secondAttribute="trailingMargin" id="074-pC-sw8"/>
+                            <constraint firstItem="dUB-8n-Y2d" firstAttribute="top" secondItem="bCP-BN-zv6" secondAttribute="top" id="9oP-N7-dVM"/>
+                            <constraint firstItem="FMK-GH-Wcd" firstAttribute="centerY" secondItem="bCP-BN-zv6" secondAttribute="centerY" id="Aum-Ua-mpF"/>
+                            <constraint firstAttribute="trailing" secondItem="dUB-8n-Y2d" secondAttribute="trailing" id="JIZ-2h-Wvt"/>
+                            <constraint firstItem="FMK-GH-Wcd" firstAttribute="centerX" secondItem="bCP-BN-zv6" secondAttribute="centerX" id="RVE-a1-xbg"/>
+                            <constraint firstItem="dUB-8n-Y2d" firstAttribute="leading" secondItem="bCP-BN-zv6" secondAttribute="leading" id="Vmg-iE-QAm"/>
+                            <constraint firstItem="Kkl-bd-2ZM" firstAttribute="leading" secondItem="bCP-BN-zv6" secondAttribute="leadingMargin" id="clv-dA-U9P"/>
+                            <constraint firstItem="FyE-jQ-ScE" firstAttribute="top" secondItem="dUB-8n-Y2d" secondAttribute="bottom" id="gz1-ck-taJ"/>
+                            <constraint firstItem="Kkl-bd-2ZM" firstAttribute="top" secondItem="CS8-eZ-iMA" secondAttribute="bottom" constant="8" id="uRV-vA-JQX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="welcomeLabel" destination="Kkl-bd-2ZM" id="sid-JT-47J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OYl-wD-ors" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2186.4000000000001" y="-66.11694152923539"/>
+        </scene>
         <!--Auth View Controller-->
         <scene sceneID="B4t-5H-tPW">
             <objects>
@@ -227,7 +273,7 @@
         <!--Beast Controller-->
         <scene sceneID="5zh-gD-PHv">
             <objects>
-                <viewController id="aba-Tn-DBx" customClass="BeastController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="beastControllerId" id="aba-Tn-DBx" customClass="BeastController" customModule="Aud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zzQ-HW-Q0M"/>
                         <viewControllerLayoutGuide type="bottom" id="Hbw-dp-iPZ"/>
@@ -1037,6 +1083,7 @@
         <image name="Forward Filled-50" width="50" height="50"/>
         <image name="High Volume Filled-50" width="50" height="50"/>
         <image name="Low Volume Filled-50" width="50" height="50"/>
+        <image name="Peak Logo" width="250" height="250"/>
         <image name="Play Filled-50" width="50" height="50"/>
         <image name="ProperPeakyIcon" width="250" height="250"/>
         <image name="Spotify_Logo_CMYK_Green" width="2362" height="709"/>
@@ -1045,6 +1092,6 @@
         <image name="icons8-Search-64-2" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XhE-vC-BKa"/>
+        <segue reference="xSe-en-KNr"/>
     </inferredMetricsTieBreakers>
 </document>

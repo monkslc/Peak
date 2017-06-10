@@ -13,6 +13,7 @@
 		904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885E11E902D5900F090F1 /* LocalSearch.swift */; };
 		905C06921EE4B694006DED81 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C06911EE4B694006DED81 /* PagesViewController.swift */; };
 		905C06941EE4C84E006DED81 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905C06931EE4C84E006DED81 /* GradientView.swift */; };
+		9080268B1EEC89A7002E4132 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9080268A1EEC89A7002E4132 /* StartupViewController.swift */; };
 		90A930A11EE0D448005FD447 /* GettingClosestSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A930A01EE0D448005FD447 /* GettingClosestSong.swift */; };
 		90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */; };
 		90CCBA391EC61DBC006CE9CC /* ConvertingSongType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */; };
@@ -87,6 +88,7 @@
 		904885E11E902D5900F090F1 /* LocalSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSearch.swift; sourceTree = "<group>"; };
 		905C06911EE4B694006DED81 /* PagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
 		905C06931EE4C84E006DED81 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		9080268A1EEC89A7002E4132 /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		90A930A01EE0D448005FD447 /* GettingClosestSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GettingClosestSong.swift; sourceTree = "<group>"; };
 		90BFBAB01E994ABF0070C182 /* BluetoothTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTableViewCell.swift; sourceTree = "<group>"; };
 		90CCBA381EC61DBC006CE9CC /* ConvertingSongType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertingSongType.swift; sourceTree = "<group>"; };
@@ -249,10 +251,11 @@
 		C45838D61EC6939D00ECEBE5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9080268A1EEC89A7002E4132 /* StartupViewController.swift */,
+				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
 				9084A6DC1EE8154500BFA63D /* Outer Controllers */,
 				9084A6DD1EE8157100BFA63D /* Indivisual Pages */,
 				C45220981EA2E65000E9A626 /* SongOptionsController.swift */,
-				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
 				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
 				C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */,
 			);
@@ -442,7 +445,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = SDRSRURVZA;
+						DevelopmentTeam = 58NU5LV6AX;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -535,6 +538,7 @@
 				C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */,
 				C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */,
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,
+				9080268B1EEC89A7002E4132 /* StartupViewController.swift in Sources */,
 				C4DBB97D1E9351D600591F7C /* Model.xcdatamodeld in Sources */,
 				905C06921EE4B694006DED81 /* PagesViewController.swift in Sources */,
 				904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */,
@@ -690,7 +694,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SDRSRURVZA;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -718,7 +722,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SDRSRURVZA;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

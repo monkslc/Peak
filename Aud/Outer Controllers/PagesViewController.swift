@@ -72,7 +72,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     var isMiddleViewFlipped = false
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    //let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +107,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         //NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notiication:)), name: Notification.Name.systemMusicPlayerLibraryChanged, object: nil)
         
         
+        /*
         switch peakMusicController.musicType {
         case .AppleMusic:
             checkAppleAuthentication()
@@ -116,8 +117,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
             setUpScrollView()
         }
+ */
         
-        //setUpScrollView()
+        setUpScrollView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,6 +127,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         // Dispose of any resources that can be recreated.
     }
     
+    /*
     func checkAppleAuthentication() {
     
         //loadingIndicator.startAnimating()
@@ -303,6 +306,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             //appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
         }
     }
+ */
     
     // Private Functions
     
