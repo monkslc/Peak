@@ -84,7 +84,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
          */
         
         let backgroundImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
-        backgroundImageView.image = #imageLiteral(resourceName: "purpleFlowers")
+        backgroundImageView.image = #imageLiteral(resourceName: "sauceyPurpleBackground.jpg")
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = backgroundImageView.bounds
