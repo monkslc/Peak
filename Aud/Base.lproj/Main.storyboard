@@ -212,10 +212,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                <color key="value" red="0.040994741020000003" green="0.49307125140000002" blue="0.22557426820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="value" red="0.11764705882352941" green="0.86274509803921573" blue="0.73333333333333328" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="0.14553493919999999" green="0.8728027344" blue="0.21601019969999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="value" red="0.59975314140319824" green="0.54817706346511841" blue="0.89411764705882346" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -402,8 +402,8 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhP-yR-4y6">
-                                <rect key="frame" x="337" y="10" width="30" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="295" y="0.0" width="30" height="41"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
                                 <state key="normal" title="...">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -414,12 +414,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="QhP-yR-4y6" secondAttribute="trailing" constant="50" id="2sm-a7-Uaf"/>
                             <constraint firstItem="6U2-6f-2Bu" firstAttribute="top" secondItem="Tss-4s-f8h" secondAttribute="bottom" id="7b4-qW-gSb"/>
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="leading" secondItem="4F4-M0-3eU" secondAttribute="leading" id="KGK-aW-bDq"/>
                             <constraint firstAttribute="trailing" secondItem="Tss-4s-f8h" secondAttribute="trailing" id="Pw9-pp-PgG"/>
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="XYy-cG-NzI"/>
-                            <constraint firstItem="QhP-yR-4y6" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" constant="10" id="eko-oj-CVk"/>
-                            <constraint firstAttribute="trailing" secondItem="QhP-yR-4y6" secondAttribute="trailing" constant="8" id="lfc-GQ-64s"/>
+                            <constraint firstItem="QhP-yR-4y6" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="dVF-Sk-8O0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -638,11 +638,11 @@
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGh-2w-97z">
-                                <rect key="frame" x="337" y="24" width="30" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGh-2w-97z">
+                                <rect key="frame" x="295" y="-13" width="30" height="53"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <state key="normal" title="...">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="flippedButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DfS-fm-acf"/>
@@ -652,17 +652,17 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="SGh-2w-97z" secondAttribute="trailing" constant="8" id="3Gj-Dd-vce"/>
                             <constraint firstAttribute="trailing" secondItem="t3h-BM-8Rk" secondAttribute="trailing" id="5Ye-4a-K9b"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6jy-iB-aPk"/>
+                            <constraint firstItem="SGh-2w-97z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="-13" id="8D2-Qc-yp8"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="4CC-oP-P7H" secondAttribute="trailing" constant="15" id="8HW-OH-slo"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="29:30" id="B4Z-lo-Gbf"/>
+                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="SGh-2w-97z" secondAttribute="trailing" constant="40" id="L1T-ko-Yup"/>
                             <constraint firstItem="hAG-ts-z5N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OYx-Xh-aeg"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="height" secondItem="t3h-BM-8Rk" secondAttribute="height" id="VIf-kp-HvL"/>
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="centerY" secondItem="t3h-BM-8Rk" secondAttribute="centerY" id="alj-ou-KeL"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
-                            <constraint firstItem="SGh-2w-97z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="24" id="nMo-AK-rhM"/>
                             <constraint firstItem="hAG-ts-z5N" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nqx-zL-jvF"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="centerY" secondItem="05J-pc-yQM" secondAttribute="centerY" id="vcC-SI-ELN"/>

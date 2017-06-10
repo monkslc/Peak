@@ -16,13 +16,15 @@ protocol SongsLoaded {
 }
 
 class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
-
+    
+    var backgroundScrollView: UIScrollView!
+    
     var horizontalScrollView: UIScrollView!
     var verticalScrollViews: [UIScrollView] = []
     
     static let halfOfSpaceBetween: CGFloat = 16
     
-    static let topBarHeight: CGFloat = 58
+    static let topBarHeight: CGFloat = 40
     
     var pageIndex: Int {
         set {
@@ -50,6 +52,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     var bluetoothHeight: CGFloat {
         return self.view.frame.height - 58
     }
+    var musicPlayerHeight: CGFloat {
+        return self.view.frame.height - 58
+    }
     var libraryHeight: CGFloat {
         
         var rowHeight: CGFloat = 75
@@ -65,12 +70,34 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     var itemsCount = 0
     
-    var alreadyLoaded = false
+    var isMiddleViewFlipped = false
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /*
+        let gradientView = BackgroundView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
+        gradientView.lightColor = UIColor.peakColor //UIColor(colorLiteralRed: 0.5, green: 0.1, blue: 0.9, alpha: 1.0)
+        gradientView.darkColor = UIColor.peakColorDarker //UIColor(colorLiteralRed: 0.7, green: 0.5, blue: 0.9, alpha: 0.0)
+         */
+        
+        let backgroundImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
+        backgroundImageView.image = #imageLiteral(resourceName: "purpleFlowers")
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundImageView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundImageView.addSubview(blurEffectView)
+        
+        
+        backgroundScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        backgroundScrollView.contentSize = CGSize(width: backgroundImageView.frame.width, height: backgroundImageView.frame.height)
+        backgroundScrollView.isScrollEnabled = false
+        
+        backgroundScrollView.addSubview(backgroundImageView)
+        self.view.addSubview(backgroundScrollView)
         
         //NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notification:)), name: Notification.Name.systemMusicPlayerLibraryChanged, object: nil)
         
@@ -91,7 +118,6 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         }
         
         //setUpScrollView()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -280,12 +306,12 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     // Private Functions
     
-    private func pageSize(at index: Int) -> CGFloat {
+    private func pageSize(at index: Int, includingFlip: Bool) -> CGFloat {
         switch index {
         case 0:
             return bluetoothHeight
         case 1:
-            return libraryHeight
+            return includingFlip && isMiddleViewFlipped ? musicPlayerHeight : libraryHeight
         default:
             return self.view.frame.height
         }
@@ -319,10 +345,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             verticalScrollViews.append(newVerticalScrollView)
             vc.didMove(toParentViewController: self)
             
-            vc.view.layer.cornerRadius = 25
+            vc.view.layer.cornerRadius = 12
             
-            newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: pageSize(at: index))
-            vc.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: pageSize(at: index))
+            newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: pageSize(at: index, includingFlip: false))
+            vc.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: pageSize(at: index, includingFlip: false))
         }
         
         let musicTypeVC = storyboard?.instantiateViewController(withIdentifier: "musicTypePlayerID") as! MusicTypeController
@@ -330,8 +356,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         //verticalScrollViews[1].addSubview(musicTypeVC.view)
         musicTypeVC.didMove(toParentViewController: self)
         musicTypeVC.view.layer.masksToBounds = true
-        musicTypeVC.view.layer.cornerRadius = 25
-        musicTypeVC.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: bluetoothHeight)
+        musicTypeVC.view.layer.cornerRadius = 12
+        musicTypeVC.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: musicPlayerHeight)
         //musicTypeVC.view.removeFromSuperview()
         
         horizontalScrollView.contentSize = CGSize(width: horizontalScrollView.frame.width * 2, height: horizontalScrollView.frame.height)
@@ -345,38 +371,33 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     func songsLoaded(count: Int) {
         
-        if alreadyLoaded || count <= 2 {
+        if count <= 2 {
+            return
+        }
+        if itemsCount == count {
             return
         }
         
-        alreadyLoaded = true
-        
         itemsCount = count
         
-        for vc in childViewControllers {
-            vc.didMove(toParentViewController: nil)
-            vc.view.removeFromSuperview()
-            vc.removeFromParentViewController()
-        }
-        for view in verticalScrollViews {
-            view.removeFromSuperview()
-        }
-        for view in self.view.subviews {
-            view.removeFromSuperview()
-        }
-        
-        setUpScrollView()
+        verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: pageSize(at: 1, includingFlip: true))
+        libraryViewController.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: self.view.frame.width, height: libraryHeight)
     }
     
     func flipMiddlePageToBack() {
         
+        print("\n\n\nVERTICAL VIEW")
+        print(Thread.current.isMainThread)
+        print(self.verticalScrollViews[1].subviews.count)
+        print(self.verticalScrollViews[1] == self.libraryViewController.view.superview)
         UIView.transition(with: verticalScrollViews[1], duration: 0.5, options: .transitionFlipFromRight, animations: { () -> Void in
             
             self.verticalScrollViews[1].addSubview(self.musicTypeController.view)
             self.libraryViewController.view.removeFromSuperview()
             
         }, completion: { (Bool) -> Void in
-            
+            self.verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: self.musicPlayerHeight)
+            self.isMiddleViewFlipped = true
         })
     }
 
@@ -388,7 +409,27 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             self.musicTypeController.view.removeFromSuperview()
             
         }, completion: { (Bool) -> Void in
-            
+            self.verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: self.libraryHeight)
+            self.isMiddleViewFlipped = false
         })
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let smallPointx = scrollView.contentOffset.x
+        let smallWith = scrollView.contentSize.width - scrollView.frame.width
+        
+        let largeWidth = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+        let largeX = (smallPointx / smallWith) * largeWidth
+        
+        //let percent = scrollView.contentOffset.x / scrollView.contentSize.width
+        var beginingX = largeX //percent * backgroundScrollView.contentSize.width
+        if beginingX < 0 {
+            beginingX = 0
+        }
+        if beginingX + backgroundScrollView.frame.width > backgroundScrollView.contentSize.width {
+            beginingX = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+        }
+        backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
     }
 }
