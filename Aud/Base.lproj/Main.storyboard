@@ -449,8 +449,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="75" sectionHeaderHeight="5" sectionFooterHeight="5" translatesAutoresizingMaskIntoConstraints="NO" id="7yn-mX-qRl">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="EpO-VL-PVd">
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="EpO-VL-PVd" customClass="RecentlyAddedView" customModule="Aud" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -464,6 +464,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="sVZ-qk-zOu" firstAttribute="top" secondItem="EpO-VL-PVd" secondAttribute="top" id="Fcs-lO-OE9"/>
+                                        <constraint firstItem="sVZ-qk-zOu" firstAttribute="centerX" secondItem="EpO-VL-PVd" secondAttribute="centerX" id="MrB-5e-2tf"/>
                                         <constraint firstItem="sVZ-qk-zOu" firstAttribute="leading" secondItem="EpO-VL-PVd" secondAttribute="leading" constant="40" id="cNS-z8-1Un"/>
                                         <constraint firstAttribute="bottom" secondItem="sVZ-qk-zOu" secondAttribute="bottom" id="dcc-bp-NfW"/>
                                         <constraint firstAttribute="trailing" secondItem="sVZ-qk-zOu" secondAttribute="trailing" constant="40" id="gdm-6Y-qn4"/>
@@ -571,7 +572,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7yn-mX-qRl" firstAttribute="top" secondItem="3xg-mp-w40" secondAttribute="top" id="1Ng-hu-8He"/>
                             <constraint firstItem="5Jl-eE-M48" firstAttribute="top" secondItem="7yn-mX-qRl" secondAttribute="bottom" id="G9A-BD-hQ4"/>
