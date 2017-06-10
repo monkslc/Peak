@@ -407,7 +407,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="flipViewController:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="rWf-Vy-0vi"/>
+                                    <action selector="flipView:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="Wte-83-sru"/>
                                 </connections>
                             </button>
                         </subviews>
