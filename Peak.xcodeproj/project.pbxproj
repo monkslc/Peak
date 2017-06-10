@@ -45,6 +45,9 @@
 		C456253A1E8EF95E00311750 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45625391E8EF95E00311750 /* Alerts.swift */; };
 		C45838CE1EC0F00500ECEBE5 /* GuestMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45838CD1EC0F00500ECEBE5 /* GuestMusicController.swift */; };
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
+		C4652EE41EEB54650006BE91 /* GroupDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4652EE31EEB54650006BE91 /* GroupDetailController.swift */; };
+		C4652EE71EEB5FE50006BE91 /* PersonDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4652EE61EEB5FE50006BE91 /* PersonDetailCell.swift */; };
+		C4652EE91EEB636E0006BE91 /* RecSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4652EE81EEB636E0006BE91 /* RecSongCell.swift */; };
 		C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */; };
 		C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */; };
 		C47FC7BE1EB695E700B1A352 /* PlaybackStateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */; };
@@ -120,6 +123,9 @@
 		C45625391E8EF95E00311750 /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alerts.swift; path = Aud/Alerts.swift; sourceTree = "<group>"; };
 		C45838CD1EC0F00500ECEBE5 /* GuestMusicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GuestMusicController.swift; path = Aud/GuestMusicController.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C4652EE31EEB54650006BE91 /* GroupDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailController.swift; sourceTree = "<group>"; };
+		C4652EE61EEB5FE50006BE91 /* PersonDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailCell.swift; sourceTree = "<group>"; };
+		C4652EE81EEB636E0006BE91 /* RecSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecSongCell.swift; sourceTree = "<group>"; };
 		C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInteractionController.swift; sourceTree = "<group>"; };
 		C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICAlbumArt.swift; sourceTree = "<group>"; };
 		C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackStateButton.swift; sourceTree = "<group>"; };
@@ -235,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				C40722691EE49EB100E12A1B /* GroupsViewwController.swift */,
+				C4652EE51EEB54680006BE91 /* Group Detail */,
 				C407226E1EE4BB5600E12A1B /* GroupCell.swift */,
 				C40722701EE4BBF400E12A1B /* GroupiesView.swift */,
 				C407226C1EE49FCD00E12A1B /* FacebookLoginHandler.swift */,
@@ -325,6 +332,16 @@
 				C4B9FF0C1E7B65730058AB6A /* RecentlyAddedView.swift */,
 			);
 			name = Holders;
+			sourceTree = "<group>";
+		};
+		C4652EE51EEB54680006BE91 /* Group Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C4652EE31EEB54650006BE91 /* GroupDetailController.swift */,
+				C4652EE61EEB5FE50006BE91 /* PersonDetailCell.swift */,
+				C4652EE81EEB636E0006BE91 /* RecSongCell.swift */,
+			);
+			name = "Group Detail";
 			sourceTree = "<group>";
 		};
 		C47FC7C31EB69E9C00B1A352 /* Extensions/Protocols */ = {
@@ -552,6 +569,7 @@
 				C4D117611E803A74000A854A /* PeakMusicController.swift in Sources */,
 				C4E896631E7458620096EC72 /* LibraryViewController.swift in Sources */,
 				C4D117671E805DF8000A854A /* Signifier.swift in Sources */,
+				C4652EE41EEB54650006BE91 /* GroupDetailController.swift in Sources */,
 				C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */,
 				C40722711EE4BBF400E12A1B /* GroupiesView.swift in Sources */,
 				90E2DFF11E8ADF9100762B9D /* SendingBluetooth.swift in Sources */,
@@ -564,6 +582,7 @@
 				C407226A1EE49EB100E12A1B /* GroupsViewwController.swift in Sources */,
 				90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */,
 				C47FC7C01EB6993F00B1A352 /* SICDisplay.swift in Sources */,
+				C4652EE91EEB636E0006BE91 /* RecSongCell.swift in Sources */,
 				C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */,
 				C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */,
 				C456253A1E8EF95E00311750 /* Alerts.swift in Sources */,
@@ -601,6 +620,7 @@
 				C47FC7C71EB6A8EA00B1A352 /* SongProgressLabel.swift in Sources */,
 				90DC46521EB91EF9007AF581 /* BasicSong.swift in Sources */,
 				C4FCDF931E90A83A0046C1F9 /* DisplayLabelView.swift in Sources */,
+				C4652EE71EEB5FE50006BE91 /* PersonDetailCell.swift in Sources */,
 				C4FCDF951E90AE9E0046C1F9 /* ScrollPresenterView.swift in Sources */,
 				90CCBA391EC61DBC006CE9CC /* ConvertingSongType.swift in Sources */,
 				C4BA76CD1EBD3C8000947C1C /* SpotifyMusicControllerExtension.swift in Sources */,

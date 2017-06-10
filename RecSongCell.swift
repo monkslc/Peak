@@ -1,20 +1,21 @@
 //
-//  GroupCell.swift
-//  Peak
+//  RecSongCell.swift
+//  Aud
 //
-//  Created by Connor Monks on 6/4/17.
+//  Created by Connor Monks on 6/9/17.
 //  Copyright © 2017 Connor Monks. All rights reserved.
 //
 
 import UIKit
 
-class GroupCell: UITableViewCell {
-
-    @IBOutlet weak var groupName: UILabel!
-    @IBOutlet weak var groupiesView: GroupiesView!
-    @IBOutlet weak var groupDetailButton: UIButton!
+class RecSongCell: UITableViewCell {
     
-    var groupID = 0
+    @IBOutlet weak var downloadButton: UIButton!
+    @IBOutlet weak var songTitleLabel: UILabel!
+    @IBOutlet weak var songArtistLabel: UILabel!
+    @IBOutlet weak var albumImage: UIImageView!
+    
+    var songID = "Not Set Yet"
     
     override func awakeFromNib() {
         super.awakeFromNib()

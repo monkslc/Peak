@@ -1,20 +1,18 @@
 //
-//  GroupCell.swift
-//  Peak
+//  PersonDetailCell.swift
+//  Aud
 //
-//  Created by Connor Monks on 6/4/17.
+//  Created by Connor Monks on 6/9/17.
 //  Copyright © 2017 Connor Monks. All rights reserved.
 //
 
 import UIKit
 
-class GroupCell: UITableViewCell {
-
-    @IBOutlet weak var groupName: UILabel!
-    @IBOutlet weak var groupiesView: GroupiesView!
-    @IBOutlet weak var groupDetailButton: UIButton!
+class PersonDetailCell: UITableViewCell {
     
-    var groupID = 0
+    @IBOutlet weak var personName: UILabel!
+    @IBOutlet weak var personImage: UIImageView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

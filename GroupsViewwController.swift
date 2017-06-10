@@ -22,6 +22,8 @@ class GroupsViewwController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var groupsTable: UITableView!
     
     
+    var groupIDToSegueTo = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -60,13 +62,42 @@ class GroupsViewwController: UIViewController, UITableViewDataSource, UITableVie
         cell.groupName.text = "Hello Group"
         
         var meImages = [UIImage]()
-        for _ in 0..<5{
+        for _ in 0..<indexPath.row{
             
             meImages.append(#imageLiteral(resourceName: "ProperPeakyIcon"))
         }
         
         cell.groupiesView.groupies = meImages
+        cell.groupID = indexPath.row
+        
+        //Add the gesture recognizer to the forward button
+        
+        cell.groupDetailButton.addTarget(self, action: #selector(showGroup(_:)), for: .touchUpInside)
         
         return cell
+    }
+    
+    
+    func showGroup(_ button: UIButton){
+        
+        //Fetch the group id
+        if let cell: GroupCell = button.superview?.superview as? GroupCell{
+            
+            groupIDToSegueTo = cell.groupID
+            
+        }
+        
+        /*NOW PERFORM THE SEGUE*/
+        performSegue(withIdentifier: "Show Group Detail", sender: nil)
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destVC = segue.destination as? GroupDetailController{
+            
+            destVC.groupID = groupIDToSegueTo
+        }
     }
 }
