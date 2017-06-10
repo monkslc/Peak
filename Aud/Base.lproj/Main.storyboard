@@ -344,16 +344,41 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tss-4s-f8h">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpS-5Q-aYZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="53"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="adJ-y0-wrt" customClass="RecentlyAddedView" customModule="Aud" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhP-yR-4y6">
+                                            <rect key="frame" x="315" y="-11.5" width="30" height="53"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                            <state key="normal" title="...">
+                                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="flipViewController:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="rWf-Vy-0vi"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpS-5Q-aYZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="dpS-5Q-aYZ" firstAttribute="height" secondItem="adJ-y0-wrt" secondAttribute="height" id="2fb-Ja-hcO"/>
+                                        <constraint firstItem="dpS-5Q-aYZ" firstAttribute="centerY" secondItem="adJ-y0-wrt" secondAttribute="centerY" id="bU6-AQ-dtS"/>
+                                        <constraint firstItem="QhP-yR-4y6" firstAttribute="leading" secondItem="dpS-5Q-aYZ" secondAttribute="trailing" constant="-60" id="br1-95-RDX"/>
+                                        <constraint firstItem="QhP-yR-4y6" firstAttribute="centerY" secondItem="adJ-y0-wrt" secondAttribute="centerY" constant="-10" id="hoR-ob-KHe"/>
+                                        <constraint firstItem="dpS-5Q-aYZ" firstAttribute="centerX" secondItem="adJ-y0-wrt" secondAttribute="centerX" id="k28-pB-4Kj"/>
+                                        <constraint firstAttribute="height" constant="50" id="qsv-Z2-RfQ"/>
+                                        <constraint firstItem="dpS-5Q-aYZ" firstAttribute="width" secondItem="adJ-y0-wrt" secondAttribute="width" id="smI-3c-zxv"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Music Type" id="RSl-Md-bL6" customClass="MusicTypeCell" customModule="Aud" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="81" width="375" height="65"/>
+                                        <rect key="frame" x="0.0" y="78" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RSl-Md-bL6" id="m3j-Qa-AgK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
@@ -400,25 +425,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhP-yR-4y6">
-                                <rect key="frame" x="295" y="0.0" width="30" height="41"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
-                                <state key="normal" title="...">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipViewController:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="rWf-Vy-0vi"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="QhP-yR-4y6" secondAttribute="trailing" constant="50" id="2sm-a7-Uaf"/>
                             <constraint firstItem="6U2-6f-2Bu" firstAttribute="top" secondItem="Tss-4s-f8h" secondAttribute="bottom" id="7b4-qW-gSb"/>
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="leading" secondItem="4F4-M0-3eU" secondAttribute="leading" id="KGK-aW-bDq"/>
                             <constraint firstAttribute="trailing" secondItem="Tss-4s-f8h" secondAttribute="trailing" id="Pw9-pp-PgG"/>
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="XYy-cG-NzI"/>
-                            <constraint firstItem="QhP-yR-4y6" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="dVF-Sk-8O0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -633,7 +646,7 @@
                                 <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGh-2w-97z">
-                                <rect key="frame" x="295" y="-13" width="30" height="53"/>
+                                <rect key="frame" x="315" y="0.0" width="30" height="53"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <state key="normal" title="...">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -648,16 +661,16 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="t3h-BM-8Rk" secondAttribute="trailing" id="5Ye-4a-K9b"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6jy-iB-aPk"/>
-                            <constraint firstItem="SGh-2w-97z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="-13" id="8D2-Qc-yp8"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="4CC-oP-P7H" secondAttribute="trailing" constant="15" id="8HW-OH-slo"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="height" secondItem="05J-pc-yQM" secondAttribute="height" multiplier="29:30" id="B4Z-lo-Gbf"/>
-                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="SGh-2w-97z" secondAttribute="trailing" constant="40" id="L1T-ko-Yup"/>
+                            <constraint firstItem="t3h-BM-8Rk" firstAttribute="leading" secondItem="SGh-2w-97z" secondAttribute="trailing" constant="20" id="L1T-ko-Yup"/>
                             <constraint firstItem="hAG-ts-z5N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OYx-Xh-aeg"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="height" secondItem="t3h-BM-8Rk" secondAttribute="height" id="VIf-kp-HvL"/>
                             <constraint firstAttribute="trailing" secondItem="05J-pc-yQM" secondAttribute="trailing" id="VmJ-Vs-Xir"/>
                             <constraint firstItem="4CC-oP-P7H" firstAttribute="centerY" secondItem="t3h-BM-8Rk" secondAttribute="centerY" id="alj-ou-KeL"/>
                             <constraint firstItem="05J-pc-yQM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bdE-ZD-bMz"/>
                             <constraint firstItem="hAG-ts-z5N" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nqx-zL-jvF"/>
+                            <constraint firstItem="SGh-2w-97z" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="top" constant="-20" id="rFN-Uy-d1Z"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="05J-pc-yQM" secondAttribute="bottom" id="vVw-XR-Qf6"/>
                             <constraint firstItem="t3h-BM-8Rk" firstAttribute="centerY" secondItem="05J-pc-yQM" secondAttribute="centerY" id="vcC-SI-ELN"/>
                         </constraints>
