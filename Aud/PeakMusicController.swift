@@ -83,6 +83,7 @@ class PeakMusicController {
         
         didSet{
             
+            print("Should be sending the Notification")
             //Send a notification
             NotificationCenter.default.post(Notification(name: .musicTypeChanged))
         }
