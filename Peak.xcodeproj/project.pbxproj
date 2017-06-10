@@ -195,7 +195,6 @@
 				90E2DFED1E88865600762B9D /* PopOverBluetoothViewController.swift */,
 				C4E896621E7458620096EC72 /* LibraryViewController.swift */,
 				C4F552A61EE781B500387A3E /* MusicTypeController.swift */,
-				C41891261EEC696500D5C3FB /* Authentication.swift */,
 			);
 			path = "Indivisual Pages";
 			sourceTree = "<group>";
@@ -228,6 +227,7 @@
 		90CCBA3C1EC69736006CE9CC /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				C41891261EEC696500D5C3FB /* Authentication.swift */,
 				904885E11E902D5900F090F1 /* LocalSearch.swift */,
 				C4D117771E80A9F2000A854A /* VisualQueueController.swift */,
 				C40515211EB7E18E00F1471F /* UserLibrary.swift */,
@@ -442,7 +442,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 58NU5LV6AX;
+						DevelopmentTeam = SDRSRURVZA;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -690,7 +690,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -718,7 +718,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

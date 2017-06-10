@@ -48,7 +48,9 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         userLibrary.delegate = self
         
         //Fetch the items in the library
-        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+        //NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+        
+        userLibrary.fetchLibrary()
         
         DispatchQueue.main.async {
             self.loadingIndicator.startAnimating()
@@ -130,6 +132,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func libraryItemsUpdated() {
         //Get's called when the variable in userLibrary changes
         //Update our displays
+        
+        print("Our Library Items were updated")
         
         loadingIndicator.stopAnimating()
         

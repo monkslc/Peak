@@ -94,7 +94,10 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     if alertController == nil{
                         
+                        print("Our new Music Controller should be updating")
                         peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+                        peakMusicController.systemMusicPlayer.generateNotifications()
+                        peakMusicController.systemMusicPlayer.stopPlaying()
                         self.musicPlayerTypeWasUpdated(cell.musicPlayerLabel.text!)
                     } else{
                         
@@ -120,12 +123,25 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func musicPlayerTypeWasUpdated(_ musicType: String){
         
+        print("Our Music Player Type Was Updated")
         //Set our new user defaults
         let defaults = UserDefaults.standard
         defaults.set(musicType, forKey: "Music Type")
         
         //Change the preferred variable
         preferredPlayerType = musicType
+        
+        switch musicType{
+            
+        case "Apple Music":
+            peakMusicController.musicType = .AppleMusic
+            
+        case "Spotify":
+            peakMusicController.musicType = .Spotify
+            
+        default:
+            peakMusicController.musicType = .Guest
+        }
         
         //Now reload our table
         musicTypeTable.reloadData()
