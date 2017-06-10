@@ -77,26 +77,26 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*
+        
         let gradientView = BackgroundView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
         gradientView.lightColor = UIColor.peakColor //UIColor(colorLiteralRed: 0.5, green: 0.1, blue: 0.9, alpha: 1.0)
         gradientView.darkColor = UIColor.peakColorDarker //UIColor(colorLiteralRed: 0.7, green: 0.5, blue: 0.9, alpha: 0.0)
-         */
         
+        /*
         let backgroundImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
-        backgroundImageView.image = #imageLiteral(resourceName: "sauceyPurpleBackground.jpg")
+        backgroundImageView.image = #imageLiteral(resourceName: "landscape.jpg")
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = backgroundImageView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundImageView.addSubview(blurEffectView)
-        
+        //backgroundImageView.addSubview(blurEffectView)
+        */
         
         backgroundScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        backgroundScrollView.contentSize = CGSize(width: backgroundImageView.frame.width, height: backgroundImageView.frame.height)
+        backgroundScrollView.contentSize = CGSize(width: gradientView.frame.width, height: gradientView.frame.height)
         backgroundScrollView.isScrollEnabled = false
         
-        backgroundScrollView.addSubview(backgroundImageView)
+        backgroundScrollView.addSubview(gradientView)
         self.view.addSubview(backgroundScrollView)
         
         //NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notification:)), name: Notification.Name.systemMusicPlayerLibraryChanged, object: nil)
