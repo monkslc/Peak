@@ -396,7 +396,6 @@
                                             <outlet property="checkMrk" destination="jME-PT-1pS" id="ntr-Ea-ZBy"/>
                                             <outlet property="musicPlayerImage" destination="Hu4-o7-gFP" id="MT6-yG-F6V"/>
                                             <outlet property="musicPlayerLabel" destination="SBT-zc-vFS" id="1VZ-3e-W6S"/>
-                                            <outletCollection property="gestureRecognizers" destination="4fn-9Z-9EP" appends="YES" id="k7R-sL-UcK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -427,11 +426,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="85J-DJ-TY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="4fn-9Z-9EP">
-                    <connections>
-                        <action selector="switchMusicType:" destination="3DZ-m5-oPz" id="7lQ-GV-pps"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-759.20000000000005" y="-690.40479760119945"/>
         </scene>

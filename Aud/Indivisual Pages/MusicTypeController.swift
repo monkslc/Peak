@@ -20,8 +20,6 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("MusicTypeController viewDidLoad START")
 
         musicTypeTable.delegate = self
         musicTypeTable.dataSource = self
@@ -29,7 +27,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         //Find the user's preferred player type
         let defaults = UserDefaults.standard
         
-        if let musicType = defaults.string(forKey: "Music Type") {  // Maybe we should just do peakMusicPlayer.musicType
+        if let musicType = defaults.string(forKey: "Music Type"){
             
             //The user has a selected type so set it
             preferredPlayerType = musicType
@@ -39,7 +37,6 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             preferredPlayerType = "Guest"
         }
         
-        print("MusicTypeController viewDidLoad END")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -66,29 +63,23 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.checkMrk.isHidden = false
         }
         
-        
+        //Add the gesture recognizer
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchMusicType(_:))))
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let defaults = UserDefaults.standard
-        defaults.set(musicPlayerTitles[indexPath.row], forKey: "Music Type")
-        
-        //Change the preferred variable
-        preferredPlayerType = musicPlayerTitles[indexPath.row]
-        
-        //Now reload our table
-        musicTypeTable.reloadData()
-    }
-    
     
 /*MARK: GESTURE RECOGNIZERS*/
-    @IBAction func switchMusicType(_ sender: UITapGestureRecognizer) {
+    func switchMusicType(_ sender: UITapGestureRecognizer){
+        
+        print("Just View: \(sender.view)")
+        print("Superview: \(sender.view?.superview)")
         
         //Get the cell that was tapped on
-        if let cell: MusicTypeCell = sender.view?.superview as? MusicTypeCell{
+        if let cell: MusicTypeCell = sender.view as? MusicTypeCell{
             
+            print("Made it in the cell")
             //Set our new user defaults
             let defaults = UserDefaults.standard
             defaults.set(cell.musicPlayerLabel.text, forKey: "Music Type")
@@ -100,13 +91,9 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             musicTypeTable.reloadData()
         } else{
             
+            /*CAM THE ERROR IS HERE BECAUSE THE sender.view?.superview is not the cell in the above if let statment. Figure out how to turn that into the cell and we will be good*/
             print("\n\n\nCAM THE ERROR WAS HERE \n")
         }
     }
     
-    @IBAction func flipViewController(_ sender: UIButton) {
-        if let parent = parent as? PagesViewController {
-            parent.flipMiddlePageToFront ()
-        }
-    }
 }

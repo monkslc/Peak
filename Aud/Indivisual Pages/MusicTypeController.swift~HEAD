@@ -20,6 +20,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("MusicTypeController viewDidLoad START")
 
         musicTypeTable.delegate = self
         musicTypeTable.dataSource = self
@@ -27,7 +29,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         //Find the user's preferred player type
         let defaults = UserDefaults.standard
         
-        if let musicType = defaults.string(forKey: "Music Type"){
+        if let musicType = defaults.string(forKey: "Music Type") {  // Maybe we should just do peakMusicPlayer.musicType
             
             //The user has a selected type so set it
             preferredPlayerType = musicType
@@ -37,6 +39,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             preferredPlayerType = "Guest"
         }
         
+        print("MusicTypeController viewDidLoad END")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -68,6 +71,17 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let defaults = UserDefaults.standard
+        defaults.set(musicPlayerTitles[indexPath.row], forKey: "Music Type")
+        
+        //Change the preferred variable
+        preferredPlayerType = musicPlayerTitles[indexPath.row]
+        
+        //Now reload our table
+        musicTypeTable.reloadData()
+    }
+    
     
 /*MARK: GESTURE RECOGNIZERS*/
     @IBAction func switchMusicType(_ sender: UITapGestureRecognizer) {
@@ -87,6 +101,12 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         } else{
             
             print("\n\n\nCAM THE ERROR WAS HERE \n")
+        }
+    }
+    
+    @IBAction func flipViewController(_ sender: UIButton) {
+        if let parent = parent as? PagesViewController {
+            parent.flipMiddlePageToFront ()
         }
     }
 }
