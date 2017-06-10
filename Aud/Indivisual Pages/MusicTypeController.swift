@@ -119,7 +119,11 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             }else if cell.musicPlayerLabel.text == "Spotify"{
                 
                 /*AUTHENTICATE SPOTIFY AND DO THIS IF AUTHENTICATION WORKS*/
-                peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
+                //Add the listener so we know it worked
+                NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
+                
+                Authentication.AuthenticateWithSpotify()
+                //peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
                 
             } else{
                 
@@ -164,4 +168,11 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         p.flipMiddlePageToFront()
     }
     
+    
+/*MARK: SUPPORTING AUTHENTICATION METHODS*/
+    func spottyLoginWasSuccess(){
+        
+        peakMusicController.systemMusicPlayer.generateNotifications()
+        musicPlayerTypeWasUpdated("Spotify")
+    }
 }

@@ -52,6 +52,7 @@
                     </view>
                     <connections>
                         <outlet property="welcomeLabel" destination="Kkl-bd-2ZM" id="sid-JT-47J"/>
+                        <segue destination="aba-Tn-DBx" kind="show" identifier="Segue To Beast" id="P1G-5R-NFF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OYl-wD-ors" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1092,6 +1093,6 @@
         <image name="icons8-Search-64-2" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xSe-en-KNr"/>
+        <segue reference="P1G-5R-NFF"/>
     </inferredMetricsTieBreakers>
 </document>
