@@ -355,7 +355,7 @@
                                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="flipViewController:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="rWf-Vy-0vi"/>
+                                                <action selector="flipView:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="aIV-aG-QEP"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpS-5Q-aYZ">
@@ -589,6 +589,7 @@
                                                 </label>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-48-2GY">
                                                     <rect key="frame" x="330" y="23" width="29" height="29"/>
+                                                    <color key="tintColor" red="0.85098039219999999" green="0.35686274509999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="Download_1edcbb_100"/>
                                                 </button>
                                             </subviews>
@@ -643,7 +644,7 @@
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hAG-ts-z5N">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <color key="color" red="0.18593399250000001" green="1" blue="0.78166733879999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="color" red="0.85098039219999999" green="0.35686274509999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGh-2w-97z">
                                 <rect key="frame" x="315" y="0.0" width="30" height="53"/>
@@ -744,6 +745,7 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTO-Tr-c31">
                                         <rect key="frame" x="144" y="0.0" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.85098039219999999" green="0.35686274509999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="isHostValueChanged:" destination="xZU-02-YAm" eventType="valueChanged" id="N6X-du-9of"/>
                                         </connections>
@@ -818,7 +820,7 @@
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AIM-ua-687" customClass="MPVolumeView">
                                         <rect key="frame" x="28" y="471.5" width="319" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="tintColor" red="0.11764705882352941" green="0.86274509803921573" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.85098039219999999" green="0.35686274509999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="nuQ-1H-uhJ"/>
                                         </constraints>
@@ -843,7 +845,7 @@
                                     </imageView>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hdL-cg-8xb" customClass="SicSongProgress" customModule="Aud" customModuleProvider="target">
                                         <rect key="frame" x="28" y="50" width="319" height="31"/>
-                                        <color key="tintColor" red="0.1176470588" green="0.86274509799999999" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.85098039215686272" green="0.35686274509803922" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="pwa-d0-VFK"/>
                                         </constraints>
@@ -887,7 +889,7 @@
                                             <segment title="Info"/>
                                             <segment title="Queue"/>
                                         </segments>
-                                        <color key="tintColor" red="0.1176470588" green="0.86274509799999999" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.85098039219999999" green="0.35686274509999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-Tt-duP" customClass="SICSongInfoDisplay" customModule="Aud" customModuleProvider="target">
                                         <rect key="frame" x="8" y="133" width="359" height="330.5"/>

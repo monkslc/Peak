@@ -132,6 +132,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func flipView(_ sender: UIButton) {
+        
         let p = parent as! PagesViewController
         p.flipMiddlePageToFront()
     }
