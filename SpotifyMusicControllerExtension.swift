@@ -125,7 +125,16 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
         if songs.count > 0{
             
-            if metadata.currentTrack?.isEqual(to: songs[0]) != true {
+            if metadata == nil{
+                
+                self.playSpotifyURI(songs[0].getId(), startingWith: 0, startingWithPosition: 0){
+                    if $0 != nil{
+                        
+                        print("There was an error with our initial play \($0!)")
+                    }
+                }
+                
+            } else if metadata.currentTrack?.isEqual(to: songs[0]) != true {
                 
                 self.playSpotifyURI((songs[0] as! SPTPartialTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0) {
                     

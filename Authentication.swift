@@ -13,6 +13,7 @@ import StoreKit
 
 class Authentication{
     
+/*MARK: AUTHENTICATION METHODS*/
     static func AutheticateWithApple(completion: @escaping (UIAlertController?) -> Void){
         
         
@@ -31,7 +32,6 @@ class Authentication{
                 //self.loadingIndicator.stopAnimating()
                 
                 //They're eligible for a subscription so let's take them to get one
-                
                 let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
                 UIApplication.shared.open(url!, options: [:], completionHandler: {
                     (foo) -> Void in
@@ -41,35 +41,16 @@ class Authentication{
                 
             } else if capability.contains(SKCloudServiceCapability.addToCloudMusicLibrary){
                 
-                DispatchQueue.main.async {
-                    
-                    //self.loadingIndicator.stopAnimating()
-                }
-                
-                
-                //We're all set to go lets see if we can segue
-                
+                //We're all set to go lets see if we can go
                 if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
                     
                     DispatchQueue.main.async {
-                        //self.loadingIndicator.stopAnimating()
-                    }
-                    
-                    DispatchQueue.global().async {
-                        DispatchQueue.main.async {
-                            
-                            completion(nil)
-                            //Completion Here
-                            //peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
-                            //self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
-                        }
+                        completion(nil)
                     }
                 }
                 
                 
             } else if capability.contains(SKCloudServiceCapability.musicCatalogPlayback){
-                
-                //self.loadingIndicator.stopAnimating()
                 
                 let alert = UIAlertController(title: "Apple Music", message: "Is Apple Music Downloaded?", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
@@ -98,15 +79,8 @@ class Authentication{
                 
                 
                 completion(alert)
-                //Completion Here
-                //self.present(alert, animated: true, completion: nil)
-                //Downloaded but no iCloud selected
-                
-                //App was not downloaded
                 
             } else {
-                
-                //self.loadingIndicator.stopAnimating()
                 
                 //We are yet to get access from the user
                 SKCloudServiceController.requestAuthorization({(authorization) in
@@ -139,4 +113,57 @@ class Authentication{
         })
         
     }
+    
+    
+    static func AuthenticateWithSpotify(){
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        //start up the player so we can get the authentication access
+        peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
+        
+        //Create the delegate for this
+        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
+        
+        
+        //Check if we can login
+        auth?.clientID = "7b3c389c57ee44ce8f3562013df963ec"
+        auth?.redirectURL = URL(string: "peak-music-spotty-login://callback")
+        
+        
+        auth?.sessionUserDefaultsKey = "current session"
+        
+        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthUserReadTopScope, SPTAuthUserReadPrivateScope, SPTAuthUserLibraryModifyScope]
+        
+        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
+        
+        do{
+            
+            //Maybe Here
+            try (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).start(withClientId: auth?.clientID)
+        } catch{
+            
+            print("\n\nHad a fucking error\n\n")
+        }
+        
+        DispatchQueue.main.async {
+            
+            if auth?.session != nil{
+                
+                (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
+                
+                
+            } else{
+                
+                let authURL = auth?.spotifyWebAuthenticationURL()
+                
+                authViewController = SFSafariViewController(url: authURL!)
+                appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
+    
+/*MARK: SUPPORT METHODS*/
 }

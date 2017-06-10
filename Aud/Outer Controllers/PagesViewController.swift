@@ -284,7 +284,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     func spottyLoginWasSuccess(){
         
-        self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
+        //self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
+        
     }
     
     func startAuthenticationFlow(){
