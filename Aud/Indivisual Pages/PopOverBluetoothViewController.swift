@@ -27,7 +27,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         disconectButton.setTitleColor(UIColor.peakColor, for: .normal)
-        isHostSwitch.tintColor = UIColor.peakColor
+        isHostSwitch.onTintColor = UIColor.peakColor
         
         tableView.delegate = self
         tableView.dataSource = self
