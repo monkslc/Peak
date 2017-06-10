@@ -57,6 +57,7 @@ class AuthViewController: UIViewController {
     private func makePeakGlow() {
         addGradientMaskToView(view: peakLabel, gradientWidth: 30)
     }
+    
     fileprivate func addGradientMaskToView(view:UIView, transparency:CGFloat = 0.5, gradientWidth:CGFloat = 40.0) {
         let gradientMask = CAGradientLayer()
         gradientMask.frame = view.bounds

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MediaPlayer
+import CloudKit
 
 class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -39,6 +41,9 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
+    
+    
+/*MARK: TABLE VIEW DELEGATE METHODS*/
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -51,6 +56,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print("We are reloading the table view with a preferred type of: \(preferredPlayerType)")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Music Type", for: indexPath) as! MusicTypeCell
         
         cell.musicPlayerImage.image = images[indexPath.row]
@@ -61,6 +68,9 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         if musicPlayerTitles[indexPath.row] == preferredPlayerType {
             
             cell.checkMrk.isHidden = false
+        } else{
+            
+            cell.checkMrk.isHidden = true
         }
         
         //Add the gesture recognizer
@@ -73,27 +83,52 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
 /*MARK: GESTURE RECOGNIZERS*/
     func switchMusicType(_ sender: UITapGestureRecognizer){
         
-        print("Just View: \(sender.view)")
-        print("Superview: \(sender.view?.superview)")
-        
         //Get the cell that was tapped on
         if let cell: MusicTypeCell = sender.view as? MusicTypeCell {
             
-            print("Made it in the cell")
-            //Set our new user defaults
-            let defaults = UserDefaults.standard
-            defaults.set(cell.musicPlayerLabel.text, forKey: "Music Type")
+            //Let's figure out which music type we are switching to
+            if cell.musicPlayerLabel.text == "Apple Music"{
+                
+                /*AUTHENTICATE APPLE MUSIC AND DO THIS IF AUTHENTICATIONS WORKS*/
+                Authentication.AutheticateWithApple(){ alertController in
+                    
+                    if alertController == nil{
+                        
+                        peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+                        self.musicPlayerTypeWasUpdated(cell.musicPlayerLabel.text!)
+                    } else{
+                        
+                        self.present(alertController!, animated: true, completion: nil)
+                    }
+                }
+                
+            }else if cell.musicPlayerLabel.text == "Spotify"{
+                
+                /*AUTHENTICATE SPOTIFY AND DO THIS IF AUTHENTICATION WORKS*/
+                peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
+                
+            } else{
+                
+                peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+            }
             
-            //Change the preferred variable
-            preferredPlayerType = cell.musicPlayerLabel.text!
             
-            //Now reload our table
-            musicTypeTable.reloadData()
-        } else{
             
-            /*CAM THE ERROR IS HERE BECAUSE THE sender.view?.superview is not the cell in the above if let statment. Figure out how to turn that into the cell and we will be good*/
-            print("\n\n\nCAM THE ERROR WAS HERE \n")
         }
+    }
+    
+    
+    func musicPlayerTypeWasUpdated(_ musicType: String){
+        
+        //Set our new user defaults
+        let defaults = UserDefaults.standard
+        defaults.set(musicType, forKey: "Music Type")
+        
+        //Change the preferred variable
+        preferredPlayerType = musicType
+        
+        //Now reload our table
+        musicTypeTable.reloadData()
     }
     
     @IBAction func flipView(_ sender: UIButton) {

@@ -15,10 +15,6 @@ class PlaybackStateButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        //set the inital image
-        print(peakMusicController)
-        print(peakMusicController.systemMusicPlayer)
-        print(peakMusicController.systemMusicPlayer.getPlayerState())
         if peakMusicController.systemMusicPlayer.getPlayerState() == MusicPlayerState.playing {
             
             setImage(#imageLiteral(resourceName: "Pause Filled-50"), for: .normal)
@@ -42,14 +38,6 @@ class PlaybackStateButton: UIButton {
             isHidden = true
         }
     }
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     /*Mark: Notifcaiton Methods*/
     
