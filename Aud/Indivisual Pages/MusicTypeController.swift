@@ -86,6 +86,13 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         //Get the cell that was tapped on
         if let cell: MusicTypeCell = sender.view as? MusicTypeCell {
             
+            //Make sure we aren't switching to the same type
+            if cell.musicPlayerLabel.text == preferredPlayerType{
+                
+                return
+            }
+            
+            
             //Let's figure out which music type we are switching to
             if cell.musicPlayerLabel.text == "Apple Music"{
                 
@@ -101,7 +108,11 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.musicPlayerTypeWasUpdated(cell.musicPlayerLabel.text!)
                     } else{
                         
-                        self.present(alertController!, animated: true, completion: nil)
+                        DispatchQueue.main.async {
+                            
+                            self.present(alertController!, animated: true, completion: nil)
+                        }
+                        
                     }
                 }
                 

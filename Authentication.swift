@@ -118,9 +118,14 @@ class Authentication{
                         
                     case .denied:
                         //Completion Here
-                        let alert = UIAlertController(title: "Head to settings > Privacy > Media & Apple Music and allow Peak to access Media & Apple Music.", message: nil,preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                        completion(alert)
+                        print("Creating Alert")
+                        DispatchQueue.main.async {
+                            
+                            let alert = UIAlertController(title: "Head to settings > Privacy > Media & Apple Music and allow Peak to access Media & Apple Music.", message: nil,preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                            completion(alert)
+                        }
+                        
                         
                     default:
                         print("Shouldn't be here")
