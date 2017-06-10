@@ -22,7 +22,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         musicTypeTable.delegate = self
         musicTypeTable.dataSource = self
         

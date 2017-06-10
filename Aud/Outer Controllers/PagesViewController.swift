@@ -72,7 +72,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     var isMiddleViewFlipped = false
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    //let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,25 +99,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         backgroundScrollView.addSubview(gradientView)
         self.view.addSubview(backgroundScrollView)
         
-        //NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notification:)), name: Notification.Name.systemMusicPlayerLibraryChanged, object: nil)
-        
-        // Do any additional setup after loading the view.
-        //setUpScrollView()
-        
-        //NotificationCenter.default.addObserver(self, selector: #selector(libraryUpdated(notiication:)), name: Notification.Name.systemMusicPlayerLibraryChanged, object: nil)
-        
-        
-        switch peakMusicController.musicType {
-        case .AppleMusic:
-            checkAppleAuthentication()
-        case .Spotify:
-            loginWithSpotify()
-        default:
-            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
-            setUpScrollView()
-        }
-        
-        //setUpScrollView()
+        setUpScrollView()
     }
 
     override func didReceiveMemoryWarning() {

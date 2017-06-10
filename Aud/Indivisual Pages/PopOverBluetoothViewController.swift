@@ -25,9 +25,9 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("PopOverBluetoothViewController VIEW DID LOAD ")
-
         // Do any additional setup after loading the view.
+        disconectButton.setTitleColor(UIColor.peakColor, for: .normal)
+        isHostSwitch.tintColor = UIColor.peakColor
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,6 +45,9 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             
         updateMPCManager()
         print("PopOverBluetoothViewController VIEW DID LOAD END")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PopOverBluetoothViewController.playerStateChanged(notification:)), name: .musicTypeChanged, object: nil)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -153,7 +156,16 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             return MPCManager.defaultMPCManager.foundPeers.count
         }
     }
-
+    
+    // Notification
+    
+    func playerStateChanged(notification: NSNotification) {
+        DispatchQueue.main.async {
+            self.hostASessionStackView.isHidden = peakMusicController.musicType == .Guest
+            self.isHostSwitch.isOn = peakMusicController.playerType == .Host
+        }
+        //updateMPCManager()
+    }
     
     // MARK: MPCManagerDelegate
     
