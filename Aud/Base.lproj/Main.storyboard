@@ -355,7 +355,7 @@
                                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="flipViewController:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="rWf-Vy-0vi"/>
+                                                <action selector="flipView:" destination="3DZ-m5-oPz" eventType="touchUpInside" id="aIV-aG-QEP"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpS-5Q-aYZ">
