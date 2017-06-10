@@ -52,6 +52,9 @@ class SongInteractionController: UIViewController {
         //Set up the volume view
         volumeSlider.showsRouteButton = false
         
+        songInfoSegment.tintColor = UIColor.peakColor
+        volumeSlider.tintColor = UIColor.peakColor
+        songProgressSlider.tintColor = UIColor.peakColor
     }
     
 

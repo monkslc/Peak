@@ -78,9 +78,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         super.viewDidLoad()
         
         
-        let gradientView = BackgroundView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
-        gradientView.lightColor = UIColor.peakColor //UIColor(colorLiteralRed: 0.5, green: 0.1, blue: 0.9, alpha: 1.0)
-        gradientView.darkColor = UIColor.peakColorDarker //UIColor(colorLiteralRed: 0.7, green: 0.5, blue: 0.9, alpha: 0.0)
+        let gradientView = GradientView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))//BackgroundView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
+        gradientView.firstColor = UIColor.peakColor //UIColor(colorLiteralRed: 0.5, green: 0.1, blue: 0.9, alpha: 1.0)
+        gradientView.secondColor = UIColor.peakColorLighter //UIColor(colorLiteralRed: 0.7, green: 0.5, blue: 0.9, alpha: 0.0)
         
         /*
         let backgroundImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))

@@ -182,6 +182,25 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		901DE78E1EECA00F00080A15 /* On Start Up */ = {
+			isa = PBXGroup;
+			children = (
+				9080268A1EEC89A7002E4132 /* StartupViewController.swift */,
+				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
+			);
+			path = "On Start Up";
+			sourceTree = "<group>";
+		};
+		901DE78F1EECA02B00080A15 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				C45220981EA2E65000E9A626 /* SongOptionsController.swift */,
+				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
+				C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		9084A6DC1EE8154500BFA63D /* Outer Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,13 +270,10 @@
 		C45838D61EC6939D00ECEBE5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9080268A1EEC89A7002E4132 /* StartupViewController.swift */,
-				C4BA297A1E7DCC42000AAD48 /* AuthViewController.swift */,
+				901DE78E1EECA00F00080A15 /* On Start Up */,
 				9084A6DC1EE8154500BFA63D /* Outer Controllers */,
 				9084A6DD1EE8157100BFA63D /* Indivisual Pages */,
-				C45220981EA2E65000E9A626 /* SongOptionsController.swift */,
-				C456252E1E8B4F4200311750 /* SearchBarPopOverViewViewController.swift */,
-				C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */,
+				901DE78F1EECA02B00080A15 /* Other */,
 			);
 			name = Controllers;
 			path = Aud;
