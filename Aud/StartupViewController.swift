@@ -320,15 +320,18 @@ class StartupViewController: UIViewController {
         return name
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        appDelegate.window?.rootViewController = segue.destination
     }
-    */
+     
+ 
     
     // Notifications
     
@@ -338,10 +341,14 @@ class StartupViewController: UIViewController {
     
     func moveToBeastController() {
         print("PRESENTING THE BEATS")
-        let beastVc = storyboard?.instantiateViewController(withIdentifier: "beastControllerId") as! BeastController
+        /*let beastVc = storyboard?.instantiateViewController(withIdentifier: "beastControllerId") as! BeastController
         self.present(beastVc, animated: false, completion: {
             print("PRESENTED")
-        })
+        })*/
+        
+        self.performSegue(withIdentifier: "Segue To Beast", sender: nil)
     }
-
+    
+    
+    
 }

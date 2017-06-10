@@ -221,6 +221,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     func loginWithSpotify() {
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         //start up the player so we can get the authentication access
         peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
