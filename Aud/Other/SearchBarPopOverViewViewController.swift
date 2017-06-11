@@ -127,6 +127,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             cell.addToLibraryButton.isHidden = false
             cell.addToLibraryButton.addTarget(self, action: #selector(addToLibrary(_:)), for: .touchUpInside)
+        } else{
+            
+            cell.addToLibraryButton.isHidden = true
         }
         
         
@@ -375,11 +378,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func refreshTable(){
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)){
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)){
             
             self.searchedSongsTableView.reloadData()
-            NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
         }
+        
     }
     
     func checkAddedToLibrary(_ wasAdded: Bool){

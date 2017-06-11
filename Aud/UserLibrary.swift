@@ -24,7 +24,6 @@ class UserLibrary{
         
         //Add the listener for a library change
         NotificationCenter.default.addObserver(self, selector: #selector(libraryItemsChanged), name: .systemMusicPlayerLibraryChanged, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(libraryItemsChanged), name: .musicTypeChanged, object: nil)
     }
     
     /*MARK: Delegate*/
@@ -391,7 +390,6 @@ class UserLibrary{
     /*MARK: Notification Methods*/
     @objc func libraryItemsChanged(){
         
-        print("Our Library Items Are Changing")
         DispatchQueue.global().async {
             
             self.fetchLibrary()

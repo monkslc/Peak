@@ -57,6 +57,12 @@ extension MPMusicPlayerController: SystemMusicPlayer {
     
     func setPlayerQueue(songs: [BasicSong]) {
         
+        print("The queue should be: ")
+        for song in songs{
+            
+            print(song.getTrackName())
+        }
+        
         var mediaItems = [MPMediaItem]()
         for song in songs{
             mediaItems.append(song as! MPMediaItem)
@@ -124,6 +130,7 @@ extension MPMusicPlayerController: SystemMusicPlayer {
     /*MARK: LISTENER METHODS*/
     func libraryChanged(){
         
+        print("Our Library changed, pushing me notification")
         NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
     }
     

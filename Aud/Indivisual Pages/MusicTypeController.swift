@@ -99,9 +99,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     if alertController == nil{
                         
-                         peakMusicController.systemMusicPlayer.stopPlaying()
-                        
-                        print("Our new Music Controller should be updating")
+                        peakMusicController.systemMusicPlayer.stopPlaying()
                         peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
                         peakMusicController.systemMusicPlayer.generateNotifications()
                         peakMusicController.systemMusicPlayer.stopPlaying()
@@ -120,17 +118,14 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                  peakMusicController.systemMusicPlayer.stopPlaying()
                 
-                /*AUTHENTICATE SPOTIFY AND DO THIS IF AUTHENTICATION WORKS*/
-                //Add the listener so we know it worked
                 NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
                 
                 Authentication.AuthenticateWithSpotify()
-                //peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
                 
             } else{
                 
                 peakMusicController.systemMusicPlayer.stopPlaying()
-                peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+                peakMusicController.systemMusicPlayer = GuestMusicController()
                 musicPlayerTypeWasUpdated("Guest")
             }
             
