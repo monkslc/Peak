@@ -53,7 +53,6 @@ class UserLibrary{
         
         if peakMusicController.musicType == .AppleMusic {
             
-            print("We have decided to fetch Apple Music")
             fetchAppleMusic()
         } else if peakMusicController.musicType == .Guest {
             
@@ -67,7 +66,6 @@ class UserLibrary{
     
     private func fetchAppleMusic(){
         
-        print("Inside of Fetch Apple Music")
         //Temp Sort Method
         func sort(_ item1: MPMediaItem, _ item2: MPMediaItem) -> Bool {
             

@@ -56,8 +56,6 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print("We are reloading the table view with a preferred type of: \(preferredPlayerType)")
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Music Type", for: indexPath) as! MusicTypeCell
         
         cell.musicPlayerImage.image = images[indexPath.row]

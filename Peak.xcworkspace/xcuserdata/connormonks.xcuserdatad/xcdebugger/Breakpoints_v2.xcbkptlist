@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConnectingToInternet.swift"
-            timestampString = "518885812.216893"
+            timestampString = "518890071.667422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
             landmarkName = "getJSON(url:completion:errorCompletion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchingAppleMusicApi.swift"
-            timestampString = "518885812.217657"
+            timestampString = "518890071.667905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConnectingToInternet.swift"
-            timestampString = "518885812.217707"
+            timestampString = "518890071.668107"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "getSongs(searchTerm:limit:sendSongsAlltogether:completion:error:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,59 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConnectingToInternet.swift"
-            timestampString = "518885812.21807"
+            timestampString = "518890071.668404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "getSongs(searchTerm:limit:sendSongsAlltogether:completion:error:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Any) -&gt; () in static Aud.ConnectingToInternet.getSongs(searchTerm: Swift.String, limit: Swift.Int, sendSongsAlltogether: Swift.Bool, completion: (Swift.Array&lt;Aud.Song&gt;) -&gt; (), error: () -&gt; ()) -&gt; ()"
-                  moduleName = "Aud"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/connormonks/Documents/Documents%20-%20MacBook%20Pro/GitHubFolder/PeakWithCocoaPods/Peak/ConnectingToInternet.swift"
-                  timestampString = "518884463.420216"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "206"
-                  endingLineNumber = "206"
-                  offsetFromSymbolStart = "2064">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.UIImage&gt;) -&gt; () in closure #1 (Any) -&gt; () in static Aud.ConnectingToInternet.getSongs(searchTerm: Swift.String, limit: Swift.Int, sendSongsAlltogether: Swift.Bool, completion: (Swift.Array&lt;Aud.Song&gt;) -&gt; (), error: () -&gt; ()) -&gt; ()"
-                  moduleName = "Aud"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/connormonks/Documents/Documents%20-%20MacBook%20Pro/GitHubFolder/PeakWithCocoaPods/Peak/ConnectingToInternet.swift"
-                  timestampString = "518884463.422833"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "201"
-                  endingLineNumber = "201"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ConnectingToInternet.swift"
-            timestampString = "518885812.219113"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "getImage(url:completion:errorCompletion:)"
             landmarkType = "7">
             <Locations>
@@ -154,12 +106,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConnectingToInternet.swift"
-            timestampString = "518885812.219487"
+            timestampString = "518890071.66856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "getImage(url:completion:errorCompletion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aud/Other/SearchBarPopOverViewViewController.swift"
+            timestampString = "518890071.668697"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "536"
+            endingLineNumber = "536"
+            landmarkName = "searchTopCharts()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
