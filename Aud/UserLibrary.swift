@@ -49,7 +49,6 @@ class UserLibrary{
     /*MARK: Fetch FUNCITONS*/
     func fetchLibrary(){
         
-        print("Fetching Library")
         //Start the animation here, end it after the fetch has completed
         
         if peakMusicController.musicType == .AppleMusic {

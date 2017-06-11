@@ -267,6 +267,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     func spottyLoginWasSuccess(){
         
+        print("Definitely shouldn't be getting called here\n\n\n")
         //self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
         
     }
@@ -280,6 +281,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             
         } else{
             
+            print("\n\nAUTHURL CALLED HERE 5\n\n")
             let authURL = auth?.spotifyWebAuthenticationURL()
             
             setUpScrollView()
@@ -395,6 +397,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         }, completion: { (Bool) -> Void in
             self.verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: self.libraryHeight)
             self.isMiddleViewFlipped = false
+            self.libraryViewController.userLibrary.recents = []
+            self.libraryViewController.userLibrary.itemsInLibrary = []
             self.libraryViewController.userLibrary.fetchLibrary()
         })
     }
