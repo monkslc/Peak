@@ -41,10 +41,11 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadingIndicator.color = UIColor.peakColor
         
         //add a listener so we know when segment changed
         selectMusicFromSegment.addTarget(self, action: #selector(searchRequestChanged), for: .valueChanged)
-        selectMusicFromSegment.tintColor = UIColor.peakColorLighter
+        selectMusicFromSegment.tintColor = UIColor.white
         
         
         searchedSongsTableView.delegate = self

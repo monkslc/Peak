@@ -502,9 +502,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qyV-Wc-mB8">
-                                <rect key="frame" x="38" y="35" width="300" height="26"/>
+                                <rect key="frame" x="38" y="35" width="300" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="cXq-Bs-xwR"/>
+                                    <constraint firstAttribute="height" constant="30" id="cXq-Bs-xwR"/>
                                     <constraint firstAttribute="width" constant="300" id="y1v-82-Kqr"/>
                                 </constraints>
                                 <segments>
@@ -514,12 +514,12 @@
                                 </segments>
                             </segmentedControl>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-NQ-VMo">
-                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Uae-7O-TS4">
-                                <rect key="frame" x="138" y="60" width="100" height="100"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Uae-7O-TS4">
+                                <rect key="frame" x="138" y="65" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="IhB-iB-LTV"/>
                                     <constraint firstAttribute="width" constant="100" id="JXI-Iu-K6U"/>
@@ -637,7 +637,7 @@
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWC-48-2GY">
                                                     <rect key="frame" x="330" y="23" width="29" height="29"/>
                                                     <color key="tintColor" red="0.85098039219999999" green="0.35686274509999999" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" image="Download_1edcbb_100"/>
+                                                    <state key="normal" image="icons8-Download-96-2"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1080,7 +1080,6 @@
     <resources>
         <image name="Backward Filled-50" width="50" height="50"/>
         <image name="Checkmark-96" width="96" height="96"/>
-        <image name="Download_1edcbb_100" width="96" height="96"/>
         <image name="Forward Filled-50" width="50" height="50"/>
         <image name="High Volume Filled-50" width="50" height="50"/>
         <image name="Low Volume Filled-50" width="50" height="50"/>
@@ -1090,6 +1089,7 @@
         <image name="Spotify_Logo_CMYK_Green" width="2362" height="709"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
         <image name="icons8-Cancel-50" width="50" height="50"/>
+        <image name="icons8-Download-96-2" width="96" height="96"/>
         <image name="icons8-Search-64-2" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>

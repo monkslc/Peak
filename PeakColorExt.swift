@@ -12,9 +12,14 @@ import UIKit
 extension UIColor{
     
     //The Peak App Main Color
-    static var peakColor: UIColor { return UIColor(red: 160/255, green: 17/255, blue: 200/255, alpha: 1.0) }//return UIColor(red: 30/255, green: 220/255, blue: 187/255, alpha: 1.0) } //Hex Code: #1edcbb
+    static var peakColor: UIColor { return UIColor(red: 125/255, green: 66/255, blue: 244/255, alpha: 1.0) } //HEX: #7d42f4
     
-    static var peakColorLighter: UIColor { return UIColor(red: 200/255, green: 91/255, blue: 186/255, alpha: 1.0) }
+    
+    
+    static var peakColorLighter: UIColor { return UIColor(red: 175/255, green: 25/255, blue: 186/255, alpha: 1.0) } // HEX: #af19ba
+    
+    static var peakSearchColor: UIColor{ return UIColor(red: 161/255, green: 66/255, blue: 244/255, alpha: 1.0) //HEX: #a142f4
+    }
     
     //The Color of the Artist Title
     static var artistColor: UIColor { return UIColor(red: 255/255, green: 60/255, blue: 60/255, alpha: 1.0) }
