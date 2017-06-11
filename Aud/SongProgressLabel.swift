@@ -36,7 +36,7 @@ class SongProgressLabel: UILabel {
         case End
     }
     
-    @IBInspectable var progressType: ProgressType = .Beg
+    var progressType: ProgressType = .Beg
     
     /*
     // Only override draw() if you perform custom drawing.

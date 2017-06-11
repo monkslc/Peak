@@ -252,7 +252,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     func pageDidStick() {
         //MPCManager.defaultMPCManager.delegate = self
-        print(MPCManager.delegate)
+
         updateMPCManager()
     }
     
