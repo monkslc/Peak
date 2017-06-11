@@ -15,6 +15,12 @@ protocol SongsLoaded {
     func songsLoaded(count: Int)
 }
 
+protocol Page {
+    func pageDidStick()
+    func pageIsShown()
+    func pageLeft()
+}
+
 class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     
     var backgroundScrollView: UIScrollView!
@@ -38,15 +44,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         return childViewControllers[0] as! PopOverBluetoothViewController
     }
     var libraryViewController: LibraryViewController {
-        print("\(childViewControllers.count) > 1 CHILDREN")
-        print(childViewControllers[1])
         return childViewControllers[1] as! LibraryViewController
     }
     var musicTypeController: MusicTypeController {
         return childViewControllers[2] as! MusicTypeController
-    }
-    var viewController: UIViewController {
-        return childViewControllers[pageIndex]
     }
     
     var bluetoothHeight: CGFloat {
@@ -62,11 +63,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             rowHeight = libraryViewController.library.visibleCells[0].frame.height
         }
         
-        print("ROW HEIGHT: \(rowHeight)")
-        print("COUNT: \(itemsCount)")
-        
         return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight + 175))
     }
+    
+    var lastPageIndex = 1
     
     var itemsCount = 0
     
@@ -107,6 +107,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         // Dispose of any resources that can be recreated.
     }
     
+    /*
     func checkAppleAuthentication() {
     
         //loadingIndicator.startAnimating()
@@ -287,6 +288,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             //appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
         }
     }
+ */
     
     // Private Functions
     
@@ -299,7 +301,15 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         default:
             return self.view.frame.height
         }
-
+    }
+    
+    private func getViewControllerAtPageIndex(_ index: Int) -> UIViewController {
+        switch index {
+        case 0:
+            return bluetoothViewController
+        default:
+            return isMiddleViewFlipped ? musicTypeController : libraryViewController
+        }
     }
     
     private func setUpScrollView() {
@@ -351,7 +361,6 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         
         print("PagesViewController setUpScrollView END")
     }
- 
     
     func songsLoaded(count: Int) {
         
@@ -416,5 +425,23 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             beginingX = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
         }
         backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = pageIndex
+        
+        if index == lastPageIndex {
+            return
+        }
+            
+        if let page = getViewControllerAtPageIndex(index) as? Page {
+            page.pageDidStick()
+        }
+        
+        if let page = getViewControllerAtPageIndex(lastPageIndex) as? Page {
+            page.pageLeft()
+        }
+        
+        lastPageIndex = index
     }
 }

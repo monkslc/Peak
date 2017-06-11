@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MPCManagerDelegate {
+class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MPCManagerDelegate, Page {
 
     @IBOutlet var tableView: UITableView!
     
@@ -32,7 +32,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         tableView.delegate = self
         tableView.dataSource = self
         
-        MPCManager.defaultMPCManager.delegate = self
+        MPCManager.delegate = self
         
         if peakMusicController.musicType == .Guest {
             //isHostSwitch.isHidden = true
@@ -43,8 +43,13 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             isHostSwitch.isOn = peakMusicController.playerType == .Host
         }
             
-        updateMPCManager()
-        print("PopOverBluetoothViewController VIEW DID LOAD END")
+        //updateMPCManager()
+        
+        self.isHostSwitch.isHidden = peakMusicController.musicType == .Guest
+        MPCManager.defaultMPCManager.foundPeers = []
+        self.connectedToLabel.text = "Join a Session:"
+        self.tableView.isHidden = false
+        self.disconectButton.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(PopOverBluetoothViewController.playerStateChanged(notification:)), name: .musicTypeChanged, object: nil)
         
@@ -112,12 +117,12 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func disconectButonClicked(_ sender: UIButton) {
-        MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
         MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
         MPCManager.defaultMPCManager.resetSession()
+        MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
         //MPCManager.defaultMPCManager.session.disconnect()
         peakMusicController.playerType = .Individual
-        self.dismiss(animated: false, completion: nil)
+        updateMPCManager()
     }
     
     
@@ -125,7 +130,13 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if MPCManager.defaultMPCManager.foundPeers.count <= indexPath.row {
+            tableView.reloadData()
+            return
+        }
+        
         if peakMusicController.playerType == .Individual {
+            
             let selectedPeer = MPCManager.defaultMPCManager.foundPeers[indexPath.row] as MCPeerID
             
             MPCManager.defaultMPCManager.browser.invitePeer(selectedPeer, to: MPCManager.defaultMPCManager.session, withContext: nil, timeout: 20)
@@ -135,6 +146,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "popOverBasicCellID")! as! BluetoothTableViewCell
+        cell.loader.isHidden = true
         
         switch peakMusicController.playerType {
         case .Host:
@@ -235,5 +247,22 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             print("\n\nERROR: PopOverBluetoothViewController->invitationWasReceived ELSE \(fromPeer)\n\n")
         }
     }
-
+    
+    // MARK: PageDelegate
+    
+    func pageDidStick() {
+        //MPCManager.defaultMPCManager.delegate = self
+        print(MPCManager.delegate)
+        updateMPCManager()
+    }
+    
+    func pageIsShown() {
+        
+    }
+    
+    func pageLeft() {
+        if peakMusicController.playerType == .Individual {
+            MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
+        }
+    }
 }

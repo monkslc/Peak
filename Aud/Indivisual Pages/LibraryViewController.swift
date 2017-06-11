@@ -18,7 +18,7 @@ protocol LibraryViewControllerDelegate{
     func showSignifier()
 }
 
-class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, ScrollBarDelegate, UserLibraryDelegate{
+class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, ScrollBarDelegate, UserLibraryDelegate {
     
 
     /*MODEL for all library info*/

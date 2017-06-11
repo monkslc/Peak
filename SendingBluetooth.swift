@@ -116,6 +116,8 @@ class SendingBluetooth {
     
     static private func sendSongIds(songs: [BasicSong]) {
         
+        print("SEND SONGS \(songs)")
+        
         var messageDictionary: [String: String] = [:]
         
         if peakMusicController.musicType == .Spotify {

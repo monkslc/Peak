@@ -30,7 +30,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         
         foundPeers.append(peerID)
         
-        delegate?.foundPeer()
+        MPCManager.delegate?.foundPeer()
     }
     
     
@@ -46,7 +46,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     
     var invitationHandler: ((Bool, MCSession?)->Void)!
     
-    var delegate: MPCManagerDelegate?
+    static var delegate: MPCManagerDelegate?
     
     var dj: MCPeerID?
     
@@ -71,7 +71,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         foundPeers.append(peerID)
         
-        delegate?.foundPeer()
+        MPCManager.delegate?.foundPeer()
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
@@ -82,7 +82,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
             }
         }
         
-        delegate?.lostPeer()
+        MPCManager.delegate?.lostPeer()
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
@@ -94,7 +94,7 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         
         self.invitationHandler = invitationHandler
         
-        delegate?.invitationWasReceived(fromPeer: peerID.displayName)
+        MPCManager.delegate?.invitationWasReceived(fromPeer: peerID.displayName)
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
@@ -107,13 +107,13 @@ class MPCManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDelegate, M
         case MCSessionState.connected:
             //print("Connected to session: \(session)")
             
-            delegate?.connectedWithPeer(peerID: peerID)
+            MPCManager.delegate?.connectedWithPeer(peerID: peerID)
         case MCSessionState.connecting:
             break
             //print("Connecting to session: \(session)")
         case .notConnected:
             //print("Did not connect to session: \(session)")
-            delegate?.lostConnectionWithPeer(peerID: peerID)
+            MPCManager.delegate?.lostConnectionWithPeer(peerID: peerID)
         }
     }
     
