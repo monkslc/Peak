@@ -444,7 +444,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checkmark-96" translatesAutoresizingMaskIntoConstraints="NO" id="jME-PT-1pS">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-Checkmark-512" translatesAutoresizingMaskIntoConstraints="NO" id="jME-PT-1pS">
                                                     <rect key="frame" x="292.5" y="10" width="44.5" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="jME-PT-1pS" secondAttribute="height" multiplier="1:1" id="8dZ-Qg-hOR"/>
@@ -1080,7 +1080,6 @@
     </scenes>
     <resources>
         <image name="Backward Filled-50" width="50" height="50"/>
-        <image name="Checkmark-96" width="96" height="96"/>
         <image name="Forward Filled-50" width="50" height="50"/>
         <image name="High Volume Filled-50" width="50" height="50"/>
         <image name="Low Volume Filled-50" width="50" height="50"/>
@@ -1090,6 +1089,7 @@
         <image name="Spotify_Logo_CMYK_Green" width="2362" height="709"/>
         <image name="apple-music-app-icon" width="216" height="216"/>
         <image name="icons8-Cancel-50" width="50" height="50"/>
+        <image name="icons8-Checkmark-512" width="512" height="512"/>
         <image name="icons8-Download-96-2" width="96" height="96"/>
         <image name="icons8-Search-64-2" width="64" height="64"/>
     </resources>

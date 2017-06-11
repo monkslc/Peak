@@ -15,7 +15,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
 /*MARK: PROPERTIES*/
     @IBOutlet weak var musicTypeTable: UITableView!
     
-    let images = [#imageLiteral(resourceName: "apple-music-app-icon"), #imageLiteral(resourceName: "Spotify_Icon_RGB_Black"), #imageLiteral(resourceName: "Backward Filled-50")]
+    let images = [#imageLiteral(resourceName: "apple-music-app-icon"), #imageLiteral(resourceName: "Spotify_Icon_RGB_Black"), #imageLiteral(resourceName: "Guest Icon")]
     let musicPlayerTitles = ["Apple Music", "Spotify", "Guest"]
     
     var preferredPlayerType = "Guest"
@@ -168,7 +168,6 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         //Now reload our table
         musicTypeTable.reloadData()
         
-        print("Our Now Playing item is \(peakMusicController.systemMusicPlayer.getNowPlayingItem())")
     }
     
     @IBAction func flipView(_ sender: UIButton) {
