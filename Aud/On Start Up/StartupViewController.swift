@@ -33,7 +33,7 @@ class StartupViewController: UIViewController {
         
         makePeakGlow()
         
-        peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+        peakMusicController.systemMusicPlayer = GuestMusicController()
         
         //dateStarted = Date()
         
@@ -86,197 +86,35 @@ class StartupViewController: UIViewController {
     
     func loginAsAppleMusic() {
         
-        //loadingIndicator.startAnimating()
-        //check if we have authorization to the user's apple music
-        
-        let serviceController = SKCloudServiceController()
-        /***************TEST CHECK FOR APPLE MUSIC*****************/
-        
-        
-        //let's check if we can take them to get a subscription
-        serviceController.requestCapabilities(completionHandler: {(capability: SKCloudServiceCapability, err: Error?) in
+        Authentication.AutheticateWithApple(){ errorAlert in
             
-            if capability.contains(SKCloudServiceCapability.musicCatalogSubscriptionEligible){
+            if errorAlert != nil{
                 
-                //self.loadingIndicator.stopAnimating()
-                
-                //They're eligible for a subscription so let's take them to get one
-                
-                let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
-                UIApplication.shared.open(url!, options: [:], completionHandler: {
-                    (foo) -> Void in
-                    
-                    print(foo)
-                })
-                
-            } else if capability.contains(SKCloudServiceCapability.addToCloudMusicLibrary){
-                
-                DispatchQueue.main.async {
-                    
-                    //self.loadingIndicator.stopAnimating()
-                }
-                
-                
-                //We're all set to go lets see if we can segue
-                
-                if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
-                    
-                    //DispatchQueue.main.async {
-                        //self.loadingIndicator.stopAnimating()
-                    //}
-                    
-                    DispatchQueue.global().async {
-                        DispatchQueue.main.async {
-                            
-                            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
-                            self.moveToBeastController()
-                            //self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
-                        }
-                    }
-                }
-                
-                
-            } else if capability.contains(SKCloudServiceCapability.musicCatalogPlayback){
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                let alert = UIAlertController(title: "Apple Music", message: "Is Apple Music Downloaded?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
-                    
-                    //prompt the user to change their settings
-                    let subLert = UIAlertController(title: nil, message: "Head to Settings > Music > Switch on iCloud Music Library", preferredStyle: .alert)
-                    subLert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    
-                    self.present(subLert, animated: true, completion: nil)
-                    
-                }))
-                
-                alert.addAction(UIAlertAction(title: "No, take me there.", style: .default, handler: {(aciton) in
-                    
-                    let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
-                    UIApplication.shared.open(url!, options: [:], completionHandler: {
-                        (foo) -> Void in
-                        
-                        print(foo)
-                    })
-                    
-                }))
-                
-                
-                
-                self.present(alert, animated: true, completion: nil)
-                //Downloaded but no iCloud selected
-                
-                //App was not downloaded
-                
-            } else {
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                //We are yet to get access from the user
-                SKCloudServiceController.requestAuthorization({(authorization) in
-                    
-                    switch authorization {
-                        
-                    case .authorized:
-                        self.loginAsAppleMusic() // Was Something else before
-                        
-                    case .denied:
-                        self.instructUserToAllowUsToAppleMusic()
-                        
-                    default:
-                        print("Shouldn't be here")
-                    }
-                    
-                })
-                
+                self.present(errorAlert!, animated: true, completion: nil)
+                return
             }
             
-            
-        })
-        
+            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+            self.moveToBeastController()
+        }
     }
     
     func loginAsGuest() {
         
-        //Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in
         self.moveToBeastController()
-        //})
-        
-        //self.performSegue(withIdentifier: "Segue as Guest", sender: nil)
     }
     
     
     
     
     /*MARK: SPOTIFY SIGN IN METHOD*/
-    
-    //get the app delegate for spotify
-    //Get the app delegate
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
     func loginWithSpotify() {
         
-        
-        //start up the player so we can get the authentication access
-        peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
-        
-        //Create the delegate for this
-        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
-        
-        
-        //Add the listener for the callback
+        //Add the listener for spotify authentication
         NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
         
-        
-        
-        
-        //Check if we can login
-        auth?.clientID = "7b3c389c57ee44ce8f3562013df963ec"
-        auth?.redirectURL = URL(string: "peak-music-spotty-login://callback")
-        
-        
-        auth?.sessionUserDefaultsKey = "current session"
-        
-        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthUserReadTopScope, SPTAuthUserReadPrivateScope, SPTAuthUserLibraryModifyScope]
-        
-        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
-        
-        do{
-            
-            //Maybe Here
-            try (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).start(withClientId: auth?.clientID)
-        } catch{
-            
-            print("\n\nHad a fucking error\n\n")
-        }
-        
-        DispatchQueue.global().async {
-            
-            DispatchQueue.main.async {
-                
-                self.startAuthenticationFlow()
-            }
-        }
+        Authentication.AuthenticateWithSpotify()
     }
-    
-    //AUthentication flow method
-    func startAuthenticationFlow(){
-        
-        if auth?.session != nil{
-
-            (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
-            
-            
-        } else{
-            
-            let authURL = auth?.spotifyWebAuthenticationURL()
-            
-            authViewController = SFSafariViewController(url: authURL!)
-            appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
-        }
-    }
-    
     
     //Login with spotify was successful so we can segue
     func spottyLoginWasSuccess(){
@@ -285,29 +123,7 @@ class StartupViewController: UIViewController {
     }
     
     
-    
-    //Let the user know how to give us access to apple music
-    func instructUserToAllowUsToAppleMusic() {
-        
-        
-        let alert = UIAlertController(title: "Head to settings > Privacy > Media & Apple Music and allow Peak to access Media & Apple Music.", message: nil,preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-        //self.loadingIndicator.stopAnimating()
-    }
-    
-    //let the user know their access to apple music is restricted
-    func alertRestrictedAccess() {
-        
-        let alert = UIAlertController(title: "Access to Apple Music is restricted.", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style:
-            .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-        //self.loadingIndicator.stopAnimating()
-    }
-    
     // private functions
-    
     private func getUserName() -> String {
         var name = UIDevice.current.name
         
@@ -326,12 +142,9 @@ class StartupViewController: UIViewController {
     
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = segue.destination
     }
      
@@ -344,17 +157,6 @@ class StartupViewController: UIViewController {
     }
     
     func moveToBeastController() {
-        
-        /*
-        if dateStarted.timeIntervalSinceReferenceDate < timeNeeded {
-            
-            Timer.scheduledTimer(withTimeInterval: timeNeeded - dateStarted.timeIntervalSinceReferenceDate, repeats: false, block: { (timer) in
-                self.moveToBeastController()
-            })
-            
-            return
-        }
- */
         
         self.performSegue(withIdentifier: "Segue To Beast", sender: nil)
     }
