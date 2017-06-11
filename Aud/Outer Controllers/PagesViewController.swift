@@ -44,6 +44,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         return childViewControllers[0] as! PopOverBluetoothViewController
     }
     var libraryViewController: LibraryViewController {
+        //print("\(childViewControllers.count) > 1 CHILDREN")
+        //print(childViewControllers[1])
         return childViewControllers[1] as! LibraryViewController
     }
     var musicTypeController: MusicTypeController {
@@ -63,7 +65,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             rowHeight = libraryViewController.library.visibleCells[0].frame.height
         }
         
-        return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight + 175))
+        return self.view.frame.height + PagesViewController.topBarHeight
+        //return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight + 175))
     }
     
     var lastPageIndex = 1
@@ -106,189 +109,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    func checkAppleAuthentication() {
-    
-        //loadingIndicator.startAnimating()
-        //check if we have authorization to the user's apple music
-        
-        let serviceController = SKCloudServiceController()
-        /***************TEST CHECK FOR APPLE MUSIC*****************/
-        
-        //let's check if we can take them to get a subscription
-        serviceController.requestCapabilities(completionHandler: {(capability: SKCloudServiceCapability, err: Error?) in
-            
-            if capability.contains(SKCloudServiceCapability.musicCatalogSubscriptionEligible){
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                //They're eligible for a subscription so let's take them to get one
-                
-                let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
-                UIApplication.shared.open(url!, options: [:], completionHandler: {
-                    (foo) -> Void in
-                    
-                    print(foo)
-                })
-                
-            } else if capability.contains(SKCloudServiceCapability.addToCloudMusicLibrary){
-                
-                DispatchQueue.main.async {
-                    
-                    //self.loadingIndicator.stopAnimating()
-                }
-                
-                
-                //We're all set to go lets see if we can segue
-                
-                if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
-                    
-                    DispatchQueue.main.async {
-                        //self.loadingIndicator.stopAnimating()
-                    }
-                    
-                    DispatchQueue.global().async {
-                        DispatchQueue.main.async {
-                            
-                            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
-                            self.setUpScrollView()
-                            //self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
-                        }
-                    }
-                }
-    
-    
-            } else if capability.contains(SKCloudServiceCapability.musicCatalogPlayback){
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                let alert = UIAlertController(title: "Apple Music", message: "Is Apple Music Downloaded?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
-                    
-                    //prompt the user to change their settings
-                    let subLert = UIAlertController(title: nil, message: "Head to Settings > Music > Switch on iCloud Music Library", preferredStyle: .alert)
-                    subLert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    
-                    self.present(subLert, animated: true, completion: nil)
-                    
-                }))
-                
-                alert.addAction(UIAlertAction(title: "No, take me there.", style: .default, handler: {(aciton) in
-                    
-                    let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
-                    UIApplication.shared.open(url!, options: [:], completionHandler: {
-                        (foo) -> Void in
-                        
-                        print(foo)
-                    })
-                    
-                }))
-                
-                
-                
-                self.present(alert, animated: true, completion: nil)
-                //Downloaded but no iCloud selected
-                
-                //App was not downloaded
-                
-            } else {
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                //We are yet to get access from the user
-                SKCloudServiceController.requestAuthorization({(authorization) in
-                    
-                    switch authorization{
-                        
-                    case .authorized:
-                        self.checkAppleAuthentication()
-                        
-                    case .denied:
-                        //self.instructUserToAllowUsToAppleMusic()
-                        break
-                    default:
-                        print("Shouldn't be here")
-                    }
-                    
-                })
-                
-            }
-            
-            
-        })
-        
-    }
-    
-    func loginWithSpotify() {
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        //start up the player so we can get the authentication access
-        peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
-        
-        //Create the delegate for this
-        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
-        
-        
-        //Add the listener for the callback
-        NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
-        
-        
-        
-        
-        //Check if we can login
-        auth?.clientID = "7b3c389c57ee44ce8f3562013df963ec"
-        auth?.redirectURL = URL(string: "peak-music-spotty-login://callback")
-        
-        
-        auth?.sessionUserDefaultsKey = "current session"
-        
-        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthUserReadTopScope, SPTAuthUserReadPrivateScope, SPTAuthUserLibraryModifyScope]
-        
-        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
-        
-        do{
-            
-            //Maybe Here
-            try (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).start(withClientId: auth?.clientID)
-        } catch{
-            
-            print("\n\nHad a fucking error\n\n")
-        }
-        
-        DispatchQueue.global().async {
-            
-            DispatchQueue.main.async {
-                
-                self.startAuthenticationFlow()
-            }
-        }
-    }
-    
-    func spottyLoginWasSuccess(){
-        
-        //self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
-        
-    }
-    
-    func startAuthenticationFlow(){
-        
-        if auth?.session != nil{
-            
-            (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
-            
-            
-        } else{
-            
-            let authURL = auth?.spotifyWebAuthenticationURL()
-            
-            setUpScrollView()
-            //authViewController = SFSafariViewController(url: authURL!)
-            //appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
-        }
-    }
- */
+
     
     // Private Functions
     
@@ -332,6 +153,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             
             let newVerticalScrollView = UIScrollView(frame: CGRect(x: CGFloat(index) * horizontalScrollView.frame.width + PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width, height: self.view.frame.height))
             newVerticalScrollView.alwaysBounceVertical = true
+            newVerticalScrollView.delegate = self
+            newVerticalScrollView.canCancelContentTouches = false
+            newVerticalScrollView.delaysContentTouches = false
             
             self.addChildViewController(vc)
             newVerticalScrollView.addSubview(vc.view)
@@ -341,8 +165,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             
             vc.view.layer.cornerRadius = 12
             
-            newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: pageSize(at: index, includingFlip: false))
             vc.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: pageSize(at: index, includingFlip: false))
+            newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: vc.view.frame.maxY)
         }
         
         let musicTypeVC = storyboard?.instantiateViewController(withIdentifier: "musicTypePlayerID") as! MusicTypeController
@@ -354,11 +178,13 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         musicTypeVC.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: musicPlayerHeight)
         //musicTypeVC.view.removeFromSuperview()
         
+        
         horizontalScrollView.contentSize = CGSize(width: horizontalScrollView.frame.width * 2, height: horizontalScrollView.frame.height)
         horizontalScrollView.contentOffset = CGPoint(x: horizontalScrollView.frame.width, y: 0)
         
         self.view.addSubview(horizontalScrollView)
         
+        (libraryViewController.library as UIScrollView).delegate = self
         print("PagesViewController setUpScrollView END")
     }
     
@@ -410,40 +236,75 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         })
     }
     
+    
+/* MARK: Scroll View Delegate */
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let smallPointx = scrollView.contentOffset.x
-        let smallWith = scrollView.contentSize.width - scrollView.frame.width
-        
-        let largeWidth = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
-        let largeX = (smallPointx / smallWith) * largeWidth
-        
-        //let percent = scrollView.contentOffset.x / scrollView.contentSize.width
-        var beginingX = largeX //percent * backgroundScrollView.contentSize.width
-        if beginingX < 0 {
-            beginingX = 0
+        if horizontalScrollView == scrollView {
+            let smallPointx = scrollView.contentOffset.x
+            let smallWith = scrollView.contentSize.width - scrollView.frame.width
+            
+            let largeWidth = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+            let largeX = (smallPointx / smallWith) * largeWidth
+            
+            //let percent = scrollView.contentOffset.x / scrollView.contentSize.width
+            var beginingX = largeX //percent * backgroundScrollView.contentSize.width
+            if beginingX < 0 {
+                beginingX = 0
+            }
+            if beginingX + backgroundScrollView.frame.width > backgroundScrollView.contentSize.width {
+                beginingX = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+            }
+            backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
         }
-        if beginingX + backgroundScrollView.frame.width > backgroundScrollView.contentSize.width {
-            beginingX = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+        else if isMiddleViewFlipped {
+            
         }
-        backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
+        else if verticalScrollViews[1] == scrollView {
+            print(verticalScrollViews[1].contentOffset.y - PagesViewController.topBarHeight)
+            if verticalScrollViews[1].contentOffset.y >= PagesViewController.topBarHeight {
+                verticalScrollViews[1].isScrollEnabled = false
+                verticalScrollViews[1].setContentOffset(CGPoint(x: 0, y: PagesViewController.topBarHeight), animated: false)
+                libraryViewController.library.isScrollEnabled = true
+            }
+        }
+        else if (libraryViewController.library as UIScrollView) == scrollView {
+            if scrollView.contentOffset.y <= 0 {
+                verticalScrollViews[1].setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                verticalScrollViews[1].isScrollEnabled = true
+                libraryViewController.library.isScrollEnabled = false
+                libraryViewController.library.bounces = false
+            }
+            else if scrollView.contentOffset.y > 10 {
+                libraryViewController.library.bounces = true
+            }
+            else  {
+                libraryViewController.library.bounces = false
+            }
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = pageIndex
-        
-        if index == lastPageIndex {
-            return
-        }
+        if horizontalScrollView == scrollView {
+            let index = pageIndex
             
-        if let page = getViewControllerAtPageIndex(index) as? Page {
-            page.pageDidStick()
+            if index == lastPageIndex {
+                return
+            }
+            
+            if let page = getViewControllerAtPageIndex(index) as? Page {
+                page.pageDidStick()
+            }
+            
+            if let page = getViewControllerAtPageIndex(lastPageIndex) as? Page {
+                page.pageLeft()
+            }
+            
+            lastPageIndex = index
         }
-        
-        if let page = getViewControllerAtPageIndex(lastPageIndex) as? Page {
-            page.pageLeft()
+        else if verticalScrollViews[1] == scrollView {
+            
         }
-        
-        lastPageIndex = index
     }
 }
