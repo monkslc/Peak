@@ -43,6 +43,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.loadingIndicator.color = UIColor.peakColor
+        
         //Set the delegate for the user library
         userLibrary.delegate = self
         
