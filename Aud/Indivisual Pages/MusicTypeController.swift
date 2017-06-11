@@ -15,7 +15,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
 /*MARK: PROPERTIES*/
     @IBOutlet weak var musicTypeTable: UITableView!
     
-    let images = [#imageLiteral(resourceName: "apple-music-app-icon"), #imageLiteral(resourceName: "Spotify_Icon_RGB_Black"), #imageLiteral(resourceName: "Backward Filled-50")]
+    let images = [#imageLiteral(resourceName: "apple-music-app-icon"), #imageLiteral(resourceName: "Spotify_Icon_RGB_Black"), #imageLiteral(resourceName: "Guest Icon")]
     let musicPlayerTitles = ["Apple Music", "Spotify", "Guest"]
     
     var preferredPlayerType = "Guest"
@@ -101,6 +101,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     if alertController == nil{
                         
+                         peakMusicController.systemMusicPlayer.stopPlaying()
+                        
                         print("Our new Music Controller should be updating")
                         peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
                         peakMusicController.systemMusicPlayer.generateNotifications()
@@ -118,6 +120,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                 
             }else if cell.musicPlayerLabel.text == "Spotify"{
                 
+                 peakMusicController.systemMusicPlayer.stopPlaying()
+                
                 /*AUTHENTICATE SPOTIFY AND DO THIS IF AUTHENTICATION WORKS*/
                 //Add the listener so we know it worked
                 NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
@@ -127,7 +131,9 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                 
             } else{
                 
+                peakMusicController.systemMusicPlayer.stopPlaying()
                 peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+                musicPlayerTypeWasUpdated("Guest")
             }
             
             
@@ -138,7 +144,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func musicPlayerTypeWasUpdated(_ musicType: String){
         
-        print("Our Music Player Type Was Updated")
+        peakMusicController.systemMusicPlayer.setNowPlayingItemToNil()
+        
         //Set our new user defaults
         let defaults = UserDefaults.standard
         defaults.set(musicType, forKey: "Music Type")
@@ -160,6 +167,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //Now reload our table
         musicTypeTable.reloadData()
+        
     }
     
     @IBAction func flipView(_ sender: UIButton) {

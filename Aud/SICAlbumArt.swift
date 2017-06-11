@@ -39,7 +39,7 @@ class SICAlbumArt: UIImageView {
             DispatchQueue.main.async {
                 
                 
-                self.image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+                self.image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "Peak Logo Proper Album")
             }
 
         } else{
@@ -48,13 +48,13 @@ class SICAlbumArt: UIImageView {
                 
                 DispatchQueue.main.async {
                     
-                    self.image = peakMusicController.groupPlayQueue[0].getImage() ?? #imageLiteral(resourceName: "ProperPeakyAlbumView")
+                    self.image = peakMusicController.groupPlayQueue[0].getImage() ?? #imageLiteral(resourceName: "Peak Logo Proper Album")
                 }
                 
             } else{
                 
                 DispatchQueue.main.async {
-                    self.image = #imageLiteral(resourceName: "ProperPeakyAlbumView")
+                    self.image = #imageLiteral(resourceName: "Peak Logo Proper Album")
                 }
                 
             }

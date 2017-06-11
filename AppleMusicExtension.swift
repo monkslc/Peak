@@ -100,7 +100,9 @@ extension MPMusicPlayerController: SystemMusicPlayer {
     
     func setNowPlayingItemToNil() {
         
+        
         nowPlayingItem = nil
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
     }
     
     func getCurrentPlaybackTime() -> Double {

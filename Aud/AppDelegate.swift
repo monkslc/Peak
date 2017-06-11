@@ -76,10 +76,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         
         //Send the user to re log in
-        let authURL = auth?.spotifyWebAuthenticationURL()
+        if auth?.session.isValid() == false{
+            
+            let authURL = auth?.spotifyWebAuthenticationURL()
+            
+            authViewController = SFSafariViewController(url: authURL!)
+            window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
+        }
         
-        authViewController = SFSafariViewController(url: authURL!)
-        window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
+        
         
         
         

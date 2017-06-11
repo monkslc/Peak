@@ -274,6 +274,7 @@ class AuthViewController: UIViewController {
     //Login with spotify was successful so we can segue
     func spottyLoginWasSuccess(){
         
+        print("\n\n\nIt's not getting called here is it?\n\n")
         self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
     }
     

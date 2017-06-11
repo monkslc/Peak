@@ -176,12 +176,14 @@ class ConnectingToInternet {
     
     static func getSongs(searchTerm: String, limit: Int = 5, sendSongsAlltogether: Bool = true, completion: @escaping ([Song]) -> Void, error: @escaping () -> Void = {}) {
         
+        let serialQueue = DispatchQueue(label: "myQue")
+        
         let search = searchTerm.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
         
         //print("Searching: \(search)")
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(search)&country=US&media=music&limit=\(limit)", completion: {
             (json) -> Void in
-    
+            
             if let json = json as? [String:Any] {
                 
                 let limit = json["resultCount"] as! Int
@@ -211,18 +213,16 @@ class ConnectingToInternet {
                                     return
                                 }
                                 
-                                //print("SONG: \(name) STREAMABLE: \(streamable)")
-                                
                                 if streamable {
                                     
-                                    //serialQueue.sync {
-                                    //We are getting an error here
-                                    songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
-                                    //}
-                                    
-                                    
-                                    if songs.count == (songsJSON.count - badSongs) || !sendSongsAlltogether {
-                                        completion(songs)
+                                    serialQueue.sync {
+                                        
+                                        songs.append(Song(id: "\(id)", trackName: name, collectionName: album, artistName: artist, trackTimeMillis: time, image: image, dateAdded: nil))
+                                        
+                                        
+                                        if songs.count == (songsJSON.count - badSongs) || !sendSongsAlltogether {
+                                            completion(songs)
+                                        }
                                     }
                                 }
                                 else {
@@ -249,8 +249,12 @@ class ConnectingToInternet {
                             })
                         }
                     }
-                } else { error() }
-            } else { error() }
+                } else {
+                    error()
+                }
+            } else {
+                error()
+            }
         }, errorCompletion: error)
     }
     
@@ -294,7 +298,7 @@ class ConnectingToInternet {
                 print("\n\nError: THIS SHOULD NEVER HAPPEN: downoading Image in ConnectingToInternet getImage line 192: \(e)\n\n")
             } else if let imageData = data {
                 
-                let image = UIImage(data: imageData)
+                let image = UIImage(data: imageData)!
                 
                 completion(image)
                 

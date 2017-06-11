@@ -264,7 +264,7 @@ class StartupViewController: UIViewController {
     func startAuthenticationFlow(){
         
         if auth?.session != nil{
-            
+
             (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
             
             
@@ -282,7 +282,6 @@ class StartupViewController: UIViewController {
     func spottyLoginWasSuccess(){
         
         moveToBeastController()
-        //self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
     }
     
     

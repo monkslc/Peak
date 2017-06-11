@@ -205,7 +205,8 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     
     func setNowPlayingItemToNil() {
         
-       //Don't do anything here yet
+        peakMusicController.currPlayQueue = []
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
     }
     
     func getCurrentPlaybackTime() -> Double {

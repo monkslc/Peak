@@ -42,7 +42,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*MARK: LIFECYCLE METHODS*/
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("LibraryViewController viewDidLoad START")
+        
+        self.loadingIndicator.color = UIColor.peakColor
         
         //Set the delegate for the user library
         userLibrary.delegate = self
@@ -68,7 +69,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Add Listener
         NotificationCenter.default.addObserver(self, selector: #selector(enteringForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
         
-        print("LibraryViewController viewDidLoad END")
     }
     
     
@@ -132,8 +132,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func libraryItemsUpdated() {
         //Get's called when the variable in userLibrary changes
         //Update our displays
-        
-        print("Our Library Items were updated")
         
         loadingIndicator.stopAnimating()
         

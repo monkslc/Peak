@@ -58,16 +58,16 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             cell.albumArt.image = meImage
         } else{
             
-            cell.albumArt.image = #imageLiteral(resourceName: "ProperPeakyIcon")
+            cell.albumArt.image = #imageLiteral(resourceName: "Peak Logo Proper Album")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
                 
-                cell.albumArt.image = itemToAdd?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyIcon")
+                cell.albumArt.image = itemToAdd?.getImage() ?? #imageLiteral(resourceName: "Peak Logo Proper Album")
                 tableView.reloadData()
             }
         }
         
-        cell.albumArt.image = itemToAdd?.getImage() ?? #imageLiteral(resourceName: "ProperPeakyIcon")
+        cell.albumArt.image = itemToAdd?.getImage() ?? #imageLiteral(resourceName: "Peak Logo Proper Album")
         cell.songTitle.text = itemToAdd?.getTrackName()
         cell.songArtist.text = itemToAdd?.getArtistName()
         

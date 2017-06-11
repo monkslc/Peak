@@ -21,7 +21,7 @@ class Signifier: UIImageView {
     func animationSetUp(){
         
         backgroundColor = UIColor.clear
-        image = #imageLiteral(resourceName: "Checkmark-96")
+        image = #imageLiteral(resourceName: "icons8-Checkmark-512")
         alpha = 0.0
     }
     

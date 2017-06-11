@@ -56,6 +56,8 @@ class GuestMusicController: SystemMusicPlayer{
     
     func setNowPlayingItemToNil(){
         
+        peakMusicController.currPlayQueue = []
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
     }
     
     func getCurrentPlaybackTime() -> Double{
