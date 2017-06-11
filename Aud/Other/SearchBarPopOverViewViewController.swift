@@ -198,7 +198,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             if (self.delegate as! BeastController).mediaSearchBar.text == searchQuery{
                 
-                print("Ok we are going to search for \(searchQuery)")
                 //It is so let's search
                 self.searchSongs(search: searchQuery)
                 self.latestQuery = searchQuery
