@@ -24,7 +24,6 @@ class UserLibrary{
         
         //Add the listener for a library change
         NotificationCenter.default.addObserver(self, selector: #selector(libraryItemsChanged), name: .systemMusicPlayerLibraryChanged, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(libraryItemsChanged), name: .musicTypeChanged, object: nil)
     }
     
     /*MARK: Delegate*/
@@ -53,7 +52,6 @@ class UserLibrary{
         
         if peakMusicController.musicType == .AppleMusic {
             
-            print("We have decided to fetch Apple Music")
             fetchAppleMusic()
         } else if peakMusicController.musicType == .Guest {
             
@@ -67,7 +65,6 @@ class UserLibrary{
     
     private func fetchAppleMusic(){
         
-        print("Inside of Fetch Apple Music")
         //Temp Sort Method
         func sort(_ item1: MPMediaItem, _ item2: MPMediaItem) -> Bool {
             
@@ -393,7 +390,6 @@ class UserLibrary{
     /*MARK: Notification Methods*/
     @objc func libraryItemsChanged(){
         
-        print("Our Library Items Are Changing")
         DispatchQueue.global().async {
             
             self.fetchLibrary()

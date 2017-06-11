@@ -95,13 +95,17 @@ class SongOptionsController: UIAlertController {
         
         addAction(Alerts.playNowAlert(song))
         
-        //Check if we should add Play Next
-        if peakMusicController.musicType != .Spotify{
+        if peakMusicController.currPlayQueue.count != 0{
             
-            addAction(Alerts.playNextAlert(song))
+            if peakMusicController.musicType != .Spotify{
+                
+                addAction(Alerts.playNextAlert(song))
+            }
+            
+            addAction(Alerts.playLastAlert(song))
+            
         }
         
-        addAction(Alerts.playLastAlert(song))
         addAction(Alerts.playAlbumAlert(song))
         addAction(Alerts.playArtistAlert(song))
     }

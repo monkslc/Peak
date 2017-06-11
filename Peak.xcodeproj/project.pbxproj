@@ -44,6 +44,8 @@
 		C456253A1E8EF95E00311750 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45625391E8EF95E00311750 /* Alerts.swift */; };
 		C45838CE1EC0F00500ECEBE5 /* GuestMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45838CD1EC0F00500ECEBE5 /* GuestMusicController.swift */; };
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
+		C470F85F1EED9313002A96CB /* AddToLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470F85E1EED9313002A96CB /* AddToLibrary.swift */; };
+		C470F8611EED97F0002A96CB /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470F8601EED97F0002A96CB /* TextFieldExtension.swift */; };
 		C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */; };
 		C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */; };
 		C47FC7BE1EB695E700B1A352 /* PlaybackStateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */; };
@@ -119,6 +121,8 @@
 		C45625391E8EF95E00311750 /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alerts.swift; path = Aud/Alerts.swift; sourceTree = "<group>"; };
 		C45838CD1EC0F00500ECEBE5 /* GuestMusicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GuestMusicController.swift; path = Aud/GuestMusicController.swift; sourceTree = "<group>"; };
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C470F85E1EED9313002A96CB /* AddToLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToLibrary.swift; sourceTree = "<group>"; };
+		C470F8601EED97F0002A96CB /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInteractionController.swift; sourceTree = "<group>"; };
 		C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICAlbumArt.swift; sourceTree = "<group>"; };
 		C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackStateButton.swift; sourceTree = "<group>"; };
@@ -253,6 +257,7 @@
 				C4D117771E80A9F2000A854A /* VisualQueueController.swift */,
 				C40515211EB7E18E00F1471F /* UserLibrary.swift */,
 				C45625391E8EF95E00311750 /* Alerts.swift */,
+				C470F85E1EED9313002A96CB /* AddToLibrary.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -358,6 +363,7 @@
 				90E2DFE51E87FF0900762B9D /* Song.swift */,
 				90DC46511EB91EF9007AF581 /* BasicSong.swift */,
 				C404D0D81EBA310900E7F0F5 /* BasicSongHolder.swift */,
+				C470F8601EED97F0002A96CB /* TextFieldExtension.swift */,
 				90DC46531EB920A0007AF581 /* MpMediumItemExtension.swift */,
 				C4BA76C81EBD386D00947C1C /* SpotifyTrackExtension.swift */,
 				C47FC7C11EB69E8F00B1A352 /* NotificationExtension.swift */,
@@ -461,7 +467,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 58NU5LV6AX;
+						DevelopmentTeam = SDRSRURVZA;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -533,6 +539,7 @@
 				C40722481EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift in Sources */,
 				90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */,
 				C47FC7C01EB6993F00B1A352 /* SICDisplay.swift in Sources */,
+				C470F85F1EED9313002A96CB /* AddToLibrary.swift in Sources */,
 				C4BA297B1E7DCC42000AAD48 /* AuthViewController.swift in Sources */,
 				C4D1175E1E7F6C69000A854A /* RoundedButton.swift in Sources */,
 				C456253A1E8EF95E00311750 /* Alerts.swift in Sources */,
@@ -552,6 +559,7 @@
 				C41891271EEC696500D5C3FB /* Authentication.swift in Sources */,
 				C40515221EB7E18E00F1471F /* UserLibrary.swift in Sources */,
 				C4FCDF8F1E909D7B0046C1F9 /* ScrollBar.swift in Sources */,
+				C470F8611EED97F0002A96CB /* TextFieldExtension.swift in Sources */,
 				C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */,
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,
 				9080268B1EEC89A7002E4132 /* StartupViewController.swift in Sources */,
@@ -710,7 +718,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -738,7 +746,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

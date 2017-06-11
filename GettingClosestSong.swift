@@ -117,16 +117,8 @@ class GettingClosestSong {
             let newPoints = differenceBetweenPhrases(phrase1: search1, phrase2: search2)
             
             totalPoints += newPoints
-            print(newPoints)
+            
         }
-        
-        print("\(song1.getTrackName()) == \(song2.getTrackName())")
-        print("\(song1.getCollectionName()) == \(song2.getCollectionName())")
-        print("\(song1.getArtistName()) == \(song2.getArtistName())")
-        
-        print("POINTS: \(totalPoints)")
-        
-        print("\n\n")
         
         return totalPoints
     }

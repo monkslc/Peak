@@ -37,6 +37,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     
+    var isDisappearing = false
+    
     /*MARK: LifeCycle Methods*/
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,18 +60,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     override func viewWillDisappear(_ animated: Bool) {
         //Called when the popover is about to go away
         
-        
         if let BCDel: BeastController = delegate as? BeastController{
             
-            BCDel.mediaSearchBar.resignFirstResponder()
-            BCDel.mediaSearchBar.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)
+            BCDel.mediaSearchBar.resetSearch(BCDel)
+            
             BCDel.cancelSearch.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)
-            
-            BCDel.mediaSearchBar.delegate = BCDel
-            BCDel.mediaSearchBar.text = "Search by Song, Artist, or Album..."
             BCDel.cancelSearch.isHidden = true
-            //BCDel.mediaSearchBackdrop.backgroundColor = UIColor(red: 15/255, green: 15/255, blue: 15/255, alpha: 0.30)
-            
         }
     }
 
@@ -131,6 +127,9 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             cell.addToLibraryButton.isHidden = false
             cell.addToLibraryButton.addTarget(self, action: #selector(addToLibrary(_:)), for: .touchUpInside)
+        } else{
+            
+            cell.addToLibraryButton.isHidden = true
         }
         
         
@@ -202,7 +201,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             
             if (self.delegate as! BeastController).mediaSearchBar.text == searchQuery{
                 
-                print("Ok we are going to search for \(searchQuery)")
                 //It is so let's search
                 self.searchSongs(search: searchQuery)
                 self.latestQuery = searchQuery
@@ -215,6 +213,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func resignSearchField(){
         
+        isDisappearing = true
         hideAllViews()
         animateSelfAway(with: returnBlurView()!)
     }
@@ -314,14 +313,8 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         let BC = delegate as! BeastController
         BC.mediaSearchBar.resignFirstResponder()
         
-        //Media Search Change
-        
-        //check to make sure we're not a guest
-
-        
         //get the cell
         let cell = gesture.view as! SongCell
-        
         
         //Check player type
         if peakMusicController.playerType != .Contributor && peakMusicController.musicType != .Guest{
@@ -361,58 +354,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func addToAppleMusicLibrary(_ songID: String){
         
-        MPMediaLibrary().addItem(withProductID: songID, completionHandler: {(ent, err) in
-            
-            if err != nil{
-                
-                self.errorAddingSongAlert()
-                return
-            }
-            
-            self.refreshTable()
-        })
+        AddToLibrary.addToAppleMusicLibrary(songID, completion: checkAddedToLibrary(_:))
     }
     
     func addToGuestLibrary(_ songID: String){
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let newSong = NSEntityDescription.insertNewObject(forEntityName: "StoredSong", into: context)
-        newSong.setValue(songID, forKey: "storedID")
-        newSong.setValue(Date(), forKey: "downloaded")
-        
-            //now try to save it
-            do{
-                try context.save()
-            }catch{
-            
-                errorAddingSongAlert()
-                return
-            }
-        
-        refreshTable()
+        AddToLibrary.addToGuestLibrary(songID, completion: checkAddedToLibrary(_:))
     }
     
     func addToSpotifyLibrary(songToAdd: BasicSong){
         
-        DispatchQueue.global().async {
-            
-            if let track = songToAdd as? SPTPartialTrack {
-                
-                SPTYourMusic.saveTracks([track], forUserWithAccessToken: auth?.session.accessToken){ err, callback in
-                    
-                    if err != nil{
-                        
-                        print("We had an error bitches, \(err!)")
-                        return
-                    }
-                    
-                    self.refreshTable()
-                }
-            }
-        }
-        
+        AddToLibrary.addToSpotifyLibrary(songToAdd, completion: checkAddedToLibrary(_:))
     }
     
     func errorAddingSongAlert(){
@@ -426,10 +378,23 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     func refreshTable(){
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)){
+        NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)){
             
             self.searchedSongsTableView.reloadData()
-            NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
+        }
+        
+    }
+    
+    func checkAddedToLibrary(_ wasAdded: Bool){
+        
+        if wasAdded{
+            
+            refreshTable()
+        }else{
+            
+            errorAddingSongAlert()
         }
     }
     
@@ -461,25 +426,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         promptUserToSendToGroupQueue(song: cell.itemInCell)
     }
     
+    
     func promptUserToSendToGroupQueue(song: BasicSong){
         //Makes sure the user wants to send the item to the group queue
         
         let alert = UIAlertController(title: "Group Queue", message: "Would you like to add \(song.getTrackName()) to the group queue?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(alert) in
-            
-            self.showSignifier()
-            
-            SendingBluetooth.sendSongIdToHost(song: song, error: {
-                () -> Void in
-                
-                let alert = UIAlertController(title: "Error", message: "Could not send", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-            }) // @cam added this. may want to change
-        }))
-        
+        alert.addAction(Alerts.sendToGroupQueueAlert(song))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        
         present(alert, animated: true, completion: nil)
     }
     
@@ -497,14 +450,12 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchSongs(search: String) {
         
-        print("We made it into search Songs where we are searching for \(search)")
         searchedSongsTableView.setContentOffset(CGPoint.zero, animated: true)
         if selectMusicFromSegment.selectedSegmentIndex == 0 {
             searchLibrary(search: search)
         }
         else if selectMusicFromSegment.selectedSegmentIndex == 1 {
             
-            print("OK we are searching the store")
             //Check what store we should be searching
             switch peakMusicController.musicType{
                 
@@ -513,7 +464,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 
             default:
                 searchAppleMusic(search: search)
-                print("We have decided on the apple music store")
             }
             
         } else {
@@ -548,21 +498,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchAppleMusic(search: String) {
         
-        print("Inside of search Apple Music")
         if search.length > 0 {
             
-            print("Our search Length was greater than 0")
             /*THE FOLLOWING RIGHT HERE IS NOT GETTING CALLED*/
             SearchingAppleMusicApi.defaultSearch.addSearch(term: search, completion: {
                 (songs) -> Void in
                 
-                print("Ok inside of SearchingAPPLEMusicAPI.defaultSearch")
                 DispatchQueue.main.async {
                     self.loadingIndicator.stopAnimating()
-                    print("About to go inside of the if")
                     if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
                         
-                        print("Inside of the if")
                         self.topResults = songs
                     }
                    
@@ -573,10 +518,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchSpotifyMusic(search: String){
         
-        /*HERE: MAKE SPOTIFY SEARCH WORK*/
-        
         if search.length > 0 {
-            
             
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
@@ -594,11 +536,14 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     private func searchTopCharts() {
         
-        
+        print("Inside of Searching Top Charts")
         if let songs = GettingTopCharts.defaultGettingTopCharts.lastTopCharts {
+            
+            print("Made it inside of the if let")
             DispatchQueue.main.async {
                 if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                     
+                    print("Our Segment was correct")
                     
                     //Check if we are a Spotify Player so we can convert to Spotify Songs
                     if peakMusicController.musicType == .Spotify{
@@ -606,6 +551,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                         self.convertTopChartsToSpotify(songs: songs)
                     } else{
                         
+                        print("We want to search Apple Music Songs")
                         self.topResults = songs
                         self.loadingIndicator.stopAnimating()
                     }
@@ -658,12 +604,17 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                             
                             DispatchQueue.main.async {
                                 
-                                if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
+                                if self.isDisappearing == false{
                                     
-                                    _ = song.getImage()
-                                    self.topResults.append(song)
-                                    self.loadingIndicator.stopAnimating()
+                                    if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
+                                        
+                                        _ = song.getImage()
+                                        self.topResults.append(song)
+                                        self.loadingIndicator.stopAnimating()
+                                    }
                                 }
+                                
+                                
                                 
                             }
                             

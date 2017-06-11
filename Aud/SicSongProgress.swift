@@ -102,8 +102,7 @@ class SicSongProgress: UISlider {
     func changeSongTime(){
         //Get's called when the user changes the song time, update the time of the current song playing in peak music controller
         
-        print("The value we should be changing to is: \(value)")
-        print("Our current play queue size is: \(peakMusicController.currPlayQueue.count)")
+        
         peakMusicController.systemMusicPlayer.setCurrentPlayTime(Double(value))
     }
 }

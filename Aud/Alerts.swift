@@ -192,5 +192,6 @@ class Alerts {
             (peakMusicController.delegate as! LibraryViewController).userLibrary.fetchLibrary()
         }
     }
+
     
 }
