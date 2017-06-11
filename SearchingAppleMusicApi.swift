@@ -25,7 +25,11 @@ class SearchingAppleMusicApi {
     private var searchCount = 0
     
     func addSearch(term: String, completion: @escaping ([Song]) -> Void) {
+        
+        print("Ok made it inside of add Search")
         if isSearching {
+            
+            print("It is searching")
             nextSearchTerm = term
             nextSearchCompletion = completion
             if lastSearch + 5000 > NSDate().timeIntervalSince1970 {
@@ -38,12 +42,16 @@ class SearchingAppleMusicApi {
             }
         }
         else {
+            
+            print("It is not searching")
             isSearching = true
             doSearch(term: term, completion: completion)
         }
     }
     
     private func doSearch(term: String, completion: @escaping ([Song]) -> Void) {
+        
+        print("\n\nWe made it inside of do Search")
         let currentSearchIndex = searchCount
         searchCount += 1
         
@@ -53,24 +61,30 @@ class SearchingAppleMusicApi {
         Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {
             timer -> Void in
             
+            print("Inside of scheduled Timer")
             if searchesAtTime == self.searches {
                 self.searches += 1
                 
+                print("Our searches at time == self.searches")
                 if let search = self.nextSearchTerm {
-            
+                    
+                    print("We did if let search")
                     self.doSearch(term: search, completion: self.nextSearchCompletion)
                     self.nextSearchTerm = nil
                 }
                 else {
-                  
+                    
+                    print("We did not if let")
                     self.isSearching = false
                 }
             }
         })
         
+        print("About to go inside of Connecting to Internet")
         ConnectingToInternet.getSongs(searchTerm: term, limit: 7, sendSongsAlltogether: true, completion: {
             (songs) -> Void in
             
+            print("Inside of Connecting to Internet")
             if currentSearchIndex > self.lastSearchIndex {
                 self.lastSearchIndex = currentSearchIndex
                 completion(songs)

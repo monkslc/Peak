@@ -38,8 +38,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         return childViewControllers[0] as! PopOverBluetoothViewController
     }
     var libraryViewController: LibraryViewController {
-        print("\(childViewControllers.count) > 1 CHILDREN")
-        print(childViewControllers[1])
+        //print("\(childViewControllers.count) > 1 CHILDREN")
+        //print(childViewControllers[1])
         return childViewControllers[1] as! LibraryViewController
     }
     var musicTypeController: MusicTypeController {
