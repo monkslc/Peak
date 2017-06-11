@@ -31,18 +31,16 @@ class BluetoothHandler {
     /*MARK Bluetooth Methods*/
     func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType], token: String?) {
         
+        print("RECIEVED SONGS \(songIds) FROM GROUP")
+        
         if songTypes.count > 0 {
             
             switch songTypes[0]{
-                
             case .Spotify:
                 spotifyReceived(songIds, token: token!)
-                
-                
             default: //Apple Music or Guest
                 appleMusicReceived(songIds)
             }
-            
         }
         else {
             print("HUGE ERROR! SONG TYPES RECIEVED NOT GREATER THAN 0 IN BluetoothHandler -> receivedGroupPlayQueue")

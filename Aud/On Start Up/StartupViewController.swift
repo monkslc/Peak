@@ -18,6 +18,9 @@ class StartupViewController: UIViewController {
 
     @IBOutlet var welcomeLabel: UILabel!
     
+    //var dateStarted: Date!
+    //var timeNeeded: TimeInterval = 1.0
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -31,6 +34,8 @@ class StartupViewController: UIViewController {
         makePeakGlow()
         
         peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+        
+        //dateStarted = Date()
         
         switch peakMusicController.musicType {
         case .AppleMusic:
@@ -194,9 +199,9 @@ class StartupViewController: UIViewController {
     
     func loginAsGuest() {
         
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in
-            self.moveToBeastController()
-        })
+        //Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { (timer) in
+        self.moveToBeastController()
+        //})
         
         //self.performSegue(withIdentifier: "Segue as Guest", sender: nil)
     }
@@ -339,11 +344,17 @@ class StartupViewController: UIViewController {
     }
     
     func moveToBeastController() {
-        print("PRESENTING THE BEATS")
-        /*let beastVc = storyboard?.instantiateViewController(withIdentifier: "beastControllerId") as! BeastController
-        self.present(beastVc, animated: false, completion: {
-            print("PRESENTED")
-        })*/
+        
+        /*
+        if dateStarted.timeIntervalSinceReferenceDate < timeNeeded {
+            
+            Timer.scheduledTimer(withTimeInterval: timeNeeded - dateStarted.timeIntervalSinceReferenceDate, repeats: false, block: { (timer) in
+                self.moveToBeastController()
+            })
+            
+            return
+        }
+ */
         
         self.performSegue(withIdentifier: "Segue To Beast", sender: nil)
     }

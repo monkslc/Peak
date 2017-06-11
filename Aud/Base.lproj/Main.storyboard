@@ -758,18 +758,24 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDt-md-ZxO">
-                                                    <rect key="frame" x="8" y="29" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDt-md-ZxO">
+                                                    <rect key="frame" x="8" y="8" width="323" height="63.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2XR-ik-brN">
-                                                    <rect key="frame" x="347" y="30" width="20" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2XR-ik-brN">
+                                                    <rect key="frame" x="339" y="30" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xDt-md-ZxO" firstAttribute="top" secondItem="UGr-bu-QPZ" secondAttribute="topMargin" id="EkI-GR-zsU"/>
+                                                <constraint firstItem="xDt-md-ZxO" firstAttribute="leading" secondItem="UGr-bu-QPZ" secondAttribute="leadingMargin" id="QC0-cf-pHT"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="xDt-md-ZxO" secondAttribute="bottom" id="pcJ-EU-iAU"/>
+                                                <constraint firstItem="2XR-ik-brN" firstAttribute="centerY" secondItem="UGr-bu-QPZ" secondAttribute="centerY" id="w4A-kY-dk5"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2XR-ik-brN" secondAttribute="trailing" constant="8" id="w7o-vK-cDQ"/>
+                                                <constraint firstItem="2XR-ik-brN" firstAttribute="leading" secondItem="xDt-md-ZxO" secondAttribute="trailing" constant="8" id="xIU-rb-ZCL"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="loader" destination="2XR-ik-brN" id="Yzr-to-1zf"/>

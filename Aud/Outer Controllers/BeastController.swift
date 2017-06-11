@@ -11,7 +11,7 @@ import MediaPlayer
 
 let peakMusicController = PeakMusicController()
 
-class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, UITextFieldDelegate {
+class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelegate, UIPopoverPresentationControllerDelegate, PeakMusicControllerDelegate, LibraryViewControllerDelegate, UITextFieldDelegate, BluetoohtHandlerDelegate {
 
     /*MARK: Properties*/
 
@@ -27,6 +27,10 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
     //Library Props
     @IBOutlet weak var libraryContainerView: UIView!
     
+    @IBOutlet weak var scrollPresenter: ScrollPresenterView!
+    
+    let bluetoothHandler = BluetoothHandler()
+    
     var pagesViewController: PagesViewController {
         return childViewControllers[0] as! PagesViewController
     }
@@ -37,28 +41,23 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         return pagesViewController.libraryViewController
     }
     
-    @IBOutlet weak var scrollPresenter: ScrollPresenterView!
-    
     /*MARK: VIEW CONTROLLER LIFECYCLE METHODS*/
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bluetoothHandler.delegate = self
         
-        
-      
-        
-        
-       //Set up search bar
+        // Set up search bar
         mediaSearchBar.delegate = self
     
-        //Set up the Peak Music Controller
+        // Set up the Peak Music Controller
         peakMusicController.delegate = self
         peakMusicController.setUp()
         
-        //Add the listener for player type
-        //NotificationCenter.default.addObserver(self, selector: #selector(playerTypeDidChange), name: .playerTypeChanged, object: nil)
+        // Add the listener for player type
+        // NotificationCenter.default.addObserver(self, selector: #selector(playerTypeDidChange), name: .playerTypeChanged, object: nil)
         
-        //Set up the scroll presenter
+        // Set up the scroll presenter
         scrollPresenter.setUp()
     }
 
