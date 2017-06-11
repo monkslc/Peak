@@ -131,8 +131,9 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                 
             } else{
                 
-                 peakMusicController.systemMusicPlayer.stopPlaying()
+                peakMusicController.systemMusicPlayer.stopPlaying()
                 peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+                musicPlayerTypeWasUpdated("Guest")
             }
             
             
@@ -142,6 +143,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func musicPlayerTypeWasUpdated(_ musicType: String){
+        
+        peakMusicController.systemMusicPlayer.setNowPlayingItemToNil()
         
         //Set our new user defaults
         let defaults = UserDefaults.standard
@@ -164,6 +167,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //Now reload our table
         musicTypeTable.reloadData()
+        
+        print("Our Now Playing item is \(peakMusicController.systemMusicPlayer.getNowPlayingItem())")
     }
     
     @IBAction func flipView(_ sender: UIButton) {
@@ -176,7 +181,6 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
 /*MARK: SUPPORTING AUTHENTICATION METHODS*/
     func spottyLoginWasSuccess(){
         
-        print("Are't thou getting called inside of here\n\n")
         peakMusicController.systemMusicPlayer.generateNotifications()
         musicPlayerTypeWasUpdated("Spotify")
     }
