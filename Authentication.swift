@@ -155,11 +155,9 @@ class Authentication{
                 
             } else{
                 
-                print("\n\nAUTHURL CALLED HERE 3\n\n")
                 let authURL = auth?.spotifyWebAuthenticationURL()
                 
                 authViewController = SFSafariViewController(url: authURL!)
-                print("Our View Controller is: \(appDelegate.window?.rootViewController)")
                 appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
             }
         }

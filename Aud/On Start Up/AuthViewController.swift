@@ -263,7 +263,6 @@ class AuthViewController: UIViewController {
             
         } else{
             
-            print("\n\nAUTHURL CALLED HERE 4\n\n")
             let authURL = auth?.spotifyWebAuthenticationURL()
             
             authViewController = SFSafariViewController(url: authURL!)

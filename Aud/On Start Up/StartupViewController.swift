@@ -259,15 +259,12 @@ class StartupViewController: UIViewController {
     func startAuthenticationFlow(){
         
         if auth?.session != nil{
-            
-            print("Our auth.session did not equal nil")
+
             (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
             
             
         } else{
             
-            print("Our auth.session equaled nil")
-            print("\n\nAUTHURL CALLED HERE 2\n\n")
             let authURL = auth?.spotifyWebAuthenticationURL()
             
             authViewController = SFSafariViewController(url: authURL!)
@@ -279,7 +276,6 @@ class StartupViewController: UIViewController {
     //Login with spotify was successful so we can segue
     func spottyLoginWasSuccess(){
         
-        print("spottyLoginWasSuccess\n\n")
         moveToBeastController()
     }
     

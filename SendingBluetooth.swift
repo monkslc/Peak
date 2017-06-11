@@ -24,7 +24,6 @@ class SendingBluetooth {
             
             //Present the log in
             //Come back here
-            print("\n\nAUTHURL CALLED HERE 1\n\n")
             let authURL = auth?.spotifyWebAuthenticationURL()
             
             authViewController = SFSafariViewController(url: authURL!)
