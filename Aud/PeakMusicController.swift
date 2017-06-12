@@ -33,7 +33,7 @@ class PeakMusicController {
             self.musicType = .Guest
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil) //COmmenting this out because it was causing errors and I'm not sure it's fixing anything
     }
     
     var delegate: PeakMusicControllerDelegate?
@@ -82,9 +82,6 @@ class PeakMusicController {
     var musicType = MusicType.Guest {
         
         didSet{
-            
-            print("Should be sending the Notification")
-            //Send a notification
             NotificationCenter.default.post(Notification(name: .musicTypeChanged))
         }
     }
@@ -291,14 +288,14 @@ class PeakMusicController {
     func playNext(_ songs: [BasicSong]){
         
         //Append if the the systemMusicPlayer is at the end of the queue, or the queue is equal to 0
-        if systemMusicPlayer.getNowPlayingItemLoc() == currPlayQueue.count - 1 || currPlayQueue.count == 0 || currPlayQueue.count == 1 {
+        if systemMusicPlayer.nowPlayingLoc == currPlayQueue.count - 1 || currPlayQueue.count == 0 || currPlayQueue.count == 1 {
             
             currPlayQueue.append(contentsOf: songs)
         } else {
             
             for song in songs{
                 
-                currPlayQueue.insert(song, at: systemMusicPlayer.getNowPlayingItemLoc() + 1)
+                currPlayQueue.insert(song, at: systemMusicPlayer.nowPlayingLoc + 1)
             }
             
         }
@@ -344,13 +341,13 @@ class PeakMusicController {
         
         /*Pop Songs From the Beginning of the queue after they are done playing*/
         //We do this to make the play queue easy to update
-        if peakMusicController.currPlayQueue.count > 1{
+        /*if peakMusicController.currPlayQueue.count > 1{
             
-            if (systemMusicPlayer.getNowPlayingItem()?.isEqual(to: currPlayQueue[1])) == true{
+            if (systemMusicPlayer.nowPlaying?.isEqual(to: currPlayQueue[1])) == true{
                 
                 currPlayQueue.remove(at: 0)
             }
-        }
+        }*/
     }
     
     
@@ -360,9 +357,9 @@ class PeakMusicController {
         if musicType == .AppleMusic{
             
             //Set the initally playing song and queue
-            if peakMusicController.systemMusicPlayer.getNowPlayingItem() != nil {
+            if peakMusicController.systemMusicPlayer.nowPlaying != nil {
                 
-                currPlayQueue = [peakMusicController.systemMusicPlayer.getNowPlayingItem()!]
+                currPlayQueue = [peakMusicController.systemMusicPlayer.nowPlaying!]
             }
             
             //Now set the suffle mode to off so we can control the queue

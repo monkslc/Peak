@@ -15,12 +15,12 @@ class PlaybackStateButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        if peakMusicController.systemMusicPlayer.getPlayerState() == MusicPlayerState.playing {
+        if peakMusicController.systemMusicPlayer.playerState == MusicPlayerState.playing {
             
-            setImage(#imageLiteral(resourceName: "Pause Filled-50"), for: .normal)
+            self.setImage(#imageLiteral(resourceName: "Pause Filled-50"), for: .normal)
         }else {
             
-            setImage(#imageLiteral(resourceName: "Play Filled-50"), for: .normal)
+            self.setImage(#imageLiteral(resourceName: "Play Filled-50"), for: .normal)
         }
         
         //Add the listeners
@@ -44,7 +44,7 @@ class PlaybackStateButton: UIButton {
     func playbackStateChanged(){
         //Change the button's image to the appropriate playback state
         
-        if peakMusicController.systemMusicPlayer.getPlayerState() == MusicPlayerState.playing{
+        if peakMusicController.systemMusicPlayer.playerState == MusicPlayerState.playing{
             
             setImage(#imageLiteral(resourceName: "Pause Filled-50"), for: .normal)
         }else{
@@ -74,7 +74,7 @@ class PlaybackStateButton: UIButton {
     func changePlaybackState(){
         //Change the playback state of the system music player accordingly
         
-        if peakMusicController.systemMusicPlayer.getPlayerState() == MusicPlayerState.playing{
+        if peakMusicController.systemMusicPlayer.playerState == MusicPlayerState.playing{
             
             peakMusicController.systemMusicPlayer.stopPlaying()
         } else {

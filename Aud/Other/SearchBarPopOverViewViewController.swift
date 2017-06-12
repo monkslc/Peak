@@ -467,6 +467,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             }
             
         } else {
+            
             searchTopCharts()
         }
     }
@@ -534,16 +535,13 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         }
     }
     
-    private func searchTopCharts() {
+    func searchTopCharts() {
         
-        print("Inside of Searching Top Charts")
+        
         if let songs = GettingTopCharts.defaultGettingTopCharts.lastTopCharts {
             
-            print("Made it inside of the if let")
             DispatchQueue.main.async {
                 if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
-                    
-                    print("Our Segment was correct")
                     
                     //Check if we are a Spotify Player so we can convert to Spotify Songs
                     if peakMusicController.musicType == .Spotify{
@@ -551,7 +549,6 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                         self.convertTopChartsToSpotify(songs: songs)
                     } else{
                         
-                        print("We want to search Apple Music Songs")
                         self.topResults = songs
                         self.loadingIndicator.stopAnimating()
                     }

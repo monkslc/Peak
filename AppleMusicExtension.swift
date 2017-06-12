@@ -11,17 +11,19 @@ import MediaPlayer
 
 extension MPMusicPlayerController: SystemMusicPlayer {
     
-    func getNowPlayingItemLoc() -> Int {
-        
-        return indexOfNowPlayingItem
-    }
     
-    func getNowPlayingItem() -> BasicSong? {
+/*MARK: PROPERTIES*/
+    var nowPlaying: BasicSong? {
         
         return nowPlayingItem
     }
     
-    func getPlayerState() -> MusicPlayerState {
+    var nowPlayingLoc: Int {
+        
+        return indexOfNowPlayingItem
+    }
+    
+    var playerState: MusicPlayerState {
         
         switch playbackState{
             
@@ -33,6 +35,7 @@ extension MPMusicPlayerController: SystemMusicPlayer {
         }
     }
     
+/*MARK: METHODS*/
     func setShuffleState(state: ShuffleState) {
         
         switch state{

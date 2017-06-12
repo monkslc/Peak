@@ -24,7 +24,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         //change the return based on the type of player
         if peakMusicController.playerType != .Contributor {
             
-            return peakMusicController.currPlayQueue.count - 1 - peakMusicController.systemMusicPlayer.getNowPlayingItemLoc()
+            return peakMusicController.currPlayQueue.count - 1 - peakMusicController.systemMusicPlayer.nowPlayingLoc
         } else {
             
             return peakMusicController.groupPlayQueue.count - 1 //subtract 2 to take into account the song currently playing
@@ -37,7 +37,8 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         
         //Get the cell we want to use
         let BVC = peakMusicController.delegate as! BeastController
-        let cell = BVC.libraryViewController.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell // ERROR WAS HERE
+        let cell = BVC.libraryViewController.library.dequeueReusableCell(withIdentifier: "Song Cell") as! SongCell
+        //let cell = BVC.libraryViewController.library.dequeueReusableCell(withIdentifier: "Song Cell", for: indexPath) as! SongCell // ERROR WAS HERE
     
         
         //Update the cell
@@ -45,7 +46,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
         
         if peakMusicController.playerType != .Contributor{
             
-            itemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.getNowPlayingItemLoc() + 1 + indexPath.row]
+            itemToAdd = peakMusicController.currPlayQueue[peakMusicController.systemMusicPlayer.nowPlayingLoc + 1 + indexPath.row]
         } else{
             
             itemToAdd = peakMusicController.groupPlayQueue[indexPath.row + 1]
@@ -83,7 +84,7 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
             
             count = peakMusicController.currPlayQueue.count
             
-            timeUntil += Double((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
+            timeUntil += Double((peakMusicController.systemMusicPlayer.nowPlaying?.getTrackTimeMillis()) ?? Int(0.0))
         } else{
             
             count = peakMusicController.groupPlayQueue.count

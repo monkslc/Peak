@@ -39,7 +39,7 @@ class SICAlbumArt: UIImageView {
             DispatchQueue.main.async {
                 
                 
-                self.image = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getImage() ?? #imageLiteral(resourceName: "Peak Logo Proper Album")
+                self.image = peakMusicController.systemMusicPlayer.nowPlaying?.getImage() ?? #imageLiteral(resourceName: "Peak Logo Proper Album")
             }
 
         } else{
