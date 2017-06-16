@@ -13,6 +13,8 @@ import StoreKit
 
 class Authentication{
     
+    
+    
 /*MARK: AUTHENTICATION METHODS*/
     static func AutheticateWithApple(completion: @escaping (UIAlertController?) -> Void){
         
@@ -115,7 +117,9 @@ class Authentication{
     }
     
     
-    static func AuthenticateWithSpotify(){
+    static func AuthenticateWithSpotify(safariViewControllerDelegate delegate: SFSafariViewControllerDelegate?){
+        
+        
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -156,8 +160,10 @@ class Authentication{
             } else{
                 
                 let authURL = auth?.spotifyWebAuthenticationURL()
-                
                 authViewController = SFSafariViewController(url: authURL!)
+                
+                authViewController?.delegate = delegate
+                
                 appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
             }
         }
@@ -165,5 +171,4 @@ class Authentication{
     }
     
     
-/*MARK: SUPPORT METHODS*/
 }

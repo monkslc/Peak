@@ -10,7 +10,7 @@ import UIKit
 import MediaPlayer
 import CloudKit
 
-class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate{
     
 /*MARK: PROPERTIES*/
     @IBOutlet weak var musicTypeTable: UITableView!
@@ -96,13 +96,16 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
             //Start loading indicators
-            self.startUpLoadingIndicators()
+            //self.startUpLoadingIndicators()
             
             //Add notification to listen for library finished loading
             NotificationCenter.default.addObserver(self, selector: #selector(musicPlayerFinishedLoading), name: .libraryFinishedLoading, object: nil)
             
             //Let's figure out which music type we are switching to
             if cell.musicPlayerLabel.text == "Apple Music"{
+                
+                //Start Loading Indicator
+                self.startUpLoadingIndicators()
                 
                 /*AUTHENTICATE APPLE MUSIC AND DO THIS IF AUTHENTICATIONS WORKS*/
                 Authentication.AutheticateWithApple(){ alertController in
@@ -118,6 +121,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                         
                         DispatchQueue.main.async {
                             
+                            self.musicPlayerLoadingFailed()
                             self.present(alertController!, animated: true, completion: nil)
                         }
                         
@@ -132,10 +136,11 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
                 
-                Authentication.AuthenticateWithSpotify()
+                Authentication.AuthenticateWithSpotify(safariViewControllerDelegate: self)
                 
             } else{
                 
+                self.startUpLoadingIndicators()
                 peakMusicController.systemMusicPlayer.stopPlaying()
                 peakMusicController.systemMusicPlayer = GuestMusicController()
                 musicPlayerTypeWasUpdated("Guest")
@@ -186,6 +191,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
 /*MARK: SUPPORTING AUTHENTICATION METHODS*/
     func spottyLoginWasSuccess(){
         
+        self.startUpLoadingIndicators()
         peakMusicController.systemMusicPlayer.generateNotifications()
         musicPlayerTypeWasUpdated("Spotify")
     }
@@ -207,15 +213,38 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         loadingView.isHidden = true
         loadingIndicator.stopAnimating()
-        
         flipView(UIButton())
     }
     
     func musicPlayerLoadingFailed(){
-        NotificationCenter.default.removeObserver(self)
+        //NotificationCenter.default.removeObserver(self)
         
-        loadingView.isHidden = true
-        loadingIndicator.stopAnimating()
+        //loadingView.isHidden = true
+        //loadingIndicator.stopAnimating()
         
+        //Alert the user
+        let alert = UIAlertController()
+        
+        alert.addAction(UIAlertAction(title: "Failed", style: .default){ alert in
+            
+            //Authenticate the user as a Guest
+            self.startUpLoadingIndicators()
+            peakMusicController.systemMusicPlayer = GuestMusicController()
+            self.musicPlayerTypeWasUpdated("Guest")
+        })
     }
+    
+    
+/*MARK: SAFARI VIEW CONTROLLER DELEGATE METHODS*/
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        
+        musicPlayerLoadingFailed()
+    }
+    
+    func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
+        
+        print("We are in the second delegate method bitches")
+    }
+    
+    
 }

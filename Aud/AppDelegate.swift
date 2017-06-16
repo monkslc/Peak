@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     /*MARK: SPOTIFY APPLICATION DELEGATE METHODS*/
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        
         //check if the url is what we expect
         if (auth?.canHandle(url))!{
             
@@ -75,6 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         
+        print("SHIT WE RECEIVED A FUCKING ERROR")
+        
         //Send the user to re log in
         if auth?.session.isValid() == false{
             
@@ -84,28 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
         }
         
-        
-        
-        
-        
-        //Ok let's try reconnecting and see if that works
-        //print("OUr encrypted refresh token is \(auth?.session.encryptedRefreshToken)")
-        /*auth?.renewSession(auth?.session){ err, session in
-            
-            
-            
-            print("Ok so we should be renewing the session")
-            if err != nil{
-                
-                print("Error renewing session: \(err!)")
-                return
-            }
-            
-            //NO error so keep going
-            print("There was no error in renewing the token")
-            
-            
-        }*/
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveMessage message: String!) {
