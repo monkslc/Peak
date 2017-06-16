@@ -244,7 +244,9 @@ class UserLibrary{
                 }
                 
                 //Check if we have no results so we can make sure everything get's called a-okay
+                
                 if results.count < 1{
+                    
                     
                     self.delegate?.libraryItemsUpdated()
                 }
