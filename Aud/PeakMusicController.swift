@@ -33,7 +33,7 @@ class PeakMusicController {
             self.musicType = .Guest
         }
         
-        //NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil) //COmmenting this out because it was causing errors and I'm not sure it's fixing anything
+        NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil) //COmmenting this out because it was causing errors and I'm not sure it's fixing anything
     }
     
     var delegate: PeakMusicControllerDelegate?
@@ -92,10 +92,10 @@ class PeakMusicController {
         
         didSet{ //When we set the queue, we want to update the musicPlayer
             
-            NotificationCenter.default.post(Notification(name: .currPlayQueueChanged))
-            
             systemMusicPlayer?.setPlayerQueue(songs: currPlayQueue)
             systemMusicPlayer?.preparePlayerToPlay()
+            
+            NotificationCenter.default.post(Notification(name: .currPlayQueueChanged))
             
             if playerType == .Host{
                 SendingBluetooth.sendFullQue()
@@ -161,42 +161,19 @@ class PeakMusicController {
             }
         } else if let artistSong: SPTTrack = artist[0] as? SPTTrack{
             
-            //Get the user's spotify library
-            SPTYourMusic.savedTracksForUser(withAccessToken: auth?.session.accessToken){ err, callback in
+            let library = (delegate as? BeastController)?.libraryViewController.userLibrary.itemsInLibrary
+            
+            if library != nil{
                 
-                //check if we got an error
-                if err != nil{
-                    print(err!)
-                    return
-                }
-                
-                //holder variable for items in the album
-                var artistItems = [SPTTrack]()
-                
-                //No error so let's fetch the songs
-                if let songPage: SPTListPage = callback as? SPTListPage{
+                var artistItems = [BasicSong]()
+                for item in library!{
                     
-                    for song in songPage.items{
-                        
-                        
-                        if let songCheck: SPTTrack = song as? SPTTrack{
-                            
-                            //check if the song is in the correct artist
-                            if songCheck.getArtistName() == artistSong.getArtistName(){
-                                
-                               
-                                artistItems.append(songCheck)
-                            }
-                        }
+                    if item.getArtistName() == artistSong.getArtistName(){
+                        artistItems.append(item)
                     }
                 }
                 
-                //Let's shuffle the items and then play them
-                artistItems = self.shuffleQueue(shuffle: artistItems) as! [SPTTrack]
-                
-                //Now let's play the artist
-                self.play(artistItems)
-                
+                self.play(self.shuffleQueue(shuffle: artistItems))
             }
             
         } else{
@@ -341,13 +318,13 @@ class PeakMusicController {
         
         /*Pop Songs From the Beginning of the queue after they are done playing*/
         //We do this to make the play queue easy to update
-        /*if peakMusicController.currPlayQueue.count > 1{
+        if peakMusicController.currPlayQueue.count > 1{
             
             if (systemMusicPlayer.nowPlaying?.isEqual(to: currPlayQueue[1])) == true{
                 
                 currPlayQueue.remove(at: 0)
             }
-        }*/
+        }
     }
     
     
@@ -394,12 +371,16 @@ class PeakMusicController {
                 self.systemMusicPlayer.startPlaying()
             }))
             
-            //Give a play next option
-            alert.addAction(UIAlertAction(title: "Play Songs Next", style: .default, handler: {(alert) in
+            //Give a play next option if they are not spotify
+            if peakMusicController.musicType != .Spotify{
+                
+                alert.addAction(UIAlertAction(title: "Play Songs Next", style: .default, handler: {(alert) in
+                    
+                    self.delegate?.showSignifier()
+                    self.playNext(songs)
+                }))
+            }
             
-                self.delegate?.showSignifier()
-                self.playNext(songs)
-            }))
             
             //Give a play last option
             alert.addAction(UIAlertAction(title: "Play Songs Last", style: .default, handler: {(alert) in

@@ -20,6 +20,10 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var preferredPlayerType = "Guest"
     
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +42,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             //The user doesn't have a selected type yet so set it to be Guest
             preferredPlayerType = "Guest"
         }
+        
         
     }
     
@@ -90,6 +95,11 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                 return
             }
             
+            //Start loading indicators
+            self.startUpLoadingIndicators()
+            
+            //Add notification to listen for library finished loading
+            NotificationCenter.default.addObserver(self, selector: #selector(musicPlayerFinishedLoading), name: .libraryFinishedLoading, object: nil)
             
             //Let's figure out which music type we are switching to
             if cell.musicPlayerLabel.text == "Apple Music"{
@@ -110,6 +120,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                             
                             self.present(alertController!, animated: true, completion: nil)
                         }
+                        
+                        
                         
                     }
                 }
@@ -158,8 +170,9 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             peakMusicController.musicType = .Guest
         }
         
-        //Now reload our table
+        //reload table and fetch me library
         musicTypeTable.reloadData()
+        (peakMusicController.delegate as! BeastController).libraryViewController.userLibrary.fetchLibrary()
         
     }
     
@@ -175,5 +188,34 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         peakMusicController.systemMusicPlayer.generateNotifications()
         musicPlayerTypeWasUpdated("Spotify")
+    }
+    
+    
+    
+/*MARK: METHODS TO TRACK SWITCHING MUSIC PLAYER*/
+    
+    func startUpLoadingIndicators(){
+        
+        loadingView.isHidden = false
+        loadingIndicator.startAnimating()
+    }
+    
+    func musicPlayerFinishedLoading(){
+        
+        //come back here
+        NotificationCenter.default.removeObserver(self)
+        
+        loadingView.isHidden = true
+        loadingIndicator.stopAnimating()
+        
+        flipView(UIButton())
+    }
+    
+    func musicPlayerLoadingFailed(){
+        NotificationCenter.default.removeObserver(self)
+        
+        loadingView.isHidden = true
+        loadingIndicator.stopAnimating()
+        
     }
 }

@@ -26,5 +26,8 @@ extension Notification.Name{
     
     //Spotify Notification extension
     static let spotifyLoginSuccessful = Notification.Name("SpottyLoggedIn")
-
+    
+    
+    //Library Notificaiton
+    static let libraryFinishedLoading = Notification.Name("LibraryLoaded")
 }

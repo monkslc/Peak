@@ -403,9 +403,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         }, completion: { (Bool) -> Void in
             self.verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: self.libraryHeight)
             self.isMiddleViewFlipped = false
-            self.libraryViewController.userLibrary.recents = []
-            self.libraryViewController.userLibrary.itemsInLibrary = []
-            self.libraryViewController.userLibrary.fetchLibrary()
+            //self.libraryViewController.userLibrary.recents = []
+            //self.libraryViewController.userLibrary.itemsInLibrary = []
+            //self.libraryViewController.userLibrary.fetchLibrary()
         })
     }
     

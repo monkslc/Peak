@@ -137,13 +137,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aud/PeakMusicController.swift"
-            timestampString = "519004836.491778"
+            filePath = "SpotifyMusicControllerExtension.swift"
+            timestampString = "519263839.34062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
-            landmarkName = "songChanged(_:)"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "setPlayerQueue(songs:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpotifyMusicControllerExtension.swift"
+            timestampString = "519263839.34069"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "setPlayerQueue(songs:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

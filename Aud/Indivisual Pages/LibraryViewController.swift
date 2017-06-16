@@ -134,9 +134,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Update our displays
         
         loadingIndicator.stopAnimating()
-        
         library.reloadData()
         displayRecentlyPlayed(userLibrary.recents)
+        
+        NotificationCenter.default.post(Notification(name: .libraryFinishedLoading))
     }
     
 

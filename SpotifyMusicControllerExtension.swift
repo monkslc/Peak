@@ -55,6 +55,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
                 
                 if song.isEqual(to: track){
                     
+                    
                     return counter
                 }
                 
@@ -124,8 +125,6 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     func setPlayerQueue(songs: [BasicSong]) {
         
         /*ONLY PLAY IF THE SONG IS NOT EQUAL TO THE CURRENTLY PLAYING SONG*/
-        
-    
         if songs.count > 0{
             
             if metadata == nil || songs.count <= nowPlayingLoc + 1{

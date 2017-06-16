@@ -506,11 +506,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
                 (songs) -> Void in
                 
                 DispatchQueue.main.async {
-                    self.loadingIndicator.stopAnimating()
-                    if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
+                    
+                    if self.isDisappearing == false{
                         
-                        self.topResults = songs
+                        self.loadingIndicator.stopAnimating()
+                        if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
+                            
+                            self.topResults = songs
+                        }
                     }
+                    
                    
                 }
             })
@@ -524,11 +529,16 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
             SearchingSpotifyMusic.defaultSearch.addSearch(term: search){ songs in
                 
                 DispatchQueue.main.async {
-                    self.loadingIndicator.stopAnimating()
-                    if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
+                    
+                    if self.isDisappearing == false{
                         
-                        self.topResults = songs
+                        self.loadingIndicator.stopAnimating()
+                        if self.latestQuery == (self.delegate as! BeastController).mediaSearchBar.text{
+                            
+                            self.topResults = songs
+                        }
                     }
+                    
                 }
                 
             }
@@ -541,6 +551,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         if let songs = GettingTopCharts.defaultGettingTopCharts.lastTopCharts {
             
             DispatchQueue.main.async {
+                
                 if self.selectMusicFromSegment.selectedSegmentIndex == 2 {
                     
                     //Check if we are a Spotify Player so we can convert to Spotify Songs
