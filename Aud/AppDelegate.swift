@@ -11,7 +11,7 @@ import CoreData
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate, SFSafariViewControllerDelegate {
 
     var window: UIWindow?
     
@@ -74,14 +74,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         
-        print("SHIT WE RECEIVED A FUCKING ERROR")
-        
         //Send the user to re log in
         if auth?.session.isValid() == false{
             
             let authURL = auth?.spotifyWebAuthenticationURL()
             
             authViewController = SFSafariViewController(url: authURL!)
+            authViewController?.delegate = self
             window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
         }
         
@@ -218,6 +217,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             }
         }
     }
-
+    
+    
+/*MARK: SAFARI VIEW CONTROLLER DELEGATE*/
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        
+        let alert = UIAlertController(title: "Failed to authenticate with Spotify", message: "We will now sign you in as a Guest", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default){ alert in
+            
+            peakMusicController.systemMusicPlayer = GuestMusicController()
+            self.loginAsGuest()
+        })
+        
+        window?.rootViewController?.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func loginAsGuest(){
+        
+        peakMusicController.musicType = .Guest
+        peakMusicController.systemMusicPlayer = GuestMusicController()
+        
+        if let vc: StartupViewController = window?.rootViewController as? StartupViewController{
+            
+            vc.moveToBeastController()
+        }else if let vc: BeastController = window?.rootViewController as? BeastController{
+            
+            
+            vc.pagesViewController.musicTypeController.musicPlayerTypeWasUpdated("Guest")
+        }
+    }
 }
 

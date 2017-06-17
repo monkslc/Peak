@@ -47,6 +47,8 @@
 		C45CDB9A1E88214A0047BDF3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45CDB991E88214A0047BDF3 /* HeaderView.swift */; };
 		C470F85F1EED9313002A96CB /* AddToLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470F85E1EED9313002A96CB /* AddToLibrary.swift */; };
 		C470F8611EED97F0002A96CB /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470F8601EED97F0002A96CB /* TextFieldExtension.swift */; };
+		C4791B9D1EF5AC0800CC23B4 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4791B9C1EF5AC0800CC23B4 /* Defaults.swift */; };
+		C4791B9F1EF5B00100CC23B4 /* MusicTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4791B9E1EF5B00100CC23B4 /* MusicTypeManager.swift */; };
 		C47FC7B91EB6925700B1A352 /* SongInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */; };
 		C47FC7BC1EB692C000B1A352 /* SICAlbumArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */; };
 		C47FC7BE1EB695E700B1A352 /* PlaybackStateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */; };
@@ -125,6 +127,8 @@
 		C45CDB991E88214A0047BDF3 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C470F85E1EED9313002A96CB /* AddToLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToLibrary.swift; sourceTree = "<group>"; };
 		C470F8601EED97F0002A96CB /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
+		C4791B9C1EF5AC0800CC23B4 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		C4791B9E1EF5B00100CC23B4 /* MusicTypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTypeManager.swift; sourceTree = "<group>"; };
 		C47FC7B81EB6925700B1A352 /* SongInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInteractionController.swift; sourceTree = "<group>"; };
 		C47FC7BB1EB692C000B1A352 /* SICAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SICAlbumArt.swift; sourceTree = "<group>"; };
 		C47FC7BD1EB695E700B1A352 /* PlaybackStateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackStateButton.swift; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 				C40515211EB7E18E00F1471F /* UserLibrary.swift */,
 				C45625391E8EF95E00311750 /* Alerts.swift */,
 				C470F85E1EED9313002A96CB /* AddToLibrary.swift */,
+				C4791B9C1EF5AC0800CC23B4 /* Defaults.swift */,
+				C4791B9E1EF5B00100CC23B4 /* MusicTypeManager.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -568,6 +574,7 @@
 				C4D1175C1E7F2024000A854A /* PeakColorExt.swift in Sources */,
 				9080268B1EEC89A7002E4132 /* StartupViewController.swift in Sources */,
 				C4DBB97D1E9351D600591F7C /* Model.xcdatamodeld in Sources */,
+				C4791B9D1EF5AC0800CC23B4 /* Defaults.swift in Sources */,
 				905C06921EE4B694006DED81 /* PagesViewController.swift in Sources */,
 				904885E21E902D5900F090F1 /* LocalSearch.swift in Sources */,
 				C4B9FF0D1E7B65730058AB6A /* RecentlyAddedView.swift in Sources */,
@@ -582,6 +589,7 @@
 				C4D117781E80A9F2000A854A /* VisualQueueController.swift in Sources */,
 				C4F552A71EE781B500387A3E /* MusicTypeController.swift in Sources */,
 				90323D351EA8D2FE00489B50 /* GettingTopCharts.swift in Sources */,
+				C4791B9F1EF5B00100CC23B4 /* MusicTypeManager.swift in Sources */,
 				90E2DFE21E87560700762B9D /* StringExtension.swift in Sources */,
 				C47FC7C71EB6A8EA00B1A352 /* SongProgressLabel.swift in Sources */,
 				90DC46521EB91EF9007AF581 /* BasicSong.swift in Sources */,

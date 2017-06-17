@@ -29,7 +29,7 @@ class BluetoothHandler {
     }
     
     /*MARK Bluetooth Methods*/
-    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [PeakMusicController.MusicType], token: String?) {
+    func receivedGroupPlayQueue(_ songIds: [String], songTypes: [MusicTypeManager.MusicType], token: String?) {
         
         print("RECIEVED SONGS \(songIds) FROM GROUP")
         
@@ -101,7 +101,7 @@ class BluetoothHandler {
         }
     }
     
-    func receivedSong(songId: String, songType: PeakMusicController.MusicType, token: String?) {
+    func receivedSong(songId: String, songType: MusicTypeManager.MusicType, token: String?) {
         //Received a song from a contributor
         
         print("RECIEVED SONG \(songId) TYPE: \(songType)")
@@ -367,7 +367,7 @@ class BluetoothHandler {
         print("RECIEVED BELOW")
         print(dataDictionary)
         
-        if let id = dataDictionary["id"], let type = PeakMusicController.MusicType(rawValue: Int(dataDictionary["type"]!)!) {
+        if let id = dataDictionary["id"], let type = MusicTypeManager.MusicType(rawValue: Int(dataDictionary["type"]!)!) {
             
             let token = dataDictionary["token"]
             
@@ -388,12 +388,12 @@ class BluetoothHandler {
         let token = dataDictionary["token"]
         
         var songIds: [String] = []
-        var songTypes: [PeakMusicController.MusicType] = []
+        var songTypes: [MusicTypeManager.MusicType] = []
         
         var index = 0
         while true {
             
-            if let id = dataDictionary["\(index)-id"], let type = PeakMusicController.MusicType(rawValue: Int(dataDictionary["\(index)-type"]!)!) {
+            if let id = dataDictionary["\(index)-id"], let type = MusicTypeManager.MusicType(rawValue: Int(dataDictionary["\(index)-type"]!)!) {
                 songIds.append(id)
                 songTypes.append(type)
             }

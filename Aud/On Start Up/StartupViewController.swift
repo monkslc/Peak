@@ -14,7 +14,7 @@ import MediaPlayer
 let auth = SPTAuth.defaultInstance()
 var authViewController: SFSafariViewController?
 
-class StartupViewController: UIViewController {
+class StartupViewController: UIViewController, SFSafariViewControllerDelegate {
 
     @IBOutlet var welcomeLabel: UILabel!
     
@@ -113,7 +113,7 @@ class StartupViewController: UIViewController {
         //Add the listener for spotify authentication
         NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
         
-        Authentication.AuthenticateWithSpotify(safariViewControllerDelegate: nil)
+        Authentication.AuthenticateWithSpotify(safariViewControllerDelegate: self)
     }
     
     //Login with spotify was successful so we can segue
@@ -161,6 +161,19 @@ class StartupViewController: UIViewController {
         self.performSegue(withIdentifier: "Segue To Beast", sender: nil)
     }
     
+    
+/*MARK: SAFARI VIEW CONTROLLER METHODS*/
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        
+        let alert = UIAlertController(title: "Failed to authenticate with Spotify", message: "We will now sign you in as a Guest", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default){ alert in
+            
+            peakMusicController.systemMusicPlayer = GuestMusicController()
+            self.loginAsGuest()
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
     
 }

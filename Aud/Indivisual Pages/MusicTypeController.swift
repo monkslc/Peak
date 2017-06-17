@@ -18,7 +18,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     let images = [#imageLiteral(resourceName: "apple-music-app-icon"), #imageLiteral(resourceName: "Spotify_Icon_RGB_Black"), #imageLiteral(resourceName: "Guest Icon")]
     let musicPlayerTitles = ["Apple Music", "Spotify", "Guest"]
     
-    var preferredPlayerType = "Guest"
+    var preferredPlayerType: MusicTypeManager.MusicType = .Guest
     
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
@@ -30,19 +30,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         musicTypeTable.delegate = self
         musicTypeTable.dataSource = self
         
-        //Find the user's preferred player type
-        let defaults = UserDefaults.standard
-        
-        if let musicType = defaults.string(forKey: "Music Type"){
-            
-            //The user has a selected type so set it
-            preferredPlayerType = musicType
-        } else{
-            
-            //The user doesn't have a selected type yet so set it to be Guest
-            preferredPlayerType = "Guest"
-        }
-        
+        preferredPlayerType = Defaults.musicType
         
     }
     
@@ -68,7 +56,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         
         //Check if this is the user's preferred music type
-        if musicPlayerTitles[indexPath.row] == preferredPlayerType {
+        if musicPlayerTitles[indexPath.row] == MusicTypeManager.convertMusicTypeToString(preferredPlayerType){
             
             cell.checkMrk.isHidden = false
         } else{
@@ -90,7 +78,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         if let cell: MusicTypeCell = sender.view as? MusicTypeCell {
             
             //Make sure we aren't switching to the same type
-            if cell.musicPlayerLabel.text == preferredPlayerType{
+            if cell.musicPlayerLabel.text == MusicTypeManager.convertMusicTypeToString(preferredPlayerType){
                 
                 return
             }
@@ -136,24 +124,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         peakMusicController.systemMusicPlayer.setNowPlayingItemToNil()
         
-        //Set our new user defaults
-        let defaults = UserDefaults.standard
-        defaults.set(musicType, forKey: "Music Type")
-        
-        //Change the preferred variable
-        preferredPlayerType = musicType
-        
-        switch musicType{
-            
-        case "Apple Music":
-            peakMusicController.musicType = .AppleMusic
-            
-        case "Spotify":
-            peakMusicController.musicType = .Spotify
-            
-        default:
-            peakMusicController.musicType = .Guest
-        }
+        //Defaults.musicType = MusicTypeManager.convertStringToMusicType(musicType)
+        peakMusicController.musicType = MusicTypeManager.convertStringToMusicType(musicType)
         
         //reload table and fetch me library
         musicTypeTable.reloadData()

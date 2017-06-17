@@ -17,21 +17,7 @@ class PeakMusicController {
     
     init(){
         
-        let defaults = UserDefaults.standard
-        if let musicType = defaults.string(forKey: "Music Type") {
-            switch musicType{
-            case "Apple Music":
-                self.musicType = .AppleMusic
-            case "Spotify":
-                self.musicType = .Spotify
-            default:
-                self.musicType = .Guest
-            }
-        }
-        else {
-            //This means the player has not yet set their preferred type so start them off as a guest
-            self.musicType = .Guest
-        }
+        self.musicType = Defaults.musicType
         
         NotificationCenter.default.addObserver(self, selector: #selector(songChanged(_:)), name: .systemMusicPlayerNowPlayingChanged, object: nil) //COmmenting this out because it was causing errors and I'm not sure it's fixing anything
     }
@@ -71,17 +57,18 @@ class PeakMusicController {
         
     }
     
-    enum MusicType: Int{
+    /*enum MusicType: Int{
         //enum to determine how the user is going to listen to music
         
         case AppleMusic = 0
         case Guest
         case Spotify
-    }
+    }*/
     
-    var musicType = MusicType.Guest {
+    var musicType = MusicTypeManager.MusicType.Guest {
         
         didSet{
+            Defaults.musicType = musicType
             NotificationCenter.default.post(Notification(name: .musicTypeChanged))
         }
     }
