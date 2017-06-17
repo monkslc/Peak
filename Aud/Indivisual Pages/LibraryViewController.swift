@@ -204,6 +204,8 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print("GETTING TABLE CELL FOR ROW: \(indexPath.row)")
+        
         //Check if it is our last two rows
         if indexPath.row >= userLibrary.itemsInLibrary.count {
             

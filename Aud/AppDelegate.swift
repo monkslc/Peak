@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     
     var shortcutItem: UIApplicationShortcutItem?
     
+    static var tapGestureDelegate: TapDelegate?
     
     /*MARK: SPOTIFY APPLICATION DELEGATE METHODS*/
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -96,10 +97,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
         print("\n\n\nOK HERE WE ARE.\nSpotify Audio Streaming DId Encounter Temp Error\n\n\n")
     }
     
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        tapGesture.delegate = self
+        window?.addGestureRecognizer(tapGesture)
+        
+        return true
+    }
+    
+    
     /*MARK: NOT SPOTIFY STUFF*/
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        tapGesture.delegate = self
+        window?.addGestureRecognizer(tapGesture)
         
         if CheckInternetConnection.isConnectedToWifi() {
             GettingTopCharts.defaultGettingTopCharts.searchTopCharts()

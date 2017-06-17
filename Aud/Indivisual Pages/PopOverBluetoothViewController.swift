@@ -55,10 +55,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
-    }
-
+    
     // should be updated when PeakMusicController->EnumPlayerType is changed but cant
     // gets updated in self.playerTypeSegementedControlValueChanged which is an @IBACtion
     private func updateMPCManager() {

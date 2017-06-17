@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90170BB71EEE16280018E3F6 /* PageScrolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90170BB61EEE16280018E3F6 /* PageScrolView.swift */; };
 		90323D331EA8D10D00489B50 /* GettingLyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90323D321EA8D10D00489B50 /* GettingLyrics.swift */; };
 		90323D351EA8D2FE00489B50 /* GettingTopCharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90323D341EA8D2FE00489B50 /* GettingTopCharts.swift */; };
 		904885DE1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */; };
@@ -87,6 +88,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		90170BB61EEE16280018E3F6 /* PageScrolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScrolView.swift; sourceTree = "<group>"; };
 		90323D321EA8D10D00489B50 /* GettingLyrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GettingLyrics.swift; sourceTree = "<group>"; };
 		90323D341EA8D2FE00489B50 /* GettingTopCharts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GettingTopCharts.swift; sourceTree = "<group>"; };
 		904885DD1E8FEBBD00F090F1 /* SearchingAppleMusicApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingAppleMusicApi.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 		C45838D71EC6949A00ECEBE5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				90170BB61EEE16280018E3F6 /* PageScrolView.swift */,
 				C45CDB991E88214A0047BDF3 /* HeaderView.swift */,
 				C4D117661E805DF8000A854A /* Signifier.swift */,
 				C41C181C1E81F3240061C629 /* BackgroundView.swift */,
@@ -476,7 +479,7 @@
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = SDRSRURVZA;
+						DevelopmentTeam = 58NU5LV6AX;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -598,6 +601,7 @@
 				90CCBA391EC61DBC006CE9CC /* ConvertingSongType.swift in Sources */,
 				C4BA76CD1EBD3C8000947C1C /* SpotifyMusicControllerExtension.swift in Sources */,
 				90323D331EA8D10D00489B50 /* GettingLyrics.swift in Sources */,
+				90170BB71EEE16280018E3F6 /* PageScrolView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,7 +734,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SDRSRURVZA;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -758,7 +762,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SDRSRURVZA;
+				DEVELOPMENT_TEAM = 58NU5LV6AX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

@@ -15,13 +15,17 @@ protocol SongsLoaded {
     func songsLoaded(count: Int)
 }
 
+protocol TapDelegate {
+    func tapDelegateScreenTapped(tap: UITouch) -> Bool
+}
+
 protocol Page {
     func pageDidStick()
     func pageIsShown()
     func pageLeft()
 }
 
-class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
+class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, PageScrolViewDelagate, TapDelegate {
     
     var backgroundScrollView: UIScrollView!
     
@@ -44,6 +48,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         return childViewControllers[0] as! PopOverBluetoothViewController
     }
     var libraryViewController: LibraryViewController {
+        //print("\(childViewControllers.count) > 1 CHILDREN")
+        //print(childViewControllers[1])
         return childViewControllers[1] as! LibraryViewController
     }
     var musicTypeController: MusicTypeController {
@@ -63,7 +69,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             rowHeight = libraryViewController.library.visibleCells[0].frame.height
         }
         
-        return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight + 175))
+        return self.view.frame.height + PagesViewController.topBarHeight
+        //return max(self.view.frame.height, CGFloat(CGFloat(itemsCount) * rowHeight + 175))
     }
     
     var lastPageIndex = 1
@@ -77,6 +84,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AppDelegate.tapGestureDelegate = self
         
         let gradientView = GradientView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))//BackgroundView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
         gradientView.firstColor = UIColor.peakColor //UIColor(colorLiteralRed: 0.5, green: 0.1, blue: 0.9, alpha: 1.0)
@@ -100,195 +108,14 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         self.view.addSubview(backgroundScrollView)
         
         setUpScrollView()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    func checkAppleAuthentication() {
-    
-        //loadingIndicator.startAnimating()
-        //check if we have authorization to the user's apple music
-        
-        let serviceController = SKCloudServiceController()
-        /***************TEST CHECK FOR APPLE MUSIC*****************/
-        
-        //let's check if we can take them to get a subscription
-        serviceController.requestCapabilities(completionHandler: {(capability: SKCloudServiceCapability, err: Error?) in
-            
-            if capability.contains(SKCloudServiceCapability.musicCatalogSubscriptionEligible){
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                //They're eligible for a subscription so let's take them to get one
-                
-                let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
-                UIApplication.shared.open(url!, options: [:], completionHandler: {
-                    (foo) -> Void in
-                    
-                    print(foo)
-                })
-                
-            } else if capability.contains(SKCloudServiceCapability.addToCloudMusicLibrary){
-                
-                DispatchQueue.main.async {
-                    
-                    //self.loadingIndicator.stopAnimating()
-                }
-                
-                
-                //We're all set to go lets see if we can segue
-                
-                if SKCloudServiceController.authorizationStatus() == SKCloudServiceAuthorizationStatus.authorized {
-                    
-                    DispatchQueue.main.async {
-                        //self.loadingIndicator.stopAnimating()
-                    }
-                    
-                    DispatchQueue.global().async {
-                        DispatchQueue.main.async {
-                            
-                            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
-                            self.setUpScrollView()
-                            //self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
-                        }
-                    }
-                }
-    
-    
-            } else if capability.contains(SKCloudServiceCapability.musicCatalogPlayback){
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                let alert = UIAlertController(title: "Apple Music", message: "Is Apple Music Downloaded?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
-                    
-                    //prompt the user to change their settings
-                    let subLert = UIAlertController(title: nil, message: "Head to Settings > Music > Switch on iCloud Music Library", preferredStyle: .alert)
-                    subLert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    
-                    self.present(subLert, animated: true, completion: nil)
-                    
-                }))
-                
-                alert.addAction(UIAlertAction(title: "No, take me there.", style: .default, handler: {(aciton) in
-                    
-                    let url = URL.init(string: "https://itunes.apple.com/subscribe?app=music&at=1000l4QJ&ct=14&itscg=1002")
-                    UIApplication.shared.open(url!, options: [:], completionHandler: {
-                        (foo) -> Void in
-                        
-                        print(foo)
-                    })
-                    
-                }))
-                
-                
-                
-                self.present(alert, animated: true, completion: nil)
-                //Downloaded but no iCloud selected
-                
-                //App was not downloaded
-                
-            } else {
-                
-                //self.loadingIndicator.stopAnimating()
-                
-                //We are yet to get access from the user
-                SKCloudServiceController.requestAuthorization({(authorization) in
-                    
-                    switch authorization{
-                        
-                    case .authorized:
-                        self.checkAppleAuthentication()
-                        
-                    case .denied:
-                        //self.instructUserToAllowUsToAppleMusic()
-                        break
-                    default:
-                        print("Shouldn't be here")
-                    }
-                    
-                })
-                
-            }
-            
-            
-        })
-        
-    }
-    
-    func loginWithSpotify() {
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        //start up the player so we can get the authentication access
-        peakMusicController.systemMusicPlayer = SPTAudioStreamingController.sharedInstance()
-        
-        //Create the delegate for this
-        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
-        
-        
-        //Add the listener for the callback
-        NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
-        
-        
-        
-        
-        //Check if we can login
-        auth?.clientID = "7b3c389c57ee44ce8f3562013df963ec"
-        auth?.redirectURL = URL(string: "peak-music-spotty-login://callback")
-        
-        
-        auth?.sessionUserDefaultsKey = "current session"
-        
-        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthUserReadTopScope, SPTAuthUserReadPrivateScope, SPTAuthUserLibraryModifyScope]
-        
-        (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).delegate = appDelegate
-        
-        do{
-            
-            //Maybe Here
-            try (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).start(withClientId: auth?.clientID)
-        } catch{
-            
-            print("\n\nHad a fucking error\n\n")
-        }
-        
-        DispatchQueue.global().async {
-            
-            DispatchQueue.main.async {
-                
-                self.startAuthenticationFlow()
-            }
-        }
-    }
-    
-    func spottyLoginWasSuccess(){
-        
-        //self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
-        
-    }
-    
-    func startAuthenticationFlow(){
-        
-        if auth?.session != nil{
-            
-            (peakMusicController.systemMusicPlayer as! SPTAudioStreamingController).login(withAccessToken: auth?.session.accessToken)
-            
-            
-        } else{
-            
-            let authURL = auth?.spotifyWebAuthenticationURL()
-            
-            setUpScrollView()
-            //authViewController = SFSafariViewController(url: authURL!)
-            //appDelegate.window?.rootViewController?.present(authViewController!, animated: true, completion: nil)
-        }
-    }
- */
+
     
     // Private Functions
     
@@ -320,6 +147,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         
         horizontalScrollView = UIScrollView(frame: CGRect(x: -PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width + PagesViewController.halfOfSpaceBetween * 2, height: self.view.frame.height))
         horizontalScrollView.isPagingEnabled = true
+        horizontalScrollView.canCancelContentTouches = true
+        horizontalScrollView.delaysContentTouches = true
         horizontalScrollView.delegate = self
         
         let bluetoothVc = storyboard?.instantiateViewController(withIdentifier: "bluetoothVcID") as! PopOverBluetoothViewController
@@ -330,8 +159,13 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         
         for (index, vc) in [bluetoothVc, middleVc].enumerated() {
             
-            let newVerticalScrollView = UIScrollView(frame: CGRect(x: CGFloat(index) * horizontalScrollView.frame.width + PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            let newVerticalScrollView = PageScrolView(frame: CGRect(x: CGFloat(index) * horizontalScrollView.frame.width + PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width, height: self.view.frame.height))
             newVerticalScrollView.alwaysBounceVertical = true
+            newVerticalScrollView.pageScrolViewDelagate = self
+            newVerticalScrollView.delegate = self
+            newVerticalScrollView.canCancelContentTouches = false
+            newVerticalScrollView.delaysContentTouches = false
+            newVerticalScrollView.scrollsToTop = false
             
             self.addChildViewController(vc)
             newVerticalScrollView.addSubview(vc.view)
@@ -341,9 +175,11 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             
             vc.view.layer.cornerRadius = 12
             
-            newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: pageSize(at: index, includingFlip: false))
             vc.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: pageSize(at: index, includingFlip: false))
+            newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: vc.view.frame.maxY)
         }
+        
+        
         
         let musicTypeVC = storyboard?.instantiateViewController(withIdentifier: "musicTypePlayerID") as! MusicTypeController
         addChildViewController(musicTypeVC)
@@ -354,11 +190,13 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         musicTypeVC.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: musicPlayerHeight)
         //musicTypeVC.view.removeFromSuperview()
         
+        
         horizontalScrollView.contentSize = CGSize(width: horizontalScrollView.frame.width * 2, height: horizontalScrollView.frame.height)
         horizontalScrollView.contentOffset = CGPoint(x: horizontalScrollView.frame.width, y: 0)
         
         self.view.addSubview(horizontalScrollView)
         
+        (libraryViewController.library as UIScrollView).delegate = self
         print("PagesViewController setUpScrollView END")
     }
     
@@ -409,40 +247,339 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         })
     }
     
+    
+/* MARK: Scroll View Delegate */
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let smallPointx = scrollView.contentOffset.x
-        let smallWith = scrollView.contentSize.width - scrollView.frame.width
-        
-        let largeWidth = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
-        let largeX = (smallPointx / smallWith) * largeWidth
-        
-        //let percent = scrollView.contentOffset.x / scrollView.contentSize.width
-        var beginingX = largeX //percent * backgroundScrollView.contentSize.width
-        if beginingX < 0 {
-            beginingX = 0
+        if horizontalScrollView == scrollView {
+            let smallPointx = scrollView.contentOffset.x
+            let smallWith = scrollView.contentSize.width - scrollView.frame.width
+            
+            let largeWidth = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+            let largeX = (smallPointx / smallWith) * largeWidth
+            
+            //let percent = scrollView.contentOffset.x / scrollView.contentSize.width
+            var beginingX = largeX //percent * backgroundScrollView.contentSize.width
+            if beginingX < 0 {
+                beginingX = 0
+            }
+            if beginingX + backgroundScrollView.frame.width > backgroundScrollView.contentSize.width {
+                beginingX = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+            }
+            backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
         }
-        if beginingX + backgroundScrollView.frame.width > backgroundScrollView.contentSize.width {
-            beginingX = backgroundScrollView.contentSize.width - backgroundScrollView.frame.width
+            /*
+        else if isMiddleViewFlipped {
+            
         }
-        backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
+        else if verticalScrollViews[1] == scrollView {
+            print(verticalScrollViews[1].contentOffset.y - PagesViewController.topBarHeight)
+            if verticalScrollViews[1].contentOffset.y >= PagesViewController.topBarHeight {
+                verticalScrollViews[1].isScrollEnabled = false
+                verticalScrollViews[1].setContentOffset(CGPoint(x: 0, y: PagesViewController.topBarHeight), animated: false)
+                libraryViewController.library.isScrollEnabled = true
+            }
+        }
+        else if (libraryViewController.library as UIScrollView) == scrollView {
+            if scrollView.contentOffset.y <= 0 {
+                verticalScrollViews[1].setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                verticalScrollViews[1].isScrollEnabled = true
+                libraryViewController.library.isScrollEnabled = false
+                libraryViewController.library.bounces = false
+            }
+            else if scrollView.contentOffset.y > 10 {
+                libraryViewController.library.bounces = true
+            }
+            else  {
+                libraryViewController.library.bounces = false
+            }
+        }
+ */
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = pageIndex
-        
-        if index == lastPageIndex {
-            return
-        }
+        if horizontalScrollView == scrollView {
+            let index = pageIndex
             
-        if let page = getViewControllerAtPageIndex(index) as? Page {
-            page.pageDidStick()
+            if index == lastPageIndex {
+                return
+            }
+            
+            if let page = getViewControllerAtPageIndex(index) as? Page {
+                page.pageDidStick()
+            }
+            
+            if let page = getViewControllerAtPageIndex(lastPageIndex) as? Page {
+                page.pageLeft()
+            }
+            
+            lastPageIndex = index
+        }
+        else if verticalScrollViews[1] == scrollView {
+            
+        }
+    }
+    
+    
+/* MARK: PagesScrollViewDelegate */
+    
+    func changeInTouches(currentScrollView: PageScrolView, change: CGFloat) {
+        
+        let innerScrollView: UIScrollView! = (currentScrollView == verticalScrollViews[1]) ? (isMiddleViewFlipped ? nil : libraryViewController.library) : nil
+        
+        func moveOuterScroll(change: CGFloat) {
+            let newY = currentScrollView.contentOffset.y - change
+            currentScrollView.setContentOffset(CGPoint(x: 0, y: newY), animated: false)
+        }
+        func moveInnerScroll(change: CGFloat) {
+            let newY = innerScrollView.contentOffset.y - change
+            innerScrollView.setContentOffset(CGPoint(x: 0, y: newY), animated: false)
         }
         
-        if let page = getViewControllerAtPageIndex(lastPageIndex) as? Page {
-            page.pageLeft()
+        
+        // Make sure the imporssible doesnt happen
+        if currentScrollView.contentOffset.y > PagesViewController.topBarHeight {
+            currentScrollView.setContentOffset(CGPoint(x: 0, y: PagesViewController.topBarHeight), animated: false)
+        }
+        if innerScrollView != nil && innerScrollView.contentOffset.y < 0 {
+            innerScrollView.setContentOffset(CGPoint.zero, animated: false)
         }
         
-        lastPageIndex = index
+        
+        if innerScrollView != nil && innerScrollView.contentOffset.y > 0 {
+            //print("1")
+            moveInnerScroll(change: change)
+        }
+        else if currentScrollView.contentOffset.y >= PagesViewController.topBarHeight {
+            if change < 0 && innerScrollView != nil {
+                //print("2")
+                moveInnerScroll(change: change)
+            }
+            else {
+                //print("3")
+                moveOuterScroll(change: change)
+            }
+        }
+        else {
+            //print("4")
+            moveOuterScroll(change: change)
+        }
+    }
+    
+    func useVelocityAtEndOfSwipe(currentScrollView: PageScrolView, velocity: CGFloat) {
+        
+        if horizontalScrollView.contentOffset.x / horizontalScrollView.frame.width != CGFloat(pageIndex) {
+            swipeHorizontally(currentScrollView: currentScrollView, velocity: 0)
+        }
+        
+        let innerScrollView: UIScrollView! = (currentScrollView == verticalScrollViews[1]) ? (isMiddleViewFlipped ? nil : libraryViewController.library) : nil
+        
+        func moveOuterScroll(change: CGFloat) {
+            
+            let change = change / 5
+            
+            var newY = currentScrollView.contentOffset.y - change
+            var leftOver: CGFloat = 0
+            if newY < 0 {
+                leftOver = -newY
+                newY = 0
+            }
+            
+            UIView.animate(withDuration: 1.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+                
+                currentScrollView.contentOffset = CGPoint(x: 0, y: newY)
+            }, completion: { _ in
+                
+                if leftOver != 0 {
+                    moveInnerScroll(change: leftOver)
+                }
+                
+                if currentScrollView.contentOffset.y > PagesViewController.topBarHeight {
+                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                        
+                        currentScrollView.contentOffset = CGPoint(x: 0, y: PagesViewController.topBarHeight)
+                    }, completion: nil)
+                }
+            })
+            
+            //verticalScrollViews[1].setContentOffset(CGPoint(x: 0, y: newY), animated: false)
+        }
+        func moveInnerScroll(change: CGFloat) {
+            
+            if innerScrollView == nil {
+                return
+            }
+            
+            let change = change / 5 //min(self.view.frame.height, change)
+            
+            var newY = innerScrollView.contentOffset.y - change //min(self.view.frame.height, change)
+            var leftovers: CGFloat = 0
+            if newY < 0 {
+                leftovers = -newY
+                newY = 0
+            }
+            
+            UIView.animate(withDuration: 1.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+                
+                innerScrollView.contentOffset = CGPoint(x: 0, y: newY)
+            }, completion: { _ in
+                if leftovers != 0 {
+                    moveOuterScroll(change: leftovers)
+                }
+                
+                if innerScrollView.contentOffset.y > innerScrollView.contentSize.height - innerScrollView.frame.height {
+                    
+                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                        
+                        innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
+                    }, completion: nil)
+                }
+                
+            })
+        }
+        
+        
+        
+        if currentScrollView.contentOffset.y < 0 {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                
+                currentScrollView.contentOffset = CGPoint(x: 0, y: 0)
+            }, completion: nil)
+        }
+        if innerScrollView != nil && innerScrollView.contentOffset.y > innerScrollView.contentSize.height - innerScrollView.frame.height {
+            
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                
+                innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
+            }, completion: nil)
+        }
+        
+        if currentScrollView.contentOffset.y > PagesViewController.topBarHeight {
+            currentScrollView.setContentOffset(CGPoint(x: 0, y: PagesViewController.topBarHeight), animated: false)
+        }
+        if innerScrollView != nil && innerScrollView.contentOffset.y < 0 {
+            innerScrollView.setContentOffset(CGPoint.zero, animated: false)
+        }
+        
+        if innerScrollView != nil && innerScrollView.contentOffset.y > 0 {
+            //print("1")
+            moveInnerScroll(change: velocity)
+        }
+        else if currentScrollView.contentOffset.y >= PagesViewController.topBarHeight {
+            if velocity < 0 {
+                //print("2")
+                moveInnerScroll(change: velocity)
+            }
+            else {
+                //print("3")
+                moveOuterScroll(change: velocity)
+            }
+        }
+        else {
+            //print("4")
+            moveOuterScroll(change: velocity)
+        }
+    }
+    
+    func swipeHorizontally(currentScrollView: PageScrolView, translation: CGFloat) {
+        let newX = horizontalScrollView.contentOffset.x - translation
+        horizontalScrollView.setContentOffset(CGPoint(x: newX, y: 0), animated: false)
+    }
+    
+    func swipeHorizontally(currentScrollView: PageScrolView, velocity: CGFloat) {
+        
+        var index = 0
+        var lowestDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[0].frame.minX)
+        for i in 1..<self.verticalScrollViews.count {
+            let newDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[i].frame.minX)
+            
+            if newDistance <= lowestDistance {
+                index = i
+                lowestDistance = newDistance
+            }
+        }
+        
+        let realIndex = horizontalScrollView.contentOffset.x / horizontalScrollView.frame.width
+        
+        print(velocity)
+        if abs(velocity) > 500 { // } || abs(realIndex - CGFloat(index)) > 50 {
+            if realIndex != CGFloat(index) {
+                if realIndex > CGFloat(index) && self.verticalScrollViews.count - 1 > index {
+                    index += 1
+                }
+                else if index > 0 {
+                    index -= 1
+                }
+            }
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .allowUserInteraction, animations: {
+            
+            self.horizontalScrollView.contentOffset = CGPoint(x: CGFloat(index) * self.horizontalScrollView.frame.width, y: 0)
+        }, completion: nil)
+        
+        /*
+        var newVelocity: CGFloat = 0
+        if velocity > 0 {
+            newVelocity = -horizontalScrollView.contentOffset.x
+        }
+        else {
+            newVelocity = horizontalScrollView.frame.width - horizontalScrollView.contentOffset.x
+        }
+        
+        let velocity = newVelocity
+        
+        let newX = self.horizontalScrollView.contentOffset.x - velocity
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .allowUserInteraction, animations: {
+            
+            self.horizontalScrollView.contentOffset = CGPoint(x: newX, y: 0)
+        }, completion: {  _ in
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .allowUserInteraction, animations: {
+                
+                var index = 0
+                var lowestDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[0].frame.minX)
+                for i in 1..<self.verticalScrollViews.count {
+                    let newDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[i].frame.minX)
+                    
+                    if newDistance <= lowestDistance {
+                        index = i
+                        lowestDistance = newDistance
+                    }
+                }
+                
+                self.horizontalScrollView.contentOffset = CGPoint(x: CGFloat(index) * self.horizontalScrollView.frame.width, y: 0)
+            }, completion: nil)
+        })
+ */
+    }
+    
+/* MARK: UITAPDELEGATE */
+    func tapDelegateScreenTapped(tap: UITouch) -> Bool {
+        
+        if tap.location(in: self.view).y > 25 {
+            return false
+        }
+        
+        if pageIndex < 0 || pageIndex >= verticalScrollViews.count {
+            return false
+        }
+        
+        let currentScrollView = verticalScrollViews[pageIndex]
+        
+        let innerScrollView: UIScrollView! = (currentScrollView == verticalScrollViews[1]) ? (isMiddleViewFlipped ? nil : libraryViewController.library) : nil
+        
+        if innerScrollView != nil && innerScrollView.contentOffset.y > 0 {
+            
+            
+            innerScrollView.setContentOffset(CGPoint.zero, animated: true)
+        }
+        else {
+            currentScrollView.setContentOffset(CGPoint.zero, animated: true)
+        }
+        
+        return true
     }
 }
