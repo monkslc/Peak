@@ -113,7 +113,7 @@ class StartupViewController: UIViewController {
         //Add the listener for spotify authentication
         NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
         
-        Authentication.AuthenticateWithSpotify()
+        Authentication.AuthenticateWithSpotify(safariViewControllerDelegate: nil)
     }
     
     //Login with spotify was successful so we can segue

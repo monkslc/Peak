@@ -64,7 +64,7 @@ class SicSongProgress: UISlider {
         //Get's called when the song changes on the system music player
         
         
-        maximumValue = Float((peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis()) ?? Int(0.0))
+        maximumValue = Float((peakMusicController.systemMusicPlayer.nowPlaying?.getTrackTimeMillis()) ?? Int(0.0))
     }
     
     func playerTypeChanged(){

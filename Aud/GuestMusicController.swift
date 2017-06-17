@@ -10,21 +10,23 @@ import Foundation
 
 class GuestMusicController: SystemMusicPlayer{
     
-    /*METHODS*/
-    func getNowPlayingItem() -> BasicSong?{
+    
+/*MARK: PROPERTIES*/
+    var nowPlaying: BasicSong? {
         
         return nil
     }
     
-    func getPlayerState() -> MusicPlayerState{
-
-        return MusicPlayerState.paused
-    }
-    
-    func getNowPlayingItemLoc() -> Int{
-
+    var nowPlayingLoc: Int {
+        
         return 0
     }
+    
+    var playerState: MusicPlayerState {
+        
+        return MusicPlayerState.paused
+    }
+    /*METHODS*/
     
     func setShuffleState(state: ShuffleState){
         

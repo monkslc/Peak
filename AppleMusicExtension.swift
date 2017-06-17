@@ -11,17 +11,19 @@ import MediaPlayer
 
 extension MPMusicPlayerController: SystemMusicPlayer {
     
-    func getNowPlayingItemLoc() -> Int {
-        
-        return indexOfNowPlayingItem
-    }
     
-    func getNowPlayingItem() -> BasicSong? {
+/*MARK: PROPERTIES*/
+    var nowPlaying: BasicSong? {
         
         return nowPlayingItem
     }
     
-    func getPlayerState() -> MusicPlayerState {
+    var nowPlayingLoc: Int {
+        
+        return indexOfNowPlayingItem
+    }
+    
+    var playerState: MusicPlayerState {
         
         switch playbackState{
             
@@ -33,6 +35,7 @@ extension MPMusicPlayerController: SystemMusicPlayer {
         }
     }
     
+/*MARK: METHODS*/
     func setShuffleState(state: ShuffleState) {
         
         switch state{
@@ -57,18 +60,7 @@ extension MPMusicPlayerController: SystemMusicPlayer {
     
     func setPlayerQueue(songs: [BasicSong]) {
         
-        print("The queue should be: ")
-        for song in songs{
-            
-            print(song.getTrackName())
-        }
-        
-        var mediaItems = [MPMediaItem]()
-        for song in songs{
-            mediaItems.append(song as! MPMediaItem)
-        }
-        
-        setQueue(with: MPMediaItemCollection(items: mediaItems))
+        setQueue(with: MPMediaItemCollection(items: songs as! [MPMediaItem]))
     }
     
     func restartSong() {

@@ -58,7 +58,7 @@ class SongProgressLabel: UILabel {
             text = formatTime(currentTime)
         }else {
             
-            let duration = peakMusicController.systemMusicPlayer.getNowPlayingItem()?.getTrackTimeMillis() ?? Int(0.0)
+            let duration = peakMusicController.systemMusicPlayer.nowPlaying?.getTrackTimeMillis() ?? Int(0.0)
             text = formatTime(TimeInterval(duration))
         }
     }

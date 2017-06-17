@@ -473,16 +473,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oNF-E1-GYO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8Zy-hf-eUB">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" red="0.49019607840000001" green="0.25882352939999997" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6U2-6f-2Bu" firstAttribute="top" secondItem="Tss-4s-f8h" secondAttribute="bottom" id="7b4-qW-gSb"/>
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="leading" secondItem="4F4-M0-3eU" secondAttribute="leading" id="KGK-aW-bDq"/>
+                            <constraint firstItem="oNF-E1-GYO" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="ONd-Qm-B5m"/>
+                            <constraint firstItem="6U2-6f-2Bu" firstAttribute="top" secondItem="oNF-E1-GYO" secondAttribute="bottom" id="OZm-Zo-uKb"/>
                             <constraint firstAttribute="trailing" secondItem="Tss-4s-f8h" secondAttribute="trailing" id="Pw9-pp-PgG"/>
+                            <constraint firstAttribute="trailing" secondItem="oNF-E1-GYO" secondAttribute="trailing" id="QO5-md-H5v"/>
                             <constraint firstItem="Tss-4s-f8h" firstAttribute="top" secondItem="4F4-M0-3eU" secondAttribute="top" id="XYy-cG-NzI"/>
+                            <constraint firstItem="8Zy-hf-eUB" firstAttribute="centerX" secondItem="4F4-M0-3eU" secondAttribute="centerX" id="cHE-Mv-1am"/>
+                            <constraint firstItem="oNF-E1-GYO" firstAttribute="leading" secondItem="4F4-M0-3eU" secondAttribute="leading" id="lJ2-BR-hej"/>
+                            <constraint firstItem="8Zy-hf-eUB" firstAttribute="centerY" secondItem="4F4-M0-3eU" secondAttribute="centerY" id="ojo-LN-NjA"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadingIndicator" destination="8Zy-hf-eUB" id="HDh-4g-dW6"/>
+                        <outlet property="loadingView" destination="oNF-E1-GYO" id="bUh-SY-Avy"/>
                         <outlet property="musicTypeTable" destination="Tss-4s-f8h" id="RzF-7x-T3w"/>
                     </connections>
                 </viewController>

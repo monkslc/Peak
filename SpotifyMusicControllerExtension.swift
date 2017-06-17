@@ -19,7 +19,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     }
     
     
-    /*PROPERTIES*/
+/*MARK: PROPERTIES*/
     var currentTrackTime: TimeInterval?{
         
         get{
@@ -35,19 +35,30 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         }
     }
     
-    func getNowPlayingItemLoc() -> Int {
+    var nowPlaying: BasicSong? {
         
-        //Get the current track
-        if let track = getNowPlayingItem(){
+        if metadata != nil{
             
-            //Loop through the queue and see where it is
+            return metadata.currentTrack
+        }else{
+            
+            return nil
+        }
+    }
+    
+    var nowPlayingLoc: Int {
+        
+        if let track = nowPlaying{
+            
             var counter = 0
             for song in peakMusicController.currPlayQueue{
                 
                 if song.isEqual(to: track){
                     
+                    
                     return counter
                 }
+                
                 counter += 1
             }
         }
@@ -55,16 +66,8 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         return 0
     }
     
-    func getNowPlayingItem() -> BasicSong? {
-        
-        if metadata != nil{
-            return metadata.currentTrack
-        } else {
-            return nil
-        }
-    }
     
-    func getPlayerState() -> MusicPlayerState {
+    var playerState: MusicPlayerState {
         
         if playbackState != nil{
             
@@ -86,6 +89,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         
         return MusicPlayerState.paused
     }
+/*MARK: METHODS*/
     
     func setShuffleState(state: ShuffleState) {
         
@@ -121,11 +125,9 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     func setPlayerQueue(songs: [BasicSong]) {
         
         /*ONLY PLAY IF THE SONG IS NOT EQUAL TO THE CURRENTLY PLAYING SONG*/
-        
-    
         if songs.count > 0{
             
-            if metadata == nil{
+            if metadata == nil || songs.count <= nowPlayingLoc + 1{
                 
                 self.playSpotifyURI(songs[0].getId(), startingWith: 0, startingWithPosition: 0){
                     if $0 != nil{
@@ -134,9 +136,9 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
                     }
                 }
                 
-            } else if metadata.currentTrack?.isEqual(to: songs[0]) != true {
+            } else if metadata.currentTrack?.isEqual(to: songs[nowPlayingLoc]) != true {
                 
-                self.playSpotifyURI((songs[0] as! SPTPartialTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0) {
+                self.playSpotifyURI((songs[nowPlayingLoc] as! SPTPartialTrack).playableUri.absoluteString, startingWith: 0, startingWithPosition: 0) {
                     
                     if $0 != nil {
                         print("There was an error with our inital play \($0!)")
@@ -177,15 +179,7 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
     }
     
     func generateNotifications() {
-        
-        self.setRepeat(.off){
-            
-            if $0 != nil{
-                
-                print("We had an error turning off our repeat mode: \($0!)")
-            }
-        }
-        
+    
         do{
             
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -293,9 +287,9 @@ extension SPTAudioStreamingController: SystemMusicPlayer, SPTAudioStreamingPlayb
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
             
             //Lets get the next song to play
-            if peakMusicController.currPlayQueue.count > self.getNowPlayingItemLoc() + 1{
+            if peakMusicController.currPlayQueue.count > self.nowPlayingLoc + 1{
                 
-                let track = peakMusicController.currPlayQueue[self.getNowPlayingItemLoc() + 1]
+                let track = peakMusicController.currPlayQueue[self.nowPlayingLoc + 1]
                 
                 if self.metadata.nextTrack == nil || self.metadata.nextTrack!.isEqual(to: track) == false{
                     //We know we need to queue now

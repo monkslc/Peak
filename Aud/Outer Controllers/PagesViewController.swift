@@ -217,7 +217,6 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
     
     func flipMiddlePageToBack() {
         
-        print("\n\n\nVERTICAL VIEW")
         print(Thread.current.isMainThread)
         print(self.verticalScrollViews[1].subviews.count)
         print(self.verticalScrollViews[1] == self.libraryViewController.view.superview)
@@ -242,9 +241,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         }, completion: { (Bool) -> Void in
             self.verticalScrollViews[1].contentSize = CGSize(width: self.view.frame.width, height: self.libraryHeight)
             self.isMiddleViewFlipped = false
-            self.libraryViewController.userLibrary.recents = []
-            self.libraryViewController.userLibrary.itemsInLibrary = []
-            self.libraryViewController.userLibrary.fetchLibrary()
+            //self.libraryViewController.userLibrary.recents = []
+            //self.libraryViewController.userLibrary.itemsInLibrary = []
+            //self.libraryViewController.userLibrary.fetchLibrary()
         })
     }
     

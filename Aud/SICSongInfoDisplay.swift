@@ -115,7 +115,7 @@ class SICSongInfoDisplay: UIView {
             
         }else {
             
-            if let song = peakMusicController.systemMusicPlayer.getNowPlayingItem() {
+            if let song = peakMusicController.systemMusicPlayer.nowPlaying {
                 artistLabel.text = song.getArtistName()
                 albumLabel.text = song.getCollectionName()
                 titleLabel.text = song.getTrackName()

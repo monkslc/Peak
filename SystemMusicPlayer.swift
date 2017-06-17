@@ -22,10 +22,12 @@ enum ShuffleState{
 
 protocol SystemMusicPlayer{
     
+    /*PROPERTIES*/
+    var nowPlaying: BasicSong? {get}
+    var nowPlayingLoc: Int {get}
+    var playerState: MusicPlayerState {get}
+    
     /*METHODS*/
-    func getNowPlayingItem() -> BasicSong?
-    func getPlayerState() -> MusicPlayerState
-    func getNowPlayingItemLoc() -> Int
     func setShuffleState(state: ShuffleState)
     func startPlaying()
     func stopPlaying()

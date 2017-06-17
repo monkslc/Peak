@@ -10,7 +10,7 @@ import UIKit
 import MediaPlayer
 import CloudKit
 
-class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate{
     
 /*MARK: PROPERTIES*/
     @IBOutlet weak var musicTypeTable: UITableView!
@@ -19,6 +19,10 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     let musicPlayerTitles = ["Apple Music", "Spotify", "Guest"]
     
     var preferredPlayerType = "Guest"
+    
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +42,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             //The user doesn't have a selected type yet so set it to be Guest
             preferredPlayerType = "Guest"
         }
+        
         
     }
     
@@ -90,47 +95,39 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
                 return
             }
             
+            //Add notification to listen for library finished loading
+            NotificationCenter.default.addObserver(self, selector: #selector(musicPlayerFinishedLoading), name: .libraryFinishedLoading, object: nil)
             
             //Let's figure out which music type we are switching to
             if cell.musicPlayerLabel.text == "Apple Music"{
+                
+                //Start Loading Indicator
+                self.startUpLoadingIndicators()
                 
                 /*AUTHENTICATE APPLE MUSIC AND DO THIS IF AUTHENTICATIONS WORKS*/
                 Authentication.AutheticateWithApple(){ alertController in
                     
                     if alertController == nil{
                         
-                        peakMusicController.systemMusicPlayer.stopPlaying()
-                        peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
-                        peakMusicController.systemMusicPlayer.generateNotifications()
-                        peakMusicController.systemMusicPlayer.stopPlaying()
-                        self.musicPlayerTypeWasUpdated(cell.musicPlayerLabel.text!)
+                        self.setUpAppleAuthentication()
                     } else{
                         
                         DispatchQueue.main.async {
                             
                             self.present(alertController!, animated: true, completion: nil)
+                            self.setUpGuestLogin()
                         }
-                        
                     }
                 }
                 
             }else if cell.musicPlayerLabel.text == "Spotify"{
                 
-                 peakMusicController.systemMusicPlayer.stopPlaying()
-                
-                NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
-                
-                Authentication.AuthenticateWithSpotify()
+                self.setUpSpotifyAuthentication()
                 
             } else{
                 
-                peakMusicController.systemMusicPlayer.stopPlaying()
-                peakMusicController.systemMusicPlayer = GuestMusicController()
-                musicPlayerTypeWasUpdated("Guest")
+                self.setUpGuestLogin()
             }
-            
-            
-            
         }
     }
     
@@ -158,8 +155,9 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
             peakMusicController.musicType = .Guest
         }
         
-        //Now reload our table
+        //reload table and fetch me library
         musicTypeTable.reloadData()
+        (peakMusicController.delegate as! BeastController).libraryViewController.userLibrary.fetchLibrary()
         
     }
     
@@ -173,7 +171,77 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
 /*MARK: SUPPORTING AUTHENTICATION METHODS*/
     func spottyLoginWasSuccess(){
         
+        self.startUpLoadingIndicators()
         peakMusicController.systemMusicPlayer.generateNotifications()
         musicPlayerTypeWasUpdated("Spotify")
     }
+    
+    
+    func setUpAppleAuthentication(){
+        
+        peakMusicController.systemMusicPlayer.stopPlaying()
+        peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+        peakMusicController.systemMusicPlayer.generateNotifications()
+        peakMusicController.systemMusicPlayer.stopPlaying()
+        self.musicPlayerTypeWasUpdated("Apple Music")
+    }
+    
+    func setUpSpotifyAuthentication(){
+        
+        peakMusicController.systemMusicPlayer.stopPlaying()
+        NotificationCenter.default.addObserver(self, selector: #selector(spottyLoginWasSuccess), name: .spotifyLoginSuccessful, object: nil)
+        Authentication.AuthenticateWithSpotify(safariViewControllerDelegate: self)
+    }
+    
+    func setUpGuestLogin(){
+        
+        self.startUpLoadingIndicators()
+        peakMusicController.systemMusicPlayer.stopPlaying()
+        peakMusicController.systemMusicPlayer = GuestMusicController()
+        musicPlayerTypeWasUpdated("Guest")
+    }
+/*MARK: METHODS TO TRACK SWITCHING MUSIC PLAYER*/
+    
+    func startUpLoadingIndicators(){
+        
+        loadingView.isHidden = false
+        loadingIndicator.startAnimating()
+    }
+    
+    func musicPlayerFinishedLoading(){
+        
+        //come back here
+        NotificationCenter.default.removeObserver(self)
+        
+        loadingView.isHidden = true
+        loadingIndicator.stopAnimating()
+        flipView(UIButton())
+    }
+    
+    func musicPlayerLoadingFailed(){
+        
+        //Alert the user
+        let alert = UIAlertController(title: "Failed Authentication", message: "We we're unable to switch your music player. We will now sign you in as a Guest", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ alert in
+            
+            self.setUpGuestLogin()
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+/*MARK: SAFARI VIEW CONTROLLER DELEGATE METHODS*/
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        
+        musicPlayerLoadingFailed()
+    }
+    
+    func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
+        
+        print("We are in the second delegate method bitches")
+    }
+    
+    
 }
