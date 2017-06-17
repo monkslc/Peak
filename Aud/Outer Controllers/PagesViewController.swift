@@ -15,13 +15,17 @@ protocol SongsLoaded {
     func songsLoaded(count: Int)
 }
 
+protocol TapDelegate {
+    func tapDelegateScreenTapped(tap: UITouch) -> Bool
+}
+
 protocol Page {
     func pageDidStick()
     func pageIsShown()
     func pageLeft()
 }
 
-class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
+class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, PageScrolViewDelagate, TapDelegate {
     
     var backgroundScrollView: UIScrollView!
     
@@ -80,6 +84,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AppDelegate.tapGestureDelegate = self
         
         let gradientView = GradientView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))//BackgroundView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 1.5, height: self.view.frame.height))
         gradientView.firstColor = UIColor.peakColor //UIColor(colorLiteralRed: 0.5, green: 0.1, blue: 0.9, alpha: 1.0)
@@ -103,6 +108,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         self.view.addSubview(backgroundScrollView)
         
         setUpScrollView()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -141,6 +147,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         
         horizontalScrollView = UIScrollView(frame: CGRect(x: -PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width + PagesViewController.halfOfSpaceBetween * 2, height: self.view.frame.height))
         horizontalScrollView.isPagingEnabled = true
+        horizontalScrollView.canCancelContentTouches = true
+        horizontalScrollView.delaysContentTouches = true
         horizontalScrollView.delegate = self
         
         let bluetoothVc = storyboard?.instantiateViewController(withIdentifier: "bluetoothVcID") as! PopOverBluetoothViewController
@@ -151,11 +159,13 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         
         for (index, vc) in [bluetoothVc, middleVc].enumerated() {
             
-            let newVerticalScrollView = UIScrollView(frame: CGRect(x: CGFloat(index) * horizontalScrollView.frame.width + PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            let newVerticalScrollView = PageScrolView(frame: CGRect(x: CGFloat(index) * horizontalScrollView.frame.width + PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width, height: self.view.frame.height))
             newVerticalScrollView.alwaysBounceVertical = true
+            newVerticalScrollView.pageScrolViewDelagate = self
             newVerticalScrollView.delegate = self
             newVerticalScrollView.canCancelContentTouches = false
             newVerticalScrollView.delaysContentTouches = false
+            newVerticalScrollView.scrollsToTop = false
             
             self.addChildViewController(vc)
             newVerticalScrollView.addSubview(vc.view)
@@ -168,6 +178,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             vc.view.frame = CGRect(x: 0, y: PagesViewController.topBarHeight, width: horizontalScrollView.frame.width - PagesViewController.halfOfSpaceBetween * 2, height: pageSize(at: index, includingFlip: false))
             newVerticalScrollView.contentSize = CGSize(width: newVerticalScrollView.frame.width, height: vc.view.frame.maxY)
         }
+        
+        
         
         let musicTypeVC = storyboard?.instantiateViewController(withIdentifier: "musicTypePlayerID") as! MusicTypeController
         addChildViewController(musicTypeVC)
@@ -258,6 +270,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
             }
             backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
         }
+            /*
         else if isMiddleViewFlipped {
             
         }
@@ -283,6 +296,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
                 libraryViewController.library.bounces = false
             }
         }
+ */
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -306,5 +320,267 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded {
         else if verticalScrollViews[1] == scrollView {
             
         }
+    }
+    
+    
+/* MARK: PagesScrollViewDelegate */
+    
+    func changeInTouches(currentScrollView: PageScrolView, change: CGFloat) {
+        
+        let innerScrollView: UIScrollView! = (currentScrollView == verticalScrollViews[1]) ? (isMiddleViewFlipped ? nil : libraryViewController.library) : nil
+        
+        func moveOuterScroll(change: CGFloat) {
+            let newY = currentScrollView.contentOffset.y - change
+            currentScrollView.setContentOffset(CGPoint(x: 0, y: newY), animated: false)
+        }
+        func moveInnerScroll(change: CGFloat) {
+            let newY = innerScrollView.contentOffset.y - change
+            innerScrollView.setContentOffset(CGPoint(x: 0, y: newY), animated: false)
+        }
+        
+        
+        // Make sure the imporssible doesnt happen
+        if currentScrollView.contentOffset.y > PagesViewController.topBarHeight {
+            currentScrollView.setContentOffset(CGPoint(x: 0, y: PagesViewController.topBarHeight), animated: false)
+        }
+        if innerScrollView != nil && innerScrollView.contentOffset.y < 0 {
+            innerScrollView.setContentOffset(CGPoint.zero, animated: false)
+        }
+        
+        
+        if innerScrollView != nil && innerScrollView.contentOffset.y > 0 {
+            //print("1")
+            moveInnerScroll(change: change)
+        }
+        else if currentScrollView.contentOffset.y >= PagesViewController.topBarHeight {
+            if change < 0 && innerScrollView != nil {
+                //print("2")
+                moveInnerScroll(change: change)
+            }
+            else {
+                //print("3")
+                moveOuterScroll(change: change)
+            }
+        }
+        else {
+            //print("4")
+            moveOuterScroll(change: change)
+        }
+    }
+    
+    func useVelocityAtEndOfSwipe(currentScrollView: PageScrolView, velocity: CGFloat) {
+        
+        if horizontalScrollView.contentOffset.x / horizontalScrollView.frame.width != CGFloat(pageIndex) {
+            swipeHorizontally(currentScrollView: currentScrollView, velocity: 0)
+        }
+        
+        let innerScrollView: UIScrollView! = (currentScrollView == verticalScrollViews[1]) ? (isMiddleViewFlipped ? nil : libraryViewController.library) : nil
+        
+        func moveOuterScroll(change: CGFloat) {
+            
+            let change = change / 5
+            
+            var newY = currentScrollView.contentOffset.y - change
+            var leftOver: CGFloat = 0
+            if newY < 0 {
+                leftOver = -newY
+                newY = 0
+            }
+            
+            UIView.animate(withDuration: 1.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+                
+                currentScrollView.contentOffset = CGPoint(x: 0, y: newY)
+            }, completion: { _ in
+                
+                if leftOver != 0 {
+                    moveInnerScroll(change: leftOver)
+                }
+                
+                if currentScrollView.contentOffset.y > PagesViewController.topBarHeight {
+                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                        
+                        currentScrollView.contentOffset = CGPoint(x: 0, y: PagesViewController.topBarHeight)
+                    }, completion: nil)
+                }
+            })
+            
+            //verticalScrollViews[1].setContentOffset(CGPoint(x: 0, y: newY), animated: false)
+        }
+        func moveInnerScroll(change: CGFloat) {
+            
+            if innerScrollView == nil {
+                return
+            }
+            
+            let change = change / 5 //min(self.view.frame.height, change)
+            
+            var newY = innerScrollView.contentOffset.y - change //min(self.view.frame.height, change)
+            var leftovers: CGFloat = 0
+            if newY < 0 {
+                leftovers = -newY
+                newY = 0
+            }
+            
+            UIView.animate(withDuration: 1.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+                
+                innerScrollView.contentOffset = CGPoint(x: 0, y: newY)
+            }, completion: { _ in
+                if leftovers != 0 {
+                    moveOuterScroll(change: leftovers)
+                }
+                
+                if innerScrollView.contentOffset.y > innerScrollView.contentSize.height - innerScrollView.frame.height {
+                    
+                    UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                        
+                        innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
+                    }, completion: nil)
+                }
+                
+            })
+        }
+        
+        
+        
+        if currentScrollView.contentOffset.y < 0 {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                
+                currentScrollView.contentOffset = CGPoint(x: 0, y: 0)
+            }, completion: nil)
+        }
+        if innerScrollView != nil && innerScrollView.contentOffset.y > innerScrollView.contentSize.height - innerScrollView.frame.height {
+            
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                
+                innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
+            }, completion: nil)
+        }
+        
+        if currentScrollView.contentOffset.y > PagesViewController.topBarHeight {
+            currentScrollView.setContentOffset(CGPoint(x: 0, y: PagesViewController.topBarHeight), animated: false)
+        }
+        if innerScrollView != nil && innerScrollView.contentOffset.y < 0 {
+            innerScrollView.setContentOffset(CGPoint.zero, animated: false)
+        }
+        
+        if innerScrollView != nil && innerScrollView.contentOffset.y > 0 {
+            //print("1")
+            moveInnerScroll(change: velocity)
+        }
+        else if currentScrollView.contentOffset.y >= PagesViewController.topBarHeight {
+            if velocity < 0 {
+                //print("2")
+                moveInnerScroll(change: velocity)
+            }
+            else {
+                //print("3")
+                moveOuterScroll(change: velocity)
+            }
+        }
+        else {
+            //print("4")
+            moveOuterScroll(change: velocity)
+        }
+    }
+    
+    func swipeHorizontally(currentScrollView: PageScrolView, translation: CGFloat) {
+        let newX = horizontalScrollView.contentOffset.x - translation
+        horizontalScrollView.setContentOffset(CGPoint(x: newX, y: 0), animated: false)
+    }
+    
+    func swipeHorizontally(currentScrollView: PageScrolView, velocity: CGFloat) {
+        
+        var index = 0
+        var lowestDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[0].frame.minX)
+        for i in 1..<self.verticalScrollViews.count {
+            let newDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[i].frame.minX)
+            
+            if newDistance <= lowestDistance {
+                index = i
+                lowestDistance = newDistance
+            }
+        }
+        
+        let realIndex = horizontalScrollView.contentOffset.x / horizontalScrollView.frame.width
+        
+        print(velocity)
+        if abs(velocity) > 500 { // } || abs(realIndex - CGFloat(index)) > 50 {
+            if realIndex != CGFloat(index) {
+                if realIndex > CGFloat(index) && self.verticalScrollViews.count - 1 > index {
+                    index += 1
+                }
+                else if index > 0 {
+                    index -= 1
+                }
+            }
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .allowUserInteraction, animations: {
+            
+            self.horizontalScrollView.contentOffset = CGPoint(x: CGFloat(index) * self.horizontalScrollView.frame.width, y: 0)
+        }, completion: nil)
+        
+        /*
+        var newVelocity: CGFloat = 0
+        if velocity > 0 {
+            newVelocity = -horizontalScrollView.contentOffset.x
+        }
+        else {
+            newVelocity = horizontalScrollView.frame.width - horizontalScrollView.contentOffset.x
+        }
+        
+        let velocity = newVelocity
+        
+        let newX = self.horizontalScrollView.contentOffset.x - velocity
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .allowUserInteraction, animations: {
+            
+            self.horizontalScrollView.contentOffset = CGPoint(x: newX, y: 0)
+        }, completion: {  _ in
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .allowUserInteraction, animations: {
+                
+                var index = 0
+                var lowestDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[0].frame.minX)
+                for i in 1..<self.verticalScrollViews.count {
+                    let newDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[i].frame.minX)
+                    
+                    if newDistance <= lowestDistance {
+                        index = i
+                        lowestDistance = newDistance
+                    }
+                }
+                
+                self.horizontalScrollView.contentOffset = CGPoint(x: CGFloat(index) * self.horizontalScrollView.frame.width, y: 0)
+            }, completion: nil)
+        })
+ */
+    }
+    
+/* MARK: UITAPDELEGATE */
+    func tapDelegateScreenTapped(tap: UITouch) -> Bool {
+        
+        if tap.location(in: self.view).y > 25 {
+            return false
+        }
+        
+        if pageIndex < 0 || pageIndex >= verticalScrollViews.count {
+            return false
+        }
+        
+        let currentScrollView = verticalScrollViews[pageIndex]
+        
+        let innerScrollView: UIScrollView! = (currentScrollView == verticalScrollViews[1]) ? (isMiddleViewFlipped ? nil : libraryViewController.library) : nil
+        
+        if innerScrollView != nil && innerScrollView.contentOffset.y > 0 {
+            
+            
+            innerScrollView.setContentOffset(CGPoint.zero, animated: true)
+        }
+        else {
+            currentScrollView.setContentOffset(CGPoint.zero, animated: true)
+        }
+        
+        return true
     }
 }
