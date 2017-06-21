@@ -58,7 +58,7 @@ class PageScrolView: UIScrollView {
         let velocity = sender.velocity(in: self)
         if abs(velocity.x) > abs(velocity.y) {
             
-            if sender.state == .ended {
+            if sender.state == .ended || sender.state == .cancelled {
                 if let pageScrolViewDelagate = pageScrolViewDelagate {
                     pageScrolViewDelagate.swipeHorizontally(currentScrollView: self, velocity: sender.velocity(in: self).x)
                 }
@@ -70,7 +70,7 @@ class PageScrolView: UIScrollView {
             }
         }
         else {
-            if sender.state == .ended {
+            if sender.state == .ended || sender.state == .cancelled {
                 if let pageScrolViewDelagate = pageScrolViewDelagate {
                     let velocity = sender.velocity(in: self).y
                     pageScrolViewDelagate.useVelocityAtEndOfSwipe(currentScrollView: self, velocity: velocity)

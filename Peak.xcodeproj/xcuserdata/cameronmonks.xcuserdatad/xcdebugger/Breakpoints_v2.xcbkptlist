@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aud/Indivisual Pages/LibraryViewController.swift"
-            timestampString = "519007195.869731"
+            filePath = "Aud/On Start Up/StartupViewController.swift"
+            timestampString = "518874796.136256"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "moveToBeastController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aud/On Start Up/StartupViewController.swift"
-            timestampString = "518874796.136256"
+            filePath = "Aud/Outer Controllers/PagesViewController.swift"
+            timestampString = "519778966.371616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "348"
-            endingLineNumber = "348"
-            landmarkName = "moveToBeastController()"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
+            landmarkName = "swipeHorizontally(currentScrollView:velocity:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
