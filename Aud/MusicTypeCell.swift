@@ -16,8 +16,6 @@ class MusicTypeCell: UITableViewCell {
     @IBOutlet weak var checkMrk: UIImageView!
     
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

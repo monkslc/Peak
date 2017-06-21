@@ -10,7 +10,7 @@ import UIKit
 
 protocol BasicSong {
     
-    var type: PeakMusicController.MusicType { get }
+    var type: MusicTypeManager.MusicType { get }
     
     func getId() -> String
     func getTrackName() -> String

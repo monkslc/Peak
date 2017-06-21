@@ -9,7 +9,7 @@
 import Foundation
 
 extension SPTPartialTrack: BasicSong {
-    var type: PeakMusicController.MusicType {
+    var type: MusicTypeManager.MusicType {
         return .Spotify
     }
     
@@ -109,7 +109,7 @@ extension SPTPartialTrack: BasicSong {
 }
 
 extension SPTPlaybackTrack: BasicSong {
-    var type: PeakMusicController.MusicType {
+    var type: MusicTypeManager.MusicType {
         return .Spotify
     }
 

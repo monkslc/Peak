@@ -10,7 +10,7 @@ import Foundation
 import MediaPlayer
 
 extension MPMediaItem: BasicSong {
-    var type: PeakMusicController.MusicType {
+    var type: MusicTypeManager.MusicType {
         return .AppleMusic
     }
 

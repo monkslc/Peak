@@ -11,7 +11,7 @@ import UIKit
 
 struct Song: BasicSong {
     
-    var type: PeakMusicController.MusicType {
+    var type: MusicTypeManager.MusicType {
         return .Guest
     }
 
