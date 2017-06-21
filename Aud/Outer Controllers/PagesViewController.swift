@@ -34,7 +34,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
     
     static let halfOfSpaceBetween: CGFloat = 16
     
-    static let topBarHeight: CGFloat = 40
+    static let topBarHeight: CGFloat = 58
     
     var pageIndex: Int {
         set {
@@ -146,10 +146,13 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         self.view.backgroundColor = UIColor.green
         
         horizontalScrollView = UIScrollView(frame: CGRect(x: -PagesViewController.halfOfSpaceBetween, y: 0, width: self.view.frame.width + PagesViewController.halfOfSpaceBetween * 2, height: self.view.frame.height))
+        
         horizontalScrollView.isPagingEnabled = true
-        horizontalScrollView.canCancelContentTouches = true
-        horizontalScrollView.delaysContentTouches = true
+        //horizontalScrollView.canCancelContentTouches = true
+        //horizontalScrollView.delaysContentTouches = true
         horizontalScrollView.delegate = self
+        
+        //horizontalScrollView.isScrollEnabled = false
         
         let bluetoothVc = storyboard?.instantiateViewController(withIdentifier: "bluetoothVcID") as! PopOverBluetoothViewController
         
@@ -333,6 +336,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
             currentScrollView.setContentOffset(CGPoint(x: 0, y: newY), animated: false)
         }
         func moveInnerScroll(change: CGFloat) {
+            // penis
+            if innerScrollView == self.libraryViewController.library {
+                self.libraryViewController.scrollViewDidScroll(innerScrollView)
+            }
             let newY = innerScrollView.contentOffset.y - change
             innerScrollView.setContentOffset(CGPoint(x: 0, y: newY), animated: false)
         }
@@ -374,6 +381,8 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         }
         
         let innerScrollView: UIScrollView! = (currentScrollView == verticalScrollViews[1]) ? (isMiddleViewFlipped ? nil : libraryViewController.library) : nil
+        
+        let velocity = velocity > 2000 ? 2000 : velocity < -2000 ? -2000 : velocity
         
         func moveOuterScroll(change: CGFloat) {
             
@@ -420,8 +429,13 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
                 newY = 0
             }
             
-            UIView.animate(withDuration: 1.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+            
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
                 
+                // penis
+                if innerScrollView == self.libraryViewController.library {
+                    self.libraryViewController.scrollViewDidScroll(innerScrollView)
+                }
                 innerScrollView.contentOffset = CGPoint(x: 0, y: newY)
             }, completion: { _ in
                 if leftovers != 0 {
@@ -432,6 +446,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
                     
                     UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                         
+                        // penis
+                        if innerScrollView == self.libraryViewController.library {
+                            self.libraryViewController.scrollViewDidScroll(innerScrollView)
+                        }
                         innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
                     }, completion: nil)
                 }
@@ -442,7 +460,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         
         
         if currentScrollView.contentOffset.y < 0 {
-            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                 
                 currentScrollView.contentOffset = CGPoint(x: 0, y: 0)
             }, completion: nil)
@@ -489,6 +507,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
     
     func swipeHorizontally(currentScrollView: PageScrolView, velocity: CGFloat) {
         
+        if currentScrollView.contentOffset.y < 0 {
+            currentScrollView.setContentOffset(CGPoint.zero, animated: true)
+        }
+        
         var index = 0
         var lowestDistance = abs(self.horizontalScrollView.contentOffset.x - self.verticalScrollViews[0].frame.minX)
         for i in 1..<self.verticalScrollViews.count {
@@ -508,7 +530,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
                 if realIndex > CGFloat(index) && self.verticalScrollViews.count - 1 > index {
                     index += 1
                 }
-                else if index > 0 {
+                else if index > 0 && realIndex < CGFloat(self.verticalScrollViews.count - 1) {
                     index -= 1
                 }
             }
@@ -559,7 +581,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
 /* MARK: UITAPDELEGATE */
     func tapDelegateScreenTapped(tap: UITouch) -> Bool {
         
-        if tap.location(in: self.view).y > 25 {
+        if tap.location(in: self.view).y > 50 {
             return false
         }
         
