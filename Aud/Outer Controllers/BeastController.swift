@@ -59,6 +59,8 @@ class BeastController: UIViewController,SearchBarPopOverViewViewControllerDelega
         
         // Set up the scroll presenter
         scrollPresenter.setUp()
+        
+        libraryViewController.delegate = self
     }
 
     
