@@ -64,9 +64,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
     }
     var libraryHeight: CGFloat {
         
-        var rowHeight: CGFloat = 75
+        //var rowHeight: CGFloat = 75
         if libraryViewController.library.visibleCells.count > 0 {
-            rowHeight = libraryViewController.library.visibleCells[0].frame.height
+            //rowHeight = libraryViewController.library.visibleCells[0].frame.height //I'm not sure why row height was getting called here
         }
         
         return self.view.frame.height + PagesViewController.topBarHeight

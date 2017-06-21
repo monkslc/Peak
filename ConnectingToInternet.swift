@@ -186,7 +186,7 @@ class ConnectingToInternet {
             
             if let json = json as? [String:Any] {
                 
-                let limit = json["resultCount"] as! Int
+                //let limit = json["resultCount"] as! Int
                 
                 if let songsJSON = json["results"] as? [[String: Any]] {
                     

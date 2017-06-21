@@ -47,7 +47,7 @@ class SongProgressLabel: UILabel {
     */
 
     /*MARK: Listener Methods*/
-    func updateLabelTime(){
+    @objc func updateLabelTime(){
         //Get's called from the notification that indicates we should update our song labels
 
         //See what label we are updating so we know which one to set
@@ -64,7 +64,7 @@ class SongProgressLabel: UILabel {
     }
     
     /*MARK: NOTIFICATION METHODS*/
-    func playerTypeChanged(){
+    @objc func playerTypeChanged(){
         
         DispatchQueue.main.async {
             
@@ -78,7 +78,7 @@ class SongProgressLabel: UILabel {
         
     }
     
-    func musicTypeChanged(){
+    @objc func musicTypeChanged(){
         
         DispatchQueue.main.async {
             

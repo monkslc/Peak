@@ -72,7 +72,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
 /*MARK: GESTURE RECOGNIZERS*/
-    func switchMusicType(_ sender: UITapGestureRecognizer){
+    @objc func switchMusicType(_ sender: UITapGestureRecognizer){
         
         //Get the cell that was tapped on
         if let cell: MusicTypeCell = sender.view as? MusicTypeCell {
@@ -141,7 +141,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
 /*MARK: SUPPORTING AUTHENTICATION METHODS*/
-    func spottyLoginWasSuccess(){
+    @objc func spottyLoginWasSuccess(){
         
         self.startUpLoadingIndicators()
         peakMusicController.systemMusicPlayer.generateNotifications()
@@ -152,7 +152,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
     func setUpAppleAuthentication(){
         
         peakMusicController.systemMusicPlayer.stopPlaying()
-        peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+        peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer
         peakMusicController.systemMusicPlayer.generateNotifications()
         peakMusicController.systemMusicPlayer.stopPlaying()
         self.musicPlayerTypeWasUpdated("Apple Music")
@@ -180,7 +180,7 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         loadingIndicator.startAnimating()
     }
     
-    func musicPlayerFinishedLoading(){
+    @objc func musicPlayerFinishedLoading(){
         
         //come back here
         NotificationCenter.default.removeObserver(self)

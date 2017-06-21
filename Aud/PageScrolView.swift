@@ -24,7 +24,6 @@ class PageScrolView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        print(gestureRecognizers)
         for g in gestureRecognizers! {
             removeGestureRecognizer(g)
         }
@@ -43,7 +42,7 @@ class PageScrolView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func panGesture(sender: UIPanGestureRecognizer) {
+    @objc func panGesture(sender: UIPanGestureRecognizer) {
         
         let location = sender.translation(in: self)
         

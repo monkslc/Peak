@@ -66,7 +66,7 @@ class ScrollBar: UIView {
     
     
     //method that gets called when the scroll bar is scrolling
-    func isScrolling(_ pan: UIPanGestureRecognizer){
+    @objc func isScrolling(_ pan: UIPanGestureRecognizer){
         
     
         //Get the y location of the pan

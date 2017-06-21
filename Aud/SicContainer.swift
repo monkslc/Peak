@@ -34,7 +34,7 @@ class SicContainer: UIView {
     }
     
     /*MARK: GESTURE RECOGNIZERS*/
-    func swipeSIC(_ gesture: UISwipeGestureRecognizer){
+    @objc func swipeSIC(_ gesture: UISwipeGestureRecognizer){
         
         if gesture.direction == .up{
             
@@ -51,7 +51,7 @@ class SicContainer: UIView {
         }
     }
     
-    func tappedOnSic(){
+    @objc func tappedOnSic(){
         
         if isPoppedUp{
             

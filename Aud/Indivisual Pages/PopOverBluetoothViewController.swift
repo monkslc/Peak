@@ -171,7 +171,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
     
     // Notification
     
-    func playerStateChanged(notification: NSNotification) {
+    @objc func playerStateChanged(notification: NSNotification) {
         DispatchQueue.main.async {
             self.hostASessionStackView.isHidden = peakMusicController.musicType == .Guest
             self.isHostSwitch.isOn = peakMusicController.playerType == .Host

@@ -11,7 +11,7 @@ import CoreData
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate, SFSafariViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate, SFSafariViewControllerDelegate, UIGestureRecognizerDelegate {
 
     var window: UIWindow?
     
@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
         print("\n\n\nOK HERE WE ARE.\nSpotify Audio Streaming DId Encounter Temp Error\n\n\n")
     }
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    private func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let tapGesture = UITapGestureRecognizer(target: self, action: nil)
         tapGesture.delegate = self
         window?.addGestureRecognizer(tapGesture)
@@ -259,6 +259,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             
             vc.pagesViewController.musicTypeController.musicPlayerTypeWasUpdated("Guest")
         }
+    }
+    
+    /* MARK: Touch Delegate */
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // User tapped on screen, do whatever you want to do here.
+        
+        if let tapDelegate = AppDelegate.tapGestureDelegate {
+            return tapDelegate.tapDelegateScreenTapped(tap: touch)
+        }
+        
+        return false
     }
 }
 

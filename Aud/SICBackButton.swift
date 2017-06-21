@@ -37,7 +37,7 @@ class SICBackButton: UIButton {
     */
 
     /*MARK: Target Methods*/
-    func restartSong(){
+    @objc func restartSong(){
         //Get's called when the button gets pressed
         
         peakMusicController.systemMusicPlayer.restartSong()
@@ -45,7 +45,7 @@ class SICBackButton: UIButton {
     
     
     /*MARK: NOTIFICATION METHODS*/
-    func playerTypeChanged(){
+    @objc func playerTypeChanged(){
         
         DispatchQueue.main.async {
             
@@ -59,7 +59,7 @@ class SICBackButton: UIButton {
         
     }
     
-    func musicTypeChanged(){
+    @objc func musicTypeChanged(){
         
         DispatchQueue.main.async {
             

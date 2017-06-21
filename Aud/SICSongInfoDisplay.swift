@@ -41,7 +41,7 @@ class SICSongInfoDisplay: UIView {
 
     
     /*MARK: Listener Method*/
-    func updateInfo(){
+    @objc func updateInfo(){
         //Get's called by notification when the song changes on system music player
         //Get's called when we change which segment we are displaying
         
@@ -97,7 +97,7 @@ class SICSongInfoDisplay: UIView {
         let artistLabel = UILabel(frame: CGRect(x: bounds.minX, y: albumLabel.frame.maxY + 10, width: bounds.width, height: heightLarge))
         artistLabel.textColor = UIColor.artistColor
         artistLabel.textAlignment = .center
-        artistLabel.font = UIFont.systemFont(ofSize: 20, weight: 0.1)
+        artistLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 0.1))
         artistLabel.adjustsFontForContentSizeCategory = true
         artistLabel.backgroundColor = UIColor.clear
         artistLabel.isUserInteractionEnabled = false

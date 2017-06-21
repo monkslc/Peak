@@ -116,22 +116,22 @@ extension MPMusicPlayerController: SystemMusicPlayer {
     func setQueueIds(_ idArray: [String]) {
         
         
-        setQueueWithStoreIDs(idArray)
+        setQueue(with: idArray)
     }
     
     /*MARK: LISTENER METHODS*/
-    func libraryChanged(){
+    @objc func libraryChanged(){
         
         print("Our Library changed, pushing me notification")
         NotificationCenter.default.post(Notification(name: .systemMusicPlayerLibraryChanged))
     }
     
-    func playerStateChanged() {
+    @objc func playerStateChanged() {
         
         NotificationCenter.default.post(Notification(name: .systemMusicPlayerStateChanged))
     }
     
-    func playerNowPlayingItemChanged() {
+    @objc func playerNowPlayingItemChanged() {
         
         NotificationCenter.default.post(Notification(name: .systemMusicPlayerNowPlayingChanged))
     }

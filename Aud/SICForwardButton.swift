@@ -39,14 +39,14 @@ class SICForwardButton: UIButton {
     
     /*MARK: Target Method*/
     
-    func skipSong(){
+    @objc func skipSong(){
         //Called when the button gets pressed
         
         peakMusicController.systemMusicPlayer.skipSong()
     }
     
     /*MARK: NOTIFICATION METHODS*/
-    func playerTypeChanged(){
+    @objc func playerTypeChanged(){
         
         DispatchQueue.main.async {
             
@@ -60,7 +60,7 @@ class SICForwardButton: UIButton {
         
     }
     
-    func musicTypeChanged(){
+    @objc func musicTypeChanged(){
         
         DispatchQueue.main.async {
             

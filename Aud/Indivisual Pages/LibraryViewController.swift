@@ -119,7 +119,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*MARK: Notification Methods*/
     
-    func enteringForeground(_ notification: NSNotification){
+    @objc func enteringForeground(_ notification: NSNotification){
         
         peakMusicController.systemMusicPlayer.setShuffleState(state: ShuffleState.off)
     }
@@ -299,7 +299,7 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     /*GESTURE TARGET METHODS*/
     
-    func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
+    @objc func handleTapOnSong(_ gesture: UITapGestureRecognizer) {
         
         //Get the holder
         let holder: BasicSongHolder = (gesture.view as? BasicSongHolder)!

@@ -177,7 +177,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
     
     
-    func textFieldDidChange(_ textField: UITextField){
+    @objc func textFieldDidChange(_ textField: UITextField){
         
         //Clear the results from the table
         topResults = []
@@ -211,7 +211,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
     
     
-    func resignSearchField(){
+    @objc func resignSearchField(){
         
         isDisappearing = true
         hideAllViews()
@@ -245,7 +245,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
         })
     }
     
-    func searchRequestChanged() {
+    @objc func searchRequestChanged() {
         //Gets called when the segmented control changes
         
         //Clear the table
@@ -284,7 +284,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     
     /*MARK: GESTURE RECOGNIZERS*/
-    func handleLongPress(_ gesture: UILongPressGestureRecognizer){
+    @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer){
         //display the options for the song that was tapped on
         
         
@@ -306,7 +306,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     }
     
     
-    func handleTap(_ gesture: UITapGestureRecognizer){
+    @objc func handleTap(_ gesture: UITapGestureRecognizer){
         //Gets called when a user taps on a song in the search
         
         //resign the keyboard
@@ -332,7 +332,7 @@ class SearchBarPopOverViewViewController: UIViewController, UITableViewDelegate,
     
     /*MARK: Adding To Library Methods*/
     
-    func addToLibrary(_ button: UIButton){
+    @objc func addToLibrary(_ button: UIButton){
         
         showSignifier()
         

@@ -127,7 +127,7 @@ class AuthViewController: UIViewController {
                     DispatchQueue.global().async {
                         DispatchQueue.main.async {
                             
-                            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+                            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer
                             self.performSegue(withIdentifier: "Segue to Apple Music", sender: nil)
                         }
                     }
@@ -272,7 +272,7 @@ class AuthViewController: UIViewController {
     
     
     //Login with spotify was successful so we can segue
-    func spottyLoginWasSuccess(){
+    @objc func spottyLoginWasSuccess(){
         
         print("\n\n\nIt's not getting called here is it?\n\n")
         self.performSegue(withIdentifier: "Segue To Spotify", sender: nil)
@@ -318,21 +318,21 @@ class AuthViewController: UIViewController {
     }
     
     // Handle Notification For Force Touché
-    func handleAppleMusicForceTouchNotification(notification: NSNotification) {
+    @objc func handleAppleMusicForceTouchNotification(notification: NSNotification) {
         checkAppleAuthentication()
     }
     
-    func handleAppleSpotifyForceTouchNotification(notification: NSNotification) {
+    @objc func handleAppleSpotifyForceTouchNotification(notification: NSNotification) {
         loginWithSpotify()
     }
     
-    func handleDjForceTouchNotification(notification: NSNotification) {
+    @objc func handleDjForceTouchNotification(notification: NSNotification) {
         //DispatchQueue.main.sync {
             self.guestButtonClicked()
         //}
     }
     
-    func handleApplicationDidBecomeActive(notification: NSNotification) {
+    @objc func handleApplicationDidBecomeActive(notification: NSNotification) {
         makePeakGlow()
     }
     

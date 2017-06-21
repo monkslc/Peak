@@ -94,7 +94,7 @@ class StartupViewController: UIViewController, SFSafariViewControllerDelegate {
                 return
             }
             
-            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer()
+            peakMusicController.systemMusicPlayer = MPMusicPlayerController.systemMusicPlayer
             self.moveToBeastController()
         }
     }
@@ -117,7 +117,7 @@ class StartupViewController: UIViewController, SFSafariViewControllerDelegate {
     }
     
     //Login with spotify was successful so we can segue
-    func spottyLoginWasSuccess(){
+    @objc func spottyLoginWasSuccess(){
         
         moveToBeastController()
     }

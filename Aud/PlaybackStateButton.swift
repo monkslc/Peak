@@ -41,7 +41,7 @@ class PlaybackStateButton: UIButton {
     
     /*Mark: Notifcaiton Methods*/
     
-    func playbackStateChanged(){
+    @objc func playbackStateChanged(){
         //Change the button's image to the appropriate playback state
         
         if peakMusicController.systemMusicPlayer.playerState == MusicPlayerState.playing{
@@ -53,7 +53,7 @@ class PlaybackStateButton: UIButton {
         }
     }
     
-    func musicOrPlayerTypeChanged(){
+    @objc func musicOrPlayerTypeChanged(){
         //Check if the play pause button should be hidden or visible
         
         DispatchQueue.main.async {
@@ -71,7 +71,7 @@ class PlaybackStateButton: UIButton {
     
     /*Mark: Gesture Recognizer Methods*/
     
-    func changePlaybackState(){
+    @objc func changePlaybackState(){
         //Change the playback state of the system music player accordingly
         
         if peakMusicController.systemMusicPlayer.playerState == MusicPlayerState.playing{

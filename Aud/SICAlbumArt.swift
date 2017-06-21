@@ -31,7 +31,7 @@ class SICAlbumArt: UIImageView {
     
     /*MARK: Notification Methods*/
     
-    func updateAlbumImage(){
+    @objc func updateAlbumImage(){
         //Update the album image when the song changes
         
         if peakMusicController.playerType != .Contributor{

@@ -59,7 +59,7 @@ class SongInteractionController: UIViewController {
     
 
     /*MARK: User Interaction Methods*/
-    func segmentValueChanged(){
+    @objc func segmentValueChanged(){
         //Get's called when the user changes value on the segment display
         
         songInfoDisplay.displayingSegment = songInfoSegment.selectedSegmentIndex
@@ -67,7 +67,7 @@ class SongInteractionController: UIViewController {
     
     
     /*MARK: Notification Methods*/
-    func playerOrMusicTypeChanged(){
+    @objc func playerOrMusicTypeChanged(){
         
         DispatchQueue.main.async {
             

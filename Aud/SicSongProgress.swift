@@ -43,7 +43,7 @@ class SicSongProgress: UISlider {
 
 
     /*Mark: Timer Method*/
-    func updateSongTime(){
+    @objc func updateSongTime(){
         //Get's called from the timer, post the notification
         
         
@@ -54,20 +54,20 @@ class SicSongProgress: UISlider {
     
     
     /*Mark: Listener Methods*/
-    func songTimeChanged(){
+    @objc func songTimeChanged(){
         //Get's called from the notification
         
         value = Float(peakMusicController.systemMusicPlayer.getCurrentPlaybackTime())
     }
     
-    func songChanged(){
+    @objc func songChanged(){
         //Get's called when the song changes on the system music player
         
         
         maximumValue = Float((peakMusicController.systemMusicPlayer.nowPlaying?.getTrackTimeMillis()) ?? Int(0.0))
     }
     
-    func playerTypeChanged(){
+    @objc func playerTypeChanged(){
         
         DispatchQueue.main.async {
             
@@ -83,7 +83,7 @@ class SicSongProgress: UISlider {
         
     }
     
-    func musicTypeChanged(){
+    @objc func musicTypeChanged(){
         
         DispatchQueue.main.async {
             
@@ -99,7 +99,7 @@ class SicSongProgress: UISlider {
     
     
     /*Mark: Target Methods*/
-    func changeSongTime(){
+    @objc func changeSongTime(){
         //Get's called when the user changes the song time, update the time of the current song playing in peak music controller
         
         

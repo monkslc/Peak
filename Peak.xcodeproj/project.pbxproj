@@ -37,7 +37,6 @@
 		C40722421EDCE05D00E12A1B /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722411EDCE05D00E12A1B /* SpotifyAudioPlayback.framework */; };
 		C40722441EDCE06600E12A1B /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722431EDCE06600E12A1B /* SpotifyAuthentication.framework */; };
 		C40722461EDCE07100E12A1B /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */; };
-		C40722481EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */; };
 		C41891271EEC696500D5C3FB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41891261EEC696500D5C3FB /* Authentication.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
@@ -118,7 +117,6 @@
 		C40722411EDCE05D00E12A1B /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		C40722431EDCE06600E12A1B /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
-		C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBUIKitMainThreadGuard.swift; sourceTree = "<group>"; };
 		C41891261EEC696500D5C3FB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
@@ -425,7 +423,6 @@
 			isa = PBXGroup;
 			children = (
 				C4BA76BF1EBD131B00947C1C /* Aud-Bridging-Header.h */,
-				C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */,
 				90E2DFDE1E874F6400762B9D /* Model */,
 				C45838D71EC6949A00ECEBE5 /* Views */,
 				C45838D61EC6939D00ECEBE5 /* Controllers */,
@@ -474,13 +471,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Connor Monks";
 				TargetAttributes = {
 					C4E8965C1E7458610096EC72 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 58NU5LV6AX;
-						LastSwiftMigration = 0830;
+						DevelopmentTeam = SDRSRURVZA;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -549,7 +546,6 @@
 				90A930A11EE0D448005FD447 /* GettingClosestSong.swift in Sources */,
 				C45838CE1EC0F00500ECEBE5 /* GuestMusicController.swift in Sources */,
 				C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */,
-				C40722481EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift in Sources */,
 				90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */,
 				C47FC7C01EB6993F00B1A352 /* SICDisplay.swift in Sources */,
 				C470F85F1EED9313002A96CB /* AddToLibrary.swift in Sources */,
@@ -636,7 +632,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -644,7 +642,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -690,7 +692,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -698,7 +702,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -734,7 +742,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -752,7 +760,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Aud-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -762,7 +771,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 58NU5LV6AX;
+				DEVELOPMENT_TEAM = SDRSRURVZA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -779,7 +788,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Aud-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
