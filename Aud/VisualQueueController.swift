@@ -139,13 +139,21 @@ class VisualQueueController: NSObject, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         
-        if peakMusicController.playerType == .Contributor{
-            
-            return .none
-        } else {
+        if canDelete(indexPath.row){
             
             return .delete
         }
+        
+        return .none
+    }
+    
+    func canDelete(_ row: Int) -> Bool{
+        
+        if peakMusicController.playerType == .Contributor || (peakMusicController.musicType == .Spotify && row == 0){
+            return false
+        }
+        
+        return true
     }
     
     
