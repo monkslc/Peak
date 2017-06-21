@@ -54,8 +54,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         userLibrary.fetchLibrary()
         
-        
-        
         //set up the scroll bar
         scrollBar.delegate = self
         scrollBar.setUp()
@@ -204,8 +202,6 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print("GETTING TABLE CELL FOR ROW: \(indexPath.row)")
-        
         //Check if it is our last two rows
         if indexPath.row >= userLibrary.itemsInLibrary.count {
             
@@ -281,10 +277,12 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         if scrollView.contentOffset.y < (library.tableHeaderView?.frame.height)! {
             //it's showing
             
+            //print("Me Scroll Bar is hidden")
             scrollBar.isHidden = true
         }else {
             //it's not
             
+            //print("Me Scroll Bar is not hidden")
             scrollBar.isHidden = false
         }
         
