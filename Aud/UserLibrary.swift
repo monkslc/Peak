@@ -263,8 +263,8 @@ class UserLibrary{
         //Create a sort method
         func sortArtist(songOne: SPTTrack, songTwo: SPTTrack) -> Bool{
             
-            var artistOne = songOne.getArtistName()
-            var artistTwo = songTwo.getArtistName()
+            var artistOne = songOne.getArtistName().lowercased()
+            var artistTwo = songTwo.getArtistName().lowercased()
             
             if artistOne.hasPrefix("The"){
                 

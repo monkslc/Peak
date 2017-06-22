@@ -430,13 +430,17 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
             }
             
             
+            
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
                 
+                //Add a notification for this and then remove it in the completion
                 // penis
+                
+                innerScrollView.contentOffset = CGPoint(x: 0, y: newY)
                 if innerScrollView == self.libraryViewController.library {
+                    
                     self.libraryViewController.scrollViewDidScroll(innerScrollView)
                 }
-                innerScrollView.contentOffset = CGPoint(x: 0, y: newY)
             }, completion: { _ in
                 if leftovers != 0 {
                     moveOuterScroll(change: leftovers)
@@ -447,10 +451,11 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
                     UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                         
                         // penis
+                        
+                        innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
                         if innerScrollView == self.libraryViewController.library {
                             self.libraryViewController.scrollViewDidScroll(innerScrollView)
                         }
-                        innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
                     }, completion: nil)
                 }
                 
@@ -603,5 +608,11 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         }
         
         return true
+    }
+    
+    
+/*MARK: SCROLL VIEW LISTENER METHODS*/
+    func updateMeScroll(){
+        
     }
 }
