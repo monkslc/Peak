@@ -126,6 +126,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //Defaults.musicType = MusicTypeManager.convertStringToMusicType(musicType)
         peakMusicController.musicType = MusicTypeManager.convertStringToMusicType(musicType)
+        preferredPlayerType = Defaults.musicType
+        
         
         //reload table and fetch me library
         musicTypeTable.reloadData()
@@ -187,6 +189,8 @@ class MusicTypeController: UIViewController, UITableViewDelegate, UITableViewDat
         
         loadingView.isHidden = true
         loadingIndicator.stopAnimating()
+        //musicTypeTable.reloadData()
+        //preferredPlayerType = Defaults.musicType
         flipView(UIButton())
     }
     
