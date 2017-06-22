@@ -317,6 +317,13 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        if scrollView == libraryViewController.library{
+            
+            //
+            libraryViewController.scrollViewDidScroll(scrollView)
+        }
+        
         if horizontalScrollView == scrollView {
             let index = pageIndex
             
