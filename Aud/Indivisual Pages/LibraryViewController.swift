@@ -292,10 +292,10 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let libraryCount = userLibrary.itemsInLibrary.count
         
-        UIView.animate(withDuration: 1.0){
+        //UIView.animate(withDuration: 1.0){
             
-            self.scrollBar.position = CGFloat(pos!) * (self.scrollBar.frame.height / CGFloat(libraryCount))
-        }
+        self.scrollBar.position = CGFloat(pos!) * (self.scrollBar.frame.height / CGFloat(libraryCount))
+        //}
         
        
         
