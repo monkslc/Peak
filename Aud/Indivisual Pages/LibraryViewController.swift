@@ -287,14 +287,18 @@ class LibraryViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         //Get the top cell and its position
-        let topCell = library.visibleCells[0]
-        let pos = library.indexPath(for: topCell)?.row
+        //let topCell = library.visibleCells[0]
+        //let pos = library.indexPath(for: topCell)?.row
         
-        let libraryCount = userLibrary.itemsInLibrary.count
+        //Get the content offset
+        scrollBar.position = scrollView.contentOffset.y * (scrollBar.frame.height / scrollView.contentSize.height)
+        
+        
+        //let libraryCount = userLibrary.itemsInLibrary.count
         
         //UIView.animate(withDuration: 1.0){
             
-        self.scrollBar.position = CGFloat(pos!) * (self.scrollBar.frame.height / CGFloat(libraryCount))
+        //self.scrollBar.position = CGFloat(pos!) * (self.scrollBar.frame.height / CGFloat(libraryCount))
         //}
         
        
