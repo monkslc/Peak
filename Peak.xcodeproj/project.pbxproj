@@ -37,7 +37,6 @@
 		C40722421EDCE05D00E12A1B /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722411EDCE05D00E12A1B /* SpotifyAudioPlayback.framework */; };
 		C40722441EDCE06600E12A1B /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722431EDCE06600E12A1B /* SpotifyAuthentication.framework */; };
 		C40722461EDCE07100E12A1B /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */; };
-		C40722481EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */; };
 		C41891271EEC696500D5C3FB /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41891261EEC696500D5C3FB /* Authentication.swift */; };
 		C41C181D1E81F3240061C629 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41C181C1E81F3240061C629 /* BackgroundView.swift */; };
 		C45220991EA2E65000E9A626 /* SongOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45220981EA2E65000E9A626 /* SongOptionsController.swift */; };
@@ -118,7 +117,6 @@
 		C40722411EDCE05D00E12A1B /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		C40722431EDCE06600E12A1B /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		C40722451EDCE07100E12A1B /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
-		C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBUIKitMainThreadGuard.swift; sourceTree = "<group>"; };
 		C41891261EEC696500D5C3FB /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		C41C181C1E81F3240061C629 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundView.swift; path = ../BackgroundView.swift; sourceTree = "<group>"; };
 		C45220981EA2E65000E9A626 /* SongOptionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsController.swift; sourceTree = "<group>"; };
@@ -425,7 +423,6 @@
 			isa = PBXGroup;
 			children = (
 				C4BA76BF1EBD131B00947C1C /* Aud-Bridging-Header.h */,
-				C40722471EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift */,
 				90E2DFDE1E874F6400762B9D /* Model */,
 				C45838D71EC6949A00ECEBE5 /* Views */,
 				C45838D61EC6939D00ECEBE5 /* Controllers */,
@@ -549,7 +546,6 @@
 				90A930A11EE0D448005FD447 /* GettingClosestSong.swift in Sources */,
 				C45838CE1EC0F00500ECEBE5 /* GuestMusicController.swift in Sources */,
 				C48E45841E7479BF00BFFE4C /* SongCell.swift in Sources */,
-				C40722481EE0E47A00E12A1B /* NBUIKitMainThreadGuard.swift in Sources */,
 				90BFBAB11E994ABF0070C182 /* BluetoothTableViewCell.swift in Sources */,
 				C47FC7C01EB6993F00B1A352 /* SICDisplay.swift in Sources */,
 				C470F85F1EED9313002A96CB /* AddToLibrary.swift in Sources */,

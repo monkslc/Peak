@@ -109,6 +109,9 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         
         setUpScrollView()
         
+        /*ADD TARGETS FOR SCROLL VIEW*/
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -255,6 +258,14 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        
+        if scrollView == libraryViewController.library{
+            
+            libraryViewController.scrollViewDidScroll(scrollView)
+        }
+        
+        
+        
         if horizontalScrollView == scrollView {
             let smallPointx = scrollView.contentOffset.x
             let smallWith = scrollView.contentSize.width - scrollView.frame.width
@@ -272,6 +283,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
             }
             backgroundScrollView.setContentOffset(CGPoint(x: beginingX, y: 0), animated: false)
         }
+        
+        
+        /*UPDATE SCROLL FOR LIBRARY IF APPROPRIATE*/
+        
             /*
         else if isMiddleViewFlipped {
             
@@ -338,7 +353,7 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         func moveInnerScroll(change: CGFloat) {
             // penis
             if innerScrollView == self.libraryViewController.library {
-                self.libraryViewController.scrollViewDidScroll(innerScrollView)
+                //self.libraryViewController.scrollViewDidScroll(innerScrollView)
             }
             let newY = innerScrollView.contentOffset.y - change
             innerScrollView.setContentOffset(CGPoint(x: 0, y: newY), animated: false)
@@ -430,13 +445,18 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
             }
             
             
+            
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: UIViewAnimationOptions.allowUserInteraction, animations: {
                 
+                //Add a notification for this and then remove it in the completion
                 // penis
-                if innerScrollView == self.libraryViewController.library {
-                    self.libraryViewController.scrollViewDidScroll(innerScrollView)
-                }
+                
                 innerScrollView.contentOffset = CGPoint(x: 0, y: newY)
+                if innerScrollView == self.libraryViewController.library {
+                    
+                    //self.libraryViewController.scrollViewDidScroll(innerScrollView)
+                }
+                
             }, completion: { _ in
                 if leftovers != 0 {
                     moveOuterScroll(change: leftovers)
@@ -447,10 +467,11 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
                     UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
                         
                         // penis
-                        if innerScrollView == self.libraryViewController.library {
-                            self.libraryViewController.scrollViewDidScroll(innerScrollView)
-                        }
+                        
                         innerScrollView.contentOffset = CGPoint(x: 0, y: innerScrollView.contentSize.height - innerScrollView.frame.height)
+                        if innerScrollView == self.libraryViewController.library {
+                            //self.libraryViewController.scrollViewDidScroll(innerScrollView)
+                        }
                     }, completion: nil)
                 }
                 
@@ -603,5 +624,11 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         }
         
         return true
+    }
+    
+    
+/*MARK: SCROLL VIEW LISTENER METHODS*/
+    func updateMeScroll(){
+        
     }
 }
