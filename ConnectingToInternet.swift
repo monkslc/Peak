@@ -178,9 +178,10 @@ class ConnectingToInternet {
         
         let serialQueue = DispatchQueue(label: "myQue")
         
-        let search = searchTerm.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
+        let search = (searchTerm as NSString).replacingOccurrences(of: "Remastered", with: "").addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!//searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")
         
         //print("Searching: \(search)")
+        print("https://itunes.apple.com/search?term=\(search)&country=US&media=music&limit=\(limit)")
         ConnectingToInternet.getJSON(url: "https://itunes.apple.com/search?term=\(search)&country=US&media=music&limit=\(limit)", completion: {
             (json) -> Void in
             
@@ -193,6 +194,7 @@ class ConnectingToInternet {
                     var songs: [Song] = []
         
                     if songsJSON.count == 0 {
+                        print(json)
                         error()
                     }
                     else {
@@ -336,7 +338,7 @@ class ConnectingToInternet {
                 completion(json)
             } catch {
                 
-                print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getJSON failed to get JSON\n\n")
+                print("\n\nERROR: THIS SHOULD NEVER HAPPEN: ConnectingToInternet.getJSON failed to get JSON \(url)\n\n")
                 errorCompletion()
             }
             /*End of Try Catch added by Connor, Cam might want to check errors*/

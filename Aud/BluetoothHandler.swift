@@ -327,6 +327,7 @@ class BluetoothHandler {
             
             if let callback: SPTTrack = callback as? SPTTrack {
                 
+                print(callback.getTrackName())
                 //let title = callback.getTrackName()
                 //let artist = callback.getArtistName()
                 

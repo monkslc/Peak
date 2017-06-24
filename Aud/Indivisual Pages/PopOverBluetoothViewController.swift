@@ -45,7 +45,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             
         //updateMPCManager()
         
-        self.isHostSwitch.isHidden = peakMusicController.musicType == .Guest
+        //self.isHostSwitch.isHidden = peakMusicController.musicType == .Guest
         MPCManager.defaultMPCManager.foundPeers = []
         self.connectedToLabel.text = "Join a Session:"
         self.tableView.isHidden = false
@@ -65,7 +65,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.startAdvertisingPeer()
             DispatchQueue.main.async {
-                self.isHostSwitch.isHidden = false
+                self.hostASessionStackView.isHidden = false
                 self.connectedToLabel.text = "Session Members:"
                 self.tableView.isHidden = false
                 self.disconectButton.isHidden = true
@@ -74,7 +74,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             MPCManager.defaultMPCManager.browser.stopBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
             DispatchQueue.main.async {
-                self.isHostSwitch.isHidden = true
+                self.hostASessionStackView.isHidden = true
                 self.connectedToLabel.text = "Joined: \(MPCManager.defaultMPCManager.getDjName())"
                 self.tableView.isHidden = true
                 self.disconectButton.isHidden = false
@@ -83,7 +83,7 @@ class PopOverBluetoothViewController: UIViewController, UITableViewDelegate, UIT
             MPCManager.defaultMPCManager.browser.startBrowsingForPeers()
             MPCManager.defaultMPCManager.advertiser.stopAdvertisingPeer()
             DispatchQueue.main.async {
-                self.isHostSwitch.isHidden = peakMusicController.musicType == .Guest
+                self.hostASessionStackView.isHidden = peakMusicController.musicType == .Guest
                 MPCManager.defaultMPCManager.foundPeers = []
                 self.connectedToLabel.text = "Join a Session:"
                 self.tableView.isHidden = false
