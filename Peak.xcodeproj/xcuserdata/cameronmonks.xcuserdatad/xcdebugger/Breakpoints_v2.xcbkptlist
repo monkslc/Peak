@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aud/Outer Controllers/PagesViewController.swift"
-            timestampString = "519785035.335291"
+            timestampString = "520028829.536905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "528"
             endingLineNumber = "528"
-            landmarkName = "swipeHorizontally(currentScrollView:velocity:)"
+            landmarkName = "useVelocityAtEndOfSwipe(currentScrollView:velocity:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aud/BluetoothHandler.swift"
-            timestampString = "520022114.722461"
+            timestampString = "520022858.348359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aud/BluetoothHandler.swift"
-            timestampString = "520022114.722512"
+            timestampString = "520022858.348414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "323"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConnectingToInternet.swift"
-            timestampString = "520022114.722643"
+            timestampString = "520022858.34848"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "178"
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConnectingToInternet.swift"
-            timestampString = "520022114.722929"
+            timestampString = "520022858.34853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "187"
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConnectingToInternet.swift"
-            timestampString = "520022114.723137"
+            timestampString = "520022858.348572"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "222"
@@ -192,6 +192,22 @@
             startingLineNumber = "30"
             endingLineNumber = "30"
             landmarkName = "getAppleMusicId(song:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aud/Outer Controllers/PagesViewController.swift"
+            timestampString = "520028829.53727"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "556"
+            endingLineNumber = "556"
+            landmarkName = "swipeHorizontally(currentScrollView:velocity:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

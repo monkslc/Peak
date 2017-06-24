@@ -555,10 +555,10 @@ class PagesViewController: UIViewController, UIScrollViewDelegate, SongsLoaded, 
         print(velocity)
         if abs(velocity) > 500 { // } || abs(realIndex - CGFloat(index)) > 50 {
             if realIndex != CGFloat(index) {
-                if realIndex > CGFloat(index) && self.verticalScrollViews.count - 1 > index {
+                if realIndex > CGFloat(index) && self.verticalScrollViews.count - 1 > index && velocity < 0 {
                     index += 1
                 }
-                else if index > 0 && realIndex < CGFloat(self.verticalScrollViews.count - 1) {
+                else if index > 0 && realIndex < CGFloat(self.verticalScrollViews.count - 1) && velocity > 0 {
                     index -= 1
                 }
             }
